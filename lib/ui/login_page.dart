@@ -1,3 +1,4 @@
+import 'package:apos/ui/transaksi_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/ui/register_page.dart';
 import 'package:apos/ui/lupa_password_page.dart';
@@ -6,11 +7,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(54, 58, 155, 1),
         body: Stack(
       children: <Widget>[
-        Container(
-          color: Color.fromRGBO(54, 58, 155, 1),
-        ),
         Container(
           height: MediaQuery.of(context).size.height / 2,
           width: MediaQuery.of(context).size.width,
@@ -40,12 +39,11 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         Positioned(
-            child: Container(
-          margin: EdgeInsets.only(bottom: 30.0),
-          alignment: Alignment.bottomCenter,
+          child: Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2),
           height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Login",
                   textAlign: TextAlign.center,
@@ -111,7 +109,12 @@ class LoginPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 18),
                   color: Color.fromRGBO(54, 58, 155, 1),
                   elevation: 5,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TransaksiMenu()),
+                    );
+                  },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(100.0))),
                   child: Text("Login",

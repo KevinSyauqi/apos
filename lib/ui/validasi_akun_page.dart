@@ -39,11 +39,10 @@ class ValidasiAkunPage extends StatelessWidget {
         ),
         Positioned(
             child: Container(
-          margin: EdgeInsets.only(bottom: 100.0),
-          alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.5),
           height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Validasi Akun",
                   textAlign: TextAlign.center,

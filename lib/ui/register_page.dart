@@ -6,24 +6,23 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
+      backgroundColor: Color.fromRGBO(54, 58, 155, 1),
+      body: ListView(
+        children: <Widget> [
+           Stack(
       children: <Widget>[
-        Container(
-          color: Color.fromRGBO(54, 58, 155, 1),
-        ),
         Container(
           height: MediaQuery.of(context).size.height / 2,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.only(left:100.0, right: 100.0,top:50, bottom: 120.0),
+          padding: EdgeInsets.all(50.0),
           child: Center(
             child: Image(image: AssetImage('images/splash-1.png')),
           ),
         ),
         Positioned(
-          bottom: 0,
           child: Container(
-            alignment: Alignment.bottomCenter,
-            height: MediaQuery.of(context).size.height / 2,
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2),
+            height: MediaQuery.of(context).size.height/1.4,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -40,13 +39,10 @@ class RegisterPage extends StatelessWidget {
           ),
         ),
         Positioned(
-            
             child: Container(
-              margin: EdgeInsets.only(bottom: 30.0),
-              alignment: Alignment.bottomCenter,
-              height: MediaQuery.of(context).size.height,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/1.7, bottom: 30),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text("Register",
                         textAlign: TextAlign.center,
@@ -158,6 +154,8 @@ class RegisterPage extends StatelessWidget {
             )
             )
       ],
-    ));
+    )]));
+        
+    
   }
 }

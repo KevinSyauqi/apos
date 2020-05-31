@@ -40,11 +40,11 @@ class GantiPasswordPage extends StatelessWidget {
         ),
         Positioned(
             child: Container(
-          margin: EdgeInsets.only(bottom: 100.0),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.5),
           alignment: Alignment.bottomCenter,
           height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Ganti Password",
                   textAlign: TextAlign.center,
