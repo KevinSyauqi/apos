@@ -40,7 +40,7 @@ class GantiPasswordPage extends StatelessWidget {
         ),
         Positioned(
             child: Container(
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.5),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.1),
           alignment: Alignment.bottomCenter,
           height: MediaQuery.of(context).size.height,
           child: Column(

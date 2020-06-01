@@ -40,7 +40,7 @@ class RegisterPage extends StatelessWidget {
         ),
         Positioned(
             child: Container(
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/1.7, bottom: 30),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/1.9,),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
