@@ -1,5 +1,6 @@
-import 'package:apos/ui/login_page.dart';
-import 'package:apos/ui/validasi_akun_page.dart';
+import 'package:apos/src/bloc/userBloc.dart';
+import 'package:apos/src/ui/login_page.dart';
+import 'package:apos/src/ui/validasi_akun_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -51,27 +52,10 @@ class RegisterPage extends StatelessWidget {
                     Card(margin: EdgeInsets.fromLTRB(35, 20, 35, 5),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                         child: TextField(
+                          onChanged: bloc.name_user,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person, color: Color.fromRGBO(179, 179, 183, 1),), 
+                            prefixIcon: Icon(Icons.person, color: Color.fromRGBO(179, 179, 183, 1),),
                             hintText: "Masukkan Nama Pengguna", 
-                            hintStyle: TextStyle(color:Color.fromRGBO(179, 179, 183, 1), fontSize: 13.0, fontFamily: 'CircularStd-Book'), 
-                            filled: true, 
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(20.0))
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical:16.0)
-                          ),
-                        ),
-                    ),
-
-                    Card(margin: EdgeInsets.fromLTRB(35, 5, 35, 5),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.home, color: Color.fromRGBO(179, 179, 183, 1),), 
-                            hintText: "Masukkan Nama Toko", 
                             hintStyle: TextStyle(color:Color.fromRGBO(179, 179, 183, 1), fontSize: 13.0, fontFamily: 'CircularStd-Book'), 
                             filled: true, 
                             fillColor: Colors.white,
@@ -87,6 +71,7 @@ class RegisterPage extends StatelessWidget {
                      Card(margin: EdgeInsets.fromLTRB(35, 5, 35, 5),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                         child: TextField(
+                          onChanged: bloc.email_user,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.mail, color: Color.fromRGBO(179, 179, 183, 1),), 
                             hintText: "Masukkan Email", 
@@ -102,9 +87,30 @@ class RegisterPage extends StatelessWidget {
                         ),
                     ),
 
+
+                    Card(margin: EdgeInsets.fromLTRB(35, 5, 35, 5),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                        child: TextField(
+                          onChanged: bloc.username_user,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.home, color: Color.fromRGBO(179, 179, 183, 1),),
+                            hintText: "Masukkan Username",
+                            hintStyle: TextStyle(color:Color.fromRGBO(179, 179, 183, 1), fontSize: 13.0, fontFamily: 'CircularStd-Book'),
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(Radius.circular(20.0))
+                            ),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical:16.0)
+                          ),
+                        ),
+                    ),
+
                     Card(margin: EdgeInsets.fromLTRB(35, 5, 35, 10),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                         child: TextField(
+                          onChanged: bloc.password_user,
                           obscureText: true,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.lock, color: Color.fromRGBO(179, 179, 183, 1),), 
@@ -121,6 +127,26 @@ class RegisterPage extends StatelessWidget {
                         ),
                     ),
 
+                    Card(margin: EdgeInsets.fromLTRB(35, 5, 35, 10),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                      child: TextField(
+                        onChanged: bloc.phone_user,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.lock, color: Color.fromRGBO(179, 179, 183, 1),),
+                            hintText: "Masukkan Nomor Telepon",
+                            hintStyle: TextStyle(color:Color.fromRGBO(179, 179, 183, 1), fontSize: 13.0, fontFamily: 'CircularStd-Book'),
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.all(Radius.circular(20.0))
+                            ),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical:16.0)
+                        ),
+                      ),
+                    ),
+
                     Container(
                       width: MediaQuery.of(context).size.width /2,
                       padding: EdgeInsets.only(top: 5, bottom:15),
@@ -128,7 +154,8 @@ class RegisterPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 18),
                         color: Color.fromRGBO(54, 58, 155, 1),
                         elevation: 5,
-                         onPressed: (){
+                         onPressed: () async{
+                          await bloc.registerUser();
                            Navigator.push(
                              context, MaterialPageRoute(builder: (context) => ValidasiAkunPage())
                            );

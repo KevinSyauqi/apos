@@ -1,4 +1,4 @@
-import 'package:apos/ui/splash_page.dart';
+import 'package:apos/src/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(Apos());

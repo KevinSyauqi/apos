@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:apos/ui/ganti_password_page.dart';
+import 'package:apos/src/ui/ganti_password_page.dart';
 
 class LupaPasswordPage extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
-import 'package:apos/ui/transaksi_menu.dart';
+import 'package:apos/src/ui/transaksi_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:apos/ui/register_page.dart';
-import 'package:apos/ui/lupa_password_page.dart';
+import 'package:apos/src/ui/register_page.dart';
+import 'package:apos/src/ui/lupa_password_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
