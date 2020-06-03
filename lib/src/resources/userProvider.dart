@@ -4,7 +4,7 @@ import 'package:apos/src/models/userModels.dart';
 
 class UserProvider {
   Client client =  Client();
-  final _url = "http://localhost:8000";
+  final _url = "https://apos-server.herokuapp.com";
 
 //  Future<List<User>> fetchUserList() async{
 //    final response = await client.get(_url);

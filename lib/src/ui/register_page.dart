@@ -93,7 +93,7 @@ class RegisterPage extends StatelessWidget {
                         child: TextField(
                           onChanged: bloc.username_user,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.home, color: Color.fromRGBO(179, 179, 183, 1),),
+                            prefixIcon: Icon(Icons.contacts, color: Color.fromRGBO(179, 179, 183, 1),),
                             hintText: "Masukkan Username",
                             hintStyle: TextStyle(color:Color.fromRGBO(179, 179, 183, 1), fontSize: 13.0, fontFamily: 'CircularStd-Book'),
                             filled: true,
@@ -131,9 +131,8 @@ class RegisterPage extends StatelessWidget {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                       child: TextField(
                         onChanged: bloc.phone_user,
-                        obscureText: true,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock, color: Color.fromRGBO(179, 179, 183, 1),),
+                            prefixIcon: Icon(Icons.phone, color: Color.fromRGBO(179, 179, 183, 1),),
                             hintText: "Masukkan Nomor Telepon",
                             hintStyle: TextStyle(color:Color.fromRGBO(179, 179, 183, 1), fontSize: 13.0, fontFamily: 'CircularStd-Book'),
                             filled: true,
