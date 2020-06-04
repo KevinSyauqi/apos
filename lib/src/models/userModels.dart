@@ -12,9 +12,9 @@ class User {
   String photo_user;
   String status;
 
-  @override
-  List<Object> get props => [id_user, name_user, email_user, password_user,
-    phone_user, photo_user, status];
+  User(this.name_user, this.email_user, this.username, this.password_user,
+      this.phone_user, this.photo_user);
+
 
 //  static User fromJson(dynamic json) {
 //    return User(

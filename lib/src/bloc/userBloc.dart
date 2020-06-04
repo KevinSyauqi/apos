@@ -19,8 +19,9 @@ class UserBloc {
   Function(String) get phone_user => _phone_user.sink.add;
 
   registerUser() async {
-    await _userRepository.registerUser(_name_user.value, _email_user.value,
-      _username.value, _password_user.value, _phone_user.value);
+    User user = User(_name_user.value, _email_user.value,
+        _username.value, _password_user.value, _phone_user.value,"");
+    await _userRepository.registerUser(user);
     
   }
 

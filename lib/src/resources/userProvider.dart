@@ -15,14 +15,14 @@ class UserProvider {
 //    }
 //  }
 
-  Future registerUser(name_user, email_user, username, password_user, phone_user) async {
+  Future registerUser(User user) async {
     final response = await client.post("$_url/auth/register", body: {
-      'name_user' : name_user,
-      'email_user' : email_user,
-      'username' : username,
-      'password_user' : password_user,
-      'phone_user' : phone_user,
-//      'photo_user' : photo_user;
+      'name_user' : user.name_user,
+      'email_user' : user.email_user,
+      'username' : user.username,
+      'password_user' : user.password_user,
+      'phone_user' : user.phone_user,
+//      'photo_user' : user.photo_user;
     });
 
     if(response.statusCode == 201){
