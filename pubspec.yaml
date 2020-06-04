@@ -14,7 +14,6 @@ dependencies:
   meta: ^1.1.6
   equatable: ^1.0.0
   rxdart: ^0.24.0
-  dio: ^3.0.9
 
   cupertino_icons: ^0.1.2
 
