@@ -1,44 +1,67 @@
+import 'package:apos/src/bloc/userEvent.dart';
+import 'package:apos/src/bloc/userState.dart';
 import 'package:apos/src/models/userModels.dart';
-import 'package:apos/src/resources/repository.dart';
+import 'package:apos/src/resources/userRepository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-class UserBloc {
-  final _repository = Repository();
-  final _userFetcher = PublishSubject<List<User>>();
+class UserBloc extends Bloc<UserEvent, UserState> {
+  UserBloc({@required UserRepository userRepository})
+      : _userRepository = userRepository;
 
-  final _name_user = BehaviorSubject<String>();
-  final _email_user = BehaviorSubject<String>();
-  final _username = BehaviorSubject<String>();
-  final _password_user = BehaviorSubject<String>();
-  final _phone_user = BehaviorSubject<String>();
-//  final _photo_user = BehaviorSubject<String>();
 
-  Stream<List<User>> get AllUser => _userFetcher.stream;
+  User user;
+  final UserRepository _userRepository;
 
-  Function(String) get name_user => _name_user.sink.add;
-  Function(String) get email_user => _email_user.sink.add;
-  Function(String) get username_user => _username.sink.add;
-  Function(String) get password_user => _password_user.sink.add;
-  Function(String) get phone_user => _phone_user.sink.add;
+  final BehaviorSubject<User> _user = BehaviorSubject<User>();
+  final _nameUser = BehaviorSubject<String>();
+  final _emailUser = BehaviorSubject<String>();
+  final _usernameUser = BehaviorSubject<String>();
+  final _passwordUser = BehaviorSubject<String>();
+  final _phoneUser = BehaviorSubject<String>();
 
-//  fetchAllUser() async{
-//    List<User> users = await _repository.fetchAllUser();
-//    _userFetcher.sink.add(users);
-//  }
+
+  Function(String) get name_user => _nameUser.sink.add;
+  Function(String) get email_user => _emailUser.sink.add;
+  Function(String) get username_user => _usernameUser.sink.add;
+  Function(String) get password_user => _passwordUser.sink.add;
+  Function(String) get phone_user => _phoneUser.sink.add;
+
+  getUser() async {
+    user = await _userRepository.getUser();
+    _user.sink.add(user);
+  }
 
   registerUser() async {
-    await _repository.registerUser(_name_user.value, _email_user.value,
-      _username.value, _password_user.value, _phone_user.value);
-    
+    user.name_user = _nameUser.value;
+    user.email_user = _emailUser.value;
+    user.username = _usernameUser.value;
+    user.password_user = _passwordUser.value;
+    user.phone_user = _phoneUser.value;
+
+    await _userRepository.registerUser(user);
+
   }
 
   dispose(){
-    _userFetcher.close();
-    _name_user.close();
-    _email_user.close();
-    _username.close();
-    _password_user.close();
-    _phone_user.close();
+    _nameUser.close();
+    _emailUser.close();
+    _usernameUser.close();
+    _passwordUser.close();
+    _phoneUser.close();
+    _user.close();
+  }
+
+  @override
+  UserState get initialState {
+
+  }
+
+  @override
+  Stream<UserState> mapEventToState(UserEvent event) {
+    // TODO: implement mapEventToState
+    return null;
   }
 }
 
