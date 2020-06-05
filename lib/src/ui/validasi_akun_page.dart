@@ -1,7 +1,6 @@
-import 'package:apos/ui/login_page.dart';
 import 'package:flutter/material.dart';
 
-class GantiPasswordPage extends StatelessWidget {
+class ValidasiAkunPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +14,7 @@ class GantiPasswordPage extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.all(55.0),
           child: Center(
-            child: Image(image: AssetImage('images/splash-1.png')),
+            child: Image(image: AssetImage('images/validasi.png')),
           ),
         ),
         Positioned(
@@ -40,13 +39,12 @@ class GantiPasswordPage extends StatelessWidget {
         ),
         Positioned(
             child: Container(
-          margin: EdgeInsets.only(bottom: 100.0),
-          alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/2.5),
           height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Ganti Password",
+              Text("Validasi Akun",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
@@ -63,7 +61,7 @@ class GantiPasswordPage extends StatelessWidget {
                         Icons.lock,
                         color: Color.fromRGBO(179, 179, 183, 1),
                       ),
-                      hintText: "Masukkan Password Baru",
+                      hintText: "Masukkan Kode Otentikasi",
                       hintStyle: TextStyle(
                           color: Color.fromRGBO(179, 179, 183, 1),
                           fontSize: 13.0,
@@ -85,13 +83,10 @@ class GantiPasswordPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 18),
                   color: Color.fromRGBO(54, 58, 155, 1),
                   elevation: 5,
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  },
+                  onPressed: () {},
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(100.0))),
-                  child: Text("Ganti Password",
+                  child: Text("Konfirmasi",
                       style: TextStyle(
                           color: Colors.white, fontFamily: 'CircularStd-Bold')),
                 ),

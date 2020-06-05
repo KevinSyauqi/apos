@@ -1,6 +1,11 @@
+import 'package:apos/src/bloc/authentication/authenticationBloc.dart';
+import 'package:apos/src/bloc/authentication/authenticationState.dart';
+import 'package:apos/src/ui/transaksi_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:apos/ui/login_page.dart';
+import 'package:apos/src/ui/login_page.dart';
 import 'dart:async';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -8,7 +13,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-
   @override
   void initState() {
     super.initState();
@@ -20,7 +24,16 @@ class _SplashPageState extends State<SplashPage> {
     return Timer(duration, () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) {
-          return LoginPage();
+          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+              if (state is AuthenticationAuthenticated) {
+                // show home page
+                return TransaksiMenu();
+              }
+              // otherwise show login page
+              return LoginPage();
+            },
+          );
         }),
       );
     });
@@ -36,7 +49,6 @@ class _SplashPageState extends State<SplashPage> {
           child: Image(image: AssetImage('images/splash.png')),
         ),
       ),
-      
     );
   }
 }
