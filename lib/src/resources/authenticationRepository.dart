@@ -16,6 +16,7 @@ class FakeAuthenticationRepository extends AuthenticationRepository {
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     await Future.delayed(Duration(seconds: 1)); // simulate a network delay
 
+    print("Masuk sini");
     if (email.toLowerCase() != 'admin@apos.com' || password != 'admin') {
       throw Exception('Wrong username or password');
     }

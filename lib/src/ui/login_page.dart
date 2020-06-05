@@ -132,10 +132,7 @@ class __SignInFormState extends State<_SignInForm> {
                     ])),
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                  0,
-                  MediaQuery.of(context).size.height / 30,
-                  0,
-                  0),
+                  0, MediaQuery.of(context).size.height / 30, 0, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
@@ -146,113 +143,99 @@ class __SignInFormState extends State<_SignInForm> {
                           fontSize: 36.0,
                           fontFamily: 'CircularStd-Bold')),
                   SizedBox(height: 10),
-                  Form(
-                    key: _key,
-                    autovalidate: _autoValidate,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Card(
-                          margin: EdgeInsets.fromLTRB(35, 5, 35, 10),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20.0))),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.mail, color: Color.fromRGBO(179, 179, 183, 1),
-                              ),
-                              hintText: "Masukkan Email Pengguna",
-                              hintStyle: TextStyle(
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Form(
+                      key: _key,
+                      autovalidate: _autoValidate,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.mail,
                                   color: Color.fromRGBO(179, 179, 183, 1),
-                                  fontSize: 13.0,
-                                  fontFamily: 'CircularStd-Book'
+                                ),
+                                hintText: "Masukkan Email Pengguna",
+                                hintStyle: TextStyle(
+                                    color: Color.fromRGBO(179, 179, 183, 1),
+                                    fontSize: 13.0,
+                                    fontFamily: 'CircularStd-Book'),
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.0))),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 16.0),
+                                filled: true,
+                                isDense: true,
                               ),
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0))),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 16.0),
-                              filled: true,
-                              isDense: true,
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              autocorrect: false,
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Email is required.';
+                                }
+                                return null;
+                              },
                             ),
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            autocorrect: false,
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Email is required.';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Card(
-                          margin: EdgeInsets.fromLTRB(35, 5, 35, 10),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20.0))),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.lock, color: Color.fromRGBO(179, 179, 183, 1),
-                              ),
-                              hintText: "Masukkan Password Pengguna",
-                              hintStyle: TextStyle(
+                            SizedBox(
+                              height: 12,
+                            ),
+                            TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.lock,
                                   color: Color.fromRGBO(179, 179, 183, 1),
-                                  fontSize: 13.0,
-                                  fontFamily: 'CircularStd-Book'
+                                ),
+                                hintText: "Masukkan Password Pengguna",
+                                hintStyle: TextStyle(
+                                    color: Color.fromRGBO(179, 179, 183, 1),
+                                    fontSize: 13.0,
+                                    fontFamily: 'CircularStd-Book'),
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.0))),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 16.0),
+                                filled: true,
+                                isDense: true,
                               ),
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0))),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 16.0),
-                              filled: true,
-                              isDense: true,
+                              obscureText: true,
+                              controller: _passwordController,
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Password is required.';
+                                }
+                                return null;
+                              },
                             ),
-                            obscureText: true,
-                            controller: _passwordController,
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Password is required.';
-                              }
-                              return null;
-                            },
-                          ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            RaisedButton(
+                              color: Theme.of(context).primaryColor,
+                              textColor: Colors.white,
+                              padding: const EdgeInsets.fromLTRB(60, 16, 60, 16),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100.0))),
+                              child: Text("Login",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'CircularStd-Bold')),
+                              onPressed: state is LoginLoading
+                                  ? () {}
+                                  : _onLoginButtonPressed,
+                            )
+                          ],
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          padding: EdgeInsets.only(bottom: 15, left: 80, right: 80),
-                          child: RaisedButton(
-                            padding: EdgeInsets.symmetric(vertical: 18),
-                            color: Color.fromRGBO(54, 58, 155, 1),
-                            elevation: 5,
-                            onPressed: () {
-                              state is LoginLoading ? () {} : _onLoginButtonPressed;
-//                              Navigator.push(
-//                                context,
-//                                MaterialPageRoute(
-//                                    builder: (context) => TransaksiMenu()),
-//                              );
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(100.0))),
-                            child: Text("Login",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'CircularStd-Bold')),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   Row(
