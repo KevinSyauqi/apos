@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: <Widget>[
                           Center(
                             child: Padding(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.symmetric(vertical:20.0, horizontal: 40),
                               child: Column(
                                 children: <Widget>[
                                   Text("Register",

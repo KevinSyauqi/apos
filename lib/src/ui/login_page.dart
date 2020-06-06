@@ -120,6 +120,7 @@ class __SignInFormState extends State<_SignInForm> {
                     image: AssetImage('images/splash-1.png')),
               ),
             ),
+<<<<<<< HEAD
             Align(
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -159,6 +160,53 @@ class __SignInFormState extends State<_SignInForm> {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.mail,
+=======
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height / 2,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(60.0),
+                  topRight: Radius.circular(60.0),
+                ),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromRGBO(252, 195, 108, 1),
+                      Color.fromRGBO(253, 166, 125, 1),
+                    ])),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                  0, MediaQuery.of(context).size.height / 30, 0, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Text("Login",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36.0,
+                          fontFamily: 'CircularStd-Bold')),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical:20.0, horizontal: 40),
+                    child: Form(
+                      key: _key,
+                      autovalidate: _autoValidate,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.mail,
+                                  color: Color.fromRGBO(179, 179, 183, 1),
+                                ),
+                                hintText: "Masukkan Email Pengguna",
+                                hintStyle: TextStyle(
+>>>>>>> KelolaMenu
                                     color: Color.fromRGBO(179, 179, 183, 1),
                                   ),
                                   hintText: "Masukkan Email Pengguna",
@@ -219,6 +267,7 @@ class __SignInFormState extends State<_SignInForm> {
                                   return null;
                                 },
                               ),
+<<<<<<< HEAD
                               const SizedBox(
                                 height: 16,
                               ),
@@ -240,6 +289,36 @@ class __SignInFormState extends State<_SignInForm> {
                               )
                             ],
                           ),
+=======
+                              obscureText: true,
+                              controller: _passwordController,
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Password is required.';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            RaisedButton(
+                              color: Color.fromRGBO(54, 58, 155, 1),
+                              textColor: Colors.white,
+                              padding: const EdgeInsets.fromLTRB(60, 16, 60, 16),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100.0))),
+                              child: Text("Login",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'CircularStd-Bold')),
+                              onPressed: state is LoginLoading
+                                  ? () {}
+                                  : _onLoginButtonPressed,
+                            )
+                          ],
+>>>>>>> KelolaMenu
                         ),
                       ),
                       Padding(

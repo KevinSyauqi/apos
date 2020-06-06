@@ -1,57 +1,47 @@
+import 'package:apos/src/ui/kelola_menu_edit.dart';
 import 'package:flutter/material.dart';
 
-class MenuMinum extends StatefulWidget {
+class KelolaMenuMinum extends StatefulWidget {
   @override
-  _MenuMinumState createState() => _MenuMinumState();
+  _KelolaMenuMinumState createState() => _KelolaMenuMinumState();
 }
-int _n = 0;
-
 
 final List<Map> menuLists = [
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum ",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
   {
     "name": "Nama Minum",
     "price": "Rp 5.000",
-    "itemcount" : "0"
   },
 ];
 
-class _MenuMinumState extends State<MenuMinum> {
-  
+class _KelolaMenuMinumState extends State<KelolaMenuMinum> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,8 +56,54 @@ class _MenuMinumState extends State<MenuMinum> {
     );
   }
 
+        void _showAlertDelete() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: Text("Anda yakin akan menghapusnya?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                    fontFamily: 'CircularStd-Bold')),
+            actions: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                child: Row(children: <Widget>[
+                  RaisedButton(
+                      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 50),
+                      color: Color.fromRGBO(54, 58, 155, 1),
+                      elevation: 5,
+                      onPressed: () => Navigator.pop(context),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100.0))),
+                      child: Text("Hapus",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ))),
+                  SizedBox(width: 10),
+                  RaisedButton(
+                      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 50),
+                      color: Color.fromRGBO(234, 234, 234, 1),
+                      elevation: 5,
+                      onPressed: () => Navigator.pop(context),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100.0))),
+                      child: Text("Batal",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ))),
+                ]),
+              )
+            ],
+          );
+        });
+  }
+
   Widget buildList(BuildContext context, int index) {
-    
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -124,20 +160,19 @@ class _MenuMinumState extends State<MenuMinum> {
                         color: Color.fromRGBO(54, 58, 155, 1),
                         borderRadius: BorderRadius.circular(13)),
                     child: IconButton(
-                      icon: Icon(Icons.remove),
+                      icon: Icon(Icons.edit),
                       iconSize: 17,
                       color: Colors.white,
-                      onPressed: ()=>setState((()=>_n--)),
+                      onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EditKelolaMenu()),
+                              );
+                            },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0, left: 15.0),
-                    child: Text(menuLists[index]['itemcount'],
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontFamily: 'CircularStd-Bold')),
-                  ),
+                  SizedBox(width: 5),
                   Container(
                     width: 32,
                     height: 32,
@@ -146,10 +181,12 @@ class _MenuMinumState extends State<MenuMinum> {
                         color: Color.fromRGBO(54, 58, 155, 1),
                         borderRadius: BorderRadius.circular(13)),
                     child: IconButton(
-                      icon: Icon(Icons.add),
+                      icon: Icon(Icons.delete),
                       iconSize: 17,
                       color: Colors.white,
-                      onPressed: ()=>setState((()=>_n++)),
+                      onPressed: () {
+                  _showAlertDelete();
+                },
                     ),
                   ),
                 ],
