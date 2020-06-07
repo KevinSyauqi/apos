@@ -1,7 +1,9 @@
 import 'package:apos/src/ui/kelola_menu.dart';
+import 'package:apos/src/ui/kelola_outlet.dart';
 import 'package:apos/src/ui/kelola_pegawai.dart';
 import 'package:apos/src/ui/transaksi_menu.dart';
 import 'package:flutter/material.dart';
+
 class AppDrawer extends StatefulWidget {
   @override
   _AppDrawerState createState() => _AppDrawerState();
@@ -18,7 +20,6 @@ class _AppDrawerState extends State<AppDrawer> {
               Container(
                 height: MediaQuery.of(context).size.height / 3.5,
                 child: DrawerHeader(
-                  
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -30,7 +31,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   child: Container(
                     // margin: EdgeInsets.symmetric(vertical:1),
                     child: Column(
-                      
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Align(
@@ -59,94 +59,105 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black),child: Icon(Icons.add_shopping_cart)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.add_shopping_cart)),
                 title: Text("Transaksi",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
                 onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TransaksiMenu()),
-                            );
-                          },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TransaksiMenu()),
+                  );
+                },
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black),child: Icon(Icons.fastfood)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.fastfood)),
                 title: Text("Kelola Menu",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap:() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => KelolaMenu()),
-                            );
-                          },
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => KelolaMenu()),
+                  );
+                },
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black),child: Icon(Icons.home)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.home)),
                 title: Text("Kelola Outlet",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => KelolaOutlet()),
+                  );
+                },
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black),child: Icon(Icons.people)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.people)),
                 title: Text("Kelola Pegawai",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap:() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => KelolaPegawai()),
-                            );
-                          },
-                
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => KelolaPegawai()),
+                  );
+                },
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black),child: Icon(Icons.list)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.list)),
                 title: Text("Laporan Penjualan",
                     style: TextStyle(
                         color: Colors.black,
@@ -155,15 +166,17 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {},
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black), child: Icon(Icons.history)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.history)),
                 title: Text("Riwayat Transaksi",
                     style: TextStyle(
                         color: Colors.black,
@@ -172,15 +185,17 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {},
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color:Colors.black), child: Icon(Icons.settings)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.settings)),
                 title: Text("Edit Profile",
                     style: TextStyle(
                         color: Colors.black,
@@ -189,15 +204,17 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {},
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
-                leading: IconTheme(data: IconThemeData(color: Colors.black), child: Icon(Icons.exit_to_app)),
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.exit_to_app)),
                 title: Text("Logout",
                     style: TextStyle(
                         color: Colors.black,
@@ -206,13 +223,13 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {},
               ),
               Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0))),
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
             ],
           )
         ],
@@ -220,5 +237,3 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 }
-
-  

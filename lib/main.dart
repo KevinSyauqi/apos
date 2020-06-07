@@ -4,7 +4,6 @@ import 'package:apos/src/resources/authenticationRepository.dart';
 import 'package:apos/src/ui/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:apos/src/ui/login_page.dart';
 
 void main() =>
     runApp(
