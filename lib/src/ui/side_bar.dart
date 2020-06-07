@@ -1,6 +1,13 @@
+import 'package:apos/src/ui/kelola_menu.dart';
+import 'package:apos/src/ui/kelola_pegawai.dart';
+import 'package:apos/src/ui/transaksi_menu.dart';
 import 'package:flutter/material.dart';
+class AppDrawer extends StatefulWidget {
+  @override
+  _AppDrawerState createState() => _AppDrawerState();
+}
 
-class AppDrawer extends StatelessWidget {
+class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,7 +65,13 @@ class AppDrawer extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
+                onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TransaksiMenu()),
+                            );
+                          },
               ),
               Container(
                 decoration: BoxDecoration(
@@ -75,7 +88,13 @@ class AppDrawer extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
+                onTap:() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => KelolaMenu()),
+                            );
+                          },
               ),
               Container(
                 decoration: BoxDecoration(
@@ -109,7 +128,13 @@ class AppDrawer extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
+                onTap:() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => KelolaPegawai()),
+                            );
+                          },
                 
               ),
               Container(
@@ -195,3 +220,5 @@ class AppDrawer extends StatelessWidget {
     );
   }
 }
+
+  
