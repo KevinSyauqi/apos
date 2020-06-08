@@ -5,12 +5,12 @@ import 'package:apos/src/ui/validasi_akun_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
+class TambahTokoPage extends StatefulWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _TambahTokoState createState() => _TambahTokoState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _TambahTokoState extends State<TambahTokoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,16 +24,21 @@ class _RegisterPageState extends State<RegisterPage> {
                 alignment: Alignment.topCenter,
                 child: Container(
                   height: MediaQuery.of(context).size.height/2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Stack(
                     children: <Widget>[
-                      SizedBox(height: MediaQuery.of(context).size.height/10),
                       Center(
-                        child: Image(
-                            height: MediaQuery.of(context).size.height/3,
-                            image: AssetImage('images/splash-1.png')),
+                        child: new CircleAvatar(
+                          radius: 80,
+                          backgroundColor: Color.fromRGBO(252, 195, 108, 1),
+                        ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height/20)
+                      new Center(
+                        child: new Icon(
+                          Icons.add_to_photos,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -65,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               padding: const EdgeInsets.symmetric(vertical:20.0, horizontal: 40),
                               child: Column(
                                 children: <Widget>[
-                                  Text("Registrasi",
+                                  Text("Tambah Toko",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -84,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             Icons.person,
                                             color: Color.fromRGBO(179, 179, 183, 1),
                                           ),
-                                          hintText: "Masukkan Nama Pengguna",
+                                          hintText: "Masukkan Nama Toko",
                                           hintStyle: TextStyle(
                                               color: Color.fromRGBO(179, 179, 183, 1),
                                               fontSize: 13.0,
@@ -111,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             Icons.email,
                                             color: Color.fromRGBO(179, 179, 183, 1),
                                           ),
-                                          hintText: "Masukkan Email Pengguna",
+                                          hintText: "Masukkan Telepon Toko",
                                           hintStyle: TextStyle(
                                               color: Color.fromRGBO(179, 179, 183, 1),
                                               fontSize: 13.0,
@@ -138,61 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             Icons.contacts,
                                             color: Color.fromRGBO(179, 179, 183, 1),
                                           ),
-                                          hintText: "Masukkan Username Pengguna",
-                                          hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
-                                              fontSize: 13.0,
-                                              fontFamily: 'CircularStd-Book'),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
-                                    ),
-                                  ),
-                                  // Password Pengguna
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                    child: TextField(
-                                      onChanged: bloc.password_user,
-                                      decoration: InputDecoration(
-                                          prefixIcon: Icon(
-                                            Icons.lock,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
-                                          ),
-                                          hintText: "Masukkan Password Pengguna",
-                                          hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
-                                              fontSize: 13.0,
-                                              fontFamily: 'CircularStd-Book'),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide.none,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
-                                    ),
-                                  ),
-                                  // Nomor Telepon
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                    child: TextField(
-                                      onChanged: bloc.phone_user,
-                                      decoration: InputDecoration(
-                                          prefixIcon: Icon(
-                                            Icons.phone,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
-                                          ),
-                                          hintText: "Masukkan Telepon Pengguna",
+                                          hintText: "Masukkan Alamat Toko",
                                           hintStyle: TextStyle(
                                               color: Color.fromRGBO(179, 179, 183, 1),
                                               fontSize: 13.0,
@@ -228,23 +179,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(100.0))),
-                                        child: Text("Register",
+                                        child: Text("Buat Toko",
                                             style: TextStyle(
                                               color: Colors.white,
                                             ))),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginPage()),
-                                      );
-                                    },
-                                    child: Text("Sudah Daftar?",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'CircularStd-Book')),
                                   )
                                 ],
                               ),
