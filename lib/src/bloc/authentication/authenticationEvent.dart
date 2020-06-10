@@ -1,6 +1,5 @@
-import 'package:apos/src/models/userModels.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 
 abstract class AuthenticationEvent extends Equatable {
   const AuthenticationEvent();
@@ -10,15 +9,18 @@ abstract class AuthenticationEvent extends Equatable {
 
 }
 
-class AppLoaded extends AuthenticationEvent {}
+class AuthenticationStarted extends AuthenticationEvent {}
 
-class UserLoggedIn extends AuthenticationEvent {
-  final User user;
+class AuthenticationLoggedIn extends AuthenticationEvent {
+  final String token;
 
-  UserLoggedIn({@required this.user});
+  const AuthenticationLoggedIn({@required this.token});
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [token];
+
+  @override
+  String toString() => 'LoggedIn { token: $token }';
 }
 
-class UserLoggedOut extends AuthenticationEvent {}
+class AuthenticationLoggedOut extends AuthenticationEvent {}

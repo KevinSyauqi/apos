@@ -14,6 +14,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+
+      ),
         backgroundColor: Color.fromRGBO(54, 58, 155, 1),
         body: Container(
           height: MediaQuery.of(context).size.height,

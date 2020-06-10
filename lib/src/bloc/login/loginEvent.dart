@@ -2,16 +2,25 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class LoginEvent extends Equatable {
+  const LoginEvent();
+
   @override
   List<Object> get props => [];
 }
 
-class LoginInWithEmailButtonPressed extends LoginEvent {
+class LoginButtonPressed extends LoginEvent {
   final String email;
   final String password;
 
-  LoginInWithEmailButtonPressed({@required this.email, @required this.password});
+  const LoginButtonPressed({
+    @required this.email,
+    @required this.password,
+  });
 
   @override
   List<Object> get props => [email, password];
+
+  @override
+  String toString() =>
+      'LoginButtonPressed { username: $email, password: $password }';
 }

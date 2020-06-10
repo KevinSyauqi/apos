@@ -1,19 +1,26 @@
+import 'package:apos/src/bloc/menuBloc.dart';
+import 'package:apos/src/resources/menuRepository.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/transaksi_menu_makanan.dart' as makan;
 import 'package:apos/src/ui/transaksi_menu_minuman.dart' as minum;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransaksiMenu extends StatefulWidget {
+  final MenuRepository menuRepository;
+  TransaksiMenu({this.menuRepository});
   _TransaksiMenuState createState() => _TransaksiMenuState();
 }
 
 class _TransaksiMenuState extends State<TransaksiMenu>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  MenuBloc _menuBloc;
 
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this);
+    _menuBloc = BlocProvider.of<MenuBloc>(context);
     super.initState();
   }
 
@@ -145,7 +152,12 @@ class _TransaksiMenuState extends State<TransaksiMenu>
               children: <Widget>[
                 TabBarView(
                   controller: controller,
-                  children: <Widget>[makan.MenuMakan(), minum.MenuMinum()],
+                  children: <Widget>[
+                    BlocProvider(
+                      create: (context) => _menuBloc,
+                      child: makan.MenuMakan(),
+                    )
+                    , minum.MenuMinum()],
                 ),
                 checkOut(),
               ],

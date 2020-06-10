@@ -23,4 +23,16 @@ class UserProvider {
     }
   }
 
+  Future loginUser({String email, String password}) async {
+    final response = await client.post("$_url/auth/login", body: {
+      'email_user' : email,
+      'password_user' : password
+    });
+
+    if(response.statusCode == 404){
+      return response;
+    } else {
+      throw Exception('Login Failed');
+    }
+  }
 }

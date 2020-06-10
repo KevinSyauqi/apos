@@ -2,55 +2,41 @@ import 'package:apos/src/bloc/authentication/authenticationEvent.dart';
 import 'package:apos/src/bloc/authentication/authenticationState.dart';
 import 'package:apos/src/resources/authenticationRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final AuthenticationRepository _authenticationRepository;
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
+  final AuthenticationRepository authenticationRepository;
 
-  AuthenticationBloc(AuthenticationRepository authenticationRepository)
-      :assert(authenticationRepository != null),
-  _authenticationRepository = authenticationRepository;
+  AuthenticationBloc({@required this.authenticationRepository})
+      : assert(authenticationRepository != null);
 
   @override
   AuthenticationState get initialState => AuthenticationInitial();
 
   @override
-  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
-    if(event is AppLoaded) {
-      yield* _mapAppLoadedToState(event);
-    }
+  Stream<AuthenticationState> mapEventToState(
+      AuthenticationEvent event) async* {
+    if (event is AuthenticationStarted) {
+      final bool hasToken = await authenticationRepository.hasToken();
 
-    if(event is UserLoggedIn) {
-      yield* _mapUserLoggedInToState(event);
-    }
-
-    if(event is UserLoggedOut) {
-      yield* _mapUserLoggedOutToState(event);
-    }
-  }
-
-  Stream<AuthenticationState> _mapAppLoadedToState(AppLoaded event) async* {
-    yield AuthenticationLoading(); // Display Splashscreen
-    try {
-      await Future.delayed(Duration(milliseconds: 500)); // Simulasi loading
-      final currentUser = await _authenticationRepository.getCurrentUser();
-
-      if(currentUser != null){
-        yield AuthenticationAuthenticated(user: currentUser);
+      if (hasToken) {
+        yield AuthenticationSuccess();
       } else {
-        yield AuthenticationNotAuthenticated();
+        yield AuthenticationFailure();
       }
-    } catch (e){
-      yield AuthenticationFailure(message: e.mesage ?? 'An unknown error occured');
+    }
+
+    if (event is AuthenticationLoggedIn) {
+      yield AuthenticationInProgress();
+      await authenticationRepository.persistToken(event.token);
+      yield AuthenticationSuccess();
+    }
+
+    if (event is AuthenticationLoggedOut) {
+      yield AuthenticationInProgress();
+      await authenticationRepository.deactiveToken();
+      yield AuthenticationFailure();
     }
   }
-
-  Stream<AuthenticationState> _mapUserLoggedInToState(UserLoggedIn event) async* {
-    yield AuthenticationAuthenticated(user: event.user);
-  }
-
-  Stream<AuthenticationState> _mapUserLoggedOutToState(UserLoggedOut event) async* {
-    await _authenticationRepository.signOut();
-    yield AuthenticationNotAuthenticated();
-  }
-
 }
