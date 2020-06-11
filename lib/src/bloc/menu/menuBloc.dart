@@ -1,5 +1,5 @@
-import 'package:apos/src/bloc/menuEvent.dart';
-import 'package:apos/src/bloc/menuState.dart';
+import 'package:apos/src/bloc/menu/menuEvent.dart';
+import 'package:apos/src/bloc/menu/menuState.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/resources/menuRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

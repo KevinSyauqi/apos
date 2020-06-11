@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 
 class MenuProvider {
   Client client =  Client();
-  final _baseUrl = "https://apos-server.herokuapp.com";
+  final _baseUrl = "http://localhost:8000";
 
 //  Future<Menu> fetchMenu() async{
 //    final url = "$_baseUrl/manageMenu/addMenu";
@@ -21,12 +21,9 @@ class MenuProvider {
 //  }
 
   Future<List<Menu>> fetchAllMenuOutlet(String outlet) async{
-    final url = "$_baseUrl/manageMenu/allMenuOutlet";
+    final url = "$_baseUrl/manageMenu/allMenuOutlet?id_outlet=$outlet";
 
-    print('Masih masuk');
-    final response = await client.get(url,headers: {
-      'id_outlet': '$outlet'
-    });
+    final response = await client.get(url);
 
 
     if (response.statusCode != 200) {

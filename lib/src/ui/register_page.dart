@@ -14,29 +14,41 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-      ),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         backgroundColor: Color.fromRGBO(54, 58, 155, 1),
         body: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: <Widget>[
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  height: MediaQuery.of(context).size.height/2,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      SizedBox(height: MediaQuery.of(context).size.height/10),
                       Center(
                         child: Image(
-                            height: MediaQuery.of(context).size.height/3,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height / 3,
                             image: AssetImage('images/splash-1.png')),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height/20)
+                      SizedBox(height: MediaQuery
+                          .of(context)
+                          .size
+                          .height / 20)
                     ],
                   ),
                 ),
@@ -44,6 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ListView(
+                  physics: new ClampingScrollPhysics(),
                   shrinkWrap: true,
                   children: <Widget>[
                     Container(
@@ -65,7 +78,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: <Widget>[
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical:20.0, horizontal: 40),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20),
                               child: Column(
                                 children: <Widget>[
                                   Text("Registrasi",
@@ -85,11 +99,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.person,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
                                           ),
                                           hintText: "Masukkan Nama Pengguna",
                                           hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
                                               fontSize: 13.0,
                                               fontFamily: 'CircularStd-Book'),
                                           filled: true,
@@ -99,7 +115,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
                                     ),
                                   ),
                                   // Email Pengguna
@@ -112,11 +129,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.email,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
                                           ),
                                           hintText: "Masukkan Email Pengguna",
                                           hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
                                               fontSize: 13.0,
                                               fontFamily: 'CircularStd-Book'),
                                           filled: true,
@@ -126,7 +145,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
                                     ),
                                   ),
                                   // Username Pengguna
@@ -139,11 +159,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.contacts,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
                                           ),
                                           hintText: "Masukkan Username Pengguna",
                                           hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
                                               fontSize: 13.0,
                                               fontFamily: 'CircularStd-Book'),
                                           filled: true,
@@ -153,7 +175,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
                                     ),
                                   ),
                                   // Password Pengguna
@@ -166,11 +189,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.lock,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
                                           ),
                                           hintText: "Masukkan Password Pengguna",
                                           hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
                                               fontSize: 13.0,
                                               fontFamily: 'CircularStd-Book'),
                                           filled: true,
@@ -180,7 +205,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
                                     ),
                                   ),
                                   // Nomor Telepon
@@ -193,11 +219,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.phone,
-                                            color: Color.fromRGBO(179, 179, 183, 1),
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
                                           ),
                                           hintText: "Masukkan Telepon Pengguna",
                                           hintStyle: TextStyle(
-                                              color: Color.fromRGBO(179, 179, 183, 1),
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
                                               fontSize: 13.0,
                                               fontFamily: 'CircularStd-Book'),
                                           filled: true,
@@ -207,17 +235,23 @@ class _RegisterPageState extends State<RegisterPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 20.0, vertical: 16.0)),
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
                                     ),
                                   ),
                                   SizedBox(
                                     height: 20,
                                   ),
                                   Container(
-                                    width: MediaQuery.of(context).size.width / 2,
-                                    padding: EdgeInsets.only(top: 5, bottom: 15),
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width / 2,
+                                    padding: EdgeInsets.only(
+                                        top: 5, bottom: 15),
                                     child: RaisedButton(
-                                        padding: EdgeInsets.symmetric(vertical: 18),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 18),
                                         color: Color.fromRGBO(54, 58, 155, 1),
                                         elevation: 5,
                                         onPressed: () async {
