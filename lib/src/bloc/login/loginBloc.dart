@@ -7,14 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final AuthenticationRepository authenticationRepository;
-  final AuthenticationBloc authenticationBloc;
-
-  LoginBloc({
-    @required this.authenticationRepository,
-    @required this.authenticationBloc,
-  })  : assert(authenticationRepository != null),
-        assert(authenticationBloc != null);
+  final AuthenticationRepository authenticationRepository = AuthenticationRepository();
 
   LoginState get initialState => LoginInitial();
 
@@ -23,17 +16,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginButtonPressed) {
       yield LoginInProgress();
 
-      try {
-        final token = await authenticationRepository.authenticate(
-          email: event.email,
-          password: event.password,
-        );
+      await Future.delayed(Duration(seconds: 2)); // Nanti ganti sama login di repository
 
-        authenticationBloc.add(AuthenticationLoggedIn(token: token));
-        yield LoginInitial();
-      } catch (error) {
-        yield LoginFailure(error: error.toString());
-      }
+      yield LoginSuccess();
+//      try {
+//        final token = await authenticationRepository.authenticate(
+//          email: event.email,
+//          password: event.password,
+//        );
+//
+//        authenticationBloc.add(AuthenticationLoggedIn(token: token));
+//        yield LoginInitial();
+//      } catch (error) {
+//        yield LoginFailure(error: error.toString());
+//      }
     }
   }
 }

@@ -34,48 +34,80 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final authenticationRepository = AuthenticationRepository();
   runApp(
-    BlocProvider<AuthenticationBloc>(
-      create: (context){
-        return AuthenticationBloc(authenticationRepository: authenticationRepository)..add(AuthenticationStarted());
-      },
-      child: Apos(authenticationRepository: authenticationRepository),
+    BlocProvider(
+      create: (context) => AuthenticationBloc(),
+      child: Apos(),
     )
   );
 }
 
+class Apos extends StatefulWidget {
+  @override
+  _AposState createState() => _AposState();
+}
 
-class Apos extends StatelessWidget {
-  final AuthenticationRepository authenticationRepository;
+class _AposState extends State<Apos> {
+  AuthenticationBloc _authenticationBloc;
 
-  Apos({Key key, @required this.authenticationRepository}) : super(key: key);
+  @override
+  void initState() {
+        _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+        _authenticationBloc..add(AuthenticationStarted());
+        super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _authenticationBloc.close();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state){
-          if(state is AuthenticationSuccess){
-            return BlocProvider(
+        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state){
+            if(state is AuthenticationSuccess){
+              return BlocProvider(
                 create: (context) => MenuBloc(),
-              child: TransaksiMenu(),
-            );
-          }
-          if(state is AuthenticationFailure){
-            return LoginPage(authenticationRepository: authenticationRepository);
-          }
-          if(state is AuthenticationInProgress){
-            return LoadingIndicator();
-          }
-          return SplashPage();
-        },
-      )
+                child: TransaksiMenu(),
+              );
+            }
+            if(state is AuthenticationEmpty){
+              return BlocProvider(
+                create: (context) => LoginBloc(),
+                child: LoginPage(),
+              );
+            }
+            if(state is AuthenticationInProgress){
+              return LoadingIndicator();
+            }
+            return SplashPage();
+          },
+        )
     );
   }
 }
 
+
 class LoadingIndicator extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Center(
-    child: CircularProgressIndicator(),
-  );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(54, 58, 155, 1),
+      body: Container(
+        padding: EdgeInsets.all(60.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage('images/splash.png')),
+            SizedBox(height: 20),
+            CircularProgressIndicator()
+          ],
+        ),
+      ),
+    );
+  }
 }
