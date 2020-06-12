@@ -1,8 +1,10 @@
+import 'package:apos/src/bloc/outlet_bloc.dart';
 import 'package:apos/src/ui/kelola_menu.dart';
 import 'package:apos/src/ui/kelola_outlet.dart';
 import 'package:apos/src/ui/kelola_pegawai.dart';
 import 'package:apos/src/ui/transaksi_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -118,7 +120,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => KelolaOutlet()),
+                    MaterialPageRoute(builder: (context){
+                      return BlocProvider(
+                        create: (BuildContext context) =>OutletBloc(),
+                        child: KelolaOutlet()
+                      );
+                    }),
                   );
                 },
               ),

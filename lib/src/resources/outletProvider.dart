@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:apos/src/models/models.dart';
+import 'package:apos/src/models/outletModels.dart';
 import 'package:http/http.dart';
-import 'package:meta/meta.dart';
 
-class MenuProvider {
+class OutletProvider {
   Client client =  Client();
   final _baseUrl = "https://apos-server.herokuapp.com";
 
@@ -20,14 +20,14 @@ class MenuProvider {
 //    return Menu.fromJson(json);
 //  }
 
-  Future<List<Menu>> fetchAllMenuOutlet(String outlet) async{
-    final url = "$_baseUrl/manageMenu/allMenuOutlet?id_outlet=$outlet";
+  Future<List<Outlet>> fetchAllOutletStore(String store) async{
+    final url = "$_baseUrl/manageOutlet/allOutletByStore?id_store=$store";
 
     final response = await client.get(url);
 
 
     if (response.statusCode != 200) {
-      throw new Exception('Error getting menu');
+      throw new Exception('Error getting outlet');
     }
     return parsedListResponse(response);
   }
@@ -40,11 +40,11 @@ class MenuProvider {
 //    return Menu.fromJson(jsonMenu);
 //  }
 
-  List<Menu> parsedListResponse(final response){
+  List<Outlet> parsedListResponse(final response){
     final responseString = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      return ListMenu.fromJson(responseString).menus;
+      return ListOutlet.fromJson(responseString).outlets;
     } else {
       throw Exception('Failed to load menu');
     }

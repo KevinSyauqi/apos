@@ -270,19 +270,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               color: Colors.white,
                                             ))),
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => LoginPage()),
-                                      );
-                                    },
-                                    child: Text("Sudah Daftar?",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'CircularStd-Book')),
-                                  )
+                                  SizedBox(height: 5)
                                 ],
                               ),
                             ),
@@ -296,5 +284,12 @@ class _RegisterPageState extends State<RegisterPage> {
             ],
           ),
         ));
+  }
+}
+
+class CardFormField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

@@ -1,24 +1,33 @@
+import 'package:apos/src/bloc/bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:apos/src/ui/kelola_outlet_list.dart';
 import 'package:apos/src/ui/kelola_outlet_tambah.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class KelolaOutlet extends StatefulWidget {
+
+
   _KelolaOutletState createState() => _KelolaOutletState();
 }
 
 class _KelolaOutletState extends State<KelolaOutlet>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  OutletBloc _outletBloc;
 
   @override
   void initState() {
+    _outletBloc = BlocProvider.of<OutletBloc>(context);
+    _outletBloc.add(FetchingAllOutletStore());
     controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
+    _outletBloc.close();
     controller.dispose();
     super.dispose();
   }
@@ -115,7 +124,10 @@ class _KelolaOutletState extends State<KelolaOutlet>
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: <Widget>[
-                KelolaListOutlet(),
+                BlocProvider(
+                  create: (context) => _outletBloc,
+                  child: KelolaListOutlet(),
+                ),
                 addOutlet(),
               ],
             ),
