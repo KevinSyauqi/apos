@@ -2,7 +2,7 @@ import 'package:apos/src/models/menuModels.dart';
 
 abstract class MenuState {}
 
-class MenuUninitialized extends MenuState {}
+class MenuInitialized extends MenuState {}
 
 class MenuEmpty extends MenuState {}
 

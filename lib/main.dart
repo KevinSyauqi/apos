@@ -55,12 +55,9 @@ class Apos extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state){
           if(state is AuthenticationSuccess){
-            final menuRepository = MenuRepository();
-            return BlocProvider<MenuBloc>(
-                create: (context){
-                  return MenuBloc(menuRepository: MenuRepository())..add(FetchingAllMenu());
-                },
-              child: TransaksiMenu(menuRepository: menuRepository),
+            return BlocProvider(
+                create: (context) => MenuBloc(),
+              child: TransaksiMenu(),
             );
           }
           if(state is AuthenticationFailure){
