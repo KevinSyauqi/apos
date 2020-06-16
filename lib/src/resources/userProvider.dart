@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 import 'package:http/http.dart' show Client;
 import 'package:apos/src/models/userModels.dart';
 
@@ -17,7 +17,7 @@ class UserProvider {
     });
 
     if(response.statusCode == 201){
-      return response;
+      return response.body;
     } else {
       throw Exception('Failed to register user');
     }

@@ -1,6 +1,4 @@
-import 'package:apos/src/bloc/userBloc.dart';
-import 'package:apos/src/models/userModels.dart';
-import 'package:apos/src/ui/login_page.dart';
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/validasi_akun_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +81,7 @@ class _TambahTokoState extends State<TambahTokoPage> {
                                         borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                     child: TextField(
-                                      onChanged: bloc.name_user,
+//                                      onChanged: bloc.name_user,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.person,
@@ -110,7 +108,7 @@ class _TambahTokoState extends State<TambahTokoPage> {
                                         borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                     child: TextField(
-                                      onChanged: bloc.email_user,
+//                                      onChanged: bloc.email_user,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.email,
@@ -137,7 +135,7 @@ class _TambahTokoState extends State<TambahTokoPage> {
                                         borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                     child: TextField(
-                                      onChanged: bloc.username_user,
+//                                      onChanged: bloc.username_user,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.contacts,
@@ -169,7 +167,7 @@ class _TambahTokoState extends State<TambahTokoPage> {
                                         color: Color.fromRGBO(54, 58, 155, 1),
                                         elevation: 5,
                                         onPressed: () async {
-                                          await bloc.registerUser();
+//                                          await bloc.registerUser();
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(

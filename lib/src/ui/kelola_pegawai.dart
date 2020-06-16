@@ -2,9 +2,20 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/kelola_pegawai_list.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:apos/src/ui/transaksi_menu_makanan.dart' as makan;
-import 'package:apos/src/ui/transaksi_menu_minuman.dart' as minum;
+import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
+import 'package:apos/src/ui/Transaksi/transaksi_menu_minuman.dart' as minum;
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+class KelolaPegawaiPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PegawaiBloc(),
+      child: KelolaPegawai(),
+    );
+  }
+}
+
 
 class KelolaPegawai extends StatefulWidget {
   _KelolaPegawaiState createState() => _KelolaPegawaiState();

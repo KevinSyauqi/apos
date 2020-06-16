@@ -23,7 +23,9 @@ class AuthenticationBloc
       if(sharedPreference == null ){
         yield AuthenticationEmpty();
       }
-      else yield AuthenticationSuccess();
+    }
+    if(event is AuthenticationLoggedIn){
+      yield AuthenticationSuccess();
     }
   }
 }

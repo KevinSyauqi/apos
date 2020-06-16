@@ -4,8 +4,8 @@ import 'package:apos/src/resources/pegawaiProvider.dart';
 class PegawaiRepository{
   final PegawaiProvider pegawaiProvider = new PegawaiProvider();
 
-  Future<List<Pegawai>> fetchAllPegawaiStore(String store) async{
-    return await pegawaiProvider.fetchAllPegawaiStore(store);
+  Future<List<Pegawai>> fetchAllPegawaiOutlet(String store) async{
+    return await pegawaiProvider.fetchAllPegawaiOutlet(store);
   }
 
 //  Future<Menu> fetchMenu() async{

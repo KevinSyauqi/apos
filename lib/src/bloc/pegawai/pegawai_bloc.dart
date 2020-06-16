@@ -21,7 +21,7 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
 
     if(event is FetchingAllPegawaiStore){
 
-      listPegawai = await pegawaiRepository.fetchAllPegawaiStore("57cbc1d67fc145bb93af7546ae36c00a");
+      listPegawai = await pegawaiRepository.fetchAllPegawaiOutlet("d586b2862d7645e497e41f3b1ae7a932");
       if(listPegawai != 0){
         yield PegawaiListLoaded(listPegawai: listPegawai);
       }

@@ -1,16 +1,16 @@
-import 'package:apos/src/ui/kelola_outlet.dart';
+import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class TambahKelolaOutlet extends StatefulWidget {
+class EditKelolaOutlet extends StatefulWidget {
   @override
-  _TambahKelolaOutletState createState() => _TambahKelolaOutletState();
+  _EditKelolaOutletState createState() => _EditKelolaOutletState();
 }
 
-class _TambahKelolaOutletState extends State<TambahKelolaOutlet> {
+class _EditKelolaOutletState extends State<EditKelolaOutlet> {
   File _image;
   final picker = ImagePicker();
 
@@ -150,7 +150,7 @@ class _TambahKelolaOutletState extends State<TambahKelolaOutlet> {
                               vertical: 20.0, horizontal: 40),
                           child: Column(
                             children: <Widget>[
-                              Text("Tambah Outlet",
+                              Text("Detail Outlet",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -287,7 +287,7 @@ class _TambahKelolaOutletState extends State<TambahKelolaOutlet> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(100.0))),
-                                    child: Text("Tambah",
+                                    child: Text("Edit",
                                         style: TextStyle(
                                           color: Colors.white,
                                         ))),

@@ -8,6 +8,10 @@ import 'package:meta/meta.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationRepository authenticationRepository = AuthenticationRepository();
+  final AuthenticationBloc authenticationBloc;
+
+
+  LoginBloc({@required this.authenticationBloc});
 
   LoginState get initialState => LoginInitial();
 
@@ -15,10 +19,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginButtonPressed) {
       yield LoginInProgress();
-
       await Future.delayed(Duration(seconds: 2)); // Nanti ganti sama login di repository
 
+
       yield LoginSuccess();
+
+      authenticationBloc.add(AuthenticationLoggedIn(token: "Token"));
+      yield LoginInitial();
 //      try {
 //        final token = await authenticationRepository.authenticate(
 //          email: event.email,

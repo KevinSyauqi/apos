@@ -67,7 +67,6 @@ class _MenuMinumState extends State<MenuMinum> {
   }
 
   Widget buildList(BuildContext context, int index) {
-    
     return Container(
       decoration: BoxDecoration(
         border: Border(

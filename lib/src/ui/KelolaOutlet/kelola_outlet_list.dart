@@ -1,6 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/outletModels.dart';
-import 'package:apos/src/ui/kelola_outlet_edit.dart';
+import 'package:apos/src/ui/KelolaOutlet/kelola_outlet_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

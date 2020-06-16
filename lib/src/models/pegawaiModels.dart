@@ -1,48 +1,61 @@
-class Pegawai{
+class Pegawai {
+  String _id_employee;
   String _id_outlet;
-  String _id_store;
-  String _name_outlet;
-  String _address_outlet;
-  String _phone_outlet;
+  String _id_user;
+  String _name_employee;
+  String _role;
+  String _status;
 
 
-  Pegawai(this._id_store, this._name_outlet, this._address_outlet);
+  Pegawai(this._id_outlet, this._id_user,
+      this._name_employee, this._role, this._status);
+
+
+  String get id_employee => _id_employee;
 
   String get id_outlet => _id_outlet;
 
-  String get id_store => _id_store;
-
-  String get address_outlet => _address_outlet;
-
-  set address_outlet(String value) {
-    _address_outlet = value;
+  set id_outlet(String value) {
+    _id_outlet = value;
   }
 
-  String get name_outlet => _name_outlet;
+  String get id_user => _id_user;
 
-  set name_outlet(String value) {
-    _name_outlet = value;
+  String get name_employee => _name_employee;
+
+  set name_employee(String value) {
+    _name_employee = value;
   }
 
-  String get phone_outlet => _phone_outlet;
+  String get role => _role;
 
-  set phone_outlet(String value) {
-    _phone_outlet = value;
+  set role(String value) {
+    _role = value;
+  }
+
+  String get status => _status;
+
+  set status(String value) {
+    _status = value;
   }
 
   Pegawai.fromJson(Map<String, dynamic> json) {
+    _id_employee = json["id_employee"];
     _id_outlet = json["id_outlet"];
-    _id_store = json['id_store'];
-    _name_outlet = json['name_outlet'];
-    _address_outlet = json['address_outlet'];
-    _phone_outlet = json['phone_outlet'];
+    _id_user = json["id_user"];
+    _name_employee = json["name_employee"];
+    _role = json["role"];
+    _status = json["status"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name_outlet'] = this._name_outlet;
-    data['address_outlet'] = this._address_outlet;
-    data['phone_outlet'] = this._phone_outlet;
+    data['id_employee'] = this._id_employee;
+    data['id_outlet'] = this._id_outlet;
+    data['id_user'] = this._id_user;
+    data['name_employee'] = this._name_employee;
+    data['role'] = this._role;
+    data['status'] = this._status;
   }
 
 }

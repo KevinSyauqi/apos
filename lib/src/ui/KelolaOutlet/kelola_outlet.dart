@@ -1,10 +1,22 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:apos/src/ui/side_bar.dart';
-import 'package:apos/src/ui/kelola_outlet_list.dart';
-import 'package:apos/src/ui/kelola_outlet_tambah.dart';
+import 'package:apos/src/ui/KelolaOutlet/kelola_outlet_list.dart';
+import 'package:apos/src/ui/KelolaOutlet/kelola_outlet_tambah.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+class KelolaOutletPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => OutletBloc(),
+      child: KelolaOutlet(),
+    );
+  }
+}
+
+
 
 class KelolaOutlet extends StatefulWidget {
 

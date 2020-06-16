@@ -2,9 +2,9 @@ import 'package:apos/src/bloc/outlet_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/pegawai/pegawai_bloc.dart';
 import 'package:apos/src/ui/kelola_menu.dart';
-import 'package:apos/src/ui/kelola_outlet.dart';
+import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
 import 'package:apos/src/ui/kelola_pegawai.dart';
-import 'package:apos/src/ui/transaksi_menu.dart';
+import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +14,14 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -71,16 +79,10 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context){
-                      return BlocProvider(
-                          create: (context) => MenuBloc(),
-                          child: TransaksiMenu()
-                      );
-                    }),
-                  );
+                onTap: () async{
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeTransactionPageLoad());
                 },
               ),
               Container(
@@ -100,11 +102,10 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => KelolaMenu()),
-                  );
+                onTap: () async {
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeMenuPageLoad());
                 },
               ),
               Container(
@@ -124,16 +125,10 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context){
-                      return BlocProvider(
-                        create: (context) =>OutletBloc(),
-                        child: KelolaOutlet()
-                      );
-                    }),
-                  );
+                onTap: () async {
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeOutletPageLoad());
                 },
               ),
               Container(
@@ -153,16 +148,10 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context){
-                      return BlocProvider(
-                        create: (BuildContext context) =>PegawaiBloc(),
-                        child: KelolaPegawai()
-                      );
-                    }),
-                  );
+                onTap: () async {
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeEmployeePageLoad());
                 },
               ),
               Container(

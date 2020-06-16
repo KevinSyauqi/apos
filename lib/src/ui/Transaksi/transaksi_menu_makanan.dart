@@ -32,9 +32,9 @@ class _MenuMakanState extends State<MenuMakan> {
 }
 
 Widget buildMenuList(List<Menu> menus) {
-  return ListView.separated(
+  return ListView.builder(
+      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       itemCount: menus.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (BuildContext context, int index) {
         Menu menu = menus[index];
         return Container(

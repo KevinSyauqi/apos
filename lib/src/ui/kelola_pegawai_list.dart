@@ -153,12 +153,12 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
                    mainAxisAlignment: MainAxisAlignment.center,
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: <Widget>[
-                     Text(pegawai.name_outlet,
+                     Text(pegawai.name_employee,
                          style: TextStyle(
                              color: Colors.black,
                              fontSize: 15.0,
                              fontFamily: 'CircularStd-Bold')),
-                     Text(pegawaiLists[index]['address'],
+                     Text(pegawai.role,
                          style: TextStyle(
                              color: Colors.black,
                              fontSize: 14.0,

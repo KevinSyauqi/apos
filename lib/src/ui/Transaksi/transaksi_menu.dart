@@ -3,9 +3,18 @@ import 'package:apos/src/bloc/menu/menuEvent.dart';
 import 'package:apos/src/resources/menuRepository.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:apos/src/ui/transaksi_menu_makanan.dart' as makan;
-import 'package:apos/src/ui/transaksi_menu_minuman.dart' as minum;
+import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
+import 'package:apos/src/ui/Transaksi/transaksi_menu_minuman.dart' as minum;
+import '../kelola_menu_makanan.dart' as makans;
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+class TransaksiMenuPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => MenuBloc(), child: TransaksiMenu());
+  }
+}
 
 class TransaksiMenu extends StatefulWidget {
   _TransaksiMenuState createState() => _TransaksiMenuState();
@@ -44,6 +53,50 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                   fontSize: 25.0,
                   fontFamily: 'CircularStd-Bold'),
             ),
+            actions: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.apps, color: Colors.white, size: 18),
+                    SizedBox(width: 3),
+                    Text("Menu", style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontFamily: 'CircularStd-Bold'),)
+
+                  ],
+                ),
+              ),
+              SizedBox(width: 8),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.dialpad, color: Colors.white, size: 18),
+                    SizedBox(width: 3),
+                    Text("Kustom", style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontFamily: 'CircularStd-Bold'),)
+
+                  ],
+                ),
+              ),
+              SizedBox(width: 20),
+            ],
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[
@@ -139,9 +192,9 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                    Color.fromRGBO(252, 195, 108, 1),
-                    Color.fromRGBO(253, 166, 125, 1),
-                  ])),
+                        Color.fromRGBO(252, 195, 108, 1),
+                        Color.fromRGBO(253, 166, 125, 1),
+                      ])),
             ),
             elevation: 0.0,
           ),
@@ -154,12 +207,11 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                 TabBarView(
                   controller: controller,
                   children: <Widget>[
-                    BlocProvider(
-                      create: (context) => _menuBloc,
-                      child: makan.MenuMakan(),
-                    )
-                    , minum.MenuMinum()],
+                    makan.MenuMakan(),
+                    minum.MenuMinum()
+                  ],
                 ),
+
                 checkOut(),
               ],
             ),
@@ -192,34 +244,34 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                     ),
                     color: Color.fromRGBO(54, 58, 155, 1),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.shopping_cart,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "2 pesanan",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontFamily: 'CircularStd-Book'),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "2 pesanan",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'CircularStd-Book'),
-                      ),
-                        ],
-                      ),
-                      Text(
-                        "Rp 10.000",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontFamily: 'CircularStd-Bold'),
-                      ),
-                    ]),
+                          Text(
+                            "Rp 10.000",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontFamily: 'CircularStd-Bold'),
+                          ),
+                        ]),
                     onPressed: () {},
                   ),
                 ),
@@ -245,3 +297,4 @@ class _TransaksiMenuState extends State<TransaksiMenu>
     );
   }
 }
+

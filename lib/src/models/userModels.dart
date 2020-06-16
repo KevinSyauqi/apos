@@ -10,27 +10,15 @@ class User {
   String _password_user;
   String _phone_user;
   String _photo_user;
-  String _status;
+  bool _status;
 
 
   User(this._name_user, this._email_user, this._username, this._password_user,
       this._phone_user, this._photo_user);
 
-  String get id_user => _id_user;
+  bool get status => _status;
 
-  set id_user(String value) {
-    _id_user = value;
-  }
-
-  String get name_user => _name_user;
-
-  set name_user(String value) {
-    _name_user = value;
-  }
-
-  String get status => _status;
-
-  set status(String value) {
+  set status(bool value) {
     _status = value;
   }
 
@@ -64,29 +52,34 @@ class User {
     _email_user = value;
   }
 
+  String get name_user => _name_user;
 
-//  static User fromJson(dynamic json) {
-//    return User(
-//      id_user: json['id_user'],
-//      name_user: json['name_user'],
-//      email_user: json['email_user'],
-//      username: json['username'],
-//      password_user: json['password_user'],
-//      phone_user: json['password_user'],
-//      photo_user: json['photo_user']
-//    );
-//  }
-//
-//  @override
-//  String toString() => 'User { id_user: $id_user }';
+  set name_user(String value) {
+    _name_user = value;
+  }
+
+  String get id_user => _id_user;
+
+
+  User.fromJson(Map<String, dynamic> json) {
+    _id_user = json["id_user"];
+    _name_user = json['name_user'];
+    _email_user = json['email_user'];
+    _username = json['username'];
+    _password_user = json['password'];
+    _phone_user = json['phone_user'];
+    _photo_user = json['photo_user'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id_user'] = this._id_user;
+    data['name_user'] = this._name_user;
+    data['email_user'] = this._email_user;
+    data['username'] = this._username;
+    data['password_user'] = this._password_user;
+    data['phone_user'] = this._phone_user;
+    data['photo_user'] = this._photo_user;
+  }
+
 }
-//
-//List<User> userFromJson(String str){
-//  final jsonData = json.decode(str);
-//  return new List<User>.from(jsonData.map((x) => User.fromJson(x)));
-//}
-//
-//String userToJson(List<User> data){
-//  final dyn = new List<dynamic>.from(data.map((x) => x.userToJson()));
-//  return json.encode(dyn);
-//}

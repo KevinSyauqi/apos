@@ -2,11 +2,10 @@ import 'package:apos/src/bloc/authentication/authenticationBloc.dart';
 import 'package:apos/src/bloc/authentication/authenticationEvent.dart';
 import 'package:apos/src/bloc/authentication/authenticationState.dart';
 import 'package:apos/src/bloc/bloc.dart';
-import 'package:apos/src/resources/authenticationRepository.dart';
-import 'package:apos/src/resources/repository.dart';
-import 'package:apos/src/ui/login_page.dart';
+import 'package:apos/src/ui/home_page.dart';
+import 'package:apos/src/ui/login/login_page.dart';
 import 'package:apos/src/ui/splash_page.dart';
-import 'package:apos/src/ui/transaksi_menu.dart';
+import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,53 +31,29 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final authenticationRepository = AuthenticationRepository();
   runApp(
     BlocProvider(
-      create: (context) => AuthenticationBloc(),
+      create: (context) => AuthenticationBloc()..add(AuthenticationStarted()),
       child: Apos(),
     )
   );
 }
 
-class Apos extends StatefulWidget {
-  @override
-  _AposState createState() => _AposState();
-}
-
-class _AposState extends State<Apos> {
-  AuthenticationBloc _authenticationBloc;
-
-  @override
-  void initState() {
-        _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-        _authenticationBloc..add(AuthenticationStarted());
-        super.initState();
-
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _authenticationBloc.close();
-  }
-
+class Apos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        initialRoute: '/',
+        routes: {
+
+        },
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state){
             if(state is AuthenticationSuccess){
-              return BlocProvider(
-                create: (context) => MenuBloc(),
-                child: TransaksiMenu(),
-              );
+              return HomePage();
             }
             if(state is AuthenticationEmpty){
-              return BlocProvider(
-                create: (context) => LoginBloc(),
-                child: LoginPage(),
-              );
+              return LoginPage();
             }
             if(state is AuthenticationInProgress){
               return LoadingIndicator();
