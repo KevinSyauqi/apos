@@ -1,4 +1,5 @@
 import 'package:apos/src/bloc/outlet_bloc.dart';
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/pegawai/pegawai_bloc.dart';
 import 'package:apos/src/ui/kelola_menu.dart';
 import 'package:apos/src/ui/kelola_outlet.dart';
@@ -73,7 +74,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TransaksiMenu()),
+                    MaterialPageRoute(builder: (context){
+                      return BlocProvider(
+                          create: (context) => MenuBloc(),
+                          child: TransaksiMenu()
+                      );
+                    }),
                   );
                 },
               ),
@@ -123,7 +129,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     context,
                     MaterialPageRoute(builder: (context){
                       return BlocProvider(
-                        create: (BuildContext context) =>OutletBloc(),
+                        create: (context) =>OutletBloc(),
                         child: KelolaOutlet()
                       );
                     }),

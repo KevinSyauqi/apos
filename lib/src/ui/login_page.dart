@@ -1,6 +1,7 @@
 import 'package:apos/src/bloc/authentication/authenticationBloc.dart';
 import 'package:apos/src/bloc/authentication/authenticationEvent.dart';
 import 'package:apos/src/bloc/authentication/authenticationState.dart';
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/login/loginBloc.dart';
 import 'package:apos/src/bloc/login/loginEvent.dart';
 import 'package:apos/src/bloc/login/loginState.dart';
@@ -12,28 +13,48 @@ import 'package:apos/src/ui/register_page.dart';
 import 'package:apos/src/ui/lupa_password_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
-  final AuthenticationRepository authenticationRepository;
+import '../../main.dart';
 
-  LoginPage({Key key, @required this.authenticationRepository})
-      : assert(authenticationRepository != null),
-        super(key: key);
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  LoginBloc _loginBloc;
+
+  @override
+  void initState() {
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _loginBloc.close();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) {
-          return LoginBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-            authenticationRepository: authenticationRepository,
+    return BlocBuilder<LoginBloc,LoginState>(
+      builder: (context, state){
+        if(state is LoginInProgress){
+          return LoadingIndicator();
+        }
+        if(state is LoginSuccess){
+          return BlocProvider(
+            create: (context) => MenuBloc(),
+            child: TransaksiMenu()
           );
-        },
-        child: _LoginForm(),
-      ),
+        }
+        return _LoginForm();
+      },
     );
   }
 }
+
 
 class _LoginForm extends StatefulWidget {
   @override

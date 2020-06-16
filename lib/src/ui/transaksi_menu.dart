@@ -1,4 +1,5 @@
 import 'package:apos/src/bloc/menu/menuBloc.dart';
+import 'package:apos/src/bloc/menu/menuEvent.dart';
 import 'package:apos/src/resources/menuRepository.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,6 @@ import 'package:apos/src/ui/transaksi_menu_minuman.dart' as minum;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransaksiMenu extends StatefulWidget {
-  final MenuRepository menuRepository;
-  TransaksiMenu({this.menuRepository});
   _TransaksiMenuState createState() => _TransaksiMenuState();
 }
 
@@ -21,12 +20,14 @@ class _TransaksiMenuState extends State<TransaksiMenu>
   void initState() {
     controller = TabController(length: 2, vsync: this);
     _menuBloc = BlocProvider.of<MenuBloc>(context);
+    _menuBloc.add(FetchingAllMenu());
     super.initState();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    _menuBloc.close();
     super.dispose();
   }
 

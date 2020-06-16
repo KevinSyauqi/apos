@@ -9,41 +9,6 @@ class KelolaListOutlet extends StatefulWidget {
   _KelolaListOutletState createState() => _KelolaListOutletState();
 }
 
-final List<Map> outletLists = [
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-];
-
 class _KelolaListOutletState extends State<KelolaListOutlet> {
   @override
   Widget build(BuildContext context) {
@@ -157,7 +122,7 @@ class _KelolaListOutletState extends State<KelolaListOutlet> {
                              color: Colors.black,
                              fontSize: 15.0,
                              fontFamily: 'CircularStd-Bold')),
-                     Text(outletLists[index]['address'],
+                     Text(outlet.address_outlet,
                          style: TextStyle(
                              color: Colors.black,
                              fontSize: 14.0,
