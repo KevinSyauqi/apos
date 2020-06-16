@@ -1,4 +1,5 @@
 import 'package:apos/src/bloc/outlet_bloc.dart';
+import 'package:apos/src/bloc/pegawai/pegawai_bloc.dart';
 import 'package:apos/src/ui/kelola_menu.dart';
 import 'package:apos/src/ui/kelola_outlet.dart';
 import 'package:apos/src/ui/kelola_pegawai.dart';
@@ -149,7 +150,12 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => KelolaPegawai()),
+                    MaterialPageRoute(builder: (context){
+                      return BlocProvider(
+                        create: (BuildContext context) =>PegawaiBloc(),
+                        child: KelolaPegawai()
+                      );
+                    }),
                   );
                 },
               ),

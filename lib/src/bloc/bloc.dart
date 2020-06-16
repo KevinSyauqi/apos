@@ -9,3 +9,7 @@ export 'menu/menuState.dart';
 export 'outlet_bloc.dart';
 export 'outlet_event.dart';
 export 'outlet_state.dart';
+
+export 'pegawai/pegawai_bloc.dart';
+export 'pegawai/pegawai_event.dart';
+export 'pegawai/pegawai_state.dart';

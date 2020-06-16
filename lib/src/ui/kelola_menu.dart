@@ -168,8 +168,8 @@ class _KelolaMenuState extends State<KelolaMenu>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width/1.5,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
                 // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 alignment: Alignment.center,
                 child: ButtonTheme(
@@ -204,6 +204,40 @@ class _KelolaMenuState extends State<KelolaMenu>
                                 MaterialPageRoute(
                                     builder: (context) => TambahKelolaMenu()),
                               );
+                            },
+                  ),
+                ),
+              ),
+              SizedBox(
+                width:5,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width/4,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                alignment: Alignment.center,
+                child: ButtonTheme(
+                  height: 50,
+                  padding: EdgeInsets.all(15),
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    color: Color.fromRGBO(54, 58, 155, 1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                      Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ]),
+                    onPressed: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => TambahKelolaMenuOutlet()),
+                              // );
                             },
                   ),
                 ),

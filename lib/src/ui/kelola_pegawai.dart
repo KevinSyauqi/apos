@@ -1,7 +1,10 @@
+import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/ui/kelola_pegawai_list.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/transaksi_menu_makanan.dart' as makan;
 import 'package:apos/src/ui/transaksi_menu_minuman.dart' as minum;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class KelolaPegawai extends StatefulWidget {
   _KelolaPegawaiState createState() => _KelolaPegawaiState();
@@ -10,15 +13,19 @@ class KelolaPegawai extends StatefulWidget {
 class _KelolaPegawaiState extends State<KelolaPegawai>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  PegawaiBloc _pegawaiBloc;
 
   @override
   void initState() {
-    // controller = TabController(length: 2, vsync: this);
+    _pegawaiBloc = BlocProvider.of<PegawaiBloc>(context);
+    _pegawaiBloc.add(FetchingAllPegawaiStore());
+    controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
+    _pegawaiBloc.close();
     controller.dispose();
     super.dispose();
   }
@@ -143,11 +150,9 @@ class _KelolaPegawaiState extends State<KelolaPegawai>
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: <Widget>[
-                TabBarView(
-                  controller: controller,
-                  children: <Widget>[makan.MenuMakan(), minum.MenuMinum()],
-                ),
-                addMenu(),
+                BlocProvider(create: (context) => _pegawaiBloc,
+                child: KelolaListPegawai(),),
+                addPegawai(),
               ],
             ),
           ),
@@ -156,7 +161,7 @@ class _KelolaPegawaiState extends State<KelolaPegawai>
     );
   }
 
-  Widget addMenu() {
+  Widget addPegawai() {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
