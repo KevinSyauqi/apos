@@ -1,5 +1,5 @@
 import 'package:apos/src/bloc/bloc.dart';
-import 'package:apos/src/ui/kelola_menu.dart';
+import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
 import 'package:apos/src/ui/kelola_pegawai.dart';
 import 'package:apos/src/ui/side_bar.dart';
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return KelolaOutletPage();
         }
         if(state is HomeMenuPage){
-          return KelolaMenu();
+          return KelolaMenuPage();
         }
         if(state is HomeEmployeePage){
           return KelolaPegawaiPage();

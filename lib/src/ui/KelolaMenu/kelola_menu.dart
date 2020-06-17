@@ -1,8 +1,21 @@
-import 'package:apos/src/ui/kelola_menu_makanan.dart' as makan;
-import 'package:apos/src/ui/kelola_menu_minuman.dart' as minum;
-import 'package:apos/src/ui/kelola_menu_tambah.dart';
+import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/ui/KelolaMenu/kelola_menu_makanan.dart' as makan;
+import 'package:apos/src/ui/KelolaMenu/kelola_menu_minuman.dart' as minum;
+import 'package:apos/src/ui/KelolaMenu/kelola_menu_tambah.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class KelolaMenuPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => MenuBloc(),
+      child: KelolaMenu(),
+    );
+  }
+}
+
 
 class KelolaMenu extends StatefulWidget {
   _KelolaMenuState createState() => _KelolaMenuState();
@@ -10,10 +23,13 @@ class KelolaMenu extends StatefulWidget {
 
 class _KelolaMenuState extends State<KelolaMenu>
     with SingleTickerProviderStateMixin {
+  MenuBloc _menuBloc;
   TabController controller;
 
   @override
   void initState() {
+    _menuBloc = BlocProvider.of<MenuBloc>(context);
+    _menuBloc.add(FetchingAllMenu());
     controller = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -21,6 +37,7 @@ class _KelolaMenuState extends State<KelolaMenu>
   @override
   void dispose() {
     controller.dispose();
+    _menuBloc.close();
     super.dispose();
   }
 

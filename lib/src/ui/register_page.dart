@@ -6,12 +6,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../main.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends StatelessWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => RegisterBloc(),
+        child: RegisterForm(),
+    );
+  }
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+
+class RegisterForm extends StatefulWidget {
+  @override
+  _RegisterFormState createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<RegisterForm> {
   RegisterBloc _registerBloc;
 
   @override

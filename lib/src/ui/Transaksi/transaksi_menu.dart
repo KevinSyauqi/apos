@@ -5,7 +5,7 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
 import 'package:apos/src/ui/Transaksi/transaksi_menu_minuman.dart' as minum;
-import '../kelola_menu_makanan.dart' as makans;
+import '../KelolaMenu/kelola_menu_makanan.dart' as makans;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransaksiMenuPage extends StatelessWidget {

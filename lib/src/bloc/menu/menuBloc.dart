@@ -23,6 +23,10 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
           yield MenuLoaded(menus: menus);
         }
       }
+      if(event is AddMenuButtonPressed){
+        yield MenuLoading();
+      }
+
     }catch(_){
       yield MenuError();
     }
