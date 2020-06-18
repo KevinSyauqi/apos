@@ -9,11 +9,12 @@ class Menu{
   String _photo_menu;
   int _cog;
   int _price;
+  bool _is_stock;
   int _stock;
 
 
   Menu(this._name_menu, this._category, this._description,
-      this._photo_menu, this._cog, this._price, this._stock);
+      this._photo_menu, this._cog, this._price,this._is_stock,this._stock);
 
   String get id_outlet_menu => _id_outlet_menu;
 
@@ -59,6 +60,11 @@ class Menu{
     _stock = value;
   }
 
+  bool get is_stock => _is_stock;
+
+  set is_stock(bool value) {
+    _is_stock = value;
+  }
 
   Menu.fromJson(Map<String, dynamic> json) {
     _id_outlet_menu = json["id_menu_outlet"];

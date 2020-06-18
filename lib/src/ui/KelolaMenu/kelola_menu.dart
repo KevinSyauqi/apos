@@ -219,8 +219,10 @@ class _KelolaMenuState extends State<KelolaMenu>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => TambahKelolaMenu()),
-                              );
+                                    builder: (context) => TambahMenuPage()),
+                              ).then((value){
+                                _menuBloc.add(FetchingAllMenu());
+                              });
                             },
                   ),
                 ),

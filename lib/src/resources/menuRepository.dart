@@ -8,6 +8,8 @@ class MenuRepository{
     return await menuProvider.fetchAllMenuOutlet(outlet);
   }
 
+  Future addMenu(Menu menu, String store) => menuProvider.addMenu(menu, store);
+
 //  Future<Menu> fetchMenu() async{
 //    return await menuProvider.fetchMenu();
 //  }

@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
 class MenuProvider {
-  Client client =  Client();
+  Client client = Client();
   final _baseUrl = "https://apos-server.herokuapp.com";
 
 //  Future<Menu> fetchMenu() async{
@@ -20,10 +20,10 @@ class MenuProvider {
 //    return Menu.fromJson(json);
 //  }
 
-  Future<List<Menu>> fetchAllMenuOutlet(String outlet) async{
-    final url = "$_baseUrl/manageMenu/allMenuOutlet?id_outlet=$outlet";
+  Future<List<Menu>> fetchAllMenuOutlet(String outlet) async {
+    final _url = "$_baseUrl/manageMenu/allMenuOutlet?id_outlet=$outlet";
 
-    final response = await client.get(url);
+    final response = await client.get(_url);
 
 
     if (response.statusCode != 200) {
@@ -31,6 +31,34 @@ class MenuProvider {
     }
     return parsedListResponse(response);
   }
+
+  Future addMenu(Menu menu, String store) async {
+    final _url = "$_baseUrl/manageMenu/addMenu";
+
+    final Map jsonData = {
+      "id_store": store,
+      "id_outlet": "4069798d529343d59da680b1336d7dd6",
+      "name_menu": menu.name_menu,
+      "description": menu.description,
+      "category": menu.category,
+      "photo_menu": menu.photo_menu,
+      "cog": menu.cog,
+      "price": menu.price,
+      "is_stock": menu.is_stock,
+      "stock": menu.stock
+    };
+    final response = await client.post(
+        "$_url",
+        headers: {"Content-Type":"application/json"},
+        body: json.encode(jsonData));
+    final responseString = jsonDecode(response.body);
+    if(response.statusCode == 201){
+    return responseString;
+    } else {
+    final message = responseString['message'];
+    throw Exception('$message');
+    }
+    }
 
 //  Menu parsedJson(final response){
 //    final jsonDecode = json.decode(response);
@@ -40,14 +68,16 @@ class MenuProvider {
 //    return Menu.fromJson(jsonMenu);
 //  }
 
-  List<Menu> parsedListResponse(final response){
-    final responseString = jsonDecode(response.body);
+        List<Menu> parsedListResponse(final response)
+    {
+      final responseString = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      return ListMenu.fromJson(responseString).menus;
-    } else {
-      throw Exception('Failed to load menu');
+      if (response.statusCode == 200) {
+        return ListMenu
+            .fromJson(responseString)
+            .menus;
+      } else {
+        throw Exception('Failed to load menu');
+      }
     }
   }
-
-}

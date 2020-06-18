@@ -15,4 +15,18 @@ class MenuLoaded extends MenuState {
   MenuLoaded({this.menus});
 }
 
+class MenuAddLoading extends MenuState {}
+
+class MenuAddInitialized extends MenuState {}
+
+class MenuAddError extends MenuState {}
+
+class MenuAddSuccess extends MenuState {}
+
+class MenuAddFailed extends MenuState {
+  final String message;
+  MenuAddFailed({this.message});
+}
+
+
 
