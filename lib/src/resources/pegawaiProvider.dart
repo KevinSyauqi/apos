@@ -15,8 +15,8 @@ class PegawaiProvider {
     final response = await client.get(url);
 
 
-    if (response.statusCode != 201) {
-      throw new Exception('Error getting outlet');
+    if (response.statusCode != 200) {
+      throw new Exception('Error getting employee');
     }
     return parsedListResponse(response);
   }
@@ -25,7 +25,7 @@ class PegawaiProvider {
   List<Pegawai> parsedListResponse(final response){
     final responseString = jsonDecode(response.body);
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return ListPegawai.fromJson(responseString).listPegawai;
     } else {
       throw Exception('Failed to load menu');

@@ -10,41 +10,6 @@ class KelolaListPegawai extends StatefulWidget {
   _KelolaListPegawaiState createState() => _KelolaListPegawaiState();
 }
 
-final List<Map> pegawaiLists = [
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-  {
-    "name": "Nama Outlet",
-    "address": "Alamat Outlet",
-  },
-];
-
 class _KelolaListPegawaiState extends State<KelolaListPegawai> {
   @override
   Widget build(BuildContext context) {
@@ -59,8 +24,7 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
               return Center(child: CircularProgressIndicator());
             }
             if(state is PegawaiListLoaded){
-              final pegawaiListLoaded = state as PegawaiListLoaded;
-              final listPegawai = pegawaiListLoaded.listPegawai;
+              final listPegawai = state.listPegawai;
               return buildPegawaiList(listPegawai);
             }
             return Center(child: CircularProgressIndicator());

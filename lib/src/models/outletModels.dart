@@ -6,7 +6,7 @@ class Outlet{
   String _phone_outlet;
 
 
-  Outlet(this._id_store, this._name_outlet, this._address_outlet);
+  Outlet(this._id_store, this._name_outlet, this._address_outlet, this._phone_outlet);
 
   String get id_outlet => _id_outlet;
 

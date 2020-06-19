@@ -8,6 +8,10 @@ class OutletRepository{
     return await outletProvider.fetchAllOutletStore(store);
   }
 
+  Future addOutlet(Outlet outlet) async{
+    return await outletProvider.addOutlet(outlet);
+  }
+
 //  Future<Menu> fetchMenu() async{
 //    return await menuProvider.fetchMenu();
 //  }

@@ -194,8 +194,10 @@ class _KelolaOutletState extends State<KelolaOutlet>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TambahKelolaOutlet()),
-                      );
+                            builder: (context) => TambahOutletPage()),
+                      ).then((value){
+                        _outletBloc.add(FetchingAllOutletStore());
+                      });
                     },
                   ),
                 ),

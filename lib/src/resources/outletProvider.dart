@@ -50,4 +50,27 @@ class OutletProvider {
     }
   }
 
+  Future addOutlet(Outlet outlet) async{
+    final _url = "$_baseUrl/manageOutlet/newOutlet";
+
+    final Map jsonData = {
+      "id_store": outlet.id_store,
+      "name_outlet": outlet.name_outlet,
+      "address_outlet": outlet.address_outlet,
+      "phone_outlet": outlet.phone_outlet
+    };
+
+    final response = await client.post(
+        "$_url",
+        headers: {"Content-Type":"application/json"},
+        body: json.encode(jsonData));
+    final responseString = jsonDecode(response.body);
+    if(response.statusCode == 201){
+      return responseString;
+    } else {
+      final message = responseString['message'];
+      throw Exception('$message');
+    }
+  }
+
 }

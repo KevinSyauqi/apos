@@ -26,3 +26,13 @@ class OutletFailure extends OutletState {}
 
 class OutletEmpty extends OutletState {}
 
+class AddOutletInitial extends OutletState {}
+
+class AddOutletLoading extends OutletState {}
+
+class AddOutletFailed extends OutletState {
+  final String message;
+  AddOutletFailed({this.message});
+}
+
+class AddOutletSuccess extends OutletState {}
