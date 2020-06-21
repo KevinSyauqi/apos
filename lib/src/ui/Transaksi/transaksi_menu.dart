@@ -2,6 +2,7 @@ import 'package:apos/src/bloc/menu/menu_bloc.dart';
 import 'package:apos/src/bloc/menu/menu_event.dart';
 import 'package:apos/src/resources/menuRepository.dart';
 import 'package:apos/src/ui/Transaksi/checkout.dart';
+import 'package:apos/src/ui/Transaksi/transaksi_kustom.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
@@ -67,33 +68,46 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                   children: <Widget>[
                     Icon(Icons.apps, color: Colors.white, size: 18),
                     SizedBox(width: 3),
-                    Text("Menu", style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.0,
-                        fontFamily: 'CircularStd-Bold'),)
-
+                    Text(
+                      "Menu",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.0,
+                          fontFamily: 'CircularStd-Bold'),
+                    )
                   ],
                 ),
               ),
               SizedBox(width: 8),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.dialpad, color: Colors.white, size: 18),
-                    SizedBox(width: 3),
-                    Text("Kustom", style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.0,
-                        fontFamily: 'CircularStd-Bold'),)
-
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TransaksiKustom(),
+                      ));
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  decoration: BoxDecoration(
+                    // color: Color.fromRGBO(0, 0, 0, 0.1),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.dialpad, color: Colors.white, size: 18),
+                      SizedBox(width: 3),
+                      Text(
+                        "Kustom",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      )
+                    ],
+                  ),
                 ),
               ),
               SizedBox(width: 20),
@@ -193,9 +207,9 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromRGBO(252, 195, 108, 1),
-                        Color.fromRGBO(253, 166, 125, 1),
-                      ])),
+                    Color.fromRGBO(252, 195, 108, 1),
+                    Color.fromRGBO(253, 166, 125, 1),
+                  ])),
             ),
             elevation: 0.0,
           ),
@@ -207,12 +221,8 @@ class _TransaksiMenuState extends State<TransaksiMenu>
               children: <Widget>[
                 TabBarView(
                   controller: controller,
-                  children: <Widget>[
-                    makan.MenuMakan(),
-                    minum.MenuMinum()
-                  ],
+                  children: <Widget>[makan.MenuMakan(), minum.MenuMinum()],
                 ),
-
                 checkOut(),
               ],
             ),
@@ -275,10 +285,10 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                         ]),
                     onPressed: () {
                       Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>CheckoutMenu(),
-                              ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CheckoutMenu(),
+                          ));
                     },
                   ),
                 ),
@@ -304,4 +314,3 @@ class _TransaksiMenuState extends State<TransaksiMenu>
     );
   }
 }
-

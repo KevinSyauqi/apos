@@ -107,7 +107,7 @@ class _KelolaOutletState extends State<KelolaOutlet>
                     padding: EdgeInsets.only(top: 25),
                   ),
                   Container(
-                    height: 30,
+                    height: 60,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
