@@ -12,21 +12,24 @@ class KelolaMenuMakan extends StatefulWidget {
 class _KelolaMenuMakanState extends State<KelolaMenuMakan> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenuBloc, MenuState>(
-      builder: (context, state) {
-        if (state is MenuInitialized) {
-          return Center(child: Text("Unitialized State"));
-        } else if (state is MenuEmpty) {
-          return Center(child: Text("Belum ada menu nih"));
-        } else if (state is MenuLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is MenuError) {
-          return Center(child: Text('error'));
-        }
-        final menuLoaded = state as MenuLoaded;
-        final menus = menuLoaded.menus;
-        return _buildMenuList(menus);
-      },
+    return Container(
+      margin: EdgeInsets.only(bottom: 90),
+      child: BlocBuilder<MenuBloc, MenuState>(
+        builder: (context, state) {
+          if (state is MenuInitialized) {
+            return Center(child: Text("Unitialized State"));
+          } else if (state is MenuEmpty) {
+            return Center(child: Text("Belum ada menu nih"));
+          } else if (state is MenuLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is MenuError) {
+            return Center(child: Text('error'));
+          }
+          final menuLoaded = state as MenuLoaded;
+          final menus = menuLoaded.menus;
+          return _buildMenuList(menus);
+        },
+      ),
     );
   }
 }

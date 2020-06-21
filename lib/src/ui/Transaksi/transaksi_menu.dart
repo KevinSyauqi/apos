@@ -1,6 +1,7 @@
 import 'package:apos/src/bloc/menu/menu_bloc.dart';
 import 'package:apos/src/bloc/menu/menu_event.dart';
 import 'package:apos/src/resources/menuRepository.dart';
+import 'package:apos/src/ui/Transaksi/checkout.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
@@ -272,7 +273,13 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                                 fontFamily: 'CircularStd-Bold'),
                           ),
                         ]),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>CheckoutMenu(),
+                              ));
+                    },
                   ),
                 ),
               ),
