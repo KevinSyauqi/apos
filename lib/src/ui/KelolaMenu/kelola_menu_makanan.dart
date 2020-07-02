@@ -39,7 +39,6 @@ Widget _buildMenuList(List<Menu> menus) {
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       itemCount: menus.length,
       itemBuilder: (BuildContext context, int index) {
-
         void _showAlertDelete() {
           showDialog(
               context: context,
@@ -55,31 +54,32 @@ Widget _buildMenuList(List<Menu> menus) {
                           fontFamily: 'CircularStd-Bold')),
                   actions: <Widget>[
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                       child: Row(children: <Widget>[
                         RaisedButton(
-                            padding:
-                            EdgeInsets.symmetric(vertical: 18, horizontal: 50),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 18, horizontal: 50),
                             color: Color.fromRGBO(54, 58, 155, 1),
                             elevation: 5,
                             onPressed: () => Navigator.pop(context),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(100.0))),
+                                    BorderRadius.all(Radius.circular(100.0))),
                             child: Text("Hapus",
                                 style: TextStyle(
                                   color: Colors.white,
                                 ))),
                         SizedBox(width: 10),
                         RaisedButton(
-                            padding:
-                            EdgeInsets.symmetric(vertical: 18, horizontal: 50),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 18, horizontal: 50),
                             color: Color.fromRGBO(234, 234, 234, 1),
                             elevation: 5,
                             onPressed: () => Navigator.pop(context),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(100.0))),
+                                    BorderRadius.all(Radius.circular(100.0))),
                             child: Text("Batal",
                                 style: TextStyle(
                                   color: Colors.black,
@@ -125,11 +125,18 @@ Widget _buildMenuList(List<Menu> menus) {
                             color: Colors.black,
                             fontSize: 15.0,
                             fontFamily: 'CircularStd-Bold')),
-                    Text(menu.price.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.0,
-                            fontFamily: 'CircularStd-Book')),
+                    Row(children: <Widget>[
+                      Text("Rp ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontFamily: 'CircularStd-Book')),
+                      Text(menu.price.toString(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontFamily: 'CircularStd-Book')),
+                    ])
                   ],
                 ),
               ),
@@ -184,8 +191,5 @@ Widget _buildMenuList(List<Menu> menus) {
             ],
           ),
         );
-      }
-  );
+      });
 }
-
-

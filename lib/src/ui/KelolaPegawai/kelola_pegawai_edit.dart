@@ -1,4 +1,4 @@
-import 'package:apos/src/ui/kelola_pegawai.dart';
+import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'dart:async';

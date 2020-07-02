@@ -1,3 +1,4 @@
+import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
 import 'package:apos/src/ui/Transaksi/checkout.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:apos/src/ui/side_bar.dart';
@@ -448,7 +449,11 @@ class _TransaksiKustomState extends State<TransaksiKustom>
                   icon: Icon(Icons.view_list),
                   iconSize: 25,
                   color: Colors.white,
-                  onPressed: () {},
+                  onPressed: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RiwayatTransaksi(),
+                          ));},
                 ),
               ),
             ],

@@ -3,7 +3,8 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/pegawai/pegawai_bloc.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
-import 'package:apos/src/ui/kelola_pegawai.dart';
+import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
+import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -190,7 +191,11 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
+                onTap: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RiwayatTransaksi(),
+                          ));},
               ),
               Container(
                   decoration: BoxDecoration(

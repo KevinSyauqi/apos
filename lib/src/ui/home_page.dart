@@ -1,7 +1,7 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
-import 'package:apos/src/ui/kelola_pegawai.dart';
+import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/cupertino.dart';

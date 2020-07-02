@@ -2,13 +2,13 @@ class Pegawai {
   String _id_employee;
   String _id_outlet;
   String _id_user;
-  String _name_employee;
+  String _name_user;
   String _role;
   String _status;
 
 
   Pegawai(this._id_outlet, this._id_user,
-      this._name_employee, this._role, this._status);
+      this._name_user, this._role, this._status);
 
 
   String get id_employee => _id_employee;
@@ -21,10 +21,10 @@ class Pegawai {
 
   String get id_user => _id_user;
 
-  String get name_employee => _name_employee;
+  String get name_user => _name_user;
 
-  set name_employee(String value) {
-    _name_employee = value;
+  set name_user(String value) {
+    _name_user = value;
   }
 
   String get role => _role;
@@ -43,7 +43,7 @@ class Pegawai {
     _id_employee = json["id_employee"];
     _id_outlet = json["id_outlet"];
     _id_user = json["id_user"];
-    _name_employee = json["name_employee"];
+    _name_user = json["name_employee"];
     _role = json["role"];
     _status = json["status"];
   }
@@ -53,7 +53,7 @@ class Pegawai {
     data['id_employee'] = this._id_employee;
     data['id_outlet'] = this._id_outlet;
     data['id_user'] = this._id_user;
-    data['name_employee'] = this._name_employee;
+    data['name_employee'] = this._name_user;
     data['role'] = this._role;
     data['status'] = this._status;
   }

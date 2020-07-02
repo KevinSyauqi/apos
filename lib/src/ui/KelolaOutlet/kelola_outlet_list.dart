@@ -84,9 +84,8 @@ class _KelolaListOutletState extends State<KelolaListOutlet> {
   }
 
   Widget buildOutletList(List<Outlet> outlets) {
-    return ListView.separated(
+    return ListView.builder(
         itemCount: outlets.length,
-        separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index){
           Outlet outlet = outlets[index];
           return Container(

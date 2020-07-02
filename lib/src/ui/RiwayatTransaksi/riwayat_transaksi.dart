@@ -1,12 +1,30 @@
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 
-class CheckoutMenu extends StatefulWidget {
-  _CheckoutMenuState createState() => _CheckoutMenuState();
+class RiwayatTransaksi extends StatefulWidget {
+  _RiwayatTransaksiState createState() => _RiwayatTransaksiState();
 }
 
-class _CheckoutMenuState extends State<CheckoutMenu>
+class _RiwayatTransaksiState extends State<RiwayatTransaksi>
     with SingleTickerProviderStateMixin {
+  Outlet selectedOutlet;
+  List<Outlet> outlet = [
+    Outlet("Kopo Sayati"),
+    Outlet("Sarijadi"),
+    Outlet("Kebon Jati")
+  ];
+
+  List<DropdownMenuItem> generateItems(List<Outlet> category) {
+    List<DropdownMenuItem> items = [];
+    for (var item in outlet) {
+      items.add(DropdownMenuItem(
+        child: Text(item.name),
+        value: item,
+      ));
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +32,7 @@ class _CheckoutMenuState extends State<CheckoutMenu>
         Scaffold(
           appBar: AppBar(
             title: Text(
-              "Checkout",
+              "Riwayat Transaksi",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 25.0,
@@ -24,110 +42,80 @@ class _CheckoutMenuState extends State<CheckoutMenu>
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20))),
+                      child: Container(
+                        
+                        padding: EdgeInsets.symmetric(
+                            vertical: 3, horizontal: 20),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: DropdownButtonFormField(
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Pilih Outlet',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(179, 179, 183, 1),
+                                fontSize: 13.0,
+                                fontFamily: 'CircularStd-Book'),
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Center(
-                                      child: Text("Total Pembayaran",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0,
-                                              fontFamily: 'CircularStd-Bold'))),
-                                ),
-                                Container(
-                                    height:
-                                        MediaQuery.of(context).size.height / 19,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Center(
-                                        child: Text("Rp 10.000",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 42.0,
-                                                fontFamily:
-                                                    'CircularStd-Bold')))),
-                              ],
-                            ),
-                          ),
+                          isExpanded: true,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 13.0,
+                              fontFamily: 'CircularStd-Book'),
+                          value: selectedOutlet,
+                          items: generateItems(outlet),
+                          onChanged: (item) {
+                            setState(() {
+                              selectedOutlet = item;
+                            });
+                          },
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20))),
+                      child: Container(
+                        
+                        padding: EdgeInsets.symmetric(
+                            vertical: 3, horizontal: 20),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: DropdownButtonFormField(
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Pilih Outlet',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(179, 179, 183, 1),
+                                fontSize: 13.0,
+                                fontFamily: 'CircularStd-Book'),
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Center(
-                                      child: Text("Nominal Bayar",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0,
-                                              fontFamily: 'CircularStd-Bold'))),
-                                ),
-                                Container(
-                                    height:
-                                        MediaQuery.of(context).size.height / 19,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Center(
-                                        child: Text("Rp 10.000",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 42.0,
-                                                fontFamily:
-                                                    'CircularStd-Bold')))),
-                              ],
-                            ),
-                          ),
+                          isExpanded: true,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 13.0,
+                              fontFamily: 'CircularStd-Book'),
+                          value: selectedOutlet,
+                          items: generateItems(outlet),
+                          onChanged: (item) {
+                            setState(() {
+                              selectedOutlet = item;
+                            });
+                          },
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(top: 20),
                   ),
                   Container(
                     height: 50,
@@ -139,7 +127,7 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                   )
                 ],
               ),
-              preferredSize: Size(0, 290),
+              preferredSize: Size(0, 200),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -153,7 +141,7 @@ class _CheckoutMenuState extends State<CheckoutMenu>
             ),
             elevation: 0.0,
           ),
-          // drawer: AppDrawer(),
+          drawer: AppDrawer(),
           body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -175,7 +163,7 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(15),
                             borderSide:
                                 BorderSide(color: Colors.grey, width: 1),
                           ),
@@ -338,7 +326,6 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                         ]),
                   ]),
                 ),
-                payment(),
               ],
             ),
           ),
@@ -346,48 +333,9 @@ class _CheckoutMenuState extends State<CheckoutMenu>
       ]),
     );
   }
+}
 
-  Widget payment() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
-                alignment: Alignment.center,
-                child: ButtonTheme(
-                  height: 50,
-                  padding: EdgeInsets.all(15),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Pembayaran",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          )
-                        ]),
-                    onPressed: () {},
-                  ),
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+class Outlet {
+  String name;
+  Outlet(this.name);
 }

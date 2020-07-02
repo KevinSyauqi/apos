@@ -22,6 +22,30 @@ class PegawaiProvider {
   }
 
 
+  Future addPegawai(Pegawai pegawai, String id_outlet, String username, String email_user, String password_user, String phone_user, String role, String name_user) async {
+    final _url = "$_baseUrl/managePegawai/addPegawai";
+
+    final Map jsonData = {
+      "id_outlet": "4069798d529343d59da680b1336d7dd6",
+      "name_user": pegawai.name_user,
+      "username": username,
+      "email_user": email_user,
+      "password_user": password_user,
+      "phone_user": phone_user,
+      "role": pegawai.role
+    };
+    final response = await client.post("$_url",
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(jsonData));
+    final responseString = jsonDecode(response.body);
+    if (response.statusCode == 201) {
+      return responseString;
+    } else {
+      final message = responseString['message'];
+      throw Exception('$message');
+    }
+  }
+
   List<Pegawai> parsedListResponse(final response){
     final responseString = jsonDecode(response.body);
 

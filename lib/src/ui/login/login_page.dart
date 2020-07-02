@@ -169,7 +169,7 @@ class __LoginFormState extends State<_LoginForm> {
                                         height: 16,
                                       ),
                                       RaisedButton(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Color.fromRGBO(54, 58, 155, 1),
                                         textColor: Colors.white,
                                         padding: const EdgeInsets.fromLTRB(
                                             60, 16, 60, 16),

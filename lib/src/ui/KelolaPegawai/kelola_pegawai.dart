@@ -1,5 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
-import 'package:apos/src/ui/kelola_pegawai_list.dart';
+import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai_list.dart';
+import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai_tambah.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
@@ -29,7 +30,7 @@ class _KelolaPegawaiState extends State<KelolaPegawai>
   @override
   void initState() {
     _pegawaiBloc = BlocProvider.of<PegawaiBloc>(context);
-    _pegawaiBloc.add(FetchingAllPegawaiStore());
+    _pegawaiBloc.add(FetchingAllPegawai());
     controller = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -185,7 +186,6 @@ class _KelolaPegawaiState extends State<KelolaPegawai>
               Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(20),
-                // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 alignment: Alignment.center,
                 child: ButtonTheme(
                   height: 50,
@@ -213,7 +213,15 @@ class _KelolaPegawaiState extends State<KelolaPegawai>
                         fontFamily: 'CircularStd-Bold'),
                       )
                     ]),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TambahPegawaiPage()),
+                              ).then((value){
+                                _pegawaiBloc.add(FetchingAllPegawai());
+                              });
+                    },
                   ),
                 ),
               )

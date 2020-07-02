@@ -1,6 +1,8 @@
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/bloc/pegawai/pegawai_state.dart';
 import 'package:apos/src/models/pegawaiModels.dart';
-import 'package:apos/src/ui/kelola_pegawai_edit.dart';
+import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,10 +22,10 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
       child: BlocBuilder(
           bloc: BlocProvider.of<PegawaiBloc>(context),
           builder: (context, state){
-            if(state is FetchingAllPegawaiStore){
+            if(state is FetchingAllPegawai){
               return Center(child: CircularProgressIndicator());
             }
-            if(state is PegawaiListLoaded){
+            if(state is PegawaiLoaded){
               final listPegawai = state.listPegawai;
               return buildPegawaiList(listPegawai);
             }
@@ -84,9 +86,8 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
   }
 
   Widget buildPegawaiList(List<Pegawai> listPegawai) {
-    return ListView.separated(
+    return ListView.builder(
         itemCount: listPegawai.length,
-        separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index){
           Pegawai pegawai = listPegawai[index];
           return Container(
@@ -117,7 +118,7 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
                    mainAxisAlignment: MainAxisAlignment.center,
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: <Widget>[
-                     Text(pegawai.name_employee,
+                     Text(pegawai.name_user,
                          style: TextStyle(
                              color: Colors.black,
                              fontSize: 15.0,
