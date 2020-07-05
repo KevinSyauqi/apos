@@ -2,6 +2,7 @@ import 'package:apos/src/bloc/menu/menu_bloc.dart';
 import 'package:apos/src/bloc/menu/menu_event.dart';
 import 'package:apos/src/resources/menuRepository.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
+import 'package:apos/src/ui/Transaksi/cart.dart';
 import 'package:apos/src/ui/Transaksi/checkout.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_kustom.dart';
 import 'package:apos/src/ui/side_bar.dart';
@@ -288,7 +289,7 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CheckoutMenu(),
+                            builder: (context) => KeranjangMenu(),
                           ));
                     },
                   ),

@@ -3,6 +3,7 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/pegawai/pegawai_bloc.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
+import 'package:apos/src/ui/Laporan/laporan_penjualan.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
 import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
@@ -172,7 +173,11 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
+                onTap: () async{
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeReportPageLoad());
+                },
               ),
               Container(
                   decoration: BoxDecoration(
@@ -191,11 +196,11 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () {Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RiwayatTransaksi(),
-                          ));},
+                onTap: () async {
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeHistoryPageLoad());
+                },
               ),
               Container(
                   decoration: BoxDecoration(

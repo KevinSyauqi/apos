@@ -1,27 +1,15 @@
-import 'package:apos/src/bloc/history/history_bloc.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
-
-class HistoryPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HistoryBloc(),
-      child: RiwayatTransaksi(),
-    );
-  }
+class PerhitunganPenjualan extends StatefulWidget {
+  _PerhitunganPenjualanState createState() => _PerhitunganPenjualanState();
 }
 
-class RiwayatTransaksi extends StatefulWidget {
-  _RiwayatTransaksiState createState() => _RiwayatTransaksiState();
-}
-
-class _RiwayatTransaksiState extends State<RiwayatTransaksi>
+class _PerhitunganPenjualanState extends State<PerhitunganPenjualan>
     with SingleTickerProviderStateMixin {
   DateTime _startDate = DateTime.now().subtract(Duration(days: 1));
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
@@ -70,7 +58,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
         Scaffold(
           appBar: AppBar(
             title: Text(
-              "Riwayat Transaksi",
+              "Perhitungan Penjualan",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 25.0,
@@ -202,13 +190,11 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
             ),
             elevation: 0.0,
           ),
-          drawer: AppDrawer(),
           body: Container(
-            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 1.8,
             child: Stack(
-              children: <Widget>[buildListHistory(context)],
-            ),
+                children: <Widget>[buildListPerhitunganPenjualan(context)]),
           ),
         ),
       ]),
@@ -216,7 +202,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
   }
 }
 
-Widget buildListHistory(BuildContext context) {
+Widget buildListPerhitunganPenjualan(BuildContext context) {
   return ListView.builder(
       itemCount: 5,
       itemBuilder: (_, index) {
@@ -234,77 +220,52 @@ Widget buildListHistory(BuildContext context) {
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    margin: EdgeInsets.only(right: 15),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(234, 234, 234, 1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                   Expanded(
                     child: Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailRiwayatTransaksi(),
-                              ));
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text("Transaksi No #$index",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                            Text("Kamis, 20 Juli 2020",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Book')),
-                            Text("Nama Pelanggan",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                          ],
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Nama Menu #$index",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  fontFamily: 'CircularStd-Bold')),
+                          Text("Rp 40.000",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                  fontFamily: 'CircularStd-Book'))
+                        ],
                       ),
                     ),
                   ),
                   Expanded(
                       child: Container(
-                          margin: EdgeInsets.only(top: 10),
+                          margin: EdgeInsets.symmetric(vertical: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  child: Text("Bayar",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontFamily: 'CircularStd-Bold')),
-                                ),
-                              ),
-                              SizedBox(width: 5),
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  iconSize: 17,
-                                  color: Colors.white,
-                                  onPressed: () {},
-                                ),
-                              ),
+                              Text("Terjual ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Book')),
+                              Text("20 pcs",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Bold')),
                             ],
                           )))
                 ]));

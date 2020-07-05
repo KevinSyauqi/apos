@@ -115,12 +115,13 @@ Widget _buildMenuList(List<Menu> menus) {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              Expanded(
+              Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(menu.name_menu,
+                    overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 15.0,

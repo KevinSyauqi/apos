@@ -2,6 +2,8 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
 import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
+import 'package:apos/src/ui/Laporan/laporan_penjualan.dart';
+import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc.add(HomeTransactionPageLoad());
-
   }
 
   @override
@@ -47,8 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
         if(state is HomeMenuPage){
           return KelolaMenuPage();
         }
+        if(state is HomeReportPage){
+          return ReportPage();
+        }
         if(state is HomeEmployeePage){
           return KelolaPegawaiPage();
+        }
+        if(state is HomeHistoryPage){
+          return HistoryPage();
         }
         return Container(
             color: Colors.white);

@@ -1,27 +1,30 @@
-import 'package:apos/src/bloc/history/history_bloc.dart';
+import 'package:apos/src/bloc/report/report_bloc.dart';
+import 'package:apos/src/ui/Laporan/laporan_perhitungan_penjualan.dart';
+import 'package:apos/src/ui/Laporan/laporan_prediksi.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
 
-class HistoryPage extends StatelessWidget {
+class ReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HistoryBloc(),
-      child: RiwayatTransaksi(),
+      create: (context) => ReportBloc(),
+      child: LaporanPenjualan(),
     );
   }
 }
 
-class RiwayatTransaksi extends StatefulWidget {
-  _RiwayatTransaksiState createState() => _RiwayatTransaksiState();
+class LaporanPenjualan extends StatefulWidget {
+  _LaporanPenjualanState createState() => _LaporanPenjualanState();
 }
 
-class _RiwayatTransaksiState extends State<RiwayatTransaksi>
+class _LaporanPenjualanState extends State<LaporanPenjualan>
     with SingleTickerProviderStateMixin {
   DateTime _startDate = DateTime.now().subtract(Duration(days: 1));
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
@@ -70,7 +73,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
         Scaffold(
           appBar: AppBar(
             title: Text(
-              "Riwayat Transaksi",
+              "Laporan Penjualan",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 25.0,
@@ -207,13 +210,155 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Stack(
-              children: <Widget>[buildListHistory(context)],
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Text(
+                      "Grafik Penjualan",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                          fontFamily: 'CircularStd-Bold'),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      height: MediaQuery.of(context).size.height / 3,
+                      child: SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          series: <LineSeries<SalesData, String>>[
+                            LineSeries<SalesData, String>(
+                                // Bind data source
+                                dataSource: <SalesData>[
+                                  SalesData('Jan', 35),
+                                  SalesData('Feb', 28),
+                                  SalesData('Mar', 34),
+                                  SalesData('Apr', 32),
+                                  SalesData('May', 40),
+                                  SalesData('Jun', 35),
+                                  SalesData('Jul', 28),
+                                  SalesData('Ags', 34),
+                                  SalesData('Sep', 32),
+                                  SalesData('Okt', 40)
+                                ],
+                                xValueMapper: (SalesData sales, _) =>
+                                    sales.year,
+                                yValueMapper: (SalesData sales, _) =>
+                                    sales.sales)
+                          ]),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.center,
+                      child: ButtonTheme(
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          color: Color.fromRGBO(54, 58, 155, 1),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Perhitungan Laba Rugi",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Bold'),
+                                )
+                              ]),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.center,
+                      child: ButtonTheme(
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          color: Color.fromRGBO(54, 58, 155, 1),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Perhitungan Penjualan Menu",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Bold'),
+                                )
+                              ]),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PerhitunganPenjualan(),
+                                ));
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.center,
+                      child: ButtonTheme(
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          color: Color.fromRGBO(54, 58, 155, 1),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Prediksi Penjualan Menu",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Bold'),
+                                )
+                              ]),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PrediksiPenjualan(),
+                                ));
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ),
       ]),
     );
   }
+}
+
+class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
 }
 
 Widget buildListHistory(BuildContext context) {
@@ -258,7 +403,7 @@ Widget buildListHistory(BuildContext context) {
                                     color: Colors.black,
                                     fontSize: 14.0,
                                     fontFamily: 'CircularStd-Book')),
-                            Text("Nama Pelanggan",
+                            Text("Rp 100.000",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14.0,

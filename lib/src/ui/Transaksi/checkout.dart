@@ -1,3 +1,4 @@
+import 'package:apos/src/ui/Transaksi/struk.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,40 @@ class CheckoutMenu extends StatefulWidget {
 
 class _CheckoutMenuState extends State<CheckoutMenu>
     with SingleTickerProviderStateMixin {
+  String nominalBayar = "0";
+  String number = "";
+
+  buttonPressed(String buttonText) {
+    setState(() {
+      if (buttonText == "C") {
+        number = " ";
+        nominalBayar = "0";
+      } else if (buttonText == "0" || buttonText == "000") {
+        if (nominalBayar == "0") {
+          nominalBayar = "0";
+        } else {
+          number = number + buttonText;
+          nominalBayar = number;
+        }
+      } else {
+        number = number + buttonText;
+        nominalBayar = number;
+      }
+    });
+  }
+
+  Widget buildButton(String buttonText) {
+    return Expanded(
+        child: MaterialButton(
+            padding: EdgeInsets.symmetric(vertical: 6),
+            onPressed: () => buttonPressed(buttonText),
+            child: Text(buttonText,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40.0,
+                    fontFamily: 'CircularStd-Bold'))));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,13 +147,23 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                                     height:
                                         MediaQuery.of(context).size.height / 19,
                                     width: MediaQuery.of(context).size.width,
-                                    child: Center(
-                                        child: Text("Rp 10.000",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 42.0,
-                                                fontFamily:
-                                                    'CircularStd-Bold')))),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text("Rp ",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 42.0,
+                                                  fontFamily:
+                                                      'CircularStd-Bold')),
+                                          Text("$nominalBayar",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 42.0,
+                                                  fontFamily:
+                                                      'CircularStd-Bold')),
+                                        ])),
                               ],
                             ),
                           ),
@@ -187,154 +232,34 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 40),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("7",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("8",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("9",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
+                          buildButton("7"),
+                          buildButton("8"),
+                          buildButton("9"),
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("4",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("5",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("6",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
+                          buildButton("4"),
+                          buildButton("5"),
+                          buildButton("6"),
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("1",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("2",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("3",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
+                          buildButton("1"),
+                          buildButton("2"),
+                          buildButton("3"),
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("0",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("000",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            height: 60,
-                            width: 100,
-                            child: Center(
-                                child: Text("C",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 50.0,
-                                        fontFamily: 'CircularStd-Bold'))),
-                          ),
+                          buildButton("0"),
+                          buildButton("000"),
+                          buildButton("C"),
                         ]),
                   ]),
                 ),
@@ -348,45 +273,46 @@ class _CheckoutMenuState extends State<CheckoutMenu>
   }
 
   Widget payment() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
-                alignment: Alignment.center,
-                child: ButtonTheme(
-                  height: 50,
-                  padding: EdgeInsets.all(15),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Pembayaran",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          )
-                        ]),
-                    onPressed: () {},
+    return Positioned(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(20),
+              alignment: Alignment.center,
+              child: ButtonTheme(
+                height: 50,
+                padding: EdgeInsets.all(15),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
+                  color: Color.fromRGBO(54, 58, 155, 1),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Pembayaran",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'CircularStd-Bold'),
+                        )
+                      ]),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StrukPembayaran(),
+                        ));
+                  },
                 ),
-              )
-            ],
-          ),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
