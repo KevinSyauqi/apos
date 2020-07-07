@@ -38,6 +38,7 @@ class PegawaiProvider {
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));
     final responseString = jsonDecode(response.body);
+    print(response.body);
     if (response.statusCode == 201) {
       return responseString;
     } else {

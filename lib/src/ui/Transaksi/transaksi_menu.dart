@@ -1,6 +1,4 @@
-import 'package:apos/src/bloc/menu/menu_bloc.dart';
-import 'package:apos/src/bloc/menu/menu_event.dart';
-import 'package:apos/src/resources/menuRepository.dart';
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
 import 'package:apos/src/ui/Transaksi/cart.dart';
 import 'package:apos/src/ui/Transaksi/checkout.dart';
@@ -9,14 +7,13 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
 import 'package:apos/src/ui/Transaksi/transaksi_menu_minuman.dart' as minum;
-import '../KelolaMenu/kelola_menu_makanan.dart' as makans;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransaksiMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => MenuBloc(), child: TransaksiMenu());
+        create: (context) => TransactionMenuBloc(), child: TransaksiMenu());
   }
 }
 
@@ -27,20 +24,22 @@ class TransaksiMenu extends StatefulWidget {
 class _TransaksiMenuState extends State<TransaksiMenu>
     with SingleTickerProviderStateMixin {
   TabController controller;
-  MenuBloc _menuBloc;
+  TransactionMenuBloc _trscMenuBloc;
+
+  List<Menu> menus;
 
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this);
-    _menuBloc = BlocProvider.of<MenuBloc>(context);
-    _menuBloc.add(FetchingAllMenu());
+    _trscMenuBloc = BlocProvider.of<TransactionMenuBloc>(context);
+    _trscMenuBloc.add(FetchMenus());
     super.initState();
   }
 
   @override
   void dispose() {
     controller.dispose();
-    _menuBloc.close();
+    _trscMenuBloc.close();
     super.dispose();
   }
 
@@ -181,6 +180,7 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                             ),
                             insets: EdgeInsets.symmetric(horizontal: 20.0)),
                         tabs: <Widget>[
+
                           Tab(
                             child: Text("Makanan",
                                 style: TextStyle(
@@ -223,7 +223,7 @@ class _TransaksiMenuState extends State<TransaksiMenu>
               children: <Widget>[
                 TabBarView(
                   controller: controller,
-                  children: <Widget>[makan.MenuMakan(), minum.MenuMinum()],
+                  children: <Widget>[makan.MenuMakan(menus), minum.MenuMinum(menus)],
                 ),
                 checkOut(),
               ],

@@ -56,6 +56,7 @@ class Pegawai {
     data['name_employee'] = this._name_user;
     data['role'] = this._role;
     data['status'] = this._status;
+    return data;
   }
 
 }
@@ -77,7 +78,7 @@ class ListPegawai {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.listPegawai != null) {
-      data['outlets'] = this.listPegawai.map((v) => v.toJson()).toList();
+      data['employees'] = this.listPegawai.map((v) => v.toJson()).toList();
     }
     return data;
   }

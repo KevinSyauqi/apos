@@ -2,23 +2,10 @@ import 'dart:convert';
 
 import 'package:apos/src/models/models.dart';
 import 'package:http/http.dart';
-import 'package:meta/meta.dart';
 
-class MenuProvider {
+class TransactionMenuProvider {
   Client client = Client();
   final _baseUrl = "https://apos-server.herokuapp.com";
-
-//  Future<Menu> fetchMenu() async{
-//    final url = "$_baseUrl/manageMenu/addMenu";
-//    final response = await this.client.get(url);
-//
-//    if (response.statusCode != 200) {
-//      throw new Exception('Error getting menu');
-//    }
-//
-//    final json = jsonDecode(response.body);
-//    return Menu.fromJson(json);
-//  }
 
   Future<List<Menu>> fetchAllMenuOutlet(String outlet) async {
     final _url = "$_baseUrl/manageMenu/allMenuOutlet?id_outlet=$outlet";
@@ -31,11 +18,12 @@ class MenuProvider {
     return parsedListResponse(response);
   }
 
-  Future addMenu(Menu menu, String store) async {
-    final _url = "$_baseUrl/manageMenu/addMenu";
+  Future createOrder(ListOrder listOrder, Sales sales) async {
+    final _url = "$_baseUrl/manageTransaction/createOrder";
 
-    final Map jsonData = menu.toJson();
-    jsonData.
+    final Map jsonData = sales.toJson();
+    jsonData["listOrder"] = listOrder.toJson();
+
     final response = await client.post("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));

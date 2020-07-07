@@ -12,12 +12,7 @@ class AuthenticationRepository {
     await Future.delayed(Duration(seconds: 1));
   }
 
-  Future<void> persistToken(String token) async{
-    await Future.delayed(Duration(seconds: 1));
-    return;
-  }
-
-  Future<bool> hasToken() async{
+  Future<bool> isTokenActive() async{
     await Future.delayed(Duration(seconds: 1));
     return false;
   }

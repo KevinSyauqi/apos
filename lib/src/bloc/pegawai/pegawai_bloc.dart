@@ -13,6 +13,8 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
 
   @override
   Stream<PegawaiState> mapEventToState(PegawaiEvent event) async* {
+    Pegawai pegawai;
+    Menu menu;
     List<Pegawai> listPegawai;
     try{
     if(event is FetchingAllPegawai){
@@ -57,3 +59,4 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
   }
 
 }
+

@@ -43,6 +43,7 @@ class Outlet{
     data['name_outlet'] = this._name_outlet;
     data['address_outlet'] = this._address_outlet;
     data['phone_outlet'] = this._phone_outlet;
+    return data;
   }
 
 }

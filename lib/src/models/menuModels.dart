@@ -87,6 +87,7 @@ class Menu{
     data['cog'] = this._cog;
     data['price'] = this._price;
     data['stock'] = this._stock;
+    return data;
   }
 }
 

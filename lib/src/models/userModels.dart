@@ -80,6 +80,7 @@ class User {
     data['password_user'] = this._password_user;
     data['phone_user'] = this._phone_user;
     data['photo_user'] = this._photo_user;
+    return data;
   }
 
 }
