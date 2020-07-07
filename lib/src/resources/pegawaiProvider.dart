@@ -22,18 +22,19 @@ class PegawaiProvider {
   }
 
 
-  Future addPegawai(Pegawai pegawai, String id_outlet, String username, String email_user, String password_user, String phone_user, String role, String name_user) async {
-    final _url = "$_baseUrl/managePegawai/addPegawai";
-
+  Future addPegawai(Pegawai pegawai, User user) async {
+    final _url = "$_baseUrl/manageEmployee/newEmployee";
     final Map jsonData = {
-      "id_outlet": "4069798d529343d59da680b1336d7dd6",
-      "name_user": pegawai.name_user,
-      "username": username,
-      "email_user": email_user,
-      "password_user": password_user,
-      "phone_user": phone_user,
+      "id_outlet": pegawai.id_outlet,
+      "name_user": user.name_user,
+      "username": user.username,
+      "email_user": user.email_user,
+      "password_user": user.password_user,
+      "phone_user": user.phone_user,
       "role": pegawai.role
     };
+    print(pegawai);
+    print(user);
     final response = await client.post("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));

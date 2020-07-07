@@ -7,8 +7,8 @@ class Pegawai {
   String _status;
 
 
-  Pegawai(this._id_outlet, this._id_user,
-      this._name_user, this._role, this._status);
+  Pegawai(this._id_outlet,
+      this._name_user, this._role);
 
 
   String get id_employee => _id_employee;

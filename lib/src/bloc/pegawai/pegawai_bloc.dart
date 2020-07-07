@@ -33,18 +33,13 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
     if(event is AddPegawaiButtonFormPressed){
       yield PegawaiLoading();
       Pegawai pegawai;
+      User user;
       String role;
-        if(event.role == "supervisor") role = "supervisor";
-        else role = "operator";
-      String id_outlet;
-      String username;
-      String email_user;
-      String password_user;
-      String phone_user;
-      String name_user;
-      
 
-      final response = await _pegawaiRepository.addPegawai(pegawai, id_outlet, username, email_user, password_user, phone_user, role, name_user);
+      pegawai = Pegawai(event.id_outlet, event.name_user, event.role.toLowerCase());
+      user = User(event.name_user, event.email_user, event.username, event.password_user, event.phone_user, "");
+
+      final response = await _pegawaiRepository.addPegawai(pegawai, user);
         final bool success = response['success'];
         if(success){
           yield PegawaiAddSuccess();

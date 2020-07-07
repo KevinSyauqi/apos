@@ -366,6 +366,40 @@ class _TambahKelolaPegawaiState extends State<TambahKelolaPegawai> {
                                                         vertical: 16.0)),
                                           ),
                                         ),
+                                        //Username
+                                        Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          child: TextField(
+                                            controller: phoneController,
+                                            decoration: InputDecoration(
+                                                prefixIcon: Icon(
+                                                  Icons.phone,
+                                                  color: Color.fromRGBO(
+                                                      179, 179, 183, 1),
+                                                ),
+                                                hintText: "No Telepon Pegawai",
+                                                hintStyle: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        179, 179, 183, 1),
+                                                    fontSize: 13.0,
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide.none,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 20.0,
+                                                        vertical: 16.0)),
+                                          ),
+                                        ),
                                         //Role
                                         Card(
                                           shape: RoundedRectangleBorder(
@@ -423,12 +457,9 @@ class _TambahKelolaPegawaiState extends State<TambahKelolaPegawai> {
                                                   54, 58, 155, 1),
                                               elevation: 5,
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          KelolaPegawai()),
-                                                );
+                                                state is! PegawaiAddLoading
+                                                    ? _onAddPegawaiFormPressed()
+                                                    : null;
                                               },
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:

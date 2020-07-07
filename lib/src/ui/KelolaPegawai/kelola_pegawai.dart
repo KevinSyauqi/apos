@@ -22,8 +22,7 @@ class KelolaPegawai extends StatefulWidget {
   _KelolaPegawaiState createState() => _KelolaPegawaiState();
 }
 
-class _KelolaPegawaiState extends State<KelolaPegawai>
-    with SingleTickerProviderStateMixin {
+class _KelolaPegawaiState extends State<KelolaPegawai> {
   TabController controller;
   PegawaiBloc _pegawaiBloc;
 
@@ -31,7 +30,6 @@ class _KelolaPegawaiState extends State<KelolaPegawai>
   void initState() {
     _pegawaiBloc = BlocProvider.of<PegawaiBloc>(context);
     _pegawaiBloc.add(FetchingAllPegawai());
-    controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 

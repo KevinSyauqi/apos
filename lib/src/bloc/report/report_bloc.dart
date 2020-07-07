@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:apos/src/bloc/history/history_event.dart';
 import 'package:apos/src/bloc/history/history_state.dart';
 import 'package:apos/src/bloc/report/report_event.dart';
 import 'package:apos/src/bloc/report/report_state.dart';
