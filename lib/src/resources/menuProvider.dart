@@ -34,8 +34,18 @@ class MenuProvider {
   Future addMenu(Menu menu, String store) async {
     final _url = "$_baseUrl/manageMenu/addMenu";
 
-    final Map jsonData = menu.toJson();
-    jsonData.
+    final Map jsonData = {
+      "id_store": store,
+      "id_outlet": "4069798d529343d59da680b1336d7dd6",
+      "name_menu": menu.name_menu,
+      "description": menu.description,
+      "category": menu.category,
+      "photo_menu": menu.photo_menu,
+      "cog": menu.cog,
+      "price": menu.price,
+      "is_stock": menu.is_stock,
+      "stock": menu.stock
+    };
     final response = await client.post("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));

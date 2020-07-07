@@ -1,4 +1,5 @@
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
 import 'package:apos/src/ui/Transaksi/cart.dart';
 import 'package:apos/src/ui/Transaksi/checkout.dart';
@@ -25,8 +26,6 @@ class _TransaksiMenuState extends State<TransaksiMenu>
     with SingleTickerProviderStateMixin {
   TabController controller;
   TransactionMenuBloc _trscMenuBloc;
-
-  List<Menu> menus;
 
   @override
   void initState() {
@@ -223,7 +222,9 @@ class _TransaksiMenuState extends State<TransaksiMenu>
               children: <Widget>[
                 TabBarView(
                   controller: controller,
-                  children: <Widget>[makan.MenuMakan(menus), minum.MenuMinum(menus)],
+                  children: <Widget>[
+                    makan.MenuMakan(),
+                    minum.MenuMinum()],
                 ),
                 checkOut(),
               ],

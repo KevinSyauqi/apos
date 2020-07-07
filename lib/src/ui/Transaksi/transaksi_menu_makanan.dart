@@ -10,8 +10,6 @@ class MenuMakan extends StatefulWidget {
 
 class _MenuMakanState extends State<MenuMakan> {
   List<int> orderMenuCount;
-//  int count;
-
 
   @override
   void initState() {

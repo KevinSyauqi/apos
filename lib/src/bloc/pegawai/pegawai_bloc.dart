@@ -31,7 +31,7 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
       yield PegawaiAddInitialized();
     }
     if(event is AddPegawaiButtonFormPressed){
-      yield PegawaiLoading();
+      yield PegawaiAddLoading();
       Pegawai pegawai;
       User user;
       String role;
