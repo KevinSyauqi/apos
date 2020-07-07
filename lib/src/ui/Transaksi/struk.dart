@@ -58,6 +58,11 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                                         color: Colors.black,
                                         fontSize: 20.0,
                                         fontFamily: 'CircularStd-Book')),
+                                Text("No Telp Outlet",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15.0,
+                                        fontFamily: 'CircularStd-Book')),
                                 Text("Nama Pegawai",
                                     style: TextStyle(
                                         color: Colors.black,
@@ -238,67 +243,70 @@ class _StrukPembayaranState extends State<StrukPembayaran>
   }
 
   Widget buildListMenuTransaction(BuildContext context) {
-    return ListView.builder(
-        itemCount: 2,
-        itemBuilder: (_, index) {
-          return Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        color: Color.fromRGBO(224, 224, 224, 1), width: 1.0)),
-                color: Color.fromRGBO(250, 250, 250, 1),
-              ),
-              width: double.infinity,
-              height: 80,
-              margin: EdgeInsets.symmetric(horizontal: 25),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 55,
-                      height: 55,
-                      margin: EdgeInsets.only(right: 15),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(234, 234, 234, 1),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text("Nama Menu #$index",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                            Text("Rp 2.500 x 2",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Book'))
-                          ],
+    return Container(
+      margin: EdgeInsets.only(bottom: 90),
+      child: ListView.builder(
+          itemCount: 2,
+          itemBuilder: (_, index) {
+            return Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                          color: Color.fromRGBO(224, 224, 224, 1), width: 1.0)),
+                  color: Color.fromRGBO(250, 250, 250, 1),
+                ),
+                width: double.infinity,
+                height: 80,
+                margin: EdgeInsets.symmetric(horizontal: 25),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: 55,
+                        height: 55,
+                        margin: EdgeInsets.only(right: 15),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(234, 234, 234, 1),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                    ),
-                    Expanded(
+                      Expanded(
                         child: Container(
-                            child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Text("Rp 5.000",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16.0,
-                                fontFamily: 'CircularStd-Bold')),
-                      ],
-                    ))),
-                  ]));
-        });
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Nama Menu #$index",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Bold')),
+                              Text("Rp 2.500 x 2",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Book'))
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          child: Container(
+                              child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text("Rp 5.000",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16.0,
+                                  fontFamily: 'CircularStd-Bold')),
+                        ],
+                      ))),
+                    ]));
+          }),
+    );
   }
 
   Widget bottomButton() {

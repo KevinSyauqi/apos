@@ -55,6 +55,40 @@ class _KeranjangMenuState extends State<KeranjangMenu>
                   fontSize: 25.0,
                   fontFamily: 'CircularStd-Bold'),
             ),
+            actions: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => TransaksiKustom(),
+                  //     ));
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  decoration: BoxDecoration(
+                    // color: Color.fromRGBO(0, 0, 0, 0.1),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.dialpad, color: Colors.white, size: 18),
+                      SizedBox(width: 3),
+                      Text(
+                        "Bayar Nanti",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(width: 20),
+            ],
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[

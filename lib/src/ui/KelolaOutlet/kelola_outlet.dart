@@ -33,7 +33,6 @@ class _KelolaOutletState extends State<KelolaOutlet>
   void initState() {
     _outletBloc = BlocProvider.of<OutletBloc>(context);
     _outletBloc.add(FetchingAllOutletStore());
-    controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 

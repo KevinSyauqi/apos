@@ -1,3 +1,5 @@
+import 'package:apos/src/bloc/outlet_bloc.dart';
+import 'package:apos/src/bloc/outlet_event.dart';
 import 'package:apos/src/bloc/report/report_bloc.dart';
 import 'package:apos/src/ui/Laporan/laporan_perhitungan_penjualan.dart';
 import 'package:apos/src/ui/Laporan/laporan_prediksi.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
+import 'package:charts_flutter/flutter.dart' as charts;
 
 
 class ReportPage extends StatelessWidget {
@@ -31,6 +34,23 @@ class _LaporanPenjualanState extends State<LaporanPenjualan>
   String selectedStartDate = "Periode Awal";
   String selectedEndDate = "Periode Akhir";
 
+
+  //   OutletBloc _outletBloc;
+
+  // @override
+  // void initState() {
+  //   _outletBloc = BlocProvider.of<OutletBloc>(context);
+  //   _outletBloc.add(FetchingAllOutletStore());
+  //   super.initState();
+  // }
+
+  @override
+  void dispose() {
+    // _outletBloc.close();
+    // controller.dispose();
+    super.dispose();
+  }
+
   Outlet selectedOutlet;
   List<Outlet> outlet = [
     Outlet("Kopo Sayati"),
@@ -47,6 +67,33 @@ class _LaporanPenjualanState extends State<LaporanPenjualan>
       ));
     }
     return items;
+  }
+
+ 
+
+  // Defining the data
+  final data = [
+    new SalesData(0, 1000),
+    new SalesData(1, 1600),
+    new SalesData(2, 1000),
+    new SalesData(3, 4000),
+    new SalesData(4, 3000),
+    new SalesData(5, 1500),
+    new SalesData(6, 2400)
+
+  ];
+
+  _getSeriesData() {
+    List<charts.Series<SalesData, int>> series = [
+      charts.Series(
+        id: "Sales",
+        data: data,
+        domainFn: (SalesData series, _) => series.year,
+        measureFn: (SalesData series, _) => series.sales,
+        colorFn: (SalesData series, _) => charts.MaterialPalette.blue.shadeDefault
+      )
+    ];
+    return series;
   }
 
   Future displayDateRangePicker(BuildContext context) async {
@@ -225,28 +272,7 @@ class _LaporanPenjualanState extends State<LaporanPenjualan>
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 25),
                       height: MediaQuery.of(context).size.height / 3,
-                      child: SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          series: <LineSeries<SalesData, String>>[
-                            LineSeries<SalesData, String>(
-                                // Bind data source
-                                dataSource: <SalesData>[
-                                  SalesData('Jan', 35),
-                                  SalesData('Feb', 28),
-                                  SalesData('Mar', 34),
-                                  SalesData('Apr', 32),
-                                  SalesData('May', 40),
-                                  SalesData('Jun', 35),
-                                  SalesData('Jul', 28),
-                                  SalesData('Ags', 34),
-                                  SalesData('Sep', 32),
-                                  SalesData('Okt', 40)
-                                ],
-                                xValueMapper: (SalesData sales, _) =>
-                                    sales.year,
-                                yValueMapper: (SalesData sales, _) =>
-                                    sales.sales)
-                          ]),
+                      child: new charts.LineChart(_getSeriesData(), animate: true,),
                     ),
                     SizedBox(height: 20),
                     Container(
@@ -356,9 +382,10 @@ class _LaporanPenjualanState extends State<LaporanPenjualan>
 }
 
 class SalesData {
+  final int year;
+  final int sales;
+
   SalesData(this.year, this.sales);
-  final String year;
-  final double sales;
 }
 
 Widget buildListHistory(BuildContext context) {
