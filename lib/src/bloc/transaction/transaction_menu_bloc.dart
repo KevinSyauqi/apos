@@ -28,9 +28,6 @@ class TransactionMenuBloc extends Bloc<TransactionMenuEvent, TransactionMenuStat
           yield TrscMenuLoaded(menus: menus);
         }
       }
-      if (event is CheckoutButtonPressed) {
-        yield CheckoutInitialized(listOrder: event.listOrder, sales: event.sales);
-      }
       if(event is OrderMenuIncrement){
           yield OrderCount();
       }

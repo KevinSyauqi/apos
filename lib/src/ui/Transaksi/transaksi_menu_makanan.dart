@@ -12,8 +12,7 @@ class _MenuMakanState extends State<MenuMakan> {
   List<int> orderMenuCount;
 
   @override
-  void initState() {
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -35,21 +34,21 @@ class _MenuMakanState extends State<MenuMakan> {
           final menus = menuLoaded.menus;
           List<Menu> foods = List<Menu>();
           menus.forEach((food) {
-            if(food.category == "food") foods.add(food);
+            if (food.category == "food") foods.add(food);
           });
-          if(orderMenuCount == null) orderMenuCount = new List(foods.length);
+          if (orderMenuCount == null) orderMenuCount = new List(foods.length);
           return ListView.builder(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               itemCount: foods.length,
               itemBuilder: (BuildContext context, int index) {
                 Menu menu = foods[index];
-                if(orderMenuCount[index] == null) orderMenuCount[index] = 0;
-                print(orderMenuCount[index]);
+                if (orderMenuCount[index] == null) orderMenuCount[index] = 0;
                 return Container(
                   decoration: BoxDecoration(
                     border: Border(
                         bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1), width: 1.0)),
+                            color: Color.fromRGBO(224, 224, 224, 1),
+                            width: 1.0)),
                     color: Color.fromRGBO(250, 250, 250, 1),
                   ),
                   width: double.infinity,
@@ -93,47 +92,77 @@ class _MenuMakanState extends State<MenuMakan> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                  icon: Icon(Icons.remove),
-                                  iconSize: 17,
-                                  color: Colors.white,
-                                  onPressed: () {},
-                                ),
+                              BlocBuilder<CheckoutBloc, CheckoutState>(
+                                builder: (context, state) {
+                                  if (state is CheckoutLoading) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (state is CheckoutLoaded) {
+                                    return Container(
+                                      width: 32,
+                                      height: 32,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Color.fromRGBO(54, 58, 155, 1),
+                                          borderRadius: BorderRadius.circular(13)),
+                                      child: IconButton(
+                                          icon: Icon(Icons.remove),
+                                          iconSize: 17,
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            if(orderMenuCount[index]>0){
+                                              BlocProvider.of<CheckoutBloc>(context)
+                                                  .add(RemoveFromCheckout(menu: menu));
+                                              setState(() {
+                                                orderMenuCount[index]--;
+                                              });
+                                            }
+                                          }
+                                      ),
+                                    );
+                                  }
+                                  return Text("Terjadi Kesalahan");
+                                },
                               ),
                               Padding(
-                                padding:
-                                const EdgeInsets.only(right: 15.0, left: 15.0),
+                                padding: const EdgeInsets.only(
+                                    right: 15.0, left: 15.0),
                                 child: Text(orderMenuCount[index].toString(),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16.0,
                                         fontFamily: 'CircularStd-Bold')),
                               ),
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                  icon: Icon(Icons.add),
-                                  iconSize: 17,
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    setState(() {
-                                      orderMenuCount[index]++;
-                                    });
-                                  },
-                                ),
-                              ),
+                              BlocBuilder<CheckoutBloc, CheckoutState>(
+                                builder: (context, state) {
+                                  if (state is CheckoutLoading) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (state is CheckoutLoaded) {
+                                    return Container(
+                                      width: 32,
+                                      height: 32,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Color.fromRGBO(54, 58, 155, 1),
+                                          borderRadius: BorderRadius.circular(13)),
+                                      child: IconButton(
+                                          icon: Icon(Icons.add),
+                                          iconSize: 17,
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            BlocProvider.of<CheckoutBloc>(context)
+                                                .add(AddCheckout(menu: menu));
+                                            setState(() {
+                                              orderMenuCount[index]++;
+                                            });
+                                          }
+                                      ),
+                                    );
+                                  }
+                                  return Text("Terjadi Kesalahan");
+                                },
+                              )
                             ],
                           ),
                         ),
@@ -141,7 +170,8 @@ class _MenuMakanState extends State<MenuMakan> {
                     ],
                   ),
                 );
-              });;
+              });
+          ;
         },
       ),
     );

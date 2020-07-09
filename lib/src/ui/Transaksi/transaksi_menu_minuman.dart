@@ -112,24 +112,36 @@ class _MenuMinumState extends State<MenuMinum> {
                                         fontSize: 16.0,
                                         fontFamily: 'CircularStd-Bold')),
                               ),
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                  icon: Icon(Icons.add),
-                                  iconSize: 17,
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    setState(() {
-                                      orderMenuCount[index]++;
-                                    });
-                                  },
-                                ),
-                              ),
+                              BlocBuilder<CheckoutBloc, CheckoutState>(
+                                builder: (context, state) {
+                                  if (state is CheckoutLoading) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (state is CheckoutLoaded) {
+                                    return Container(
+                                      width: 32,
+                                      height: 32,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Color.fromRGBO(54, 58, 155, 1),
+                                          borderRadius: BorderRadius.circular(13)),
+                                      child: IconButton(
+                                          icon: Icon(Icons.add),
+                                          iconSize: 17,
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            BlocProvider.of<CheckoutBloc>(context)
+                                                .add(AddCheckout(menu: menu));
+                                            setState(() {
+                                              orderMenuCount[index]++;
+                                            });
+                                          }
+                                      ),
+                                    );
+                                  }
+                                  return Text("Terjadi Kesalahan");
+                                },
+                              )
                             ],
                           ),
                         ),

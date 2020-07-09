@@ -11,37 +11,6 @@ class _KeranjangMenuState extends State<KeranjangMenu>
   String nominalBayar = "0";
   String number = "";
 
-  buttonPressed(String buttonText) {
-    setState(() {
-      if (buttonText == "C") {
-        number = " ";
-        nominalBayar = "0";
-      } else if (buttonText == "0" || buttonText == "000") {
-        if (nominalBayar == "0") {
-          nominalBayar = "0";
-        } else {
-          number = number + buttonText;
-          nominalBayar = number;
-        }
-      } else {
-        number = number + buttonText;
-        nominalBayar = number;
-      }
-    });
-  }
-
-  Widget buildButton(String buttonText) {
-    return Expanded(
-        child: MaterialButton(
-            padding: EdgeInsets.symmetric(vertical: 6),
-            onPressed: () => buttonPressed(buttonText),
-            child: Text(buttonText,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 40.0,
-                    fontFamily: 'CircularStd-Bold'))));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

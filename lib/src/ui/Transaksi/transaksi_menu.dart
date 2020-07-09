@@ -13,8 +13,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TransaksiMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => TransactionMenuBloc(), child: TransaksiMenu());
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<TransactionMenuBloc>(
+            create: (context) => TransactionMenuBloc(),
+          ),
+          BlocProvider<CheckoutBloc>(
+            create: (context) => CheckoutBloc(),
+          ),
+        ],
+        child: TransaksiMenu());
   }
 }
 
@@ -26,12 +34,16 @@ class _TransaksiMenuState extends State<TransaksiMenu>
     with SingleTickerProviderStateMixin {
   TabController controller;
   TransactionMenuBloc _trscMenuBloc;
+  CheckoutBloc _checkoutBloc;
 
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this);
     _trscMenuBloc = BlocProvider.of<TransactionMenuBloc>(context);
+    _checkoutBloc = BlocProvider.of<CheckoutBloc>(context);
     _trscMenuBloc.add(FetchMenus());
+    _checkoutBloc.add(LoadCart());
+
     super.initState();
   }
 
@@ -257,35 +269,43 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     color: Color.fromRGBO(54, 58, 155, 1),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
+                    child: BlocBuilder<CheckoutBloc, CheckoutState>(
+                      builder: (context, state){
+                        if(state is CheckoutLoaded){
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Icon(
-                                Icons.shopping_cart,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10,
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    state.menus.length.toString() + " Pesanan",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontFamily: 'CircularStd-Book'),
+                                  ),
+                                ],
                               ),
                               Text(
-                                "2 pesanan",
+                                "Rp "+ state.totalPrice.toString(),
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Book'),
+                                    fontSize: 18.0,
+                                    fontFamily: 'CircularStd-Bold'),
                               ),
                             ],
-                          ),
-                          Text(
-                            "Rp 10.000",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                        ]),
+                          );
+                        }
+                        return Text("Terjadi Kesalahan");
+                      },
+                    ),
                     onPressed: () {
                       Navigator.push(
                           context,

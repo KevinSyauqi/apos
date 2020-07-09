@@ -19,15 +19,6 @@ class TrscMenuLoaded extends TransactionMenuState {
 
 class TrscError extends TransactionMenuState{}
 
-class CheckoutInitialized extends TransactionMenuState{
-  ListOrder listOrder;
-  Sales sales;
-
-  CheckoutInitialized({this.listOrder, this.sales});
-}
-
-class CheckoutLoading extends TransactionMenuState{}
-
 class TsrcError extends TransactionMenuState{}
 
 class OrderCount extends TransactionMenuState{
