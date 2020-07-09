@@ -1,6 +1,19 @@
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/Transaksi/struk.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class CheckoutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<CheckoutBloc>(
+      create: (context) => CheckoutBloc(),
+      child: CheckoutMenu(),
+    );
+  }
+}
+
 
 class CheckoutMenu extends StatefulWidget {
   _CheckoutMenuState createState() => _CheckoutMenuState();

@@ -40,7 +40,7 @@ class PegawaiProvider {
         body: json.encode(jsonData));
     final responseString = jsonDecode(response.body);
     print(response.body);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return responseString;
     } else {
       final message = responseString['message'];

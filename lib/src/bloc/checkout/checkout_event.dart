@@ -17,8 +17,17 @@ class RemoveFromCheckout extends CheckoutEvent{
   RemoveFromCheckout({this.menu});
 }
 
-class CheckoutPressed extends CheckoutEvent{
-  final List<Menu> order;
+class CheckoutCart extends CheckoutEvent{
+  final List<SalesLineItem> listSalesLineItem;
+  final List<Menu> orders;
+  final int totalPrice;
 
-  CheckoutPressed({this.order});
+  CheckoutCart({this.listSalesLineItem, this.orders, this.totalPrice});
+}
+
+class PayLater extends CheckoutEvent{
+  final List<SalesLineItem> listSalesLineItem;
+  final int totalPrice;
+
+  PayLater({this.listSalesLineItem, this.totalPrice});
 }

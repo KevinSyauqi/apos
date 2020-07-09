@@ -43,9 +43,7 @@ class Apos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        routes: {
-
-        },
+        initialRoute: '/',
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state){
             if(state is AuthenticationSuccess){

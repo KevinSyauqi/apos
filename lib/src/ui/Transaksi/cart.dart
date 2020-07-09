@@ -307,7 +307,7 @@ class _KeranjangMenuState extends State<KeranjangMenu>
                                             ))),
                                   ]));
                         }),
-                    checkout(),
+                    checkout(listOrder, state.totalPrice),
                   ],
                 ),
               );
@@ -319,44 +319,80 @@ class _KeranjangMenuState extends State<KeranjangMenu>
     );
   }
 
-  Widget checkout() {
+  Widget checkout(List<SalesLineItem> listSalesLineItem, int totalPrice) {
     return Positioned(
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(20),
-              alignment: Alignment.center,
-              child: ButtonTheme(
-                height: 50,
-                padding: EdgeInsets.all(15),
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+            Row(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  padding: EdgeInsets.fromLTRB(20, 20, 10, 20),
+                  alignment: Alignment.center,
+                  child: ButtonTheme(
+                    height: 50,
+                    padding: EdgeInsets.all(15),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Color.fromRGBO(54, 58, 155, 1),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Bayar Nanti",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            )
+                          ]),
+                      onPressed: () {
+                        if(_checkoutBloc.state is CheckoutLoaded){
+                          _checkoutBloc.add(PayLater(listSalesLineItem: listSalesLineItem, totalPrice: totalPrice));
+                        }
+
+                      },
+                    ),
                   ),
-                  color: Color.fromRGBO(54, 58, 155, 1),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Checkout",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'CircularStd-Bold'),
-                        )
-                      ]),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CheckoutMenu(),
-                        ));
-                  },
                 ),
-              ),
+                Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  padding: EdgeInsets.fromLTRB(10, 20, 20, 20),
+                  alignment: Alignment.center,
+                  child: ButtonTheme(
+                    height: 50,
+                    padding: EdgeInsets.all(15),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Color.fromRGBO(54, 58, 155, 1),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Bayar Sekarang",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            )
+                          ]),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CheckoutMenu(),
+                            ));
+                      },
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         ),

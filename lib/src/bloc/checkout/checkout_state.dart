@@ -15,4 +15,10 @@ class CheckoutLoaded extends CheckoutState{
   CheckoutLoaded({this.listSalesLineItem, this.menus, this.totalPrice});
 }
 
-class CheckoutError extends CheckoutState{}
+class CheckoutError extends CheckoutState{
+  final message;
+
+  CheckoutError(this.message);
+}
+
+class CheckoutSuccess extends CheckoutState{}

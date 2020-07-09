@@ -248,96 +248,97 @@ class _TransaksiMenuState extends State<TransaksiMenu>
   }
 
   Widget checkOut() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return BlocBuilder<CheckoutBloc,CheckoutState>(
+      builder: (context, state){
+        return Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width / 1.4,
-                margin: EdgeInsets.fromLTRB(20, 20, 10, 20),
-                alignment: Alignment.center,
-                child: ButtonTheme(
-                  height: 50,
-                  padding: EdgeInsets.all(15),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.4,
+                    margin: EdgeInsets.fromLTRB(20, 20, 10, 20),
+                    alignment: Alignment.center,
+                    child: ButtonTheme(
+                      height: 50,
+                      padding: EdgeInsets.all(15),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        color: Color.fromRGBO(54, 58, 155, 1),
+                        child:
+                        (state is CheckoutLoaded) ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  state.menus.length.toString() + " Pesanan",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Book'),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "Rp "+ state.totalPrice.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
+                          ],
+                        )
+                        : Text("Terjadi Kesalahan"),
+                        onPressed: () {
+                          (state is CheckoutLoaded) ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CartPage(menus: state.menus, totalPrice: state.totalPrice),
+                              )) : print("State bukan checkloaded");
+
+                        },
+                      ),
                     ),
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    child: BlocBuilder<CheckoutBloc, CheckoutState>(
-                      builder: (context, state){
-                        if(state is CheckoutLoaded){
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.shopping_cart,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    state.menus.length.toString() + " Pesanan",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontFamily: 'CircularStd-Book'),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "Rp "+ state.totalPrice.toString(),
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),
-                            ],
-                          );
-                        }
-                        return Text("Terjadi Kesalahan");
-                      },
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => KeranjangMenu(),
-                          ));
-                    },
                   ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 7,
-                height: 50,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    borderRadius: BorderRadius.circular(19)),
-                child: IconButton(
-                  icon: Icon(Icons.view_list),
-                  iconSize: 25,
-                  color: Colors.white,
-                  onPressed: () {Navigator.push(
+                  Container(
+                    width: MediaQuery.of(context).size.width / 7,
+                    height: 50,
+                    margin: EdgeInsets.only(right: 20),
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(54, 58, 155, 1),
+                        borderRadius: BorderRadius.circular(19)),
+                    child: IconButton(
+                      icon: Icon(Icons.view_list),
+                      iconSize: 25,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => RiwayatTransaksi(),
                           ));},
-                ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

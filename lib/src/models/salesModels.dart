@@ -8,6 +8,9 @@ class Sales{
   bool _is_paid;
 
 
+  Sales(this._id_outlet, this._id_employee, this._total_price, this._tax,
+      this._customer_name, this._is_paid);
+
   String get id_sales => _id_sales;
 
   String get id_outlet => _id_outlet;
