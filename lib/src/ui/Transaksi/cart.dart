@@ -1,6 +1,24 @@
+import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/Transaksi/checkout.dart';
-import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class CartPage extends StatelessWidget {
+  final List<Menu> menus;
+  final int totalPrice;
+
+  CartPage({this.menus, this.totalPrice});
+
+  @override
+  Widget build(BuildContext context) {
+    print(menus.length);
+    print(totalPrice);
+    return BlocProvider<CheckoutBloc>(
+        create: (context) => CheckoutBloc()..add(CheckoutCart(orders: menus,totalPrice: totalPrice)),
+        child: KeranjangMenu());
+  }
+}
 
 class KeranjangMenu extends StatefulWidget {
   _KeranjangMenuState createState() => _KeranjangMenuState();
@@ -10,6 +28,14 @@ class _KeranjangMenuState extends State<KeranjangMenu>
     with SingleTickerProviderStateMixin {
   String nominalBayar = "0";
   String number = "";
+  CheckoutBloc _checkoutBloc;
+
+
+
+  @override
+  void initState() {
+    _checkoutBloc = BlocProvider.of<CheckoutBloc>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +110,7 @@ class _KeranjangMenuState extends State<KeranjangMenu>
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  height:
-                                      MediaQuery.of(context).size.height / 35,
+                                  height: 20,
                                   width: MediaQuery.of(context).size.width,
                                   child: Center(
                                       child: Text("Total Pembayaran",
@@ -95,16 +120,21 @@ class _KeranjangMenuState extends State<KeranjangMenu>
                                               fontFamily: 'CircularStd-Bold'))),
                                 ),
                                 Container(
-                                    height:
-                                        MediaQuery.of(context).size.height / 19,
+                                    height: 50,
                                     width: MediaQuery.of(context).size.width,
-                                    child: Center(
-                                        child: Text("Rp 10.000",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 42.0,
-                                                fontFamily:
-                                                    'CircularStd-Bold')))),
+                                    child: BlocBuilder<CheckoutBloc,CheckoutState>(
+                                      builder: (context, state){
+                                        if(state is CheckoutLoaded){
+                                          return Center(
+                                              child: Text("Rp " + (state.totalPrice.toString()),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 42.0,
+                                                      fontFamily:
+                                                      'CircularStd-Bold')));
+                                        } else return Center(child: CircularProgressIndicator());
+                                      }
+                                    )),
                               ],
                             ),
                           ),
@@ -140,102 +170,153 @@ class _KeranjangMenuState extends State<KeranjangMenu>
             elevation: 0.0,
           ),
           // drawer: AppDrawer(),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: <Widget>[
-                buildListKeranjangMenu(context),
-                checkout(),
-              ],
-            ),
-          ),
+          body: BlocBuilder<CheckoutBloc, CheckoutState>(
+              builder: (context, state) {
+                print(state.toString());
+            if (state is CheckoutError) {
+              return Center(child: Text("Error"));
+            }
+            if (state is CheckoutLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (state is CheckoutLoaded) {
+              final currentState = state as CheckoutLoaded;
+              print(currentState.listSalesLineItem.length);
+              final listOrder = currentState.listSalesLineItem;
+              print("Jumlah Sales Line Item :" + listOrder.length.toString());
+              final menus = currentState.menus;
+              return Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: <Widget>[
+                    ListView.builder(
+                        itemCount: listOrder.length,
+                        itemBuilder: (_, index) {
+                          SalesLineItem item = listOrder[index];
+                          return Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: Color.fromRGBO(224, 224, 224, 1),
+                                        width: 1.0)),
+                                color: Color.fromRGBO(250, 250, 250, 1),
+                              ),
+                              width: double.infinity,
+                              height: 80,
+                              margin: EdgeInsets.symmetric(horizontal: 25),
+                              padding:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 55,
+                                      height: 55,
+                                      margin: EdgeInsets.only(right: 15),
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(234, 234, 234, 1),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                                menus
+                                                    .firstWhere((menu) =>
+                                                menu.id_outlet_menu ==
+                                                    item.id_outlet_menu)
+                                                    .name_menu
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16.0,
+                                                    fontFamily:
+                                                    'CircularStd-Bold')),
+                                            Text(
+                                                "Rp " +
+                                                    menus
+                                                        .firstWhere((menu) =>
+                                                    menu.id_outlet_menu ==
+                                                        item.id_outlet_menu)
+                                                        .price
+                                                        .toString() +
+                                                    " x " +
+                                                    item.qty.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14.0,
+                                                    fontFamily: 'CircularStd-Book'))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                            margin:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text("Rp "+
+                                                    (menus
+                                                        .firstWhere((menu) =>
+                                                    menu.id_outlet_menu ==
+                                                        item
+                                                            .id_outlet_menu)
+                                                        .price *
+                                                        item.qty)
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 16.0,
+                                                        fontFamily:
+                                                        'CircularStd-Bold')),
+                                                SizedBox(width: 15),
+                                                GestureDetector(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          bottom: 4),
+                                                      width: 32,
+                                                      height: 32,
+                                                      alignment: Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          color: Color.fromRGBO(
+                                                              54, 58, 155, 1),
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              13)),
+                                                      child: Text("x",
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 16.0,
+                                                              fontFamily:
+                                                              'CircularStd-Bold'))),
+                                                ),
+                                              ],
+                                            ))),
+                                  ]));
+                        }),
+                    checkout(),
+                  ],
+                ),
+              );
+            }
+            return Center(child: Text("Initialized"));
+          }),
         ),
       ]),
     );
-  }
-
-  Widget buildListKeranjangMenu(BuildContext context) {
-    return ListView.builder(
-        itemCount: 2,
-        itemBuilder: (_, index) {
-          return Container(
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        color: Color.fromRGBO(224, 224, 224, 1), width: 1.0)),
-                color: Color.fromRGBO(250, 250, 250, 1),
-              ),
-              width: double.infinity,
-              height: 80,
-              margin: EdgeInsets.symmetric(horizontal: 25),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 55,
-                      height: 55,
-                      margin: EdgeInsets.only(right: 15),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(234, 234, 234, 1),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text("Nama Menu #$index",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                            Text("Rp 2.500 x 2",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Book'))
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                        child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text("Rp 5.000",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                                SizedBox(width: 15),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                      padding: EdgeInsets.only(bottom: 4),
-                                      width: 32,
-                                      height: 32,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Color.fromRGBO(54, 58, 155, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(13)),
-                                      child: Text("x",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16.0,
-                                              fontFamily: 'CircularStd-Bold'))),
-                                ),
-                              ],
-                            ))),
-                  ]));
-        });
   }
 
   Widget checkout() {
