@@ -22,3 +22,5 @@ class CheckoutError extends CheckoutState{
 }
 
 class CheckoutSuccess extends CheckoutState{}
+
+class CheckoutInProgress extends CheckoutState{}

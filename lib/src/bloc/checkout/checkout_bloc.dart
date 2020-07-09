@@ -15,6 +15,9 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   Stream<CheckoutState> mapEventToState(
     CheckoutEvent event,
   ) async* {
+    if(event is CheckoutDispose){
+      yield CheckoutInitialized();
+    }
     if (event is LoadCart) {
       yield CheckoutLoading();
       try {
@@ -79,7 +82,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       }
     }
     if(event is PayLater){
-      yield CheckoutLoading();
+      yield CheckoutInProgress();
       Sales sales;
       ListOrder listOrder = new ListOrder([]);
 

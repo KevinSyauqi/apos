@@ -11,12 +11,14 @@ class CheckoutProvider {
     final _url = "$_baseUrl/trsc/createSales";
 
     final Map jsonData = sales.toJson();
-    jsonData["listOrder"] = listOrder.toJson();
+    jsonData.addAll(listOrder.toJson());
+    print(jsonData.toString());
 
     final response = await client.post("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));
     final responseString = jsonDecode(response.body);
+    print(responseString);
     if (response.statusCode == 201) {
       return responseString;
     } else {

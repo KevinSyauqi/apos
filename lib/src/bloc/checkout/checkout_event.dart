@@ -31,3 +31,5 @@ class PayLater extends CheckoutEvent{
 
   PayLater({this.listSalesLineItem, this.totalPrice});
 }
+
+class CheckoutDispose extends CheckoutEvent{}

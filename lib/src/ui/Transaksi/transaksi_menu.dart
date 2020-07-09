@@ -13,16 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TransaksiMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider<TransactionMenuBloc>(
-            create: (context) => TransactionMenuBloc(),
-          ),
-          BlocProvider<CheckoutBloc>(
-            create: (context) => CheckoutBloc(),
-          ),
-        ],
-        child: TransaksiMenu());
+    return MultiBlocProvider(providers: [
+      BlocProvider<TransactionMenuBloc>(
+        create: (context) => TransactionMenuBloc(),
+      ),
+      BlocProvider<CheckoutBloc>(
+        create: (context) => CheckoutBloc(),
+      ),
+    ], child: TransaksiMenu());
   }
 }
 
@@ -191,7 +189,6 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                             ),
                             insets: EdgeInsets.symmetric(horizontal: 20.0)),
                         tabs: <Widget>[
-
                           Tab(
                             child: Text("Makanan",
                                 style: TextStyle(
@@ -234,9 +231,7 @@ class _TransaksiMenuState extends State<TransaksiMenu>
               children: <Widget>[
                 TabBarView(
                   controller: controller,
-                  children: <Widget>[
-                    makan.MenuMakan(),
-                    minum.MenuMinum()],
+                  children: <Widget>[makan.MenuMakan(), minum.MenuMinum()],
                 ),
                 checkOut(),
               ],
@@ -248,8 +243,11 @@ class _TransaksiMenuState extends State<TransaksiMenu>
   }
 
   Widget checkOut() {
-    return BlocBuilder<CheckoutBloc,CheckoutState>(
-      builder: (context, state){
+    return BlocBuilder<CheckoutBloc, CheckoutState>(
+      builder: (context, state) {
+        if (state is CheckoutSuccess) {
+          _checkoutBloc.add(LoadCart());
+        }
         return Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -271,45 +269,53 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         color: Color.fromRGBO(54, 58, 155, 1),
-                        child:
-                        (state is CheckoutLoaded) ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.shopping_cart,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  state.menus.length.toString() + " Pesanan",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontFamily: 'CircularStd-Book'),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              "Rp "+ state.totalPrice.toString(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontFamily: 'CircularStd-Bold'),
-                            ),
-                          ],
-                        )
-                        : Text("Terjadi Kesalahan"),
+                        child: (state is CheckoutLoaded)
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.shopping_cart,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        state.menus.length.toString() +
+                                            " Pesanan",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontFamily: 'CircularStd-Book'),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "Rp " + state.totalPrice.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontFamily: 'CircularStd-Bold'),
+                                  ),
+                                ],
+                              )
+                            : Text("Terjadi Kesalahan"),
                         onPressed: () {
-                          (state is CheckoutLoaded) ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CartPage(menus: state.menus, totalPrice: state.totalPrice),
-                              )) : print("State bukan checkloaded");
-
+                          (state is CheckoutLoaded)
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CartPage(
+                                        menus: state.menus,
+                                        totalPrice: state.totalPrice),
+                                  )).then((value) {
+                                  _checkoutBloc.add(LoadCart());
+                                  _trscMenuBloc.add(FetchMenus());
+                                })
+                              : print("State bukan checkloaded");
                         },
                       ),
                     ),
@@ -327,10 +333,11 @@ class _TransaksiMenuState extends State<TransaksiMenu>
                       color: Colors.white,
                       onPressed: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RiwayatTransaksi(),
-                          ));},
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RiwayatTransaksi(),
+                            ));
+                      },
                     ),
                   ),
                 ],

@@ -70,7 +70,7 @@ class ListOrder{
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.listOrder != null) {
-      data['listOrder'] = this.listOrder.map((v) => v.toJson()).toList();
+      data['list_order'] = this.listOrder.map((v) => v.toJson()).toList();
     }
     return data;
   }
