@@ -75,8 +75,8 @@ class _KeranjangMenuState extends State<KeranjangMenu>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.dialpad, color: Colors.white, size: 18),
-                      SizedBox(width: 3),
+                      Icon(Icons.backspace, color: Colors.white, size: 18),
+                      SizedBox(width: 10),
                       Text(
                         "Bayar Nanti",
                         style: TextStyle(

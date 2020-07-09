@@ -1,3 +1,4 @@
+import 'package:apos/src/models/outletModels.dart';
 import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditKelolaOutlet extends StatefulWidget {
+  final Outlet value;
+  EditKelolaOutlet({Key key, this.value}) : super(key: key);
   @override
   _EditKelolaOutletState createState() => _EditKelolaOutletState();
 }
@@ -77,6 +80,18 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+              title: Text(
+                "Edit Outlet",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontFamily: 'CircularStd-Bold'),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+            ),
         body: Container(
       height: MediaQuery.of(context).size.height,
       child: Stack(
@@ -90,43 +105,44 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
                       color: Color.fromRGBO(234, 234, 234, 1),
                     ),
                     child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Belum ada foto",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontFamily: 'CircularStd-Bold'))),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.store,
+                              color: Colors.white,
+                              size: 80,
+                            )),
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 1.3,
                   )
                 : Container(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 1.3,
                     width: MediaQuery.of(context).size.width,
                     child: Image.file(
                       _image,
                       fit: BoxFit.cover,
                     )),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 10,
-            right: 40,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              child: FloatingActionButton(
-                backgroundColor: Color.fromRGBO(54, 58, 155, 1),
-                onPressed: () {
-                  _showAlertImage();
-                },
-                tooltip: 'Ambil Gambar',
-                child: Icon(Icons.camera_alt),
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(right: 35),
+                        height: MediaQuery.of(context).size.height / 6,
+                        child: FloatingActionButton(
+                          backgroundColor: Color.fromRGBO(54, 58, 155, 1),
+                          onPressed: () {
+                            _showAlertImage();
+                          },
+                          tooltip: 'Ambil Gambar',
+                          child: Icon(Icons.camera_alt),
+                        ),
+                      ),
+                    ]),
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -150,19 +166,13 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
                               vertical: 20.0, horizontal: 40),
                           child: Column(
                             children: <Widget>[
-                              Text("Detail Outlet",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36.0,
-                                      fontFamily: 'CircularStd-Bold')),
-                              SizedBox(height: 5),
                               // Nama Menu
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
+                                child: TextFormField(
+                                  initialValue: '${widget.value.name_outlet}',
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.store_mall_directory,
@@ -189,7 +199,8 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
+                                child: TextFormField(
+                                  initialValue: '${widget.value.address_outlet}',
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.add_location,
@@ -216,7 +227,8 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
+                                child: TextFormField(
+                                  initialValue: '${widget.value.phone_outlet}',
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.phone,
@@ -239,35 +251,8 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
                                 ),
                               ),
 
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.description,
-                                        color: Color.fromRGBO(179, 179, 183, 1),
-                                      ),
-                                      hintText: "Deskripsi Outlet",
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 179, 183, 1),
-                                          fontSize: 13.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 16.0)),
-                                ),
-                              ),
-
                               SizedBox(
-                                height: 10,
+                                height: 20,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width / 2,
@@ -287,7 +272,7 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(100.0))),
-                                    child: Text("Edit",
+                                    child: Text("Simpan",
                                         style: TextStyle(
                                           color: Colors.white,
                                         ))),
@@ -307,81 +292,6 @@ class _EditKelolaOutletState extends State<EditKelolaOutlet> {
     ));
   }
 
-  Widget getImage() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width / 1.4,
-                margin: EdgeInsets.fromLTRB(20, 20, 10, 20),
-                alignment: Alignment.center,
-                child: ButtonTheme(
-                  height: 50,
-                  padding: EdgeInsets.all(15),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.shopping_cart,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "2 pesanan",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Book'),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "Rp 10.000",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                        ]),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 7,
-                height: 50,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    borderRadius: BorderRadius.circular(19)),
-                child: IconButton(
-                  icon: Icon(Icons.view_list),
-                  iconSize: 25,
-                  color: Colors.white,
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class Category {

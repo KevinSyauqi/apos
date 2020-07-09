@@ -171,11 +171,11 @@ class _TambahKelolaPegawaiState extends State<TambahKelolaPegawai> {
                               ),
                               child: Align(
                                   alignment: Alignment.center,
-                                  child: Text("Belum ada foto",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0,
-                                          fontFamily: 'CircularStd-Bold'))),
+                                  child: Icon(
+                                    Icons.people,
+                                    color: Colors.white,
+                                    size: 80,
+                                  )),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height / 2,
                             )
@@ -187,27 +187,31 @@ class _TambahKelolaPegawaiState extends State<TambahKelolaPegawai> {
                                 fit: BoxFit.cover,
                               )),
                     ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height / 10,
-                      right: 40,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 2,
-                        child: FloatingActionButton(
-                          backgroundColor: Color.fromRGBO(54, 58, 155, 1),
-                          onPressed: () {
-                            _showAlertImage();
-                          },
-                          tooltip: 'Ambil Gambar',
-                          child: Icon(Icons.camera_alt),
-                        ),
-                      ),
-                    ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: ListView(
                         shrinkWrap: true,
                         children: <Widget>[
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(right: 35),
+                                  height:
+                                      MediaQuery.of(context).size.height / 6,
+                                  child: FloatingActionButton(
+                                    backgroundColor:
+                                        Color.fromRGBO(54, 58, 155, 1),
+                                    onPressed: () {
+                                      _showAlertImage();
+                                    },
+                                    tooltip: 'Ambil Gambar',
+                                    child: Icon(Icons.camera_alt),
+                                  ),
+                                ),
+                              ]),
                           Container(
+                            height: MediaQuery.of(context).size.height / 1.7,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(60.0),
@@ -338,6 +342,7 @@ class _TambahKelolaPegawaiState extends State<TambahKelolaPegawai> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           child: TextField(
+                                            obscureText: true,
                                             controller: passwordController,
                                             decoration: InputDecoration(
                                                 prefixIcon: Icon(

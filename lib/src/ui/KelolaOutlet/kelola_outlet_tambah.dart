@@ -18,7 +18,6 @@ class TambahOutletPage extends StatelessWidget {
   }
 }
 
-
 class TambahKelolaOutlet extends StatefulWidget {
   @override
   _TambahKelolaOutletState createState() => _TambahKelolaOutletState();
@@ -31,7 +30,6 @@ class _TambahKelolaOutletState extends State<TambahKelolaOutlet> {
   final nameoutletController = TextEditingController();
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
-
 
   Future getImageCamera() async {
     final image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -95,59 +93,75 @@ class _TambahKelolaOutletState extends State<TambahKelolaOutlet> {
 
   @override
   Widget build(BuildContext context) {
-    _onAddOutletFormButtonPressed(){
+    _onAddOutletFormButtonPressed() {
       BlocProvider.of<OutletBloc>(context).add(AddOutletForm(
-        name_outlet: nameoutletController.text,
-        address_outlet: addressController.text,
-        phone_outlet: phoneController.text
-      ));
+          name_outlet: nameoutletController.text,
+          address_outlet: addressController.text,
+          phone_outlet: phoneController.text));
     }
-    
-    return BlocBuilder<OutletBloc, OutletState>(
-      builder: (context, state){
-        if(state is AddOutletSuccess){
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            Navigator.pop(context);
-          });
-        }
-        return Scaffold(
-            body: ModalProgressHUD(
-              inAsyncCall: state is AddOutletLoading,
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: _image == null
-                          ? Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                        ),
-                        child: Align(
+
+    return BlocBuilder<OutletBloc, OutletState>(builder: (context, state) {
+      if (state is AddOutletSuccess) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          Navigator.pop(context);
+        });
+      }
+      return Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            title: Text(
+              "Tambah Outlet",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25.0,
+                  fontFamily: 'CircularStd-Bold'),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+          ),
+          body: ModalProgressHUD(
+            inAsyncCall: state is AddOutletLoading,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: _image == null
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(234, 234, 234, 1),
+                            ),
+                            child: Align(
                             alignment: Alignment.center,
-                            child: Text("Belum ada foto",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                    fontFamily: 'CircularStd-Bold'))),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height / 2,
-                      )
-                          : Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          width: MediaQuery.of(context).size.width,
-                          child: Image.file(
-                            _image,
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height / 10,
-                      right: 40,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 2,
+                            child: Icon(
+                              Icons.store,
+                              color: Colors.white,
+                              size: 80,
+                            )),
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height / 1.3,
+                          )
+                        : Container(
+                            height: MediaQuery.of(context).size.height / 1.3,
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.file(
+                              _image,
+                              fit: BoxFit.cover,
+                            )),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(right: 35),
+                        height: MediaQuery.of(context).size.height / 6,
                         child: FloatingActionButton(
                           backgroundColor: Color.fromRGBO(54, 58, 155, 1),
                           onPressed: () {
@@ -157,163 +171,172 @@ class _TambahKelolaOutletState extends State<TambahKelolaOutlet> {
                           child: Icon(Icons.camera_alt),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(60.0),
-                                  topRight: Radius.circular(60.0),
-                                ),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Color.fromRGBO(252, 195, 108, 1),
-                                      Color.fromRGBO(253, 166, 125, 1),
-                                    ])),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 40),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Text("Tambah Outlet",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 36.0,
-                                                fontFamily: 'CircularStd-Bold')),
-                                        SizedBox(height: 5),
-                                        // Nama Menu
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.all(Radius.circular(20))),
-                                          child: TextField(
-                                            controller: nameoutletController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.store_mall_directory,
-                                                  color: Color.fromRGBO(179, 179, 183, 1),
-                                                ),
-                                                hintText: "Nama Outlet",
-                                                hintStyle: TextStyle(
-                                                    color:
-                                                    Color.fromRGBO(179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0, vertical: 16.0)),
-                                          ),
+                    ]),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(60.0),
+                                topRight: Radius.circular(60.0),
+                              ),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color.fromRGBO(252, 195, 108, 1),
+                                    Color.fromRGBO(253, 166, 125, 1),
+                                  ])),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20.0, horizontal: 40),
+                                  child: Column(
+                                    children: <Widget>[
+                                      // Nama Menu
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: TextField(
+                                          controller: nameoutletController,
+                                          decoration: InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.store_mall_directory,
+                                                color: Color.fromRGBO(
+                                                    179, 179, 183, 1),
+                                              ),
+                                              hintText: "Nama Outlet",
+                                              hintStyle: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      179, 179, 183, 1),
+                                                  fontSize: 13.0,
+                                                  fontFamily:
+                                                      'CircularStd-Book'),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 16.0)),
                                         ),
+                                      ),
 
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.all(Radius.circular(20))),
-                                          child: TextField(
-                                            controller: addressController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.add_location,
-                                                  color: Color.fromRGBO(179, 179, 183, 1),
-                                                ),
-                                                hintText: "Alamat Outlet",
-                                                hintStyle: TextStyle(
-                                                    color:
-                                                    Color.fromRGBO(179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0, vertical: 16.0)),
-                                          ),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: TextField(
+                                          controller: addressController,
+                                          decoration: InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.add_location,
+                                                color: Color.fromRGBO(
+                                                    179, 179, 183, 1),
+                                              ),
+                                              hintText: "Alamat Outlet",
+                                              hintStyle: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      179, 179, 183, 1),
+                                                  fontSize: 13.0,
+                                                  fontFamily:
+                                                      'CircularStd-Book'),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 16.0)),
                                         ),
+                                      ),
 
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.all(Radius.circular(20))),
-                                          child: TextField(
-                                            controller: phoneController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.phone,
-                                                  color: Color.fromRGBO(179, 179, 183, 1),
-                                                ),
-                                                hintText: "No. Telepon",
-                                                hintStyle: TextStyle(
-                                                    color:
-                                                    Color.fromRGBO(179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0, vertical: 16.0)),
-                                          ),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        child: TextField(
+                                          controller: phoneController,
+                                          decoration: InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.phone,
+                                                color: Color.fromRGBO(
+                                                    179, 179, 183, 1),
+                                              ),
+                                              hintText: "No. Telepon",
+                                              hintStyle: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      179, 179, 183, 1),
+                                                  fontSize: 13.0,
+                                                  fontFamily:
+                                                      'CircularStd-Book'),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 16.0)),
                                         ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 2,
-                                          padding: EdgeInsets.only(top: 0, bottom: 0),
-                                          child: RaisedButton(
-                                              padding: EdgeInsets.symmetric(vertical: 18),
-                                              color: Color.fromRGBO(54, 58, 155, 1),
-                                              elevation: 5,
-                                              onPressed: () {
-                                                state is! AddOutletLoading ? _onAddOutletFormButtonPressed():null;
-                                              },
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(100.0))),
-                                              child: Text("Tambah",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ))),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        padding:
+                                            EdgeInsets.only(top: 0, bottom: 0),
+                                        child: RaisedButton(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 18),
+                                            color:
+                                                Color.fromRGBO(54, 58, 155, 1),
+                                            elevation: 5,
+                                            onPressed: () {
+                                              state is! AddOutletLoading
+                                                  ? _onAddOutletFormButtonPressed()
+                                                  : null;
+                                            },
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(100.0))),
+                                            child: Text("Tambah",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ))),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ));
-      }
-    );
+            ),
+          ));
+    });
   }
 
   Widget getImage() {

@@ -1,3 +1,5 @@
+import 'package:apos/src/models/pegawaiModels.dart';
+import 'package:apos/src/models/userModels.dart';
 import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -6,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditKelolaPegawai extends StatefulWidget {
+  final Pegawai value;
+  final User valueUser;
+  EditKelolaPegawai({Key key, this.value, this.valueUser}) : super(key: key);
   @override
   _EditKelolaPegawaiState createState() => _EditKelolaPegawaiState();
 }
@@ -13,6 +18,19 @@ class EditKelolaPegawai extends StatefulWidget {
 class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
   File _image;
   final picker = ImagePicker();
+  Role selectedRole;
+  List<Role> role = [Role("Supervisor"), Role("Operator")];
+
+  List<DropdownMenuItem> generateItemsRole(List<Role> role) {
+    List<DropdownMenuItem> items = [];
+    for (var item in role) {
+      items.add(DropdownMenuItem(
+        child: Text(item.name),
+        value: item,
+      ));
+    }
+    return items;
+  }
 
   Future getImageCamera() async {
     final image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -77,6 +95,18 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+              title: Text(
+                "Edit Pegawai",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontFamily: 'CircularStd-Bold'),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+            ),
         body: Container(
       height: MediaQuery.of(context).size.height,
       child: Stack(
@@ -90,12 +120,12 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                       color: Color.fromRGBO(234, 234, 234, 1),
                     ),
                     child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Belum ada foto",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontFamily: 'CircularStd-Bold'))),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.people,
+                              color: Colors.white,
+                              size: 80,
+                            )),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 2,
                   )
@@ -107,27 +137,29 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                       fit: BoxFit.cover,
                     )),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 10,
-            right: 40,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              child: FloatingActionButton(
-                backgroundColor: Color.fromRGBO(54, 58, 155, 1),
-                onPressed: () {
-                  _showAlertImage();
-                },
-                tooltip: 'Ambil Gambar',
-                child: Icon(Icons.camera_alt),
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(right: 35),
+                        height: MediaQuery.of(context).size.height / 6,
+                        child: FloatingActionButton(
+                          backgroundColor: Color.fromRGBO(54, 58, 155, 1),
+                          onPressed: () {
+                            _showAlertImage();
+                          },
+                          tooltip: 'Ambil Gambar',
+                          child: Icon(Icons.camera_alt),
+                        ),
+                      ),
+                    ]),
                 Container(
+                  height: MediaQuery.of(context).size.height / 1.7,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60.0),
@@ -141,8 +173,7 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                             Color.fromRGBO(253, 166, 125, 1),
                           ])),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Center(
                         child: Padding(
@@ -150,25 +181,20 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                               vertical: 20.0, horizontal: 40),
                           child: Column(
                             children: <Widget>[
-                              Text("Detail Outlet",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36.0,
-                                      fontFamily: 'CircularStd-Bold')),
-                              SizedBox(height: 5),
-                              // Nama Menu
+                              // Nama Pegawai
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
+                                child: TextFormField(
+                                      initialValue:
+                                          '${widget.value.name_user}',
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(
-                                        Icons.store_mall_directory,
+                                        Icons.people,
                                         color: Color.fromRGBO(179, 179, 183, 1),
                                       ),
-                                      hintText: "Nama Outlet",
+                                      hintText: "Nama Pegawai",
                                       hintStyle: TextStyle(
                                           color:
                                               Color.fromRGBO(179, 179, 183, 1),
@@ -184,18 +210,20 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                                           horizontal: 20.0, vertical: 16.0)),
                                 ),
                               ),
-
+                              //Username
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
+                                child: TextFormField(
+                                      // initialValue:
+                                      //     '${widget.value.name_user}',
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(
-                                        Icons.add_location,
+                                        Icons.contacts,
                                         color: Color.fromRGBO(179, 179, 183, 1),
                                       ),
-                                      hintText: "Alamat Outlet",
+                                      hintText: "Username Pegawai",
                                       hintStyle: TextStyle(
                                           color:
                                               Color.fromRGBO(179, 179, 183, 1),
@@ -211,18 +239,74 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                                           horizontal: 20.0, vertical: 16.0)),
                                 ),
                               ),
-
+                              //Email
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
+                                child: TextFormField(
+                                      // initialValue:
+                                      //     '${widget.value.}',
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.email,
+                                        color: Color.fromRGBO(179, 179, 183, 1),
+                                      ),
+                                      hintText: "Email Pegawai",
+                                      hintStyle: TextStyle(
+                                          color:
+                                              Color.fromRGBO(179, 179, 183, 1),
+                                          fontSize: 13.0,
+                                          fontFamily: 'CircularStd-Book'),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20))),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.0, vertical: 16.0)),
+                                ),
+                              ),
+                              //Password
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: Color.fromRGBO(179, 179, 183, 1),
+                                      ),
+                                      hintText: "Password Pegawai",
+                                      hintStyle: TextStyle(
+                                          color:
+                                              Color.fromRGBO(179, 179, 183, 1),
+                                          fontSize: 13.0,
+                                          fontFamily: 'CircularStd-Book'),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20))),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20.0, vertical: 16.0)),
+                                ),
+                              ),
+                              //Username
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: TextFormField(
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.phone,
                                         color: Color.fromRGBO(179, 179, 183, 1),
                                       ),
-                                      hintText: "No. Telepon",
+                                      hintText: "No Telepon Pegawai",
                                       hintStyle: TextStyle(
                                           color:
                                               Color.fromRGBO(179, 179, 183, 1),
@@ -238,31 +322,38 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
                                           horizontal: 20.0, vertical: 16.0)),
                                 ),
                               ),
-
+                              //Role
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.description,
-                                        color: Color.fromRGBO(179, 179, 183, 1),
-                                      ),
-                                      hintText: "Deskripsi Outlet",
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 3, horizontal: 20),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 50,
+                                  child: DropdownButtonFormField(
+                                    decoration: InputDecoration.collapsed(
+                                      hintText: 'Role Jabatan',
                                       hintStyle: TextStyle(
                                           color:
                                               Color.fromRGBO(179, 179, 183, 1),
                                           fontSize: 13.0,
                                           fontFamily: 'CircularStd-Book'),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 16.0)),
+                                    ),
+                                    isExpanded: true,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 13.0,
+                                        fontFamily: 'CircularStd-Book'),
+                                    value: selectedRole,
+                                    items: generateItemsRole(role),
+                                    onChanged: (item) {
+                                      setState(() {
+                                        selectedRole = item;
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
 
@@ -384,7 +475,7 @@ class _EditKelolaPegawaiState extends State<EditKelolaPegawai> {
   }
 }
 
-class Category {
+class Role {
   String name;
-  Category(this.name);
+  Role(this.name);
 }

@@ -1,3 +1,4 @@
+import 'package:apos/src/models/menuModels.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -6,15 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditKelolaMenu extends StatefulWidget {
+  final Menu value;
+  EditKelolaMenu({Key key, this.value}) : super(key: key);
   @override
   _EditKelolaMenuState createState() => _EditKelolaMenuState();
 }
 
 class _EditKelolaMenuState extends State<EditKelolaMenu> {
+  bool isStock = false;
   File _image;
   final picker = ImagePicker();
   Category selectedCategory;
   List<Category> category = [Category("Makanan"), Category("Minuman")];
+  Widget stockForm = Card();
 
   List<DropdownMenuItem> generateItems(List<Category> category) {
     List<DropdownMenuItem> items = [];
@@ -90,342 +95,372 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          title: Text(
+            "Edit Menu",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 25.0,
+                fontFamily: 'CircularStd-Bold'),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
         body: Container(
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: _image == null
-                ? Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(234, 234, 234, 1),
-                    ),
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Belum ada foto",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontFamily: 'CircularStd-Bold'))),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 2,
-                  )
-                : Container(
-                    height: MediaQuery.of(context).size.height / 2,
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.file(
-                      _image,
-                      fit: BoxFit.cover,
-                    )),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height / 10,
-            right: 40,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              child: FloatingActionButton(
-                backgroundColor: Color.fromRGBO(54, 58, 155, 1),
-                onPressed: () {
-                  _showAlertImage();
-                },
-                tooltip: 'Ambil Gambar',
-                child: Icon(Icons.camera_alt),
-              ),
-            ),
-          ),
-          Align(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
             alignment: Alignment.bottomCenter,
-            child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60.0),
-                        topRight: Radius.circular(60.0),
-                      ),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromRGBO(252, 195, 108, 1),
-                            Color.fromRGBO(253, 166, 125, 1),
-                          ])),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 40),
-                          child: Column(
-                            children: <Widget>[
-                              Text("Detail Menu",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36.0,
-                                      fontFamily: 'CircularStd-Bold')),
-                              SizedBox(height: 10),
-                              // Nama Menu
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.fastfood,
-                                        color: Color.fromRGBO(179, 179, 183, 1),
-                                      ),
-                                      hintText: "Nama Menu",
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 179, 183, 1),
-                                          fontSize: 13.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 16.0)),
-                                ),
-                              ),
-                              // Harga Menu
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.account_balance_wallet,
-                                        color: Color.fromRGBO(179, 179, 183, 1),
-                                      ),
-                                      hintText: "Harga Menu",
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 179, 183, 1),
-                                          fontSize: 13.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 16.0)),
-                                ),
-                              ),
-                              // Kategori Menu
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 3, horizontal: 20),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 50,
-                                  child: DropdownButtonFormField(
-                                    decoration: InputDecoration.collapsed(
-                                      hintText: 'Kategori Menu',
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 179, 183, 1),
-                                          fontSize: 13.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                    ),
-                                    isExpanded: true,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 13.0,
-                                        fontFamily: 'CircularStd-Book'),
-                                    value: selectedCategory,
-                                    items: generateItems(category),
-                                    onChanged: (item) {
-                                      setState(() {
-                                        selectedCategory = item;
-                                      });
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topCenter,
+                child: _image == null
+                    ? Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(234, 234, 234, 1),
+                        ),
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.fastfood,
+                              color: Colors.white,
+                              size: 80,
+                            )),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 2.1,
+                      )
+                    : Container(
+                        height: MediaQuery.of(context).size.height / 2.1,
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.file(
+                          _image,
+                          fit: BoxFit.cover,
+                        )),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(right: 35),
+                                  height:
+                                      MediaQuery.of(context).size.height / 6,
+                                  child: FloatingActionButton(
+                                    backgroundColor:
+                                        Color.fromRGBO(54, 58, 155, 1),
+                                    onPressed: () {
+                                      _showAlertImage();
                                     },
+                                    tooltip: 'Ambil Gambar',
+                                    child: Icon(Icons.camera_alt),
                                   ),
                                 ),
-                              ),
-                              // Deskripsi Menu
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.description,
-                                        color: Color.fromRGBO(179, 179, 183, 1),
-                                      ),
-                                      hintText: "Deskripsi Menu",
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 179, 183, 1),
-                                          fontSize: 13.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 16.0)),
-                                ),
-                              ),
-                              // Stok Menu
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        Icons.card_giftcard,
-                                        color: Color.fromRGBO(179, 179, 183, 1),
-                                      ),
-                                      hintText: "Stok Menu",
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(179, 179, 183, 1),
-                                          fontSize: 13.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 20.0, vertical: 16.0)),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 2,
-                                padding: EdgeInsets.only(top: 5, bottom: 15),
-                                child: RaisedButton(
-                                    padding: EdgeInsets.symmetric(vertical: 18),
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    elevation: 5,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => KelolaMenu()),
-                                      );
-                                    },
+                              ]),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(60.0),
+                            topRight: Radius.circular(60.0),
+                          ),
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.fromRGBO(252, 195, 108, 1),
+                                Color.fromRGBO(253, 166, 125, 1),
+                              ])),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 30.0, horizontal: 40),
+                              child: Column(
+                                children: <Widget>[
+                                  // Nama Menu
+                                  Card(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(100.0))),
-                                    child: Text("Simpan",
+                                            Radius.circular(20))),
+                                    child: TextFormField(
+                                      initialValue: '${widget.value.name_menu}',
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.fastfood,
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
+                                          ),
+                                          hintText: "Nama Menu",
+                                          hintStyle: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
+                                              fontSize: 13.0,
+                                              fontFamily: 'CircularStd-Book'),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
+                                    ),
+                                  ),
+                                  // Harga Menu
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: TextFormField(
+                                      initialValue: '${widget.value.price}',
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.account_balance_wallet,
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
+                                          ),
+                                          hintText: "Harga Menu",
+                                          hintStyle: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
+                                              fontSize: 13.0,
+                                              fontFamily: 'CircularStd-Book'),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
+                                    ),
+                                  ),
+                                  // Harga Dasar
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: TextFormField(
+                                      initialValue: '${widget.value.cog}',
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.account_balance_wallet,
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
+                                          ),
+                                          hintText:
+                                              "Harga Dasar (Tidak Wajib Diisi)",
+                                          hintStyle: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
+                                              fontSize: 13.0,
+                                              fontFamily: 'CircularStd-Book'),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
+                                    ),
+                                  ),
+                                  // Kategori Menu
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 3, horizontal: 20),
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 50,
+                                      child: DropdownButtonFormField(
+                                        decoration: InputDecoration.collapsed(
+                                          hintText: 'Kategori Menu',
+                                          hintStyle: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
+                                              fontSize: 13.0,
+                                              fontFamily: 'CircularStd-Book'),
+                                        ),
+                                        isExpanded: true,
                                         style: TextStyle(
-                                          color: Colors.white,
-                                        ))),
+                                            color: Colors.black,
+                                            fontSize: 13.0,
+                                            fontFamily: 'CircularStd-Book'),
+                                        value: selectedCategory,
+                                        items: generateItems(category),
+                                        onChanged: (item) {
+                                          setState(() {
+                                            selectedCategory = item;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  // Deskripsi Menu
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: TextFormField(
+                                      initialValue:
+                                          '${widget.value.description}',
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.description,
+                                            color: Color.fromRGBO(
+                                                179, 179, 183, 1),
+                                          ),
+                                          hintText: "Deskripsi Menu",
+                                          hintStyle: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  179, 179, 183, 1),
+                                              fontSize: 13.0,
+                                              fontFamily: 'CircularStd-Book'),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 20.0,
+                                              vertical: 16.0)),
+                                    ),
+                                  ),
+                                  //Switch Stok
+                                  Container(
+                                    child: Row(children: <Widget>[
+                                      Text(
+                                        "Aktifkan Stok Menu",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.0,
+                                            fontFamily: 'CircularStd-Bold'),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Transform.scale(
+                                        scale: 0.8,
+                                        child: CupertinoSwitch(
+                                            activeColor: Colors.white,
+                                            value: isStock,
+                                            onChanged: (newValue) {
+                                              isStock = newValue;
+                                              setState(() {
+                                                if (isStock)
+                                                  stockForm = Card(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20))),
+                                                    child: TextField(
+                                                      decoration:
+                                                          InputDecoration(
+                                                              prefixIcon: Icon(
+                                                                Icons
+                                                                    .card_giftcard,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        179,
+                                                                        179,
+                                                                        183,
+                                                                        1),
+                                                              ),
+                                                              hintText:
+                                                                  "Stok Menu",
+                                                              hintStyle: TextStyle(
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          179,
+                                                                          179,
+                                                                          183,
+                                                                          1),
+                                                                  fontSize:
+                                                                      13.0,
+                                                                  fontFamily:
+                                                                      'CircularStd-Book'),
+                                                              filled: true,
+                                                              fillColor:
+                                                                  Colors.white,
+                                                              border: OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide
+                                                                          .none,
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              20))),
+                                                              contentPadding:
+                                                                  EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          20.0,
+                                                                      vertical:
+                                                                          16.0)),
+                                                    ),
+                                                  );
+                                                else {
+                                                  stockForm = Card();
+                                                }
+                                              });
+                                            }),
+                                      ),
+                                      SizedBox(width: 10),
+                                      // stockForm,
+                                    ]),
+                                  ),
+                                  // Stok Menu
+                                  AnimatedSwitcher(
+                                      child: stockForm,
+                                      duration: Duration(seconds: 2)),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2,
+                                    padding:
+                                        EdgeInsets.only(top: 5, bottom: 15),
+                                    child: RaisedButton(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 18),
+                                        color: Color.fromRGBO(54, 58, 155, 1),
+                                        elevation: 5,
+                                        onPressed: () async {
+                                          // state is! MenuAddLoading ? await _onAddMenuFormPressed():null;
+                                        },
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(100.0))),
+                                        child: Text("Simpan",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ))),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ));
-  }
-
-  Widget getImage() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width / 1.4,
-                margin: EdgeInsets.fromLTRB(20, 20, 10, 20),
-                alignment: Alignment.center,
-                child: ButtonTheme(
-                  height: 50,
-                  padding: EdgeInsets.all(15),
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.shopping_cart,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "2 pesanan",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Book'),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "Rp 10.000",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                        ]),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 7,
-                height: 50,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    borderRadius: BorderRadius.circular(19)),
-                child: IconButton(
-                  icon: Icon(Icons.view_list),
-                  iconSize: 25,
-                  color: Colors.white,
-                  onPressed: () {},
+                  ],
                 ),
               ),
             ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
 

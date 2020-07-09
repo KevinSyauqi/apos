@@ -77,11 +77,18 @@ class _MenuMakanState extends State<MenuMakan> {
                                     color: Colors.black,
                                     fontSize: 15.0,
                                     fontFamily: 'CircularStd-Bold')),
-                            Text(menu.price.toString(),
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Book')),
+                            Row(children: <Widget>[
+                              Text("Rp ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Book')),
+                              Text(menu.price.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Book')),
+                            ])
                           ],
                         ),
                       ),

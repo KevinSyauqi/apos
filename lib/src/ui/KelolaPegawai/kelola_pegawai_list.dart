@@ -2,6 +2,7 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/pegawai/pegawai_state.dart';
 import 'package:apos/src/models/pegawaiModels.dart';
+import 'package:apos/src/models/userModels.dart';
 import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,6 +91,7 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
         itemCount: listPegawai.length,
         itemBuilder: (BuildContext context, int index){
           Pegawai pegawai = listPegawai[index];
+          User user;
           return Container(
            decoration: BoxDecoration(
              border: Border(
@@ -153,7 +155,7 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
                              Navigator.push(
                                context,
                                MaterialPageRoute(
-                                   builder: (context) => EditKelolaPegawai()),
+                                   builder: (context) => EditKelolaPegawai(value: pegawai, valueUser: user,)),
                              );
                            },
                          ),

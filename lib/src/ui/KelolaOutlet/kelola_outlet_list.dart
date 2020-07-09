@@ -154,7 +154,7 @@ class _KelolaListOutletState extends State<KelolaListOutlet> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => EditKelolaOutlet()),
+                                    builder: (context) => EditKelolaOutlet(value:outlet)),
                               );
                             },
                           ),

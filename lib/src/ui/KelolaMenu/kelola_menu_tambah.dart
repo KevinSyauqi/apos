@@ -17,7 +17,6 @@ class TambahMenuPage extends StatelessWidget {
   }
 }
 
-
 class TambahKelolaMenu extends StatefulWidget {
   @override
   _TambahKelolaMenuState createState() => _TambahKelolaMenuState();
@@ -120,28 +119,27 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
 
   @override
   Widget build(BuildContext context) {
-    _onAddMenuFormPressed(){
-      if(cogController.text == ""){
+    _onAddMenuFormPressed() {
+      if (cogController.text == "") {
         cogController.text = '0';
       }
-      if(isStock == false){
+      if (isStock == false) {
         stockController.text = '0';
       }
 
       BlocProvider.of<MenuBloc>(context).add(AddMenuButtonFormPressed(
-        name_menu: namemenuController.text,
-        category: selectedCategory.name,
-        description: descriptionController.text,
-        price: priceController.text,
-        cog: cogController.text,
-        is_stock: isStock,
-        stock: stockController.text
-      ));
+          name_menu: namemenuController.text,
+          category: selectedCategory.name,
+          description: descriptionController.text,
+          price: priceController.text,
+          cog: cogController.text,
+          is_stock: isStock,
+          stock: stockController.text));
     }
 
     return BlocBuilder<MenuBloc, MenuState>(
-      builder: (context, state){
-        if(state is MenuAddSuccess){
+      builder: (context, state) {
+        if (state is MenuAddSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             Navigator.pop(context);
           });
@@ -169,47 +167,50 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                       alignment: Alignment.topCenter,
                       child: _image == null
                           ? Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                        ),
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: Text("Belum ada foto",
-                                style: TextStyle(
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(234, 234, 234, 1),
+                              ),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.fastfood,
                                     color: Colors.white,
-                                    fontSize: 20.0,
-                                    fontFamily: 'CircularStd-Bold'))),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height / 1.9,
-                      )
+                                    size: 80,
+                                  )),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 2.2,
+                            )
                           : Container(
-                          height: MediaQuery.of(context).size.height / 1.9,
-                          width: MediaQuery.of(context).size.width,
-                          child: Image.file(
-                            _image,
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height / 8,
-                      right: 40,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 2,
-                        child: FloatingActionButton(
-                          backgroundColor: Color.fromRGBO(54, 58, 155, 1),
-                          tooltip: 'Ambil Gambar',
-                          child: Icon(Icons.camera_alt),
-                          onPressed: () {
-                            _showAlertImage();
-                          },
-                        ),
-                      ),
+                              height: MediaQuery.of(context).size.height /2.2,
+                              width: MediaQuery.of(context).size.width,
+                              child: Image.file(
+                                _image,
+                                fit: BoxFit.cover,
+                              )),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: ListView(
                         shrinkWrap: true,
                         children: <Widget>[
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(right: 35),
+                                  height:
+                                      MediaQuery.of(context).size.height / 6,
+                                  child: FloatingActionButton(
+                                    backgroundColor:
+                                        Color.fromRGBO(54, 58, 155, 1),
+                                    onPressed: () {
+                                      _showAlertImage();
+                                    },
+                                    tooltip: 'Ambil Gambar',
+                                    child: Icon(Icons.camera_alt),
+                                  ),
+                                ),
+                              ]),
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -251,16 +252,20 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
                                                     fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0,
-                                                    vertical: 16.0)),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 20.0,
+                                                        vertical: 16.0)),
                                           ),
                                         ),
                                         // Harga Menu
@@ -281,16 +286,20 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
                                                     fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0,
-                                                    vertical: 16.0)),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 20.0,
+                                                        vertical: 16.0)),
                                           ),
                                         ),
                                         // Harga Dasar
@@ -306,21 +315,26 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                   color: Color.fromRGBO(
                                                       179, 179, 183, 1),
                                                 ),
-                                                hintText: "Harga Dasar (Tidak Wajib Diisi)",
+                                                hintText:
+                                                    "Harga Dasar (Tidak Wajib Diisi)",
                                                 hintStyle: TextStyle(
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
                                                     fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0,
-                                                    vertical: 16.0)),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 20.0,
+                                                        vertical: 16.0)),
                                           ),
                                         ),
                                         // Kategori Menu
@@ -331,22 +345,27 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 3, horizontal: 20),
-                                            width: MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                             height: 50,
                                             child: DropdownButtonFormField(
-                                              decoration: InputDecoration.collapsed(
+                                              decoration:
+                                                  InputDecoration.collapsed(
                                                 hintText: 'Kategori Menu',
                                                 hintStyle: TextStyle(
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
                                                     fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
                                               ),
                                               isExpanded: true,
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 13.0,
-                                                  fontFamily: 'CircularStd-Book'),
+                                                  fontFamily:
+                                                      'CircularStd-Book'),
                                               value: selectedCategory,
                                               items: generateItems(category),
                                               onChanged: (item) {
@@ -375,16 +394,20 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
                                                     fontSize: 13.0,
-                                                    fontFamily: 'CircularStd-Book'),
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide.none,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(20))),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0,
-                                                    vertical: 16.0)),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                20))),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 20.0,
+                                                        vertical: 16.0)),
                                           ),
                                         ),
                                         //Switch Stok
@@ -395,7 +418,8 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 15.0,
-                                                  fontFamily: 'CircularStd-Bold'),
+                                                  fontFamily:
+                                                      'CircularStd-Bold'),
                                             ),
                                             SizedBox(width: 10),
                                             Transform.scale(
@@ -409,54 +433,52 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                       if (isStock)
                                                         stockForm = Card(
                                                           shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      20))),
+                                                              borderRadius: BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          20))),
                                                           child: TextField(
-                                                            controller: stockController,
+                                                            controller:
+                                                                stockController,
                                                             decoration:
-                                                            InputDecoration(
-                                                                prefixIcon: Icon(
-                                                                  Icons
-                                                                      .card_giftcard,
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                      179,
-                                                                      179,
-                                                                      183,
-                                                                      1),
-                                                                ),
-                                                                hintText:
-                                                                "Stok Menu",
-                                                                hintStyle: TextStyle(
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                        179,
-                                                                        179,
-                                                                        183,
-                                                                        1),
-                                                                    fontSize:
-                                                                    13.0,
-                                                                    fontFamily:
-                                                                    'CircularStd-Book'),
-                                                                filled: true,
-                                                                fillColor:
-                                                                Colors.white,
-                                                                border: OutlineInputBorder(
-                                                                    borderSide:
-                                                                    BorderSide
-                                                                        .none,
-                                                                    borderRadius:
-                                                                    BorderRadius.all(
-                                                                        Radius.circular(
+                                                                InputDecoration(
+                                                                    prefixIcon:
+                                                                        Icon(
+                                                                      Icons
+                                                                          .card_giftcard,
+                                                                      color: Color.fromRGBO(
+                                                                          179,
+                                                                          179,
+                                                                          183,
+                                                                          1),
+                                                                    ),
+                                                                    hintText:
+                                                                        "Stok Menu",
+                                                                    hintStyle: TextStyle(
+                                                                        color: Color.fromRGBO(
+                                                                            179,
+                                                                            179,
+                                                                            183,
+                                                                            1),
+                                                                        fontSize:
+                                                                            13.0,
+                                                                        fontFamily:
+                                                                            'CircularStd-Book'),
+                                                                    filled:
+                                                                        true,
+                                                                    fillColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    border: OutlineInputBorder(
+                                                                        borderSide: BorderSide
+                                                                            .none,
+                                                                        borderRadius: BorderRadius.all(Radius.circular(
                                                                             20))),
-                                                                contentPadding:
-                                                                EdgeInsets.symmetric(
-                                                                    horizontal:
-                                                                    20.0,
-                                                                    vertical:
-                                                                    16.0)),
+                                                                    contentPadding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            20.0,
+                                                                        vertical:
+                                                                            16.0)),
                                                           ),
                                                         );
                                                       else {
@@ -477,21 +499,28 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                           height: 20,
                                         ),
                                         Container(
-                                          width:
-                                          MediaQuery.of(context).size.width / 2,
-                                          padding:
-                                          EdgeInsets.only(top: 5, bottom: 15),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          padding: EdgeInsets.only(
+                                              top: 5, bottom: 15),
                                           child: RaisedButton(
-                                              padding:
-                                              EdgeInsets.symmetric(vertical: 18),
-                                              color: Color.fromRGBO(54, 58, 155, 1),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 18),
+                                              color: Color.fromRGBO(
+                                                  54, 58, 155, 1),
                                               elevation: 5,
                                               onPressed: () async {
-                                                state is! MenuAddLoading ? await _onAddMenuFormPressed():null;
+                                                state is! MenuAddLoading
+                                                    ? await _onAddMenuFormPressed()
+                                                    : null;
                                               },
                                               shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(100.0))),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              100.0))),
                                               child: Text("Tambah",
                                                   style: TextStyle(
                                                     color: Colors.white,
