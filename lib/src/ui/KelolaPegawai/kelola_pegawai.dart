@@ -3,8 +3,6 @@ import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai_list.dart';
 import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai_tambah.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:apos/src/ui/Transaksi/transaksi_menu_makanan.dart' as makan;
-import 'package:apos/src/ui/Transaksi/transaksi_menu_minuman.dart' as minum;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class KelolaPegawaiPage extends StatelessWidget {

@@ -13,8 +13,12 @@ class TrscMenuLoading extends TransactionMenuState {}
 class TrscMenuError extends TransactionMenuState {}
 
 class TrscMenuLoaded extends TransactionMenuState {
-  List<Menu> menus;
-  TrscMenuLoaded({this.menus});
+  final List<Menu> foods;
+  final List<Menu> drinks;
+  final List<int> foodMenuCounter;
+  final List<int> drinkMenuCounter;
+
+  TrscMenuLoaded({this.foods, this.drinks, this.foodMenuCounter, this.drinkMenuCounter});
 }
 
 class TrscError extends TransactionMenuState{}

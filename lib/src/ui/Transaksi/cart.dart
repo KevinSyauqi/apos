@@ -185,7 +185,7 @@ class _KeranjangMenuState extends State<KeranjangMenu>
               builder: (context, state) {
             if (state is CheckoutSuccess) {
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                Navigator.pop(context);
+                Navigator.pop(context, "Success");
               });
             }
             if (state is CheckoutError) {

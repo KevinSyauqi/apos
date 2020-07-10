@@ -15,17 +15,28 @@ class TransactionMenuBloc extends Bloc<TransactionMenuEvent, TransactionMenuStat
   Stream<TransactionMenuState> mapEventToState(
     TransactionMenuEvent event,
   ) async* {
-    List<Menu> menus;
-    List orderCount;
     try {
       if (event is FetchMenus) {
         yield TrscMenuLoading();
+        List<Menu> menus;
         menus = await _transactionRepository
             .fetchMenus("4069798d529343d59da680b1336d7dd6");
         if (menus.length == 0) {
           yield TrscMenuEmpty();
         } else {
-          yield TrscMenuLoaded(menus: menus);
+          List<Menu> foods = List<Menu>();
+          List<Menu> drinks = List<Menu>();
+
+          menus.forEach((menu) {
+            if (menu.category == "food") foods.add(menu);
+            else drinks.add(menu);
+          });
+
+          print(foods.length);
+          print(drinks.length);
+          yield TrscMenuLoaded(foods: foods, drinks: drinks,
+              foodMenuCounter: new List(foods.length),
+              drinkMenuCounter: new List(drinks.length));
         }
       }
       if(event is OrderMenuIncrement){
