@@ -74,6 +74,4 @@ class ListOrder{
     }
     return data;
   }
-
-
 }

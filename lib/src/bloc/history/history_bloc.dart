@@ -1,20 +1,35 @@
 import 'dart:async';
-import 'package:apos/src/bloc/history/history_event.dart';
-import 'package:apos/src/bloc/history/history_state.dart';
-import 'package:bloc/bloc.dart';
-import '../bloc.dart';
+import 'package:apos/src/models/models.dart';
+import 'package:apos/src/resources/historyRepository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:apos/src/bloc/bloc.dart';
 
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState>{
-  @override
-  // TODO: implement initialState
-  HistoryState get initialState => throw UnimplementedError();
+  final HistoryRepository _historyRepository= new HistoryRepository();
 
   @override
-  Stream<HistoryState> mapEventToState(HistoryEvent event) {
-    // TODO: implement mapEventToState
-    throw UnimplementedError();
+  HistoryState get initialState => HistoryInitial();
+
+  @override
+  Stream<HistoryState> mapEventToState(HistoryEvent event) async*{
+   try{
+     if(event is FetchSales){
+       yield HistoryLoading();
+       List<Sales> listSales;
+
+       listSales = await _historyRepository
+          .getAllOutletSales("4069798d529343d59da680b1336d7dd6");
+       if (listSales.length == 0) {
+         yield HistoryEmpty();
+       } else {
+         yield HistoryLoaded(listSales: listSales);
+       }
+     }
+   }catch(e){
+     print(e);
+     yield HistoryFailure();
+   }
   }
-
 }
 

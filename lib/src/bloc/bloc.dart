@@ -33,3 +33,7 @@ export 'transaction/transaction_menu_state.dart';
 export 'checkout/checkout_bloc.dart';
 export 'checkout/checkout_event.dart';
 export 'checkout/checkout_state.dart';
+
+export 'history/history_bloc.dart';
+export 'history/history_event.dart';
+export 'history/history_state.dart';

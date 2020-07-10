@@ -6,6 +6,7 @@ class Sales{
   int _tax;
   String _customer_name;
   bool _is_paid;
+  DateTime _date_created;
 
 
   Sales(this._id_outlet, this._id_employee, this._total_price, this._tax,
@@ -14,6 +15,8 @@ class Sales{
   String get id_sales => _id_sales;
 
   String get id_outlet => _id_outlet;
+
+  DateTime get date_created => _date_created;
 
   set id_outlet(String value) {
     _id_outlet = value;
@@ -57,6 +60,8 @@ class Sales{
     _tax = json["tax"];
     _customer_name = json["customer_name"];
     _is_paid = json["is_paid"];
+    _date_created = DateTime.parse(json["created_at"]);
+    print("Masuk from json");
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +73,30 @@ class Sales{
     data['tax'] = this._tax;
     data['customer_name'] = this._customer_name;
     data['is_paid'] = this._is_paid;
+    data['created_at'] = this._date_created;
+    return data;
+  }
+}
+
+class ListSales{
+  List<Sales> listSales;
+
+  ListSales(this.listSales);
+
+  ListSales.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      listSales = new List<Sales>();
+      json['data'].forEach((v) {
+        listSales.add(new Sales.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.listSales != null) {
+      data['list_sales'] = this.listSales.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
