@@ -27,7 +27,10 @@ class _KelolaListOutletState extends State<KelolaListOutlet> {
                 final outlets = outletListLoaded.outlets;
                 return buildOutletList(outlets);
               }
-              return Center(child: CircularProgressIndicator());
+              if(state is OutletEmpty){
+                return Center(child: Text("Belum ada outlet nih"));
+              }
+              return Center(child: Text(""));
             }));
   }
 

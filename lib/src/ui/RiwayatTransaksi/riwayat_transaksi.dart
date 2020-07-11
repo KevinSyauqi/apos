@@ -270,9 +270,9 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Text("TrscNo #" +
+                                                Text("No#" +
                                                     sale.id_sales.substring(
-                                                        0, 5),
+                                                        6, 18),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,

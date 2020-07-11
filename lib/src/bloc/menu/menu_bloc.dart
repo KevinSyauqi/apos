@@ -16,11 +16,19 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       if (event is FetchingAllMenu) {
         yield MenuLoading();
         menus = await _menuRepository
-            .fetchAllMenuOutlet("4069798d529343d59da680b1336d7dd6");
+            .fetchAllMenuOutlet("OS2000201");
         if (menus.length == 0) {
           yield MenuEmpty();
         } else {
-          yield MenuLoaded(menus: menus);
+          List<Menu> foods = List();
+          List<Menu> drinks = List();
+
+          menus.forEach((menu) {
+            if (menu.category == "food") foods.add(menu);
+            else drinks.add(menu);
+          });
+
+          yield MenuLoaded(foods: foods, drinks: drinks);
         }
       }
       if (event is AddMenuButtonPressed) {

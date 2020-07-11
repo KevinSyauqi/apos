@@ -21,7 +21,6 @@ class KelolaPegawai extends StatefulWidget {
 }
 
 class _KelolaPegawaiState extends State<KelolaPegawai> {
-  TabController controller;
   PegawaiBloc _pegawaiBloc;
 
   @override
@@ -34,7 +33,6 @@ class _KelolaPegawaiState extends State<KelolaPegawai> {
   @override
   void dispose() {
     _pegawaiBloc.close();
-    controller.dispose();
     super.dispose();
   }
 
@@ -106,35 +104,7 @@ class _KelolaPegawaiState extends State<KelolaPegawai> {
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
-                    // child: Padding(
-                    //   padding: const EdgeInsets.only(left: 70, right: 70),
-                    //   child: TabBar(
-                    //     controller: controller,
-                    //     indicator: UnderlineTabIndicator(
-                    //         borderSide: BorderSide(
-                    //           color: Color.fromRGBO(252, 195, 108, 1),
-                    //           width: 5,
-                    //         ),
-                    //         insets: EdgeInsets.symmetric(horizontal: 20.0)),
-                    //     tabs: <Widget>[
-                    //       Tab(
-                    //         child: Text("Makanan",
-                    //             style: TextStyle(
-                    //                 color: Colors.black,
-                    //                 fontSize: 16.0,
-                    //                 fontFamily: 'CircularStd-Bold')),
-                    //       ),
-                    //       Tab(
-                    //         child: Text("Minuman",
-                    //             style: TextStyle(
-                    //                 color: Colors.black,
-                    //                 fontSize: 16.0,
-                    //                 fontFamily: 'CircularStd-Bold')),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                            topRight: Radius.circular(55)))
                   )
                 ],
               ),

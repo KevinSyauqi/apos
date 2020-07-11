@@ -20,7 +20,7 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
     if(event is FetchingAllPegawai){
       yield PegawaiLoading();
       listPegawai = await _pegawaiRepository
-      .fetchAllPegawaiOutlet("d586b2862d7645e497e41f3b1ae7a932");
+      .fetchAllPegawaiOutlet("OS2000201");
       if(listPegawai.length == 0){
         yield PegawaiEmpty();
       } else {
@@ -39,7 +39,7 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
       pegawai = Pegawai(event.id_outlet, event.name_user, event.role.toLowerCase());
       user = User(event.name_user, event.email_user, event.username, event.password_user, event.phone_user, "");
 
-      final response = await _pegawaiRepository.addPegawai(pegawai, user);
+      final response = await _pegawaiRepository.addPegawai(pegawai, user, "S20002");
         final bool success = response['success'];
         if(success){
           yield PegawaiAddSuccess();

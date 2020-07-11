@@ -11,8 +11,9 @@ class MenuLoading extends MenuState {}
 class MenuError extends MenuState {}
 
 class MenuLoaded extends MenuState {
-  List<Menu> menus;
-  MenuLoaded({this.menus});
+  List<Menu> foods;
+  List<Menu> drinks;
+  MenuLoaded({this.foods, this.drinks});
 }
 
 class MenuAddLoading extends MenuState {}

@@ -14,6 +14,9 @@ class KelolaListPegawai extends StatefulWidget {
 }
 
 class _KelolaListPegawaiState extends State<KelolaListPegawai> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,14 +26,17 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
       child: BlocBuilder(
           bloc: BlocProvider.of<PegawaiBloc>(context),
           builder: (context, state){
-            if(state is FetchingAllPegawai){
+            if(state is PegawaiLoading){
               return Center(child: CircularProgressIndicator());
             }
             if(state is PegawaiLoaded){
               final listPegawai = state.listPegawai;
               return buildPegawaiList(listPegawai);
             }
-            return Center(child: CircularProgressIndicator());
+            if(state is PegawaiEmpty){
+              return Center(child: Text("Belum ada pegawai nih"));
+            }
+            return Center(child: Text(""));
           })
     );
   }
@@ -186,5 +192,10 @@ class _KelolaListPegawaiState extends State<KelolaListPegawai> {
          );
         }
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

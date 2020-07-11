@@ -17,7 +17,7 @@ class OutletBloc extends Bloc<OutletEvent, OutletState> {
     if(event is FetchingAllOutletStore){
       yield OutletLoading();
       List<Outlet> outlets;
-      outlets = await outletRepository.fetchAllOutletStore("57cbc1d67fc145bb93af7546ae36c00a");
+      outlets = await outletRepository.fetchAllOutletStore("S20002");
       if(outlets != 0){
         yield OutletListLoaded(outlets: outlets);
       }
@@ -26,7 +26,7 @@ class OutletBloc extends Bloc<OutletEvent, OutletState> {
     if(event is AddOutletForm){
       yield AddOutletLoading();
 
-      Outlet outlet = Outlet("57cbc1d67fc145bb93af7546ae36c00a",event.name_outlet, event.address_outlet,event.phone_outlet);
+      Outlet outlet = Outlet("S20002",event.name_outlet, event.address_outlet,event.phone_outlet);
       final response = await outletRepository.addOutlet(outlet);
 
       final bool success = response['success'];

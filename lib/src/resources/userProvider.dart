@@ -15,9 +15,9 @@ class UserProvider {
       'phone_user' : user.phone_user,
 //      'photo_user' : user.photo_user;
     });
-
+    final responseString = jsonDecode(response.body);
     if(response.statusCode == 201){
-      return response.body;
+      return responseString;
     } else {
       throw Exception('Failed to register user');
     }

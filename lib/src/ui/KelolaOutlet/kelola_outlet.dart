@@ -26,7 +26,6 @@ class KelolaOutlet extends StatefulWidget {
 
 class _KelolaOutletState extends State<KelolaOutlet>
     with SingleTickerProviderStateMixin {
-  TabController controller;
   OutletBloc _outletBloc;
 
   @override
@@ -39,7 +38,6 @@ class _KelolaOutletState extends State<KelolaOutlet>
   @override
   void dispose() {
     _outletBloc.close();
-    controller.dispose();
     super.dispose();
   }
 

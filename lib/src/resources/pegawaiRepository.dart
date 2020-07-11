@@ -9,8 +9,8 @@ class PegawaiRepository{
     return await pegawaiProvider.fetchAllPegawaiOutlet(outlet);
   }
 
-  Future addPegawai(Pegawai pegawai, User user) async
-  => await pegawaiProvider.addPegawai(pegawai, user);
+  Future addPegawai(Pegawai pegawai, User user, String id_store) async
+  => await pegawaiProvider.addPegawai(pegawai, user, id_store);
 
 //  Future<Menu> fetchMenu() async{
 //    return await menuProvider.fetchMenu();

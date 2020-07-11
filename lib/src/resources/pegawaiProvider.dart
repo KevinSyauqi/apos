@@ -22,9 +22,10 @@ class PegawaiProvider {
   }
 
 
-  Future addPegawai(Pegawai pegawai, User user) async {
+  Future addPegawai(Pegawai pegawai, User user, String id_store) async {
     final _url = "$_baseUrl/manageEmployee/newEmployee";
     final Map jsonData = {
+      "id_store": id_store,
       "id_outlet": pegawai.id_outlet,
       "name_user": user.name_user,
       "username": user.username,
