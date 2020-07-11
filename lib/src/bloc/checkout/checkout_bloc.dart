@@ -63,7 +63,6 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
             final index = listOrder.indexWhere((item) => item.id_outlet_menu == menu.id_outlet_menu);
             listOrder[index].qty++;
             listOrder[index].subtotal_price = listOrder[index].subtotal_price + menu.price;
-            print("Masuk sini ih");
             print(listOrder[index].toJson().toString());
           } else {
             order = new SalesLineItem(menu.id_outlet_menu, 1, menu.price, 0);
@@ -86,7 +85,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       Sales sales;
       ListOrder listOrder = new ListOrder([]);
 
-      sales = new Sales("4069798d529343d59da680b1336d7dd6","1f3e2a54bb0848c6bbbc8e8d7b4f2cbe",event.totalPrice,0,"",false);
+      sales = new Sales("OS2000201","S20002001",event.totalPrice,0,"",false);
       listOrder.listOrder = event.listSalesLineItem;
       final response = await _checkoutRepository.createOrder(sales, listOrder);
       final bool success = response['success'];
