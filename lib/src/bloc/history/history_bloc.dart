@@ -19,7 +19,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState>{
        List<Sales> listSales;
 
        listSales = await _historyRepository
-          .getAllOutletSales("OS2000201");
+          .getAllOutletSales("OS2000101");
        if (listSales.length == 0) {
          yield HistoryEmpty();
        } else {

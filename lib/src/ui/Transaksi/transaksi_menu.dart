@@ -47,6 +47,7 @@ class _TransaksiMenuState extends State<TransaksiMenu>
   void dispose() {
     controller.dispose();
     _trscMenuBloc.close();
+    _checkoutBloc.close();
     super.dispose();
   }
 

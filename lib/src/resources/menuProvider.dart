@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
 class MenuProvider {
   Client client = Client();
-  final _baseUrl = "https://apos-server.herokuapp.com";
+  final _baseUrl = AppUrl.url;
 
 //  Future<Menu> fetchMenu() async{
 //    final url = "$_baseUrl/manageMenu/addMenu";

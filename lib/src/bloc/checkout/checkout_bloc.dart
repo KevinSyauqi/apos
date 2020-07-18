@@ -85,7 +85,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       Sales sales;
       ListOrder listOrder = new ListOrder([]);
 
-      sales = new Sales("OS2000201","S20002001",event.totalPrice,0,"",false);
+      sales = new Sales("OS2000101","S20001001",event.totalPrice,0,"",false);
       listOrder.listOrder = event.listSalesLineItem;
       final response = await _checkoutRepository.createOrder(sales, listOrder);
       final bool success = response['success'];

@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/models/pegawaiModels.dart';
 import 'package:http/http.dart';
 
 class PegawaiProvider {
   Client client =  Client();
-  final _baseUrl = "https://apos-server.herokuapp.com";
+  final _baseUrl = AppUrl.url;
 
 
   Future<List<Pegawai>> fetchAllPegawaiOutlet(String outlet) async{

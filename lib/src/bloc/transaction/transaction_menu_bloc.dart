@@ -20,7 +20,7 @@ class TransactionMenuBloc extends Bloc<TransactionMenuEvent, TransactionMenuStat
         yield TrscMenuLoading();
         List<Menu> menus;
         menus = await _transactionRepository
-            .fetchMenus("OS2000201");
+            .fetchMenus("OS2000101");
         if (menus.length == 0) {
           yield TrscMenuEmpty();
         } else {

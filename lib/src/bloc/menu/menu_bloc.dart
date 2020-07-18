@@ -16,7 +16,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       if (event is FetchingAllMenu) {
         yield MenuLoading();
         menus = await _menuRepository
-            .fetchAllMenuOutlet("OS2000201");
+            .fetchAllMenuOutlet("OS2000101");
         if (menus.length == 0) {
           yield MenuEmpty();
         } else {
@@ -63,7 +63,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
               0);
         }
 
-        final response = await _menuRepository.addMenu(menu, "57cbc1d67fc145bb93af7546ae36c00a");
+        final response = await _menuRepository.addMenu(menu, "S20001");
         final bool success = response['success'];
         if(success){
           yield MenuAddSuccess();

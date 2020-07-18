@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:http/http.dart';
 
 class TransactionMenuProvider {
   Client client = Client();
-  final _baseUrl = "https://apos-server.herokuapp.com";
+  final _baseUrl = AppUrl.url;
 
   Future<List<Menu>> fetchAllMenuOutlet(String outlet) async {
     final _url = "$_baseUrl/manageMenu/allMenuOutlet?id_outlet=$outlet";
@@ -35,14 +36,6 @@ class TransactionMenuProvider {
       throw Exception('$message');
     }
   }
-
-//  Menu parsedJson(final response){
-//    final jsonDecode = json.decode(response);
-//
-//    final jsonMenu = jsonDecode["data"];
-//
-//    return Menu.fromJson(jsonMenu);
-//  }
 
   List<Menu> parsedListResponse(final response) {
     final responseString = jsonDecode(response.body);

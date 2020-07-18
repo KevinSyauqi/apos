@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:http/http.dart';
 
 class AuthenticationProvider {
   Client client = Client();
-  final _baseUrl = "https://apos-server.herokuapp.com";
+  final _baseUrl = AppUrl.url;
 
   Future createOrder(Sales sales, ListOrder listOrder) async {
     final _url = "$_baseUrl/trsc/createSales";

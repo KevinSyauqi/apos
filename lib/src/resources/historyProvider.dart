@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:http/http.dart';
 
 class HistoryProvider {
   Client client =  Client();
-  final _baseUrl = "https://apos-server.herokuapp.com";
+  final _baseUrl = AppUrl.url;
 
   Future<List<Sales>> getAllOutletSales(String id_outlet) async{
     final url = "$_baseUrl/trsc/outletSales?id_outlet=$id_outlet";
