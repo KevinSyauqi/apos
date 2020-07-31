@@ -1,3 +1,4 @@
+import 'package:apos/src/models/models.dart';
 import 'package:apos/src/models/outletModels.dart';
 import 'package:equatable/equatable.dart';
 
@@ -12,27 +13,12 @@ class ReportInitial extends ReportState {}
 
 class ReportLoading extends ReportState {}
 
-// class ReportLoaded extends ReportState {
-//   final Report outlet;
-//   ReportLoaded({this.outlet});
-// }
-
-// class ReportListLoaded extends ReportState{
-//   final List<Report> outlets;
-//   ReportListLoaded({this.outlets});
-// }
-
 class ReportFailure extends ReportState {}
 
 class ReportEmpty extends ReportState {}
 
-class AddReportInitial extends ReportState {}
+class ReportLoaded extends ReportState {
+  final List<SalesLineItem> reportSales;
 
-class AddReportLoading extends ReportState {}
-
-class AddReportFailed extends ReportState {
-  final String message;
-  AddReportFailed({this.message});
+  ReportLoaded({this.reportSales});
 }
-
-class AddReportSuccess extends ReportState {}

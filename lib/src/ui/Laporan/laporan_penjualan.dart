@@ -1,6 +1,7 @@
 import 'package:apos/src/bloc/outlet_bloc.dart';
 import 'package:apos/src/bloc/outlet_event.dart';
 import 'package:apos/src/bloc/report/report_bloc.dart';
+import 'package:apos/src/bloc/report/report_event.dart';
 import 'package:apos/src/ui/Laporan/laporan_perhitungan_penjualan.dart';
 import 'package:apos/src/ui/Laporan/laporan_prediksi.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_detail.dart';
@@ -34,19 +35,21 @@ class _LaporanPenjualanState extends State<LaporanPenjualan>
   String selectedStartDate = "Periode Awal";
   String selectedEndDate = "Periode Akhir";
 
+  ReportBloc _reportBloc;
+
 
   //   OutletBloc _outletBloc;
 
-  // @override
-  // void initState() {
-  //   _outletBloc = BlocProvider.of<OutletBloc>(context);
-  //   _outletBloc.add(FetchingAllOutletStore());
-  //   super.initState();
-  // }
+   @override
+   void initState() {
+     _reportBloc = BlocProvider.of<ReportBloc>(context);
+     _reportBloc.add(GetReportSalesByDate(id_outlet_menu: "MOS2000101002",startDate: "2019-10-01",endDate: "2020-02-24"));
+     super.initState();
+   }
 
   @override
   void dispose() {
-    // _outletBloc.close();
+     _reportBloc.close();
     // controller.dispose();
     super.dispose();
   }
@@ -364,7 +367,7 @@ class _LaporanPenjualanState extends State<LaporanPenjualan>
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => PrediksiPenjualan(),
+                                  builder: (context) => PredictionPage(),
                                 ));
                           },
                         ),

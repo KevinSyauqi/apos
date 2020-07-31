@@ -4,6 +4,7 @@ class SalesLineItem{
   int _qty;
   int _subtotal_price;
   int _discount;
+  String _sales_date;
 
   SalesLineItem(this._id_outlet_menu,this._qty, this._subtotal_price, this._discount);
 
@@ -14,6 +15,13 @@ class SalesLineItem{
 
   set id_outlet_menu(String value) {
     _id_outlet_menu = value;
+  }
+
+  String get
+  sales_date => _sales_date;
+
+  set sales_date(String value) {
+    _sales_date = value;
   }
 
   int get discount => _discount;
@@ -40,6 +48,7 @@ class SalesLineItem{
     _qty = json["qty"];
     _subtotal_price = json["subtotal_price"];
     _discount = json["discount"];
+    _sales_date = json["created_at"];
   }
 
   Map<String, dynamic> toJson() {

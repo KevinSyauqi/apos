@@ -100,10 +100,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 3, horizontal: 10),
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.4,
                             height: 55,
                             child: DropdownButtonFormField(
                               decoration: InputDecoration.collapsed(
@@ -143,7 +140,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(20))),
+                                BorderRadius.all(Radius.circular(20))),
                         child: Container(
                             padding: EdgeInsets.only(left: 15),
                             height: 55,
@@ -207,9 +204,9 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromRGBO(252, 195, 108, 1),
-                        Color.fromRGBO(253, 166, 125, 1),
-                      ])),
+                    Color.fromRGBO(252, 195, 108, 1),
+                    Color.fromRGBO(253, 166, 125, 1),
+                  ])),
             ),
             elevation: 0.0,
           ),
@@ -221,14 +218,8 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
               }
               if (state is HistoryLoaded) {
                 return Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
                   child: Stack(
                     children: <Widget>[
                       ListView.builder(
@@ -240,7 +231,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                   border: Border(
                                       bottom: BorderSide(
                                           color:
-                                          Color.fromRGBO(224, 224, 224, 1),
+                                              Color.fromRGBO(224, 224, 224, 1),
                                           width: 1.0)),
                                   color: Color.fromRGBO(250, 250, 250, 1),
                                 ),
@@ -251,7 +242,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                     vertical: 10, horizontal: 5),
                                 child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Expanded(
                                         child: Container(
@@ -266,31 +257,54 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                             },
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Text("No#" +
-                                                    sale.id_sales.substring(
-                                                        6, 18),
+                                                Text(
+                                                    "No #" +
+                                                        sale.id_sales
+                                                            .substring(0, 6) +
+                                                        sale.id_sales
+                                                            .substring(15, 18),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold')),
-                                                Text(DateFormat('EEE, d MMMM ''yyyy').format(sale.date_created),
+                                                            'CircularStd-Bold')),
+                                                Text(
+                                                    DateFormat('EEE, d MMMM '
+                                                            'yyyy')
+                                                        .format(
+                                                            sale.date_created),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 14.0,
                                                         fontFamily:
-                                                        'CircularStd-Book')),
-                                                Text("Pelanggan : " +
-                                                    sale.customer_name,
+                                                            'CircularStd-Book')),
+                                                sale.customer_name != null ?
+                                                Text(
+                                                    "Pelanggan : " +
+                                                        sale.customer_name,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 14.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold')),
+                                                            'CircularStd-Bold')) : Text("")
+//                                                BlocBuilder<HistoryBloc, HistoryState>(
+//                                                  builder: (context, state){
+//                                                    if(sale.customer_name != null || sale.customer_name == ""){
+//                                                      return Text("Pelanggan : " +
+//                                                          sale.customer_name,
+//                                                          style: TextStyle(
+//                                                              color: Colors.black,
+//                                                              fontSize: 14.0,
+//                                                              fontFamily:
+//                                                              'CircularStd-Bold'));
+//                                                    }
+//                                                    return null;
+//                                                  },
+//                                                )
                                               ],
                                             ),
                                           ),
@@ -301,9 +315,9 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                               margin: EdgeInsets.only(top: 10),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                    MainAxisAlignment.end,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Container(
                                                     height: 32,
@@ -312,17 +326,17 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                         color: Color.fromRGBO(
                                                             54, 58, 155, 1),
                                                         borderRadius:
-                                                        BorderRadius
-                                                            .circular(13)),
+                                                            BorderRadius
+                                                                .circular(13)),
                                                     child: MaterialButton(
                                                       onPressed: () {},
                                                       child: Text("Bayar",
                                                           style: TextStyle(
                                                               color:
-                                                              Colors.white,
+                                                                  Colors.white,
                                                               fontSize: 14.0,
                                                               fontFamily:
-                                                              'CircularStd-Bold')),
+                                                                  'CircularStd-Bold')),
                                                     ),
                                                   ),
                                                   SizedBox(width: 5),
@@ -334,8 +348,8 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                         color: Color.fromRGBO(
                                                             54, 58, 155, 1),
                                                         borderRadius:
-                                                        BorderRadius
-                                                            .circular(13)),
+                                                            BorderRadius
+                                                                .circular(13)),
                                                     child: IconButton(
                                                       icon: Icon(Icons.delete),
                                                       iconSize: 17,

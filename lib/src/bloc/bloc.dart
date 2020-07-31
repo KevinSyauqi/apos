@@ -37,3 +37,7 @@ export 'checkout/checkout_state.dart';
 export 'history/history_bloc.dart';
 export 'history/history_event.dart';
 export 'history/history_state.dart';
+
+export 'prediction/prediction_bloc.dart';
+export 'prediction/prediction_event.dart';
+export 'prediction/prediction_state.dart';
