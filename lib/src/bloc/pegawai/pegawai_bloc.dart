@@ -37,7 +37,7 @@ class PegawaiBloc extends Bloc<PegawaiEvent, PegawaiState> {
       String role;
 
       pegawai = Pegawai(event.id_outlet, event.name_user, event.role.toLowerCase());
-      user = User(event.name_user, event.email_user, event.username, event.password_user, event.phone_user, "");
+      user = User("OS2000101",event.name_user, event.email_user, event.username, event.password_user, event.phone_user, "");
 
       final response = await _pegawaiRepository.addPegawai(pegawai, user, "S20001");
         final bool success = response['success'];

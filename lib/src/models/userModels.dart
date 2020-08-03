@@ -4,6 +4,7 @@ import 'dart:convert';
 class User {
 
   String _id_user;
+  String _id_outlet;
   String _name_user;
   String _email_user;
   String _username;
@@ -13,13 +14,19 @@ class User {
   bool _status;
 
 
-  User(this._name_user, this._email_user, this._username, this._password_user,
+  User(this._id_outlet, this._name_user, this._email_user, this._username, this._password_user,
       this._phone_user, this._photo_user);
 
   bool get status => _status;
 
   set status(bool value) {
     _status = value;
+  }
+
+  String get id_outlet => _id_outlet;
+
+  set id_outlet(String value) {
+    _id_outlet = value;
   }
 
   String get photo_user => _photo_user;

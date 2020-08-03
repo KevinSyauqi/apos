@@ -5,9 +5,9 @@ import 'package:meta/meta.dart';
 abstract class PredictionEvent {}
 
 class GetPredictionOutletMenu extends PredictionEvent {
-  final String id_outlet_menu;
+  final String id_outlet;
   final String startDate;
   final String endDate;
 
-  GetPredictionOutletMenu({this.id_outlet_menu, this.startDate, this.endDate});
+  GetPredictionOutletMenu({this.id_outlet, this.startDate, this.endDate});
 }
