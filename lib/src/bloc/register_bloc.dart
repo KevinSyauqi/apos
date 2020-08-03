@@ -16,7 +16,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async* {
     if(event is RegisterButtonPressed){
       yield RegisterInProcess();
-      final user = User(event.name,event.email,event.username,event.password,event.phone,"");
+      final user = User("",event.name,event.email,event.username,event.password,event.phone,"");
 
       if(user != null){
         final response = await _registerRepository.registerUser(user);
