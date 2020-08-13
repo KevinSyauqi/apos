@@ -1,4 +1,4 @@
-import 'package:apos/src/bloc/outlet_bloc.dart';
+import 'package:apos/src/bloc/outlet/outlet_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/pegawai/pegawai_bloc.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
@@ -28,6 +28,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: <Widget>[
           Column(
             children: <Widget>[
@@ -72,6 +73,29 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 ),
               ),
+              ListTile(
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.dashboard)),
+                title: Text("Dasbor",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17.0,
+                        fontFamily: 'CircularStd-Bold')),
+                onTap: () async{
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeDashboardPageLoad());
+                },
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),

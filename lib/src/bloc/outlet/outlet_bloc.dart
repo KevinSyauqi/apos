@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:apos/src/models/outletModels.dart';
 import 'package:apos/src/resources/outletRepository.dart';
 import 'package:bloc/bloc.dart';
-import 'bloc.dart';
+import '../bloc.dart';
 
 class OutletBloc extends Bloc<OutletEvent, OutletState> {
   final OutletRepository outletRepository = OutletRepository();

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apos/src/models/menuModels.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +19,7 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
   bool isStock = false;
   File _image;
   final picker = ImagePicker();
+  String base64img;
   Category selectedCategory;
   List<Category> category = [Category("Makanan"), Category("Minuman")];
   Widget stockForm = Card();
@@ -37,6 +40,7 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
 
     setState(() {
       _image = image;
+      base64img = base64Encode(_image.readAsBytesSync());
     });
   }
 

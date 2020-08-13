@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/resources/registerRepository.dart';
 import 'package:bloc/bloc.dart';
-import './bloc.dart';
+import '../bloc.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterRepository _registerRepository = RegisterRepository();

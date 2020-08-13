@@ -4,6 +4,7 @@ import 'package:apos/src/ui/KelolaOutlet/kelola_outlet.dart';
 import 'package:apos/src/ui/KelolaPegawai/kelola_pegawai.dart';
 import 'package:apos/src/ui/Laporan/laporan_penjualan.dart';
 import 'package:apos/src/ui/RiwayatTransaksi/riwayat_transaksi.dart';
+import 'package:apos/src/ui/dashboard_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _homeBloc.add(HomeTransactionPageLoad());
   }
 
   @override
@@ -55,6 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         if(state is HomeHistoryPage){
           return HistoryPage();
+        }
+        if(state is HomeDashboardPage){
+          return DashboardPage();
         }
         return Container(
             color: Colors.white);

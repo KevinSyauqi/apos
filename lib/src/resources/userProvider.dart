@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' show Client;
 import 'package:apos/src/models/userModels.dart';
 
+import '../constant.dart';
+
 class UserProvider {
   Client client =  Client();
-  final _url = "https://apos-server.herokuapp.com";
+  final _url = AppUrl.url;
 
   Future registerUser(User user) async {
     final response = await client.post("$_url/auth/register", body: {
@@ -15,6 +17,7 @@ class UserProvider {
       'phone_user' : user.phone_user,
 //      'photo_user' : user.photo_user;
     });
+    print(response.body);
     final responseString = jsonDecode(response.body);
     if(response.statusCode == 201){
       return responseString;

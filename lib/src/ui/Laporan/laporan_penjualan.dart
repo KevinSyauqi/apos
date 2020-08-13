@@ -1,5 +1,5 @@
-import 'package:apos/src/bloc/outlet_bloc.dart';
-import 'package:apos/src/bloc/outlet_event.dart';
+import 'package:apos/src/bloc/outlet/outlet_bloc.dart';
+import 'package:apos/src/bloc/outlet/outlet_event.dart';
 import 'package:apos/src/bloc/report/report_bloc.dart';
 import 'package:apos/src/bloc/report/report_event.dart';
 import 'package:apos/src/ui/Laporan/laporan_perhitungan_penjualan.dart';

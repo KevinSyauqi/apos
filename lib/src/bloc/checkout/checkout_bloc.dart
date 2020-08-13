@@ -12,10 +12,8 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   CheckoutState get initialState => CheckoutInitialized();
 
   @override
-  Stream<CheckoutState> mapEventToState(
-    CheckoutEvent event,
-  ) async* {
-    if(event is CheckoutDispose){
+  Stream<CheckoutState> mapEventToState(CheckoutEvent event,) async* {
+    if (event is CheckoutDispose) {
       yield CheckoutInitialized();
     }
     if (event is LoadCart) {
@@ -32,7 +30,8 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       if (currentState is CheckoutLoaded) {
         try {
           yield CheckoutLoaded(
-              menus: List.from(currentState.menus)..add(event.menu),
+              menus: List.from(currentState.menus)
+                ..add(event.menu),
               totalPrice: currentState.totalPrice + event.menu.price);
         } catch (e) {
           print(e);
@@ -45,7 +44,8 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       if (currentState is CheckoutLoaded) {
         try {
           yield CheckoutLoaded(
-              menus: List.from(currentState.menus)..remove(event.menu),
+              menus: List.from(currentState.menus)
+                ..remove(event.menu),
               totalPrice: currentState.totalPrice - event.menu.price);
         } catch (e) {
           print(e);
@@ -59,10 +59,13 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         SalesLineItem order;
         listOrder = [];
         event.orders.forEach((menu) {
-          if (listOrder.any((item) => item.id_outlet_menu == menu.id_outlet_menu)) {
-            final index = listOrder.indexWhere((item) => item.id_outlet_menu == menu.id_outlet_menu);
+          if (listOrder.any((item) =>
+          item.id_outlet_menu == menu.id_outlet_menu)) {
+            final index = listOrder.indexWhere((item) =>
+            item.id_outlet_menu == menu.id_outlet_menu);
             listOrder[index].qty++;
-            listOrder[index].subtotal_price = listOrder[index].subtotal_price + menu.price;
+            listOrder[index].subtotal_price =
+                listOrder[index].subtotal_price + menu.price;
             print(listOrder[index].toJson().toString());
           } else {
             order = new SalesLineItem(menu.id_outlet_menu, 1, menu.price, 0);
@@ -80,20 +83,31 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         yield CheckoutError(e);
       }
     }
-    if(event is PayLater){
+    if (event is PayLater) {
       yield CheckoutInProgress();
       Sales sales;
       ListOrder listOrder = new ListOrder([]);
 
-      sales = new Sales("OS2000101","S20001001",event.totalPrice,0,"",false);
+      sales =
+      new Sales("OS2000101", "S20001001", event.totalPrice, 0, "", false);
       listOrder.listOrder = event.listSalesLineItem;
       final response = await _checkoutRepository.createOrder(sales, listOrder);
       final bool success = response['success'];
-      if(success){
+      if (success) {
         yield CheckoutSuccess();
-      } else{
+      } else {
         yield CheckoutError(response['message']);
         print(response['message']);
+      }
+    }
+    if (event is PayNow) {
+      if(event.totalPrice != null){
+        yield CheckoutLoaded(menus: event.listMenu,
+            listSalesLineItem: event.listSalesLineItem,
+            totalPrice: event.totalPrice);
+      }else{
+        yield CheckoutError("Belum ada keranjang");
+        print("Belum ada keranjang");
       }
     }
   }

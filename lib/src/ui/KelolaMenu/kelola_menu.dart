@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/KelolaMenu/kelola_menu_edit.dart';
@@ -198,6 +200,7 @@ class _KelolaMenuState extends State<KelolaMenu>
           itemCount: menus.length,
           itemBuilder: (BuildContext context, int index) {
             Menu menu = menus[index];
+            print(menu.photo_menu);
             return Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -218,6 +221,7 @@ class _KelolaMenuState extends State<KelolaMenu>
                     margin: EdgeInsets.only(right: 15),
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(234, 234, 234, 1),
+                      image: (menu.photo_menu != null) ? DecorationImage(image: MemoryImage(base64Decode(menu.photo_menu))):null,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),

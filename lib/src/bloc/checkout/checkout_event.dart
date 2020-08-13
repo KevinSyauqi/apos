@@ -33,3 +33,11 @@ class PayLater extends CheckoutEvent{
 }
 
 class CheckoutDispose extends CheckoutEvent{}
+
+class PayNow extends CheckoutEvent{
+  final List<Menu> listMenu;
+  final List<SalesLineItem> listSalesLineItem;
+  final int totalPrice;
+
+  PayNow({this.listMenu,this.listSalesLineItem, this.totalPrice});
+}

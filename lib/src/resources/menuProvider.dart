@@ -37,7 +37,7 @@ class MenuProvider {
 
     final Map jsonData = {
       "id_store": store,
-      "id_outlet": "OS2000201",
+      "id_outlet": "OS2000101",
       "name_menu": menu.name_menu,
       "description": menu.description,
       "category": menu.category,

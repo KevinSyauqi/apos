@@ -14,7 +14,6 @@ class CheckoutPage extends StatelessWidget {
   }
 }
 
-
 class CheckoutMenu extends StatefulWidget {
   _CheckoutMenuState createState() => _CheckoutMenuState();
 }
@@ -23,6 +22,9 @@ class _CheckoutMenuState extends State<CheckoutMenu>
     with SingleTickerProviderStateMixin {
   String nominalBayar = "0";
   String number = "";
+  String totalBayar;
+
+  CheckoutBloc _checkoutBloc;
 
   buttonPressed(String buttonText) {
     setState(() {
@@ -41,6 +43,12 @@ class _CheckoutMenuState extends State<CheckoutMenu>
         nominalBayar = number;
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkoutBloc = BlocProvider.of<CheckoutBloc>(context);
   }
 
   Widget buildButton(String buttonText) {
@@ -104,17 +112,29 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                                               fontSize: 15.0,
                                               fontFamily: 'CircularStd-Bold'))),
                                 ),
-                                Container(
-                                    height:
-                                        MediaQuery.of(context).size.height / 19,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Center(
-                                        child: Text("Rp 10.000",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 42.0,
-                                                fontFamily:
-                                                    'CircularStd-Bold')))),
+                                BlocBuilder<CheckoutBloc, CheckoutState>(
+                                  builder: (context, state) {
+                                    if (state is CheckoutLoaded) {
+                                      setState(() {
+                                        totalBayar =
+                                            state.totalPrice.toString();
+                                      });
+                                    } else totalBayar = "0";
+                                    return Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                19,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Center(
+                                            child: Text("Rp "+totalBayar,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 42.0,
+                                                    fontFamily:
+                                                        'CircularStd-Bold'))));
+                                  },
+                                ),
                               ],
                             ),
                           ),

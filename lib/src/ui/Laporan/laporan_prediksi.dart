@@ -15,7 +15,6 @@ class PredictionPage extends StatelessWidget {
   }
 }
 
-
 class PrediksiPenjualan extends StatefulWidget {
   _PrediksiPenjualanState createState() => _PrediksiPenjualanState();
 }
@@ -100,8 +99,8 @@ class _PrediksiPenjualanState extends State<PrediksiPenjualan>
                       margin: EdgeInsets.symmetric(horizontal: 30),
                       child: Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(
-                                20))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         child: Row(
                           children: <Widget>[
                             Container(
@@ -110,10 +109,7 @@ class _PrediksiPenjualanState extends State<PrediksiPenjualan>
                             Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 3, horizontal: 10),
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 1.4,
+                              width: MediaQuery.of(context).size.width / 1.4,
                               height: 55,
                               child: DropdownButtonFormField(
                                 decoration: InputDecoration.collapsed(
@@ -143,10 +139,7 @@ class _PrediksiPenjualanState extends State<PrediksiPenjualan>
                     ),
                     SizedBox(height: 10),
                     Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(horizontal: 30),
                       alignment: Alignment.center,
                       child: ButtonTheme(
@@ -193,9 +186,9 @@ class _PrediksiPenjualanState extends State<PrediksiPenjualan>
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color.fromRGBO(252, 195, 108, 1),
-                          Color.fromRGBO(253, 166, 125, 1),
-                        ])),
+                      Color.fromRGBO(252, 195, 108, 1),
+                      Color.fromRGBO(253, 166, 125, 1),
+                    ])),
               ),
               elevation: 0.0,
             ),
@@ -211,14 +204,14 @@ class _PrediksiPenjualanState extends State<PrediksiPenjualan>
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 1.8,
-                    child: Stack(
-                        children: <Widget>[buildListPerhitunganPenjualan(state.listPrediction)]),
+                    child: Stack(children: <Widget>[
+                      buildListPerhitunganPenjualan(state.listPrediction)
+                    ]),
                   );
                 }
                 return Center();
               },
-            )
-        ),
+            )),
       ]),
     );
   }
@@ -259,6 +252,8 @@ Widget buildListPerhitunganPenjualan(List<Prediction> listPrediction) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(prediction.name_menu,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16.0,

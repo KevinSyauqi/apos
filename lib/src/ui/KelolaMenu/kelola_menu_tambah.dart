@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -26,6 +28,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
   bool isStock = false;
   File _image;
   final picker = ImagePicker();
+  String base64image;
   Category selectedCategory;
   List<Category> category = [Category("Makanan"), Category("Minuman")];
   Widget stockForm = Card();
@@ -52,6 +55,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
 
     setState(() {
       _image = image;
+      base64image = base64Encode(_image.readAsBytesSync());
     });
   }
 
@@ -60,6 +64,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
 
     setState(() {
       _image = image;
+      base64image = base64Encode(_image.readAsBytesSync());
     });
   }
 
@@ -134,7 +139,8 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
           price: priceController.text,
           cog: cogController.text,
           is_stock: isStock,
-          stock: stockController.text));
+          stock: stockController.text,
+          imgBase64: base64image));
     }
 
     return BlocBuilder<MenuBloc, MenuState>(

@@ -18,3 +18,5 @@ class HomeReportPageLoad extends HomeEvent{}
 class HomeHistoryPageLoad extends HomeEvent{}
 
 class HomeProfilePageLoad extends HomeEvent{}
+
+class HomeDashboardPageLoad extends HomeEvent{}

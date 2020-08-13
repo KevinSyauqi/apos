@@ -46,7 +46,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
               event.name_menu,
               category,
               event.description,
-              "photo",
+              event.imgBase64,
               int.parse(event.cog),
               int.parse(event.price),
               event.is_stock,
@@ -56,13 +56,13 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
               event.name_menu,
               category,
               event.description,
-              "photo",
+              event.imgBase64,
               int.parse(event.cog),
               int.parse(event.price),
               event.is_stock,
               0);
         }
-
+        print(menu.photo_menu);
         final response = await _menuRepository.addMenu(menu, "S20001");
         final bool success = response['success'];
         if(success){

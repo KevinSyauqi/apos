@@ -12,9 +12,10 @@ class AddMenuButtonFormPressed extends MenuEvent {
   final String stock;
   final String description;
   final String category;
+  final String imgBase64;
 
   AddMenuButtonFormPressed({this.name_menu, this.cog, this.price,
-    this.is_stock, this.description, this.category, this.stock});
+    this.is_stock, this.description, this.category, this.stock, this.imgBase64});
 
 
 }

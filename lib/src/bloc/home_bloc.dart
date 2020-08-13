@@ -35,5 +35,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if(event is HomeProfilePageLoad){
       yield HomeProfilePage();
     }
+    if(event is HomeDashboardPageLoad){
+      yield HomeDashboardPage();
+    }
   }
 }
