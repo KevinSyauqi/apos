@@ -98,7 +98,7 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                             ],
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.all(10),
                             child: Column(
                               children: <Widget>[
                                 Container(
@@ -130,7 +130,7 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                                             child: Text("Rp "+totalBayar,
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 42.0,
+                                                    fontSize: 39.0,
                                                     fontFamily:
                                                         'CircularStd-Bold'))));
                                   },
@@ -162,12 +162,12 @@ class _CheckoutMenuState extends State<CheckoutMenu>
                             ],
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.all(10),
                             child: Column(
                               children: <Widget>[
                                 Container(
                                   height:
-                                      MediaQuery.of(context).size.height / 35,
+                                      MediaQuery.of(context).size.height / 36,
                                   width: MediaQuery.of(context).size.width,
                                   child: Center(
                                       child: Text("Nominal Bayar",

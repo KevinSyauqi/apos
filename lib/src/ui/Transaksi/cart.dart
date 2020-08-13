@@ -463,10 +463,9 @@ class _KeranjangMenuState extends State<KeranjangMenu>
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => CheckoutMenu(),
+                                builder: (context) => CheckoutPage(),
                               ));
                         }
-
                       },
                     ),
                   ),
