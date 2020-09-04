@@ -3,6 +3,7 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -114,7 +115,7 @@ class _DashboardState extends State<Dashboard> {
                               children: <Widget>[
                                 Icon(Icons.calendar_today,color: Colors.white, size: 15),
                                 SizedBox(width: 5),
-                                Text("Minggu, 20 Desember 2020", style: TextStyle(
+                                Text(new DateFormat("EEEE, dd MMMM yyyy").format(new DateTime.now()), style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
                                   fontFamily: 'CircularStd-Bold'
@@ -677,6 +678,7 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
+
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)

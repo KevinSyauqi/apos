@@ -1,80 +1,66 @@
 class Sales{
   String _id_sales;
-  String _id_outlet;
-  String _id_employee;
-  int _total_price;
-  int _tax;
-  String _customer_name;
-  bool _is_paid;
+  String _id_user;
+  String _id_order;
+  String _id_payment;
+  int _cash;
+  int _change_amount;
   DateTime _date_created;
 
+  Sales(this._id_order, this._id_user, this._cash, this._change_amount);
 
-  Sales(this._id_outlet, this._id_employee, this._total_price, this._tax,
-      this._customer_name, this._is_paid);
 
   String get id_sales => _id_sales;
 
-  String get id_outlet => _id_outlet;
+  String get id_user => _id_user;
+
+  String get id_order => _id_order;
+
+  String get id_payment => _id_payment;
+
+  int get cash => _cash;
+
+  int get change_amount => _change_amount;
 
   DateTime get date_created => _date_created;
 
-  set id_outlet(String value) {
-    _id_outlet = value;
-  }
 
-  String get id_employee => _id_employee;
-
-  bool get is_paid => _is_paid;
-
-  set is_paid(bool value) {
-    _is_paid = value;
-  }
-
-  String get customer_name => _customer_name;
-
-  set customer_name(String value) {
-    _customer_name = value;
-  }
-
-  int get tax => _tax;
-
-  set tax(int value) {
-    _tax = value;
-  }
-
-  int get total_price => _total_price;
-
-  set total_price(int value) {
-    _total_price = value;
-  }
-
-  set id_employee(String value) {
-    _id_employee = value;
+  set id_user(String value) {
+    _id_user = value;
   }
 
   Sales.fromJson(Map<String, dynamic> json) {
-    _id_outlet = json["id_outlet"];
-    _id_employee = json["id_employee"];
     _id_sales = json["id_sales"];
-    _total_price = json["total_price"];
-    _tax = json["tax"];
-    _customer_name = json["customer_name"];
-    _is_paid = json["is_paid"];
+    _id_user = json["id_user"];
+    _id_order = json["id_order"];
+    _id_payment = json["id_payment"];
+    _cash = json["cash"];
+    _change_amount = json["change_amount"];
     _date_created = DateTime.parse(json["created_at"]);
-    print("Masuk from json");
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id_sales'] = this._id_sales;
-    data['id_outlet'] = this._id_outlet;
-    data['id_employee'] = this._id_employee;
-    data['total_price'] = this._total_price;
-    data['tax'] = this._tax;
-    data['customer_name'] = this._customer_name;
-    data['is_paid'] = this._is_paid;
+    data['id_user'] = this._id_user;
+    data['id_order'] = this._id_order;
+    data['id_payment'] = this._id_payment;
+    data['cash'] = this._cash;
+    data['change_amount'] = this._change_amount;
     data['created_at'] = this._date_created;
     return data;
+  }
+
+  set id_order(String value) {
+    _id_order = value;
+  }
+
+  set cash(int value) {
+    _cash = value;
+  }
+
+  set change_amount(int value) {
+    _change_amount = value;
   }
 }
 

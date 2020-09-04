@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/resources/historyRepository.dart';
+import 'package:apos/src/repository/historyRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 

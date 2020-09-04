@@ -1,26 +1,14 @@
+import 'package:meta/meta.dart';
 
-import 'package:apos/src/models/models.dart';
-
+@immutable
 abstract class CheckoutState {}
 
-class CheckoutInitialized extends CheckoutState{}
+class CheckoutInitial extends CheckoutState {}
 
-class CheckoutLoading extends CheckoutState{}
+class CheckoutLoading extends CheckoutState {}
 
-class CheckoutLoaded extends CheckoutState{
-  final List<SalesLineItem> listSalesLineItem;
-  final List<Menu> menus;
-  final int totalPrice;
+class CheckoutLoaded extends CheckoutState {}
 
-  CheckoutLoaded({this.listSalesLineItem, this.menus, this.totalPrice});
-}
+class CheckoutFailure extends CheckoutState {}
 
-class CheckoutError extends CheckoutState{
-  final message;
-
-  CheckoutError(this.message);
-}
-
-class CheckoutSuccess extends CheckoutState{}
-
-class CheckoutInProgress extends CheckoutState{}
+class CheckoutFinish extends CheckoutState {}

@@ -1,11 +1,10 @@
-import 'package:apos/src/bloc/authentication/authenticationBloc.dart';
-import 'package:apos/src/bloc/authentication/authenticationEvent.dart';
-import 'package:apos/src/bloc/authentication/authenticationState.dart';
+import 'package:apos/src/bloc/authentication/authentication_bloc.dart';
+import 'package:apos/src/bloc/authentication/authentication_event.dart';
+import 'package:apos/src/bloc/authentication/authentication_state.dart';
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/home_page.dart';
 import 'package:apos/src/ui/login/login_page.dart';
 import 'package:apos/src/ui/splash_page.dart';
-import 'package:apos/src/ui/Transaksi/transaksi_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,6 +53,9 @@ class Apos extends StatelessWidget {
             }
             if(state is AuthenticationInProgress){
               return LoadingIndicator();
+            }
+            if(state is AuthenticationFailure){
+              return LoginPage();
             }
             return SplashPage();
           },

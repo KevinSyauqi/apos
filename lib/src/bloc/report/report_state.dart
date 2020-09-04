@@ -1,5 +1,4 @@
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/models/outletModels.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ReportState extends Equatable {
@@ -18,7 +17,7 @@ class ReportFailure extends ReportState {}
 class ReportEmpty extends ReportState {}
 
 class ReportLoaded extends ReportState {
-  final List<SalesLineItem> reportSales;
+  final List<OrderItem> reportSales;
 
   ReportLoaded({this.reportSales});
 }

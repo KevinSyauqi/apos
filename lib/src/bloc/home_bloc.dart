@@ -12,28 +12,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEvent event,
   ) async* {
     if(event is HomeTransactionPageLoad){
-      yield HomeTransactionPage();
+      yield HomeManageOrderPage();
     }
     if(event is HomeMenuPageLoad){
-      yield HomeMenuPage();
-    }
-    if(event is HomeOutletPageLoad){
-      yield HomeOutletPage();
+      yield HomeManageMenuPage();
     }
     if(event is HomeReportPageLoad){
       yield HomeReportPage();
-    }
-    if(event is HomeEmployeePageLoad){
-      yield HomeEmployeePage();
     }
     if(event is HomeHistoryPageLoad){
       yield HomeHistoryPage();
     }
     if(event is HomeCustomPageLoad){
       yield HomeCustomPage();
-    }
-    if(event is HomeProfilePageLoad){
-      yield HomeProfilePage();
     }
     if(event is HomeDashboardPageLoad){
       yield HomeDashboardPage();

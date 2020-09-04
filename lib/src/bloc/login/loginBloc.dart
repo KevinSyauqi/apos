@@ -1,8 +1,9 @@
-import 'package:apos/src/bloc/authentication/authenticationBloc.dart';
-import 'package:apos/src/bloc/authentication/authenticationEvent.dart';
+import 'package:apos/src/bloc/authentication/authentication_bloc.dart';
+import 'package:apos/src/bloc/authentication/authentication_event.dart';
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/login/loginEvent.dart';
 import 'package:apos/src/bloc/login/loginState.dart';
-import 'package:apos/src/resources/repository.dart';
+import 'package:apos/src/repository/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -19,13 +20,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is LoginButtonPressed) {
       yield LoginInProgress();
-      await Future.delayed(Duration(seconds: 2)); // Nanti ganti sama login di repository
-
-
-      yield LoginSuccess();
-
-      authenticationBloc.add(AuthenticationLoggedIn(token: "Token"));
-      yield LoginInitial();
+      final response = await authenticationRepository.authenticate(username: event.username, password: event.password);
+      if(response['success'] != false){
+        yield LoginSuccess();
+        print(response.toString());
+        final data = response["data"];
+        final loginSession = data["loginSession"];
+        String token = loginSession["id_session"];
+        authenticationBloc.add(AuthenticationLoggedIn(token: token));
+      }else{
+        yield LoginFailure(error: "Username atau password salah");
+        authenticationBloc.add(AuthenticationFailed());
+      }
 //      try {
 //        final token = await authenticationRepository.authenticate(
 //          email: event.email,

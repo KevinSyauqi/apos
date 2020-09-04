@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:apos/src/models/predictionModels.dart';
-import 'package:apos/src/resources/predictionRepository.dart';
+import 'package:apos/src/repository/predictionRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 
