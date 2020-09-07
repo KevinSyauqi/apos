@@ -183,7 +183,10 @@ class __LoginFormState extends State<_LoginForm> {
                                               state is! LoginInProgress ? _onLoginButtonPressed() : null;
                                             });
                                         }
-                                      )
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
                                     ],
                                   ),
                                 ),

@@ -61,7 +61,7 @@ class Order{
     data['customer_name'] = this._customer_name;
     data['total_price'] = this._total_price;
     data['is_paid'] = this._is_paid;
-    data['created_at'] = this._date;
+    if(this.date != null) data['created_at'] = this._date.toString();
     return data;
   }
 }

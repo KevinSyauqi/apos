@@ -1,5 +1,5 @@
 class Sales{
-  String _id_sales;
+  String _id_sale;
   String _id_user;
   String _id_payment;
   String _id_order;
@@ -8,7 +8,7 @@ class Sales{
   Sales(this._id_order);
 
 
-  String get id_sales => _id_sales;
+  String get id_sale => _id_sale;
 
   String get id_user => _id_user;
 
@@ -20,7 +20,7 @@ class Sales{
 
 
   Sales.fromJson(Map<String, dynamic> json) {
-    _id_sales = json["id_sales"];
+    _id_sale = json["id_sale"];
     _id_user = json["id_user"];
     _id_order = json["id_order"];
     _id_payment = json["id_payment"];
@@ -29,7 +29,7 @@ class Sales{
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_sales'] = this._id_sales;
+    data['id_sale'] = this._id_sale;
     data['id_user'] = this._id_user;
     data['id_order'] = this._id_order;
     data['id_payment'] = this._id_payment;

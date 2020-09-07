@@ -6,6 +6,19 @@ abstract class PaymentEvent {}
 
 class createPayment extends PaymentEvent {
   Order order;
+  int cash;
 
-  createPayment({this.order});
+  createPayment({this.order,this.cash});
+}
+
+class fetchOrder extends PaymentEvent {
+  Order order;
+
+  fetchOrder({this.order});
+}
+
+class getListOrderItemPayment extends PaymentEvent{
+  String id_order;
+
+  getListOrderItemPayment({this.id_order});
 }

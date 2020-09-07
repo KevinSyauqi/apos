@@ -7,11 +7,20 @@ class Payment{
 
   Payment(this._cash, this._change_amount);
 
+
+  String get id_payment => _id_payment;
+
+  int get cash => _cash;
+
+  int get change_amount => _change_amount;
+
+  DateTime get date => _date;
+
   Payment.fromJson(Map<String, dynamic> json) {
     _id_payment = json["id_payment"];
     _cash = json["cash"];
     _change_amount = json["change_amount"];
-    _date = json["created_at"];
+    _date = DateTime.parse(json["created_at"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -22,4 +31,5 @@ class Payment{
     data['created_at'] = this._date;
     return data;
   }
+
 }

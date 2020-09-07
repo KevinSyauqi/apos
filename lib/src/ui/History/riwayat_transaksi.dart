@@ -263,9 +263,9 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                               children: <Widget>[
                                                 Text(
                                                     "No #" +
-                                                        sale.id_sales
+                                                        sale.id_sale
                                                             .substring(0, 6) +
-                                                        sale.id_sales
+                                                        sale.id_sale
                                                             .substring(15, 18),
                                                     style: TextStyle(
                                                         color: Colors.black,

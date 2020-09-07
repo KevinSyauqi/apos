@@ -28,6 +28,10 @@ class CheckoutOrderBloc extends Bloc<CheckoutOrderEvent, CheckoutOrderState> {
         yield CheckoutOrderFailure();
       }
     }
+    if(event is getOrder){
+      yield CheckoutOrderLoading();
+      yield CheckoutOrderLoaded(order: event.order);
+    }
   }
 
   ListOrderItem _parsedFromJson(Map<String, dynamic> json) {

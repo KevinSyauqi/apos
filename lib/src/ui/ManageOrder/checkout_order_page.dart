@@ -1,7 +1,7 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/ManageOrder/payment_page.dart';
-import 'package:apos/src/ui/ManageOrder/struk.dart';
+import 'package:apos/src/ui/ManageOrder/receipt_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -189,57 +189,8 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                   if (state is CheckoutOrderLoaded) {
                     print(state.listOrderItem.listOrderItem.length);
                     return Stack(children: <Widget>[
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                                  alignment: Alignment.center,
-                                  child: ButtonTheme(
-                                    height: 50,
-                                    padding: EdgeInsets.all(15),
-                                    child: RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20.0),
-                                      ),
-                                      color: Color.fromRGBO(54, 58, 155, 1),
-                                      child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              "Buat Pembayaran",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontFamily: 'CircularStd-Bold'),
-                                            )
-                                          ]),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => PaymentPage(),
-                                            ));
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      buildListOrderItem(context, state.listOrderItem)
+                      buildListOrderItem(context, state.listOrderItem),
+                      processPayment(state.order)
                     ]);
                   }
                   return Center(child: CircularProgressIndicator());
@@ -247,6 +198,64 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
           ),
         ),
       ]),
+    );
+  }
+
+  Widget processPayment(Order order) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width / 1.5,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                alignment: Alignment.center,
+                child: ButtonTheme(
+                  height: 50,
+                  padding: EdgeInsets.all(15),
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    color: Color.fromRGBO(54, 58, 155, 1),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Buat Pembayaran",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                                fontFamily: 'CircularStd-Bold'),
+                          )
+                        ]),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentPage(order: order)),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -316,3 +325,4 @@ Widget buildListOrderItem(BuildContext context, ListOrderItem listOrderItem) {
                 ]));
       });
 }
+

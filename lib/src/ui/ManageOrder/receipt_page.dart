@@ -1,15 +1,41 @@
-import 'package:apos/src/ui/History//riwayat_transaksi.dart';
-import 'package:apos/src/ui/ManageOrder//checkout_order_page.dart';
-import 'package:apos/src/ui/ManageOrder//manage_order_page.dart';
-import 'package:apos/src/ui/side_bar.dart';
+import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StrukPembayaran extends StatefulWidget {
-  _StrukPembayaranState createState() => _StrukPembayaranState();
+
+class ReceiptPage extends StatelessWidget {
+  Sales sales;
+  Order order;
+  Payment payment;
+  ListOrderItem listOrderItem;
+
+  ReceiptPage({this.sales, this.order, this.payment, this.listOrderItem});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<ReceiptBloc>(
+      create: (context) =>
+      ReceiptBloc()..add(getReceipt(order: order, sales: sales, payment: payment, listOrderItem: listOrderItem)),
+      child: ReceiptSales(),
+    );
+  }
 }
 
-class _StrukPembayaranState extends State<StrukPembayaran>
-    with SingleTickerProviderStateMixin {
+class ReceiptSales extends StatefulWidget {
+  _ReceiptSalesState createState() => _ReceiptSalesState();
+}
+
+class _ReceiptSalesState extends State<ReceiptSales>{
+
+  ReceiptBloc _receiptBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _receiptBloc = BlocProvider.of<ReceiptBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,68 +53,24 @@ class _StrukPembayaranState extends State<StrukPembayaran>
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              children: <Widget>[
-                                Text("NAMA TOKO",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 25.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                                Text("Alamat Outlet",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.0,
-                                        fontFamily: 'CircularStd-Book')),
-                                Text("No Telp Outlet",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15.0,
-                                        fontFamily: 'CircularStd-Book')),
-                                Text("Nama Pegawai",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15.0,
-                                        fontFamily: 'CircularStd-Bold'))
-                              ],
-                            ),
-                          ),
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    width: MediaQuery.of(context).size.width,
+                    height: 220,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 2.0),
+                          blurRadius: 5.0,
                         ),
-                        SizedBox(height: 20),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 175,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
+                      ],
+                    ),
+                    child: BlocBuilder<ReceiptBloc,ReceiptState>(
+                      builder: (context, state){
+                        if(state is ReceiptLoaded){
+                          return Padding(
                             padding: EdgeInsets.all(15),
                             child: Column(
                               children: <Widget>[
@@ -97,17 +79,20 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                                         color: Colors.black,
                                         fontSize: 15.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Transaksi No #",
+                                Text("Transaksi No #" + state.order.id_order
+                                    .substring(0, 6) +
+                                    state.order.id_order
+                                        .substring(15, 18),
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 28.0,
+                                        fontSize: 20.0,
                                         fontFamily: 'CircularStd-Bold')),
                                 Text("Total Pembayaran",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Rp 120.000",
+                                Text("Rp " + state.order.total_price.toString(),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 25.0,
@@ -117,16 +102,27 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                                         color: Colors.black,
                                         fontSize: 12.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Rp 120.000",
+                                Text("Rp "+ state.payment.cash.toString(),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 25.0,
+                                        fontFamily: 'CircularStd-Bold')),
+                                Text("Kembalian",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12.0,
+                                        fontFamily: 'CircularStd-Book')),
+                                Text("Rp "+ state.payment.change_amount.toString(),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 25.0,
                                         fontFamily: 'CircularStd-Bold')),
                               ],
                             ),
-                          ),
-                        ),
-                      ],
+                          );
+                        }
+                        return Text("");
+                      },
                     ),
                   ),
                   Padding(
@@ -142,7 +138,7 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                   )
                 ],
               ),
-              preferredSize: Size(0, 390),
+              preferredSize: Size(0, 300),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -160,7 +156,14 @@ class _StrukPembayaranState extends State<StrukPembayaran>
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 1.8,
             child: Stack(children: <Widget>[
-              buildListMenuTransaction(context),
+              BlocBuilder<ReceiptBloc, ReceiptState>(
+                builder: (context,state){
+                  if(state is ReceiptLoaded){
+                    return buildListMenuTransaction(context, state.listOrderItem);
+                  }
+                  return Text("");
+                },
+              ),
               bottomButton()
             ]),
           ),
@@ -242,12 +245,13 @@ class _StrukPembayaranState extends State<StrukPembayaran>
         });
   }
 
-  Widget buildListMenuTransaction(BuildContext context) {
+  Widget buildListMenuTransaction(BuildContext context, ListOrderItem listOrderItem) {
     return Container(
       margin: EdgeInsets.only(bottom: 90),
       child: ListView.builder(
-          itemCount: 2,
+          itemCount: listOrderItem.listOrderItem.length,
           itemBuilder: (_, index) {
+            OrderItem orderItem = listOrderItem.listOrderItem[index];
             return Container(
                 decoration: BoxDecoration(
                   border: Border(
@@ -277,12 +281,12 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Nama Menu #$index",
+                              Text(orderItem.name_menu,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.0,
                                       fontFamily: 'CircularStd-Bold')),
-                              Text("Rp 2.500 x 2",
+                              Text("Rp " + (orderItem.subtotal_price/orderItem.quantity).toInt().toString() + " x "+ orderItem.quantity.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14.0,
@@ -297,7 +301,7 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          Text("Rp 5.000",
+                          Text("Rp " + orderItem.subtotal_price.toString(),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16.0,
@@ -333,7 +337,7 @@ class _StrukPembayaranState extends State<StrukPembayaran>
                     ),
                     color: Color.fromRGBO(54, 58, 155, 1),
                     child: Text(
-                      "Kembali Ke Transaksi Menu",
+                      "Kembali ke Daftar Pesanan",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18.0,

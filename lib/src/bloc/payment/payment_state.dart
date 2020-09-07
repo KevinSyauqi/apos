@@ -1,3 +1,4 @@
+import 'package:apos/src/models/models.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -7,6 +8,23 @@ class InitialPaymentState extends PaymentState {}
 
 class PaymentInProcess extends PaymentState {}
 
-class PaymentSuccess extends PaymentState {}
+class PaymentSuccess extends PaymentState {
+  Sales sales;
+  Order order;
+  Payment payment;
+  ListOrderItem listOrderItem;
 
-class PaymentFailure extends PaymentState {}
+  PaymentSuccess({this.sales, this.order, this.payment, this.listOrderItem});
+}
+
+class PaymentFailure extends PaymentState {
+  String error;
+
+  PaymentFailure({this.error});
+}
+
+class PaymentLoaded extends PaymentState {
+  Order order;
+
+  PaymentLoaded({this.order});
+}
