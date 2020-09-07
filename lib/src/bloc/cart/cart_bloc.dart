@@ -59,7 +59,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         List<OrderItem> listOrder;
         OrderItem order;
         listOrder = [];
-        event.orders.forEach((menu) {
+        event.orderMenus.forEach((menu) {
           if (listOrder.any((item) =>
           item.id_menu == menu.id_menu)) {
             final index = listOrder.indexWhere((item) =>
@@ -70,14 +70,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 listOrder[index].subtotal_price + menu.price;
             print(listOrder[index].toJson().toString());
           } else {
-            order = new OrderItem(menu.name_menu, 1, menu.price);
+            order = new OrderItem(menu.id_menu, menu.name_menu, 1, menu.price);
             print(order.toJson().toString());
             listOrder.add(order);
           }
         });
         yield CartLoaded(
             cart: listOrder,
-            menus: event.orders,
+            menus: event.orderMenus,
             totalPrice: event.totalPrice);
       } catch (e) {
         print(e);

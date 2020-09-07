@@ -1,15 +1,23 @@
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/provider/manageOrderProvider.dart';
 
-class manageOrderRepository{
-  final manageOrderProvider trscMenuProvider = new manageOrderProvider();
+class ManageOrderRepository{
+  final ManageOrderProvider manageOrderProvider = new ManageOrderProvider();
 
-  Future createOrder(ListOrder listOrder, Sales sales) async{
-    return await trscMenuProvider.createOrder(listOrder, sales);
+  Future createOrder(Order order, ListOrderItem listOrderItem) async{
+    return await manageOrderProvider.createOrder(order, listOrderItem);
   }
 
   Future<List<Menu>> fetchAllMenu() async{
-    return await trscMenuProvider.fetchAllMenu();
+    return await manageOrderProvider.fetchAllMenu();
+  }
+
+  Future fetchListOrder() async{
+    return await manageOrderProvider.fetchListOrder();
+  }
+
+  Future fetchOrderDetail(String id_order) async{
+    return await manageOrderProvider.fetchOrderDetail(id_order);
   }
 
 }

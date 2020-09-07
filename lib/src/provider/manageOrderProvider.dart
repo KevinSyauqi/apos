@@ -4,7 +4,7 @@ import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:http/http.dart';
 
-class manageOrderProvider {
+class ManageOrderProvider {
   Client client = Client();
   final _baseUrl = AppUrl.url;
   final _prefix = AppUrl.urlOrder;
@@ -20,11 +20,41 @@ class manageOrderProvider {
     return parsedListResponse(response);
   }
 
-  Future createOrder(ListOrder listOrder, Sales sales) async {
-    final _url = "$_baseUrl/manageTransaction/createOrder";
+  Future fetchListOrder() async {
+    final _url = "$_baseUrl/$_prefix/noPaidOrder";
 
-    final Map jsonData = sales.toJson();
-    jsonData["listOrder"] = listOrder.toJson();
+    final response = await client.get(_url);
+    final responseString = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
+    }
+  }
+
+  Future fetchOrderDetail(String id_order) async {
+    final _url = "$_baseUrl/$_prefix/orderDetail?id_order=$id_order";
+
+    final response = await client.get(_url);
+    final responseString = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
+    }
+  }
+
+  Future createOrder(Order order, ListOrderItem listOrderItem) async {
+    final _url = "$_baseUrl/$_prefix/orderCreate";
+
+    final Map jsonData = order.toJson();
+    jsonData.addAll(listOrderItem.toJson());
+
+    print(jsonData);
 
     final response = await client.post("$_url",
         headers: {"Content-Type": "application/json"},

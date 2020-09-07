@@ -1,19 +1,20 @@
 class OrderItem{
   String _id_order_item;
   String _id_order;
+  String _id_menu;
   String _name_menu;
   int _quantity;
   int _subtotal_price;
 
 
-  OrderItem(this._name_menu, this._quantity, this._subtotal_price);
+  OrderItem(this._id_menu, this._name_menu, this._quantity, this._subtotal_price);
 
 
   String get id_order_item => _id_order_item;
 
   String get id_order => _id_order;
 
-  String get id_menu => _name_menu;
+  String get id_menu => _id_menu;
 
   int get quantity => _quantity;
 
@@ -33,9 +34,14 @@ class OrderItem{
     _name_menu = value;
   }
 
+  set id_menu(String value) {
+    _id_menu = value;
+  }
+
   OrderItem.fromJson(Map<String, dynamic> json) {
     _id_order_item = json["id_order_item"];
     _id_order = json["id_order"];
+    _id_menu = json["id_menu"];
     _name_menu = json["name_menu"];
     _quantity = json["quantity"];
     _subtotal_price = json["subtotal_price"];
@@ -45,6 +51,7 @@ class OrderItem{
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id_order_item'] = this._id_order_item;
     data['id_order'] = this._id_order;
+    data['id_menu'] = this._id_menu;
     data['name_menu'] = this._name_menu;
     data['quantity'] = this._quantity;
     data['subtotal_price'] = this._subtotal_price;
@@ -69,7 +76,7 @@ class ListOrderItem{
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.listOrderItem != null) {
-      data['list_order_item'] = this.listOrderItem.map((v) => v.toJson()).toList();
+      data['cart'] = this.listOrderItem.map((v) => v.toJson()).toList();
     }
     return data;
   }

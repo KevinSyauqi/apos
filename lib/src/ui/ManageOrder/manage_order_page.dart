@@ -1,8 +1,9 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/History//riwayat_transaksi.dart';
-import 'package:apos/src/ui/ManageOrder/cart.dart';
-import 'package:apos/src/ui/ManageOrder/checkout_page.dart';
+import 'package:apos/src/ui/ManageOrder/cart_page.dart';
+import 'package:apos/src/ui/ManageOrder/checkout_order_page.dart';
+import 'package:apos/src/ui/ManageOrder/list_order_page.dart';
 import 'package:apos/src/ui/ManageOrder/transaksi_kustom.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
@@ -30,15 +31,15 @@ class _ManageOrderState extends State<ManageOrder>
     with SingleTickerProviderStateMixin {
   TabController controller;
   ManageOrderBloc _manageOrderBloc;
-  CartBloc _checkoutBloc;
+  CartBloc _cartBloc;
 
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this);
     _manageOrderBloc = BlocProvider.of<ManageOrderBloc>(context);
-    _checkoutBloc = BlocProvider.of<CartBloc>(context);
+    _cartBloc = BlocProvider.of<CartBloc>(context);
     _manageOrderBloc.add(FetchMenus());
-    _checkoutBloc.add(LoadCart());
+    _cartBloc.add(LoadCart());
 
     super.initState();
   }
@@ -47,7 +48,7 @@ class _ManageOrderState extends State<ManageOrder>
   void dispose() {
     controller.dispose();
     _manageOrderBloc.close();
-    _checkoutBloc.close();
+    _cartBloc.close();
     super.dispose();
   }
 
@@ -374,7 +375,7 @@ class _ManageOrderState extends State<ManageOrder>
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         if (state is CheckoutSuccess) {
-          _checkoutBloc.add(LoadCart());
+          _cartBloc.add(LoadCart());
         }
         return Container(
           child: Column(
@@ -441,7 +442,7 @@ class _ManageOrderState extends State<ManageOrder>
                                         totalPrice: state.totalPrice),
                                   )).then((value) {
                                   if (value == "Success") {
-                                    _checkoutBloc.add(LoadCart());
+                                    _cartBloc.add(LoadCart());
                                     _manageOrderBloc.add(FetchMenus());
                                   }
                                 })
@@ -465,7 +466,7 @@ class _ManageOrderState extends State<ManageOrder>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RiwayatTransaksi(),
+                              builder: (context) => ListOrderPage(),
                             ));
                       },
                     ),

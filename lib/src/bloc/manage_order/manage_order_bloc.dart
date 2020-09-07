@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import '../bloc.dart';
 
 class ManageOrderBloc extends Bloc<ManageOrderEvent, ManageOrderState> {
-  final manageOrderRepository _transactionRepository = manageOrderRepository();
+  final ManageOrderRepository _manageOrderRepository = ManageOrderRepository();
 
   @override
   ManageOrderState get initialState => ManageOrderInitialized();
@@ -18,7 +18,7 @@ class ManageOrderBloc extends Bloc<ManageOrderEvent, ManageOrderState> {
       if (event is FetchMenus) {
         yield ManageOrderLoading();
         List<Menu> menus;
-        menus = await _transactionRepository
+        menus = await _manageOrderRepository
             .fetchAllMenu();
         if (menus.length == 0) {
           yield ManageOrderEmpty();

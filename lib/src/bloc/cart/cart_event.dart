@@ -19,10 +19,10 @@ class RemoveFromCart extends CartEvent{
 
 class CheckoutCart extends CartEvent{
   final List<OrderItem> listOrderItem;
-  final List<Menu> orders;
+  final List<Menu> orderMenus;
   final int totalPrice;
 
-  CheckoutCart({this.listOrderItem, this.orders, this.totalPrice});
+  CheckoutCart({this.listOrderItem, this.orderMenus, this.totalPrice});
 }
 
 class PayLater extends CartEvent{
