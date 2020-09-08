@@ -1,6 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/ManageMenu//manage_menu_page.dart';
-import 'package:apos/src/ui/Report/laporan_penjualan.dart';
+import 'package:apos/src/ui/Report/report_page.dart';
 import 'package:apos/src/ui/History//riwayat_transaksi.dart';
 import 'package:apos/src/ui/dashboard_page.dart';
 import 'package:apos/src/ui/ManageOrder//manage_order_page.dart';
