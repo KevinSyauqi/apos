@@ -53,3 +53,7 @@ export 'payment/payment_state.dart';
 export 'receipt/receipt_bloc.dart';
 export 'receipt/receipt_event.dart';
 export 'receipt/receipt_state.dart';
+
+export 'report/report_bloc.dart';
+export 'report/report_event.dart';
+export 'report/report_state.dart';

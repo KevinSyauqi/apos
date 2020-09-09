@@ -1,13 +1,9 @@
-import 'package:apos/src/bloc/report/report_bloc.dart';
-import 'package:apos/src/bloc/report/report_event.dart';
-import 'package:apos/src/ui/Report//laporan_perhitungan_penjualan.dart';
-import 'package:apos/src/ui/Report//laporan_prediksi.dart';
 import 'package:apos/src/ui/History/riwayat_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -39,10 +35,7 @@ class _ReportSalesState extends State<ReportSales>
   @override
   void initState() {
     _reportBloc = BlocProvider.of<ReportBloc>(context);
-    _reportBloc.add(GetReportSalesByDate(
-        id_outlet_menu: "MOS2000101002",
-        startDate: "2019-10-01",
-        endDate: "2020-02-24"));
+    _reportBloc.add(GenerateReportSales(end_date: DateTime.now()));
     super.initState();
   }
 
@@ -51,24 +44,6 @@ class _ReportSalesState extends State<ReportSales>
     _reportBloc.close();
     // controller.dispose();
     super.dispose();
-  }
-
-  Outlet selectedOutlet;
-  List<Outlet> outlet = [
-    Outlet("Kopo Sayati"),
-    Outlet("Sarijadi"),
-    Outlet("Kebon Jati")
-  ];
-
-  List<DropdownMenuItem> generateItems(List<Outlet> category) {
-    List<DropdownMenuItem> items = [];
-    for (var item in outlet) {
-      items.add(DropdownMenuItem(
-        child: Text(item.name),
-        value: item,
-      ));
-    }
-    return items;
   }
 
   // Defining the data
@@ -266,14 +241,21 @@ class _ReportSalesState extends State<ReportSales>
                                           ),
                                           Container(
                                             width: 200,
-                                            child: Text(
-                                              "Rp 3.621.000",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18.0,
-                                                  fontFamily:
-                                                      'CircularStd-Bold'),
+                                            child: BlocBuilder<ReportBloc,ReportState>(
+                                              builder: (context,state){
+                                                if(state is ReportLoaded){
+                                                  return Text(
+                                                    "Rp "+ state.totalIncome,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18.0,
+                                                        fontFamily:
+                                                        'CircularStd-Bold'),
+                                                  );
+                                                }
+                                                return Center(child: CircularProgressIndicator());
+                                              },
                                             ),
                                           )
                                         ],
@@ -311,14 +293,21 @@ class _ReportSalesState extends State<ReportSales>
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: <Widget>[
-                                                Text(
-                                                  "75",
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18.0,
-                                                      fontFamily:
-                                                          'CircularStd-Bold'),
+                                                BlocBuilder<ReportBloc,ReportState>(
+                                                  builder: (context,state){
+                                                    if(state is ReportLoaded){
+                                                      return Text(
+                                                        state.totalSalesMenu,
+                                                        textAlign: TextAlign.right,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18.0,
+                                                            fontFamily:
+                                                            'CircularStd-Bold'),
+                                                      );
+                                                    }
+                                                    return CircularProgressIndicator();
+                                                  },
                                                 ),
                                                 SizedBox(width: 10),
                                                 Text(
@@ -364,14 +353,21 @@ class _ReportSalesState extends State<ReportSales>
                                           ),
                                           Container(
                                             width: 200,
-                                            child: Text(
-                                              "Rp 3.621.000",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18.0,
-                                                  fontFamily:
-                                                      'CircularStd-Bold'),
+                                            child: BlocBuilder<ReportBloc,ReportState>(
+                                              builder: (context,state){
+                                                if(state is ReportLoaded){
+                                                  return Text(
+                                                    "Rp "+ state.totalProfit,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18.0,
+                                                        fontFamily:
+                                                        'CircularStd-Bold'),
+                                                  );
+                                                }
+                                                return Center(child: CircularProgressIndicator());
+                                              },
                                             ),
                                           )
                                         ],
@@ -768,7 +764,7 @@ class _ReportSalesState extends State<ReportSales>
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                     child: Container(
                       child: Column(
                         children: <Widget>[
@@ -800,7 +796,7 @@ class _ReportSalesState extends State<ReportSales>
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                     child: Container(
                       child: Column(
                         children: <Widget>[
@@ -832,7 +828,7 @@ class _ReportSalesState extends State<ReportSales>
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                     child: Container(
                       child: Column(
                         children: <Widget>[
@@ -964,10 +960,4 @@ Widget buildListHistory(BuildContext context) {
                           )))
                 ]));
       });
-}
-
-class Outlet {
-  String name;
-
-  Outlet(this.name);
 }

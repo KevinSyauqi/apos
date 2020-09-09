@@ -7,3 +7,10 @@ class GetReportSalesByDate extends ReportEvent{
 
   GetReportSalesByDate({this.id_outlet_menu, this.startDate, this.endDate});
 }
+
+class GenerateReportSales extends ReportEvent{
+  final DateTime start_date;
+  final DateTime end_date;
+
+  GenerateReportSales({this.start_date, this.end_date});
+}

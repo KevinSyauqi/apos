@@ -68,9 +68,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             listOrder[index].name_menu = menu.name_menu;
             listOrder[index].subtotal_price =
                 listOrder[index].subtotal_price + menu.price;
+            listOrder[index].subtotal_cost =
+                listOrder[index].subtotal_cost + menu.cost;
             print(listOrder[index].toJson().toString());
           } else {
-            order = new OrderItem(menu.id_menu, menu.name_menu, 1, menu.price);
+            order = new OrderItem(menu.id_menu, menu.name_menu, 1, menu.price, menu.cost);
             print(order.toJson().toString());
             listOrder.add(order);
           }

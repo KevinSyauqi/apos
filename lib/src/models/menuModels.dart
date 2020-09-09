@@ -49,7 +49,7 @@ class Menu{
     _id_menu = json["id_menu"];
     _name_menu = json['name_menu'];
     _category = json['category'];
-    _cost = json['cog'];
+    _cost = json['cost'];
     _price = json['price'];
     _is_active = json['is_active'];
   }

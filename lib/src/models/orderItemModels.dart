@@ -5,9 +5,10 @@ class OrderItem{
   String _name_menu;
   int _quantity;
   int _subtotal_price;
+  int _subtotal_cost;
 
 
-  OrderItem(this._id_menu, this._name_menu, this._quantity, this._subtotal_price);
+  OrderItem(this._id_menu, this._name_menu, this._quantity, this._subtotal_price, this._subtotal_cost);
 
 
   String get id_order_item => _id_order_item;
@@ -20,6 +21,8 @@ class OrderItem{
 
   int get subtotal_price => _subtotal_price;
 
+  int get subtotal_cost => _subtotal_cost;
+
   String get name_menu => _name_menu;
 
   set quantity(int value) {
@@ -28,6 +31,10 @@ class OrderItem{
 
   set subtotal_price(int value) {
     _subtotal_price = value;
+  }
+
+  set subtotal_cost(int value) {
+    _subtotal_cost = value;
   }
 
   set name_menu(String value) {
@@ -45,6 +52,7 @@ class OrderItem{
     _name_menu = json["name_menu"];
     _quantity = json["quantity"];
     _subtotal_price = json["subtotal_price"];
+    _subtotal_cost = json["subtotal_cost"];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +63,7 @@ class OrderItem{
     data['name_menu'] = this._name_menu;
     data['quantity'] = this._quantity;
     data['subtotal_price'] = this._subtotal_price;
+    data['subtotal_cost'] = this._subtotal_cost;
     return data;
   }
 }

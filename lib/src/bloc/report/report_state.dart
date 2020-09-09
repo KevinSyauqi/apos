@@ -1,12 +1,6 @@
 import 'package:apos/src/models/models.dart';
-import 'package:equatable/equatable.dart';
 
-abstract class ReportState extends Equatable {
-  const ReportState();
-
-  @override
-  List<Object> get props => [];
-}
+abstract class ReportState {}
 
 class ReportInitial extends ReportState {}
 
@@ -17,7 +11,14 @@ class ReportFailure extends ReportState {}
 class ReportEmpty extends ReportState {}
 
 class ReportLoaded extends ReportState {
-  final List<OrderItem> reportSales;
+  final String totalIncome;
+  final String totalSalesMenu;
+  final String totalProfit;
+  final ListOrderItem best5foodsales;
+  final ListOrderItem best5drinksales;
+  final ListOrderItem lowest5foodsales;
+  final ListOrderItem lowest5drinksales;
 
-  ReportLoaded({this.reportSales});
+  ReportLoaded({this.totalIncome, this.totalSalesMenu, this.totalProfit, this.best5foodsales,
+  this.best5drinksales, this.lowest5drinksales, this.lowest5foodsales});
 }
