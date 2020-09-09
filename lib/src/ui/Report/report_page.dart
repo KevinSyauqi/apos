@@ -1,3 +1,4 @@
+import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/History/riwayat_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
@@ -398,167 +399,19 @@ class _ReportSalesState extends State<ReportSales>
                   child: Column(
                     children: <Widget>[
                       Text(
-                        "Menu Terlaris",
+                        "Menu Makanan Terlaris",
                         style: TextStyle(
                             color: Colors.black87,
                             fontSize: 15.0,
                             fontFamily: 'CircularStd-Bold'),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                "Nasi Goreng Khas Minangkabau",
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Medium'),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "75 porsi",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),
-                            ),
-                          ],
-                        ),
+                      BlocBuilder<ReportBloc,ReportState>(
+                        builder: (context, state){
+                          if(state is ReportLoaded){
+                            return buildListMenuSales(state.best5foodsales);
+                          } return CircularProgressIndicator();
+                        },
                       ),
-                      Divider(height: 0.1, color: Colors.black12),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                "Nasi Goreng Khas Minangkabau",
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Medium'),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "75 porsi",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(height: 0.1, color: Colors.black12),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                "Nasi Goreng Khas Minangkabau",
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Medium'),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "75 porsi",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(height: 0.1, color: Colors.black12),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                "Nasi Goreng Khas Minangkabau",
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Medium'),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "75 porsi",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(height: 0.1, color: Colors.black12),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                "Nasi Goreng Khas Minangkabau",
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Medium'),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "75 porsi",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(height: 0.1, color: Colors.black12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
@@ -580,7 +433,7 @@ class _ReportSalesState extends State<ReportSales>
               ),
             ),
             Card(
-                  margin: EdgeInsets.all(20),
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                   elevation: 10,
                   shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
                   shape: RoundedRectangleBorder(
@@ -591,167 +444,124 @@ class _ReportSalesState extends State<ReportSales>
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "Menu Kurang Laris",
+                            "Menu Minuman Terlaris",
                             style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 15.0,
                                 fontFamily: 'CircularStd-Bold'),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    "Nasi Goreng Khas Minangkabau",
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Medium'),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "75 porsi",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Bold'),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          BlocBuilder<ReportBloc,ReportState>(
+                            builder: (context, state){
+                              if(state is ReportLoaded){
+                                return buildListMenuSales(state.best5drinksales);
+                              } return CircularProgressIndicator();
+                            },
                           ),
-                          Divider(height: 0.1, color: Colors.black12),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    "Nasi Goreng Khas Minangkabau",
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Medium'),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "75 porsi",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Bold'),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                padding: EdgeInsets.all(10),
+                                onPressed: null, child: Text(
+                                "> Lihat Semua Menu",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Bold'),
+                              ),)
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+            Card(
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  elevation: 10,
+                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Menu Makanan Kurang Laris",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 15.0,
+                                fontFamily: 'CircularStd-Bold'),
                           ),
-                          Divider(height: 0.1, color: Colors.black12),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    "Nasi Goreng Khas Minangkabau",
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Medium'),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "75 porsi",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Bold'),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          BlocBuilder<ReportBloc,ReportState>(
+                            builder: (context, state){
+                              if(state is ReportLoaded){
+                                return buildListMenuSales(state.lowest5foodsales);
+                              } return CircularProgressIndicator();
+                            },
                           ),
-                          Divider(height: 0.1, color: Colors.black12),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    "Nasi Goreng Khas Minangkabau",
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Medium'),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "75 porsi",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Bold'),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                padding: EdgeInsets.all(10),
+                                onPressed: null, child: Text(
+                                "> Lihat Semua Menu",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Bold'),
+                              ),)
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  elevation: 10,
+                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Menu Minuman Kurang Laris",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 15.0,
+                                fontFamily: 'CircularStd-Bold'),
                           ),
-                          Divider(height: 0.1, color: Colors.black12),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    "Nasi Goreng Khas Minangkabau",
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Medium'),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "75 porsi",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Bold'),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          BlocBuilder<ReportBloc,ReportState>(
+                            builder: (context, state){
+                              if(state is ReportLoaded){
+                                return buildListMenuSales(state.lowest5drinksales);
+                              } return CircularProgressIndicator();
+                            },
                           ),
-                          Divider(height: 0.1, color: Colors.black12)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                padding: EdgeInsets.all(10),
+                                onPressed: null, child: Text(
+                                "> Lihat Semua Menu",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Bold'),
+                              ),)
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -858,6 +668,53 @@ class _ReportSalesState extends State<ReportSales>
       ),
     );
   }
+
+
+  Widget buildListMenuSales(ListOrderItem listSales) {
+    return ListView.builder(
+        padding: EdgeInsets.all(0),
+        physics: new ClampingScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: listSales.listOrderItem.length,
+        itemBuilder: (_, index) {
+          OrderItem item = listSales.listOrderItem[index];
+          return Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      child: Text(item.name_menu,
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12.0,
+                            fontFamily: 'CircularStd-Medium'),
+                      ),
+                    ),
+                    Container(
+                      child: Text(
+                        item.quantity.toString() + " porsi",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(height: 0.1, color: Colors.black12)
+            ],
+          );
+        });
+  }
+
 }
 
 class SalesData {
@@ -867,97 +724,3 @@ class SalesData {
   SalesData(this.year, this.sales);
 }
 
-Widget buildListHistory(BuildContext context) {
-  return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (_, index) {
-        return Container(
-            decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      color: Color.fromRGBO(224, 224, 224, 1), width: 1.0)),
-              color: Color.fromRGBO(250, 250, 250, 1),
-            ),
-            width: double.infinity,
-            height: 80,
-            margin: EdgeInsets.symmetric(horizontal: 25),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailRiwayatTransaksi(),
-                              ));
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text("Transaksi No #$index",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                            Text("Kamis, 20 Juli 2020",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Book')),
-                            Text("Rp 100.000",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                      child: Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  child: Text("Bayar",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontFamily: 'CircularStd-Bold')),
-                                ),
-                              ),
-                              SizedBox(width: 5),
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  iconSize: 17,
-                                  color: Colors.white,
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ],
-                          )))
-                ]));
-      });
-}
