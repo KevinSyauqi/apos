@@ -32,5 +32,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if(event is HomePredictionPageLoad){
       yield HomePredictionPage();
     }
+    if(event is HomeManageStockPageLoad){
+      yield HomeManageStockPage();
+    }
   }
 }

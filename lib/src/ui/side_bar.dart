@@ -1,11 +1,11 @@
-
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/ManageMenu/manage_menu_page.dart';
-import 'package:apos/src/ui/Report/report_page.dart';
+import 'package:apos/src/ui/ManageOrder/list_order_page.dart';
 import 'package:apos/src/ui/History/riwayat_transaksi.dart';
 import 'package:apos/src/ui/ManageOrder//manage_order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -50,20 +50,20 @@ class _AppDrawerState extends State<AppDrawer> {
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 50.0,
+                              child: FaIcon(
+                                FontAwesomeIcons.userAlt,
+                                size: 35,
+                                color: Colors.grey[300],
+                              ),
                             ),
                           ),
                           Column(
                             children: <Widget>[
-                              Text("Nama Pengguna",
+                              Text("Annisa Fathana",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22.0,
-                                      fontFamily: 'CircularStd-Bold')),
-                              Text("Role Pengguna",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15.0,
-                                      fontFamily: 'CircularStd-Book'))
+                                      fontFamily: 'CircularStd-Bold'))
                             ],
                           )
                         ]),
@@ -73,18 +73,19 @@ class _AppDrawerState extends State<AppDrawer> {
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
-                    child: Icon(Icons.dashboard)),
-                title: Text("Dasbor",
+                    child: FaIcon(FontAwesomeIcons.desktop, size: 20,)),
+                title: Text("Dashboard",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () async{
+                onTap: () async {
                   Navigator.pop(context);
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeDashboardPageLoad());
                 },
               ),
+              
               Container(
                   decoration: BoxDecoration(
                       border: Border(
@@ -96,13 +97,13 @@ class _AppDrawerState extends State<AppDrawer> {
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
-                    child: Icon(Icons.add_shopping_cart)),
+                    child: FaIcon(FontAwesomeIcons.clipboard)),
                 title: Text("Kelola Pesanan",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () async{
+                onTap: () async {
                   Navigator.pop(context);
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeTransactionPageLoad());
@@ -119,7 +120,34 @@ class _AppDrawerState extends State<AppDrawer> {
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
-                    child: Icon(Icons.fastfood)),
+                    child: Icon(Icons.add_shopping_cart)),
+                title: Text("Checkout",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17.0,
+                        fontFamily: 'CircularStd-Bold')),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListOrderPage(),
+                            ));
+                },
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
+              ListTile(
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.restaurant)),
                 title: Text("Kelola Menu",
                     style: TextStyle(
                         color: Colors.black,
@@ -142,13 +170,36 @@ class _AppDrawerState extends State<AppDrawer> {
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
-                    child: Icon(Icons.list)),
+                    child: FaIcon(FontAwesomeIcons.cubes)),
+                title: Text("Kelola Stok Menu",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17.0,
+                        fontFamily: 'CircularStd-Bold')),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomeManageStockPageLoad());
+                },
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
+              ListTile(
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
+                    child: FaIcon(FontAwesomeIcons.chartBar)),
                 title: Text("Laporan Penjualan",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () async{
+                onTap: () async {
                   Navigator.pop(context);
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeReportPageLoad());
@@ -165,13 +216,13 @@ class _AppDrawerState extends State<AppDrawer> {
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
-                    child: Icon(Icons.list)),
+                    child: FaIcon(FontAwesomeIcons.calendarCheck)),
                 title: Text("Prediksi Penjualan",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 17.0,
                         fontFamily: 'CircularStd-Bold')),
-                onTap: () async{
+                onTap: () async {
                   Navigator.pop(context);
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomePredictionPageLoad());
@@ -199,25 +250,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeHistoryPageLoad());
                 },
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Color.fromRGBO(224, 224, 224, 1),
-                              width: 1.0))),
-                  width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 10)),
-              ListTile(
-                leading: IconTheme(
-                    data: IconThemeData(color: Colors.black),
-                    child: Icon(Icons.settings)),
-                title: Text("Edit Profile",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17.0,
-                        fontFamily: 'CircularStd-Bold')),
-                onTap: () {},
               ),
               Container(
                   decoration: BoxDecoration(

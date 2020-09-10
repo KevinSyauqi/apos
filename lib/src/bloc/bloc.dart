@@ -57,3 +57,7 @@ export 'receipt/receipt_state.dart';
 export 'report/report_bloc.dart';
 export 'report/report_event.dart';
 export 'report/report_state.dart';
+
+export 'manage_stock/manage_stock_bloc.dart';
+export 'manage_stock/manage_stock_event.dart';
+export 'manage_stock/manage_stock_state.dart';

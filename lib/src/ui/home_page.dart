@@ -1,5 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/ManageMenu//manage_menu_page.dart';
+import 'package:apos/src/ui/ManageStock/manage_stock.dart';
 import 'package:apos/src/ui/Report/report_page.dart';
 import 'package:apos/src/ui/History//riwayat_transaksi.dart';
 import 'package:apos/src/ui/dashboard_page.dart';
@@ -43,6 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         if(state is HomeManageMenuPage){
           return ManageMenuPage();
+        }
+        if(state is HomeManageStockPage){
+          return ManageStockPage();
         }
         if(state is HomeReportPage){
           return ReportPage();

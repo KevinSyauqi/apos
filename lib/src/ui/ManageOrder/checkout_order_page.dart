@@ -5,6 +5,7 @@ import 'package:apos/src/ui/ManageOrder/receipt_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class CheckoutOrderPage extends StatelessWidget {
@@ -16,8 +17,7 @@ class CheckoutOrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<CheckoutOrderBloc>(
       create: (context) =>
-      CheckoutOrderBloc()
-        ..add(fetchOrderDetail(id_order: id_order)),
+          CheckoutOrderBloc()..add(fetchOrderDetail(id_order: id_order)),
       child: CheckoutOrder(),
     );
   }
@@ -52,115 +52,72 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: BlocBuilder<CheckoutOrderBloc,
-                                CheckoutOrderState>(builder: (context, state) {
-                              if (state is CheckoutOrderLoaded) {
-                                return Column(
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .width,
-                                      child: Center(
-                                          child: Text(
-                                              "#" +
-                                                  state.order.id_order
-                                                      .substring(0, 6) +
-                                                  state.order.id_order
-                                                      .substring(15, 18),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 30.0,
-                                                  fontFamily:
-                                                  'CircularStd-Bold'))),
-                                    ),
-                                    Container(
-                                      height:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height /
-                                          45,
-                                      width: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .width,
-                                      child: Center(
-                                          child: Text(
-                                              DateFormat('EEE, d MMMM '
-                                                  'yyyy')
-                                                  .format(state.order.date),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0,
-                                                  fontFamily:
-                                                  'CircularStd-Book'))),
-                                    ),
-                                    Container(
-                                      width: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .width,
-                                      child: Center(
-                                        child: Text(
-                                            "Rp " +
-                                                state.order.total_price
-                                                    .toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25.0,
-                                                fontFamily:
-                                                'CircularStd-Bold')),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              }
-                              return Center(child: CircularProgressIndicator());
-                            }),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Padding(
-                    padding: EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(top: 5),
                   ),
                   Container(
-                    height: 50,
+                    // margin: EdgeInsets.symmetric(vertical:10),
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: BlocBuilder<CheckoutOrderBloc, CheckoutOrderState>(
+                          builder: (context, state) {
+                        if (state is CheckoutOrderLoaded) {
+                          return Column(
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                    child: Text(
+                                        "#" +
+                                            state.order.id_order
+                                                .substring(0, 6) +
+                                            state.order.id_order
+                                                .substring(15, 18),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 30.0,
+                                            fontFamily: 'CircularStd-Bold'))),
+                              ),
+                              Container(
+                                height: MediaQuery.of(context).size.height / 45,
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                    child: Text(
+                                        DateFormat('EEE, d MMMM '
+                                                'yyyy')
+                                            .format(state.order.date),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15.0,
+                                            fontFamily: 'CircularStd-Book'))),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                  child: Text(
+                                      "Rp " +
+                                          state.order.total_price.toString(),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25.0,
+                                          fontFamily: 'CircularStd-Bold')),
+                                ),
+                              )
+                            ],
+                          );
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
+                    ),
                   )
                 ],
               ),
-              preferredSize: Size(0, 200),
+              preferredSize: Size(0, 135),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -168,33 +125,27 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromRGBO(252, 195, 108, 1),
-                        Color.fromRGBO(253, 166, 125, 1),
-                      ])),
+                    Color.fromRGBO(252, 195, 108, 1),
+                    Color.fromRGBO(253, 166, 125, 1),
+                  ])),
             ),
             elevation: 0.0,
           ),
           // drawer: AppDrawer(),
           body: Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: BlocBuilder<CheckoutOrderBloc, CheckoutOrderState>(
                 builder: (context, state) {
-                  if (state is CheckoutOrderLoaded) {
-                    print(state.listOrderItem.listOrderItem.length);
-                    return Stack(children: <Widget>[
-                      buildListOrderItem(context, state.listOrderItem),
-                      processPayment(state.order)
-                    ]);
-                  }
-                  return Center(child: CircularProgressIndicator());
-                }),
+              if (state is CheckoutOrderLoaded) {
+                print(state.listOrderItem.listOrderItem.length);
+                return Stack(children: <Widget>[
+                  buildListOrderItem(context, state.listOrderItem),
+                  processPayment(state.order)
+                ]);
+              }
+              return Center(child: CircularProgressIndicator());
+            }),
           ),
         ),
       ]),
@@ -212,8 +163,8 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 alignment: Alignment.center,
                 child: ButtonTheme(
@@ -227,8 +178,8 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(
-                            Icons.add,
+                          FaIcon(
+                            FontAwesomeIcons.plus,size: 17,
                             color: Colors.white,
                           ),
                           SizedBox(
@@ -325,4 +276,3 @@ Widget buildListOrderItem(BuildContext context, ListOrderItem listOrderItem) {
                 ]));
       });
 }
-

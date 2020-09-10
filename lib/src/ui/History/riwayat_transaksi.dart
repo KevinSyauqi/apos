@@ -87,48 +87,6 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.only(left: 15),
-                              child: Icon(Icons.store)),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 3, horizontal: 10),
-                            width: MediaQuery.of(context).size.width / 1.4,
-                            height: 55,
-                            child: DropdownButtonFormField(
-                              decoration: InputDecoration.collapsed(
-                                hintText: 'Pilih Outlet',
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(179, 179, 183, 1),
-                                    fontSize: 13.0,
-                                    fontFamily: 'CircularStd-Book'),
-                              ),
-                              isExpanded: true,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13.0,
-                                  fontFamily: 'CircularStd-Book'),
-                              value: selectedOutlet,
-                              items: generateItems(outlet),
-                              onChanged: (item) {
-                                setState(() {
-                                  selectedOutlet = item;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
                   GestureDetector(
                     onTap: () async {
                       await displayDateRangePicker(context);
@@ -187,16 +145,16 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                     padding: EdgeInsets.only(top: 20),
                   ),
                   Container(
-                    height: 50,
+                    height: 40,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
                   )
                 ],
               ),
-              preferredSize: Size(0, 200),
+              preferredSize: Size(0, 125),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(

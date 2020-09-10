@@ -179,15 +179,15 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                               child: Align(
                                   alignment: Alignment.center,
                                   child: Icon(
-                                    Icons.fastfood,
-                                    color: Colors.white,
+                                    Icons.restaurant,
+                                    color: Colors.grey[500],
                                     size: 80,
                                   )),
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 2.2,
+                              height: MediaQuery.of(context).size.height / 1.7,
                             )
                           : Container(
-                              height: MediaQuery.of(context).size.height /2.2,
+                              height: MediaQuery.of(context).size.height /1.7,
                               width: MediaQuery.of(context).size.width,
                               child: Image.file(
                                 _image,
@@ -220,8 +220,8 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(60.0),
-                                  topRight: Radius.circular(60.0),
+                                  topLeft: Radius.circular(40.0),
+                                  topRight: Radius.circular(40.0),
                                 ),
                                 gradient: LinearGradient(
                                     begin: Alignment.topCenter,
@@ -249,7 +249,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                             controller: namemenuController,
                                             decoration: InputDecoration(
                                                 prefixIcon: Icon(
-                                                  Icons.fastfood,
+                                                  Icons.restaurant,
                                                   color: Color.fromRGBO(
                                                       179, 179, 183, 1),
                                                 ),
@@ -287,7 +287,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                   color: Color.fromRGBO(
                                                       179, 179, 183, 1),
                                                 ),
-                                                hintText: "Harga Menu",
+                                                hintText: "Harga Dasar Menu",
                                                 hintStyle: TextStyle(
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
@@ -322,7 +322,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                       179, 179, 183, 1),
                                                 ),
                                                 hintText:
-                                                    "Harga Dasar (Tidak Wajib Diisi)",
+                                                    "Harga Jual Menu",
                                                 hintStyle: TextStyle(
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
@@ -382,125 +382,6 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                             ),
                                           ),
                                         ),
-                                        // Deskripsi Menu
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          child: TextField(
-                                            controller: descriptionController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.description,
-                                                  color: Color.fromRGBO(
-                                                      179, 179, 183, 1),
-                                                ),
-                                                hintText: "Deskripsi Menu",
-                                                hintStyle: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20))),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 20.0,
-                                                        vertical: 16.0)),
-                                          ),
-                                        ),
-                                        //Switch Stok
-                                        Container(
-                                          child: Row(children: <Widget>[
-                                            Text(
-                                              "Aktifkan Stok Menu",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontFamily:
-                                                      'CircularStd-Bold'),
-                                            ),
-                                            SizedBox(width: 10),
-                                            Transform.scale(
-                                              scale: 0.8,
-                                              child: CupertinoSwitch(
-                                                  activeColor: Colors.white,
-                                                  value: isStock,
-                                                  onChanged: (newValue) {
-                                                    isStock = newValue;
-                                                    setState(() {
-                                                      if (isStock)
-                                                        stockForm = Card(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          20))),
-                                                          child: TextField(
-                                                            controller:
-                                                                stockController,
-                                                            decoration:
-                                                                InputDecoration(
-                                                                    prefixIcon:
-                                                                        Icon(
-                                                                      Icons
-                                                                          .card_giftcard,
-                                                                      color: Color.fromRGBO(
-                                                                          179,
-                                                                          179,
-                                                                          183,
-                                                                          1),
-                                                                    ),
-                                                                    hintText:
-                                                                        "Stok Menu",
-                                                                    hintStyle: TextStyle(
-                                                                        color: Color.fromRGBO(
-                                                                            179,
-                                                                            179,
-                                                                            183,
-                                                                            1),
-                                                                        fontSize:
-                                                                            13.0,
-                                                                        fontFamily:
-                                                                            'CircularStd-Book'),
-                                                                    filled:
-                                                                        true,
-                                                                    fillColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    border: OutlineInputBorder(
-                                                                        borderSide: BorderSide
-                                                                            .none,
-                                                                        borderRadius: BorderRadius.all(Radius.circular(
-                                                                            20))),
-                                                                    contentPadding: EdgeInsets.symmetric(
-                                                                        horizontal:
-                                                                            20.0,
-                                                                        vertical:
-                                                                            16.0)),
-                                                          ),
-                                                        );
-                                                      else {
-                                                        stockForm = Card();
-                                                      }
-                                                    });
-                                                  }),
-                                            ),
-                                            SizedBox(width: 10),
-                                            // stockForm,
-                                          ]),
-                                        ),
-                                        // Stok Menu
-                                        AnimatedSwitcher(
-                                            child: stockForm,
-                                            duration: Duration(seconds: 2)),
                                         SizedBox(
                                           height: 20,
                                         ),

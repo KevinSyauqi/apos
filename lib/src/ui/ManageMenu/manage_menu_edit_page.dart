@@ -125,15 +125,15 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                         child: Align(
                             alignment: Alignment.center,
                             child: Icon(
-                              Icons.fastfood,
-                              color: Colors.white,
+                              Icons.restaurant,
+                              color: Colors.grey[500],
                               size: 80,
                             )),
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height / 2.1,
+                        height: MediaQuery.of(context).size.height / 1.7,
                       )
                     : Container(
-                        height: MediaQuery.of(context).size.height / 2.1,
+                        height: MediaQuery.of(context).size.height / 1.7,
                         width: MediaQuery.of(context).size.width,
                         child: Image.file(
                           _image,
@@ -311,6 +311,9 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(
+                                          height: 20,
+                                        ),
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width / 2,

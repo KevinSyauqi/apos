@@ -22,7 +22,7 @@ class ListOrder extends StatefulWidget {
   _ListOrderState createState() => _ListOrderState();
 }
 
-class _ListOrderState extends State<ListOrder>{
+class _ListOrderState extends State<ListOrder> {
   ActiveOrderBloc _activeOrderBloc;
 
   @override
@@ -54,16 +54,16 @@ class _ListOrderState extends State<ListOrder>{
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 50,
+                    height: 40,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
                   )
                 ],
               ),
-              preferredSize: Size(0, 80),
+              preferredSize: Size(0, 50),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -97,7 +97,7 @@ class _ListOrderState extends State<ListOrder>{
                                   border: Border(
                                       bottom: BorderSide(
                                           color:
-                                          Color.fromRGBO(224, 224, 224, 1),
+                                              Color.fromRGBO(224, 224, 224, 1),
                                           width: 1.0)),
                                   color: Color.fromRGBO(250, 250, 250, 1),
                                 ),
@@ -108,7 +108,7 @@ class _ListOrderState extends State<ListOrder>{
                                     vertical: 10, horizontal: 5),
                                 child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Expanded(
                                         child: Container(
@@ -118,14 +118,16 @@ class _ListOrderState extends State<ListOrder>{
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        CheckoutOrderPage(id_order: order.id_order),
+                                                        CheckoutOrderPage(
+                                                            id_order:
+                                                                order.id_order),
                                                   ));
                                             },
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
                                                     "No #" +
@@ -137,78 +139,100 @@ class _ListOrderState extends State<ListOrder>{
                                                         color: Colors.black,
                                                         fontSize: 18.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold')),
+                                                            'CircularStd-Bold')),
                                                 Text(
                                                     DateFormat('EEE, d MMMM '
-                                                        'yyyy')
+                                                            'yyyy')
                                                         .format(order.date),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 14.0,
                                                         fontFamily:
-                                                        'CircularStd-Book')),
+                                                            'CircularStd-Book')),
                                                 order.customer_name != null
-                                                    ? Text("Pelanggan : ",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 14.0,
-                                                        fontFamily:
-                                                        'CircularStd-Bold'))
+                                                    ? Text("Nomor Meja : ",
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 14.0,
+                                                            fontFamily:
+                                                                'CircularStd-Bold'))
                                                     : Text(order.customer_name),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Expanded(
+                                      GestureDetector(
+                                                                              child: Center(
                                           child: Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                    height: 32,
-                                                    alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            54, 58, 155, 1),
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .circular(13)),
-                                                    child: MaterialButton(
-                                                      onPressed: () {},
-                                                      child: Text("Bayar",
-                                                          style: TextStyle(
-                                                              color:
-                                                              Colors.white,
-                                                              fontSize: 14.0,
-                                                              fontFamily:
-                                                              'CircularStd-Bold')),
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Container(
-                                                    width: 32,
-                                                    height: 32,
-                                                    alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            54, 58, 155, 1),
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .circular(13)),
-                                                    child: IconButton(
-                                                      icon: Icon(Icons.delete),
-                                                      iconSize: 17,
-                                                      color: Colors.white,
-                                                      onPressed: () {},
-                                                    ),
-                                                  ),
-                                                ],
-                                              )))
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            height: 40,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                color:
+                                                    Color.fromRGBO(54, 58, 155, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(13)),
+                                            child: Text("Tambah Pesanan",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14.0,
+                                                    fontFamily:
+                                                        'CircularStd-Bold')),
+                                          ),
+                                        ),
+                                        onTap: (){},
+                                      ),
+                                      // Expanded(
+                                      //     child: Container(
+                                      //         margin: EdgeInsets.only(top: 10),
+                                      //         child: Row(
+                                      //           mainAxisAlignment:
+                                      //           MainAxisAlignment.end,
+                                      //           crossAxisAlignment:
+                                      //           CrossAxisAlignment.center,
+                                      //           children: <Widget>[
+                                      //             Container(
+                                      //               height: 32,
+                                      //               alignment: Alignment.center,
+                                      //               decoration: BoxDecoration(
+                                      //                   color: Color.fromRGBO(
+                                      //                       54, 58, 155, 1),
+                                      //                   borderRadius:
+                                      //                   BorderRadius
+                                      //                       .circular(13)),
+                                      //               child: MaterialButton(
+                                      //                 onPressed: () {},
+                                      //                 child: Text("Bayar",
+                                      //                     style: TextStyle(
+                                      //                         color:
+                                      //                         Colors.white,
+                                      //                         fontSize: 14.0,
+                                      //                         fontFamily:
+                                      //                         'CircularStd-Bold')),
+                                      //               ),
+                                      //             ),
+                                      //             SizedBox(width: 5),
+                                      //             Container(
+                                      //               width: 32,
+                                      //               height: 32,
+                                      //               alignment: Alignment.center,
+                                      //               decoration: BoxDecoration(
+                                      //                   color: Color.fromRGBO(
+                                      //                       54, 58, 155, 1),
+                                      //                   borderRadius:
+                                      //                   BorderRadius
+                                      //                       .circular(13)),
+                                      //               child: IconButton(
+                                      //                 icon: Icon(Icons.delete),
+                                      //                 iconSize: 17,
+                                      //                 color: Colors.white,
+                                      //                 onPressed: () {},
+                                      //               ),
+                                      //             ),
+                                      //           ],
+                                      //         )))
                                     ]));
                           })
                     ],

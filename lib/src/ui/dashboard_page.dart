@@ -1,8 +1,10 @@
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/ui/ManageOrder/list_order_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -38,7 +40,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          "Dasbor",
+          "Dashboard",
           textAlign: TextAlign.left,
           style: TextStyle(
               color: Colors.white,
@@ -48,29 +50,29 @@ class _DashboardState extends State<Dashboard> {
         actions: <Widget>[
           Container(
             height: 40,
-            width: 200,
+            width: 180,
             margin: EdgeInsets.symmetric(vertical: 10),
             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
             decoration: BoxDecoration(
               color: Color.fromRGBO(255, 255, 255, 0.2),
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.store, color: Colors.white, size: 20),
-                SizedBox(width: 3),
+                SizedBox(width: 5),
                 Text(
-                  "Lapau Bukittinggi (Pusat)",
+                  "Lapau Bukittinggi",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
+                      fontSize: 15.0,
                       fontFamily: 'CircularStd-Bold'),
                 )
               ],
             ),
           ),
-          SizedBox(width: 8),
+          SizedBox(width: 30),
         ],
         bottom: PreferredSize(
             child: Column(
@@ -83,43 +85,49 @@ class _DashboardState extends State<Dashboard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Selamat Datang,",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'CircularStd-Book')),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Container(
-                            child: Text("Annisa Fathana",
-                                maxLines: 1,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontFamily: 'CircularStd-Bold')),
-                            width: 150,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Selamat Datang,",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontFamily: 'CircularStd-Book')),
+                              Container(
+                                child: Text("Annisa Fathana",
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25,
+                                        fontFamily: 'CircularStd-Bold')),
+                                width: 80,
+                              ),
+                            ],
                           ),
                           Container(
-                            height: 30,
+                            height: 35,
                             padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 5
-                            ),
+                                horizontal: 10, vertical: 10),
                             decoration: BoxDecoration(
-                              color: Color.fromRGBO(54, 58, 155, 0.8),
-                              borderRadius: BorderRadius.circular(10)
-                            ),
+                                color: Color.fromRGBO(54, 58, 155, 0.8),
+                                borderRadius: BorderRadius.circular(12)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Icon(Icons.calendar_today,color: Colors.white, size: 15),
+                                Icon(Icons.calendar_today,
+                                    color: Colors.white, size: 15),
                                 SizedBox(width: 5),
-                                Text(new DateFormat("EEEE, dd MMMM yyyy").format(new DateTime.now()), style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontFamily: 'CircularStd-Bold'
-                                ),)
+                                Text(
+                                  new DateFormat("EEEE, dd MMMM yyyy")
+                                      .format(new DateTime.now()),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontFamily: 'CircularStd-Bold'),
+                                )
                               ],
                             ),
                           )
@@ -151,14 +159,14 @@ class _DashboardState extends State<Dashboard> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.account_balance_wallet,
+                          FaIcon(FontAwesomeIcons.shoppingBasket,
                               color: Colors.black, size: 20),
                           SizedBox(width: 8),
                           Text(
-                            "Penjualan",
+                            "Pendapatan Penjualan",
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 15,
+                                fontSize: 14,
                                 fontFamily: 'CircularStd-Bold'),
                           )
                         ],
@@ -231,7 +239,7 @@ class _DashboardState extends State<Dashboard> {
                                 "Menu\nTerjual",
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     fontFamily: 'CircularStd-Bold'),
                               )
                             ],
@@ -263,7 +271,7 @@ class _DashboardState extends State<Dashboard> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Icon(Icons.description,
+                              FaIcon(FontAwesomeIcons.clipboard,
                                   color: Colors.black, size: 20),
                               SizedBox(width: 8),
                             ],
@@ -280,7 +288,7 @@ class _DashboardState extends State<Dashboard> {
                             "Transaksi",
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 15,
+                                fontSize: 14,
                                 fontFamily: 'CircularStd-Bold'),
                           )
                         ],
@@ -290,26 +298,26 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 SizedBox(height: 20),
                 Container(
+                  padding: EdgeInsets.symmetric(vertical:25),
                   width: MediaQuery.of(context).size.width,
-                  height: 55,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(55),
-                          topRight: Radius.circular(55))),
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40))),
                   child: Center(
                     child: Text(
                       "Layanan Aplikasi",
                       style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 25,
                           fontFamily: 'CircularStd-Bold'),
                     ),
                   ),
                 )
               ],
             ),
-            preferredSize: Size(0, 270)),
+            preferredSize: Size(0, 285)),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -353,11 +361,75 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
+                              _homeBloc.add(HomeTransactionPageLoad());
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            color: Colors.white,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color.fromRGBO(
+                                                      252, 195, 108, 0.3),
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
+                                                ])),
+                                      ),
+                                      FaIcon(FontAwesomeIcons.clipboard,
+                                          size: 30)
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Kelola Pesanan",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'CircularStd-Bold',
+                                        fontSize: 15),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.15),
+                                  blurRadius: 8)
+                            ]),
+                        child: ButtonTheme(
+                          height: 100,
+                          padding: EdgeInsets.all(10),
+                          highlightColor: Color.fromRGBO(54, 58, 155, 0.1),
+                          child: RaisedButton(
+                            elevation: 0,
+                            onPressed: () {
                               _homeBloc.add(HomeMenuPageLoad());
                             },
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
+                                borderRadius: BorderRadius.circular(10.0)),
                             color: Colors.white,
                             child: Center(
                               child: Column(
@@ -371,22 +443,25 @@ class _DashboardState extends State<Dashboard> {
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                                 colors: [
                                                   Color.fromRGBO(
                                                       252, 195, 108, 0.3),
-                                                  Color.fromRGBO(253, 166, 125, 0.3)
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.restaurant_menu, size: 30)
+                                      Icon(Icons.restaurant,
+                                          size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    "Kelola\nMenu",
+                                    "Kelola Menu",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -416,11 +491,14 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
-                              _homeBloc.add(HomeOutletPageLoad());
+                              Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListOrderPage(),
+                            ));
                             },
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
+                                borderRadius: BorderRadius.circular(10.0)),
                             color: Colors.white,
                             child: Center(
                               child: Column(
@@ -434,85 +512,25 @@ class _DashboardState extends State<Dashboard> {
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                                 colors: [
                                                   Color.fromRGBO(
                                                       252, 195, 108, 0.3),
-                                                  Color.fromRGBO(253, 166, 125, 0.3)
-                                                ])),
-                                      ),
-                                      Icon(Icons.store, size: 30)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Kelola Outlet",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'CircularStd-Bold',
-                                        fontSize: 15),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.15),
-                                  blurRadius: 8)
-                            ]),
-                        child: ButtonTheme(
-                          height: 100,
-                          padding: EdgeInsets.all(10),
-                          highlightColor: Color.fromRGBO(54, 58, 155, 0.1),
-                          child: RaisedButton(
-                            elevation: 0,
-                            onPressed: () {
-                              _homeBloc.add(HomeEmployeePageLoad());
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            color: Colors.white,
-                            child: Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30),
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
                                                   Color.fromRGBO(
-                                                      252, 195, 108, 0.3),
-                                                  Color.fromRGBO(253, 166, 125, 0.3)
+                                                      253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.people, size: 30)
+                                      Icon(Icons.add_shopping_cart,
+                                          size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    "Kelola Pegawai",
+                                    "Checkout Pesanan",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -552,11 +570,10 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
-                              _homeBloc.add(HomeTransactionPageLoad());
+                              _homeBloc.add(HomeManageStockPageLoad());
                             },
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
+                                borderRadius: BorderRadius.circular(10.0)),
                             color: Colors.white,
                             child: Center(
                               child: Column(
@@ -570,22 +587,24 @@ class _DashboardState extends State<Dashboard> {
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                                 colors: [
                                                   Color.fromRGBO(
                                                       252, 195, 108, 0.3),
-                                                  Color.fromRGBO(253, 166, 125, 0.3)
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.shopping_basket, size: 30)
+                                      FaIcon(FontAwesomeIcons.cubes, size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    "Transaksi",
+                                    "Kelola Stok Menu",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -618,8 +637,7 @@ class _DashboardState extends State<Dashboard> {
                               _homeBloc.add(HomeReportPageLoad());
                             },
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
+                                borderRadius: BorderRadius.circular(10.0)),
                             color: Colors.white,
                             child: Center(
                               child: Column(
@@ -633,17 +651,20 @@ class _DashboardState extends State<Dashboard> {
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                                 colors: [
                                                   Color.fromRGBO(
                                                       252, 195, 108, 0.3),
-                                                  Color.fromRGBO(253, 166, 125, 0.3)
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.insert_chart, size: 30)
+                                      FaIcon(FontAwesomeIcons.chartBar,
+                                          size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
@@ -678,11 +699,10 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
-
+                              _homeBloc.add(HomePredictionPageLoad());
                             },
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
+                                borderRadius: BorderRadius.circular(10.0)),
                             color: Colors.white,
                             child: Center(
                               child: Column(
@@ -696,17 +716,20 @@ class _DashboardState extends State<Dashboard> {
                                         width: 30,
                                         height: 30,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
                                                 colors: [
                                                   Color.fromRGBO(
                                                       252, 195, 108, 0.3),
-                                                  Color.fromRGBO(253, 166, 125, 0.3)
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.av_timer, size: 30)
+                                      FaIcon(FontAwesomeIcons.calendarCheck,
+                                          size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
@@ -724,6 +747,80 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                       )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: MediaQuery.of(context).size.width / 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.15),
+                                  blurRadius: 8)
+                            ]),
+                        child: ButtonTheme(
+                          height: 100,
+                          padding: EdgeInsets.all(10),
+                          highlightColor: Color.fromRGBO(54, 58, 155, 0.1),
+                          child: RaisedButton(
+                            elevation: 0,
+                            onPressed: () {
+                              _homeBloc.add(HomeHistoryPageLoad());
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            color: Colors.white,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color.fromRGBO(
+                                                      252, 195, 108, 0.3),
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
+                                                ])),
+                                      ),
+                                      Icon(Icons.history, size: 30)
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Riwayat Transaksi",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'CircularStd-Bold',
+                                        fontSize: 15),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )

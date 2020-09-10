@@ -9,7 +9,7 @@ class HomeCustomPageLoad extends HomeEvent{}
 
 class HomeMenuPageLoad extends HomeEvent{}
 
-class HomeEmployeePageLoad extends HomeEvent{}
+class HomeManageStockPageLoad extends HomeEvent{}
 
 class HomeOutletPageLoad extends HomeEvent{}
 

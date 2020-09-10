@@ -7,6 +7,7 @@ import 'package:apos/src/ui/ManageMenu//manage_menu_add_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManageMenuPage extends StatelessWidget {
   @override
@@ -58,59 +59,59 @@ class _ManageMenuState extends State<ManageMenu>
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                              padding: EdgeInsets.all(15),
-                              child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 2.0),
-                                alignment: Alignment.center,
-                                height: 60.0,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(234, 234, 234, 1),
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Pencarian Menu",
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 16.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      prefixIcon: Icon(Icons.search,
-                                          color: Colors.grey)),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 25),
-                  ),
+                  // Container(
+                  //   child: Column(
+                  //     children: <Widget>[
+                  //       Container(
+                  //         margin: EdgeInsets.symmetric(horizontal: 30),
+                  //         width: MediaQuery.of(context).size.width,
+                  //         height: 80,
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(25),
+                  //           color: Colors.white,
+                  //           boxShadow: [
+                  //             BoxShadow(
+                  //               color: Colors.grey,
+                  //               offset: Offset(0.0, 2.0),
+                  //               blurRadius: 5.0,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         child: Padding(
+                  //             padding: EdgeInsets.all(15),
+                  //             child: Container(
+                  //               margin: EdgeInsets.symmetric(vertical: 2.0),
+                  //               alignment: Alignment.center,
+                  //               height: 60.0,
+                  //               decoration: BoxDecoration(
+                  //                   color: Color.fromRGBO(234, 234, 234, 1),
+                  //                   borderRadius: BorderRadius.circular(15.0)),
+                  //               child: TextField(
+                  //                 decoration: InputDecoration(
+                  //                     border: InputBorder.none,
+                  //                     hintText: "Pencarian Menu",
+                  //                     hintStyle: TextStyle(
+                  //                         color: Colors.grey,
+                  //                         fontSize: 16.0,
+                  //                         fontFamily: 'CircularStd-Book'),
+                  //                     prefixIcon: Icon(Icons.search,
+                  //                         color: Colors.grey)),
+                  //               ),
+                  //             )),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // // ),
+                  // Padding(
+                  //   padding: EdgeInsets.only(top: 25),
+                  // ),
                   Container(
                     height: 60,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 70, right: 70),
                       child: TabBar(
@@ -142,7 +143,7 @@ class _ManageMenuState extends State<ManageMenu>
                   )
                 ],
               ),
-              preferredSize: Size(0, 165),
+              preferredSize: Size(0, 70),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -372,8 +373,8 @@ class _ManageMenuState extends State<ManageMenu>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 alignment: Alignment.center,
                 child: ButtonTheme(
@@ -387,8 +388,8 @@ class _ManageMenuState extends State<ManageMenu>
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(
-                            Icons.add,
+                          FaIcon(
+                            FontAwesomeIcons.plus, size: 18,
                             color: Colors.white,
                           ),
                           SizedBox(

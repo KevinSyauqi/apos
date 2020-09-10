@@ -8,6 +8,7 @@ import 'package:apos/src/ui/ManageOrder/transaksi_kustom.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManageOrderPage extends StatelessWidget {
   @override
@@ -69,58 +70,12 @@ class _ManageOrderState extends State<ManageOrder>
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                              padding: EdgeInsets.all(15),
-                              child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 2.0),
-                                alignment: Alignment.center,
-                                height: 60.0,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(234, 234, 234, 1),
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Pencarian Menu",
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 16.0,
-                                          fontFamily: 'CircularStd-Book'),
-                                      prefixIcon: Icon(Icons.search,
-                                          color: Colors.grey)),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 25),
-                  ),
-                  Container(
                     height: 60,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 70, right: 70),
                       child: TabBar(
@@ -152,7 +107,7 @@ class _ManageOrderState extends State<ManageOrder>
                   )
                 ],
               ),
-              preferredSize: Size(0, 165),
+              preferredSize: Size(0, 70),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -247,35 +202,35 @@ class _ManageOrderState extends State<ManageOrder>
                         ),
                       ),
                       Container(
-                    width: 180,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          menu.name_menu,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.0,
-                              fontFamily: 'CircularStd-Bold'),
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
+                        width: 180,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              menu.name_menu,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
+                            ),
+                            Row(children: <Widget>[
+                              Text("Rp ",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Book')),
+                              Text(menu.price.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Book')),
+                            ])
+                          ],
                         ),
-                        Row(children: <Widget>[
-                          Text("Rp ",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontFamily: 'CircularStd-Book')),
-                          Text(menu.price.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontFamily: 'CircularStd-Book')),
-                        ])
-                      ],
-                    ),
-                  ),
+                      ),
                       Expanded(
                         child: Container(
                           margin: EdgeInsets.only(top: 10),
@@ -303,8 +258,7 @@ class _ManageOrderState extends State<ManageOrder>
                                           color: Colors.white,
                                           onPressed: () {
                                             if (itemCount[index] > 0) {
-                                              BlocProvider.of<CartBloc>(
-                                                      context)
+                                              BlocProvider.of<CartBloc>(context)
                                                   .add(RemoveFromCart(
                                                       menu: menu));
                                               setState(() {
@@ -345,8 +299,7 @@ class _ManageOrderState extends State<ManageOrder>
                                           iconSize: 17,
                                           color: Colors.white,
                                           onPressed: () {
-                                            BlocProvider.of<CartBloc>(
-                                                    context)
+                                            BlocProvider.of<CartBloc>(context)
                                                 .add(AddToCart(menu: menu));
                                             setState(() {
                                               itemCount[index]++;
@@ -453,16 +406,20 @@ class _ManageOrderState extends State<ManageOrder>
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width / 7,
-                    height: 50,
+                    height: 52,
                     margin: EdgeInsets.only(right: 20),
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(54, 58, 155, 1),
                         borderRadius: BorderRadius.circular(19)),
-                    child: IconButton(
-                      icon: Icon(Icons.view_list),
-                      iconSize: 25,
-                      color: Colors.white,
-                      onPressed: () {
+                    child: GestureDetector(
+                      child: Center(
+                        child: FaIcon(
+                          FontAwesomeIcons.listAlt,
+                          size: 22,
+                          color: Colors.white,
+                        ),
+                      ),
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -470,7 +427,7 @@ class _ManageOrderState extends State<ManageOrder>
                             ));
                       },
                     ),
-                  ),
+                  )
                 ],
               ),
             ],
