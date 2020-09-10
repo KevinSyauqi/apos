@@ -14,3 +14,5 @@ class HomeReportPage extends HomeState {}
 class HomeDashboardPage extends HomeState {}
 
 class HomeHistoryPage extends HomeState {}
+
+class HomePredictionPage extends HomeState{}

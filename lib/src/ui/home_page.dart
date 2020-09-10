@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'Prediction/prediction_page.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         if(state is HomeDashboardPage){
           return DashboardPage();
+        }
+        if(state is HomePredictionPage){
+          return PredictionPage();
         }
         return Container(
             color: Colors.white);

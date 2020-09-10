@@ -165,6 +165,29 @@ class _AppDrawerState extends State<AppDrawer> {
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
+                    child: Icon(Icons.list)),
+                title: Text("Prediksi Penjualan",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17.0,
+                        fontFamily: 'CircularStd-Bold')),
+                onTap: () async{
+                  Navigator.pop(context);
+                  await Future.delayed(Duration(milliseconds: 300));
+                  _homeBloc.add(HomePredictionPageLoad());
+                },
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224, 1),
+                              width: 1.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 10)),
+              ListTile(
+                leading: IconTheme(
+                    data: IconThemeData(color: Colors.black),
                     child: Icon(Icons.history)),
                 title: Text("Riwayat Transaksi",
                     style: TextStyle(

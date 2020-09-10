@@ -13,8 +13,12 @@ class PredictionError extends PredictionState {}
 class PredictionLoading extends PredictionState {}
 
 class PredictionLoaded extends PredictionState {
+  final totalSalesPrediction;
+  final totalIncomePrediction;
+  final totalProfitPrediction;
   final List<Prediction> listPrediction;
 
-  PredictionLoaded({this.listPrediction});
+  PredictionLoaded({this.totalSalesPrediction, this.totalIncomePrediction,
+    this.totalProfitPrediction, this.listPrediction});
 }
 

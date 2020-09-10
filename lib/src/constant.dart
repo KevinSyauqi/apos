@@ -5,6 +5,6 @@ class AppUrl {
   static final urlOrder = 'order';
   static final urlSales = 'sales';
   static final urlReport = 'report';
-  static final urlPrediction = 'prediction';
+  static final urlPrediction = 'predict';
 
 }

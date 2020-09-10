@@ -4,10 +4,4 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class PredictionEvent {}
 
-class GetPredictionOutletMenu extends PredictionEvent {
-  final String id_outlet;
-  final String startDate;
-  final String endDate;
-
-  GetPredictionOutletMenu({this.id_outlet, this.startDate, this.endDate});
-}
+class GetPredictionSummary extends PredictionEvent{}

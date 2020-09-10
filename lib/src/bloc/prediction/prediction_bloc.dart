@@ -14,22 +14,38 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
   Stream<PredictionState> mapEventToState(
     PredictionEvent event,
   ) async* {
-    try{
-      if(event is GetPredictionOutletMenu){
+    try {
+      if (event is GetPredictionSummary) {
         yield PredictionLoading();
-        List<Prediction> listPrediction;
-
-        listPrediction = await _predictionRepository.fetchAllPredictionOutletMenu("OS2000101");
-
-        if(listPrediction.length == 0){
-          yield PredictionEmpty();
-        } else {
-          yield PredictionLoaded(listPrediction: listPrediction);
+        final response = await _predictionRepository.getPredictionSummery();
+        if (response["success"] == true) {
+          final totalSalesPrediction = response["data"]["predictionSales"][0]["sales"];
+          final totalIncomePrediction = response["data"]["predictionIncome"][0]["income"];
+          final totalProfitPrediction = response["data"]["predictionProfit"][0]["profit"];
+          List<Prediction> listPredictioin =
+              _parsedFromJson(response["data"], "listPredictionSales");
+          yield PredictionLoaded(
+              totalSalesPrediction: totalSalesPrediction,
+              totalIncomePrediction: totalIncomePrediction,
+              totalProfitPrediction: totalProfitPrediction,
+              listPrediction: listPredictioin);
+        } else{
+          yield PredictionError();
         }
       }
-    }catch(e){
+    } catch (e) {
       print(e);
       yield PredictionError();
     }
+  }
+
+  List<Prediction> _parsedFromJson(Map<String, dynamic> json, String child) {
+    List<Prediction> listPrediction = new List<Prediction>();
+    if (json['$child'] != null) {
+      json['$child'].forEach((v) {
+        listPrediction.add(new Prediction.fromJson(v));
+      });
+    }
+    return listPrediction;
   }
 }
