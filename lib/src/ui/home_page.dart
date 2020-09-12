@@ -2,7 +2,7 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/ManageMenu//manage_menu_page.dart';
 import 'package:apos/src/ui/ManageStock/manage_stock.dart';
 import 'package:apos/src/ui/Report/report_page.dart';
-import 'package:apos/src/ui/History//riwayat_transaksi.dart';
+import 'package:apos/src/ui/History//history_page.dart';
 import 'package:apos/src/ui/dashboard_page.dart';
 import 'package:apos/src/ui/ManageOrder//manage_order_page.dart';
 import 'package:flutter/cupertino.dart';

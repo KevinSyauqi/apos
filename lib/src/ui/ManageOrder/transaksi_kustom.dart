@@ -1,4 +1,4 @@
-import 'package:apos/src/ui/History/riwayat_transaksi.dart';
+import 'package:apos/src/ui/History/history_page.dart';
 import 'package:apos/src/ui/ManageOrder/checkout_order_page.dart';
 import 'package:apos/src/ui/ManageOrder/manage_order_page.dart';
 import 'package:apos/src/ui/side_bar.dart';

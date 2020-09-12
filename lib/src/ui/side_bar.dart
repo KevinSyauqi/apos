@@ -1,7 +1,7 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/ui/ManageMenu/manage_menu_page.dart';
 import 'package:apos/src/ui/ManageOrder/list_order_page.dart';
-import 'package:apos/src/ui/History/riwayat_transaksi.dart';
+import 'package:apos/src/ui/History/history_page.dart';
 import 'package:apos/src/ui/ManageOrder//manage_order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

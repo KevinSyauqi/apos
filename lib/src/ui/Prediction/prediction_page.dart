@@ -1,5 +1,5 @@
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/ui/History/riwayat_detail.dart';
+import 'package:apos/src/ui/History/history_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/ui/History/riwayat_detail.dart';
+import 'package:apos/src/ui/History/history_detail.dart';
 import 'package:apos/src/ui/ManageOrder/checkout_order_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';

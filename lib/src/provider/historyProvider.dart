@@ -7,17 +7,34 @@ import 'package:http/http.dart';
 class HistoryProvider {
   Client client =  Client();
   final _baseUrl = AppUrl.url;
+  final _prefix = AppUrl.urlSales;
 
-  Future<List<Sales>> getAllOutletSales(String id_outlet) async{
-    final url = "$_baseUrl/trsc/outletSales?id_outlet=$id_outlet";
+  Future getSalesHistory() async{
+    final url = "$_baseUrl/$_prefix/allSales";
 
     final response = await client.get(url);
+    final responseString = jsonDecode(response.body);
 
-
-    if (response.statusCode != 200) {
-      throw new Exception('Error getting outlet');
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
     }
-    return parsedListResponse(response);
+  }
+
+  Future getDetailSalesHistory(String id_sale) async{
+    final url = "$_baseUrl/$_prefix/detailSales?id_sale=$id_sale";
+
+    final response = await client.get(url);
+    final responseString = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
+    }
   }
 
   List<Sales> parsedListResponse(final response){

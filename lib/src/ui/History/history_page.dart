@@ -1,7 +1,7 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/history/history_bloc.dart';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/ui/History/riwayat_detail.dart';
+import 'package:apos/src/ui/History/history_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,8 +22,7 @@ class RiwayatTransaksi extends StatefulWidget {
   _RiwayatTransaksiState createState() => _RiwayatTransaksiState();
 }
 
-class _RiwayatTransaksiState extends State<RiwayatTransaksi>
-    with SingleTickerProviderStateMixin {
+class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
   DateTime _startDate = DateTime.now().subtract(Duration(days: 1));
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
   String selectedStartDate = "Periode Awal";
@@ -34,24 +33,6 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
   void initState() {
     _historyBloc = BlocProvider.of<HistoryBloc>(context);
     _historyBloc.add(FetchSales());
-  }
-
-  Outlet selectedOutlet;
-  List<Outlet> outlet = [
-    Outlet("Kopo Sayati"),
-    Outlet("Sarijadi"),
-    Outlet("Kebon Jati")
-  ];
-
-  List<DropdownMenuItem> generateItems(List<Outlet> category) {
-    List<DropdownMenuItem> items = [];
-    for (var item in outlet) {
-      items.add(DropdownMenuItem(
-        child: Text(item.name),
-        value: item,
-      ));
-    }
-    return items;
   }
 
   Future displayDateRangePicker(BuildContext context) async {
@@ -210,7 +191,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        DetailRiwayatTransaksi(),
+                                                        HistoryDetailPage(sale.id_sale),
                                                   ));
                                             },
                                             child: Column(
@@ -224,7 +205,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                         sale.id_sale
                                                             .substring(0, 6) +
                                                         sale.id_sale
-                                                            .substring(15, 18),
+                                                            .substring(12,17),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,
@@ -240,28 +221,14 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                         fontSize: 14.0,
                                                         fontFamily:
                                                             'CircularStd-Book')),
-//                                                sale.customer_name != null ?
-//                                                Text(
-//                                                    "Pelanggan : ",
-//                                                    style: TextStyle(
-//                                                        color: Colors.black,
-//                                                        fontSize: 14.0,
-//                                                        fontFamily:
-//                                                            'CircularStd-Bold')) : Text("")
-//                                                BlocBuilder<HistoryBloc, HistoryState>(
-//                                                  builder: (context, state){
-//                                                    if(sale.customer_name != null || sale.customer_name == ""){
-//                                                      return Text("Pelanggan : " +
-//                                                          sale.customer_name,
-//                                                          style: TextStyle(
-//                                                              color: Colors.black,
-//                                                              fontSize: 14.0,
-//                                                              fontFamily:
-//                                                              'CircularStd-Bold'));
-//                                                    }
-//                                                    return null;
-//                                                  },
-//                                                )
+                                                state.customers_name[index] != '' ?
+                                                Text(
+                                                    "Pelanggan : " + state.customers_name[index],
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontFamily:
+                                                            'CircularStd-Bold')) : Text("")
                                               ],
                                             ),
                                           ),
@@ -277,27 +244,6 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                     CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   Container(
-                                                    height: 32,
-                                                    alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            54, 58, 155, 1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(13)),
-                                                    child: MaterialButton(
-                                                      onPressed: () {},
-                                                      child: Text("Bayar",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 14.0,
-                                                              fontFamily:
-                                                                  'CircularStd-Bold')),
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Container(
                                                     width: 32,
                                                     height: 32,
                                                     alignment: Alignment.center,
@@ -308,10 +254,17 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
                                                             BorderRadius
                                                                 .circular(13)),
                                                     child: IconButton(
-                                                      icon: Icon(Icons.delete),
+                                                      icon: Icon(Icons.arrow_forward_ios),
                                                       iconSize: 17,
                                                       color: Colors.white,
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  HistoryDetailPage(sale.id_sale),
+                                                            ));
+                                                      },
                                                     ),
                                                   ),
                                                 ],
@@ -329,10 +282,4 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi>
       ]),
     );
   }
-}
-
-class Outlet {
-  String name;
-
-  Outlet(this.name);
 }

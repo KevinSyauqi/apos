@@ -16,15 +16,44 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState>{
    try{
      if(event is FetchSales){
        yield HistoryLoading();
-       List<Sales> listSales;
+       ListSales listSales;
+       List<String> customers_name = List<String>();
+       final response = await _historyRepository.getSalesHistory();
 
-       listSales = await _historyRepository
-          .getAllOutletSales("OS2000101");
-       if (listSales.length == 0) {
-         yield HistoryEmpty();
+       if (response["success"] == true) {
+         listSales = ListSales.fromJson(response);
+
+         if (response['data'] != null) {
+           response['data'].forEach((name) {
+             if(name['customer_name'] == null){
+               customers_name.add('');
+             }
+             else customers_name.add(name['customer_name']);
+           });
+         }
+
+         if(listSales.listSales.length == 0){
+           yield HistoryEmpty();
+         } else yield HistoryLoaded(listSales: listSales.listSales, customers_name: customers_name);
        } else {
-         yield HistoryLoaded(listSales: listSales);
+         yield HistoryFailure();
        }
+     }
+     if(event is GetDetailSales){
+       yield DetailHistoryLoading();
+       final response = await _historyRepository.getDetailSalesHistory(event.id_sale);
+       if(response["success"] == true){
+         Sales sales = Sales.fromJson(response["data"]["sales"]);
+         Order order = Order.fromJson(response["data"]["order"]);
+         Payment payment = Payment.fromJson(response["data"]["payment"]);
+         response["data"] = response["data"]["listOrderItem"];
+         ListOrderItem listOrderItem = ListOrderItem.fromJson(response);
+
+         yield DetailHistoryLoaded(sales: sales, order: order, payment: payment, listOrderItem: listOrderItem.listOrderItem);
+       }else{
+         yield HistoryFailure();
+       }
+
      }
    }catch(e){
      print(e);

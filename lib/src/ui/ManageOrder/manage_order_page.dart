@@ -1,6 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/ui/History//riwayat_transaksi.dart';
+import 'package:apos/src/ui/History//history_page.dart';
 import 'package:apos/src/ui/ManageOrder/checkout_cart_page.dart';
 import 'package:apos/src/ui/ManageOrder/checkout_order_page.dart';
 import 'package:apos/src/ui/ManageOrder/list_order_page.dart';

@@ -60,10 +60,6 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         String totalSales;
         String totalIncome;
         String totalProfit;
-        ListOrderItem best5foodsales;
-        ListOrderItem best5drinksales;
-        ListOrderItem lowest5foodsales;
-        ListOrderItem lowest5drinksales;
 
         var response = await _reportRepository.getReportSummary(
             DateFormat('yyyy-MM-dd').format(startDate),
