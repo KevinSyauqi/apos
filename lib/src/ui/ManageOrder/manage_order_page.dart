@@ -1,7 +1,7 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/History//riwayat_transaksi.dart';
-import 'package:apos/src/ui/ManageOrder/cart_page.dart';
+import 'package:apos/src/ui/ManageOrder/checkout_cart_page.dart';
 import 'package:apos/src/ui/ManageOrder/checkout_order_page.dart';
 import 'package:apos/src/ui/ManageOrder/list_order_page.dart';
 import 'package:apos/src/ui/ManageOrder/transaksi_kustom.dart';
@@ -390,7 +390,7 @@ class _ManageOrderState extends State<ManageOrder>
                               ? Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CartPage(
+                                    builder: (context) => CheckoutCartPage(
                                         menus: state.menus,
                                         totalPrice: state.totalPrice),
                                   )).then((value) {

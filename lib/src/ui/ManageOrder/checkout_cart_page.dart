@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class CartPage extends StatelessWidget {
+class CheckoutCartPage extends StatelessWidget {
   final List<Menu> menus;
   final int totalPrice;
 
-  CartPage({this.menus, this.totalPrice});
+  CheckoutCartPage({this.menus, this.totalPrice});
 
   @override
   Widget build(BuildContext context) {

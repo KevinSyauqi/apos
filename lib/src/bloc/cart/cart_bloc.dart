@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/repository/checkoutReporitory.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  final CheckoutRepository _checkoutRepository = new CheckoutRepository();
 
   @override
   CartState get initialState => CartInitialized();
@@ -59,6 +57,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         List<OrderItem> listOrder;
         OrderItem order;
         listOrder = [];
+        yield CartLoading();
         event.orderMenus.forEach((menu) {
           if (listOrder.any((item) =>
           item.id_menu == menu.id_menu)) {
@@ -84,32 +83,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       } catch (e) {
         print(e);
         yield CartError(e);
-      }
-    }
-    if (event is PayLater) {
-      yield CheckoutInProgress();
-      Order order;
-      ListOrder listOrder = new ListOrder([]);
-
-      order = new Order("S001U001", 2, "puput", event.totalPrice);
-//      listOrder.listOrder = event.listOrderItem;
-      final response = await _checkoutRepository.createOrder(order, listOrder);
-      final bool success = response['success'];
-      if (success) {
-        yield CheckoutSuccess();
-      } else {
-        yield CartError(response['message']);
-        print(response['message']);
-      }
-    }
-    if (event is PayNow) {
-      if(event.totalPrice != null){
-        yield CartLoaded(menus: event.listMenu,
-            cart: event.listOrderItem,
-            totalPrice: event.totalPrice);
-      }else{
-        yield CartError("Belum ada keranjang");
-        print("Belum ada keranjang");
       }
     }
   }
