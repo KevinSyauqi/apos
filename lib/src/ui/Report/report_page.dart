@@ -4,6 +4,7 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -242,20 +243,29 @@ class _ReportSalesState extends State<ReportSales>
                                           ),
                                           Container(
                                             width: 200,
-                                            child: BlocBuilder<ReportBloc,ReportState>(
-                                              builder: (context,state){
-                                                if(state is ReportLoaded){
+                                            child: BlocBuilder<ReportBloc,
+                                                ReportState>(
+                                              builder: (context, state) {
+                                                if (state is ReportLoaded) {
                                                   return Text(
-                                                    "Rp "+ state.totalIncome,
+                                                    "Rp " +
+                                                        FlutterMoneyFormatter(
+                                                                amount: double
+                                                                    .parse(state
+                                                                        .totalIncome))
+                                                            .output
+                                                            .withoutFractionDigits,
                                                     textAlign: TextAlign.right,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold'),
+                                                            'CircularStd-Bold'),
                                                   );
                                                 }
-                                                return Center(child: CircularProgressIndicator());
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
                                               },
                                             ),
                                           )
@@ -294,17 +304,19 @@ class _ReportSalesState extends State<ReportSales>
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: <Widget>[
-                                                BlocBuilder<ReportBloc,ReportState>(
-                                                  builder: (context,state){
-                                                    if(state is ReportLoaded){
+                                                BlocBuilder<ReportBloc,
+                                                    ReportState>(
+                                                  builder: (context, state) {
+                                                    if (state is ReportLoaded) {
                                                       return Text(
                                                         state.totalSalesMenu,
-                                                        textAlign: TextAlign.right,
+                                                        textAlign:
+                                                            TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 18.0,
                                                             fontFamily:
-                                                            'CircularStd-Bold'),
+                                                                'CircularStd-Bold'),
                                                       );
                                                     }
                                                     return CircularProgressIndicator();
@@ -354,20 +366,29 @@ class _ReportSalesState extends State<ReportSales>
                                           ),
                                           Container(
                                             width: 200,
-                                            child: BlocBuilder<ReportBloc,ReportState>(
-                                              builder: (context,state){
-                                                if(state is ReportLoaded){
+                                            child: BlocBuilder<ReportBloc,
+                                                ReportState>(
+                                              builder: (context, state) {
+                                                if (state is ReportLoaded) {
                                                   return Text(
-                                                    "Rp "+ state.totalProfit,
+                                                    "Rp " +
+                                                        FlutterMoneyFormatter(
+                                                                amount: double
+                                                                    .parse(state
+                                                                        .totalProfit))
+                                                            .output
+                                                            .withoutFractionDigits,
                                                     textAlign: TextAlign.right,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold'),
+                                                            'CircularStd-Bold'),
                                                   );
                                                 }
-                                                return Center(child: CircularProgressIndicator());
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
                                               },
                                             ),
                                           )
@@ -405,11 +426,12 @@ class _ReportSalesState extends State<ReportSales>
                             fontSize: 15.0,
                             fontFamily: 'CircularStd-Bold'),
                       ),
-                      BlocBuilder<ReportBloc,ReportState>(
-                        builder: (context, state){
-                          if(state is ReportLoaded){
+                      BlocBuilder<ReportBloc, ReportState>(
+                        builder: (context, state) {
+                          if (state is ReportLoaded) {
                             return buildListMenuSales(state.best5foodsales);
-                          } return CircularProgressIndicator();
+                          }
+                          return CircularProgressIndicator();
                         },
                       ),
                       Row(
@@ -417,14 +439,16 @@ class _ReportSalesState extends State<ReportSales>
                         children: <Widget>[
                           FlatButton(
                             padding: EdgeInsets.all(10),
-                            onPressed: null, child: Text(
-                            "> Lihat Semua Menu",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 12.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),)
+                            onPressed: null,
+                            child: Text(
+                              "> Lihat Semua Menu",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 12.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
+                          )
                         ],
                       )
                     ],
@@ -433,242 +457,259 @@ class _ReportSalesState extends State<ReportSales>
               ),
             ),
             Card(
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                    child: Container(
-                      child: Column(
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              elevation: 10,
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Menu Minuman Terlaris",
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      ),
+                      BlocBuilder<ReportBloc, ReportState>(
+                        builder: (context, state) {
+                          if (state is ReportLoaded) {
+                            return buildListMenuSales(state.best5drinksales);
+                          }
+                          return CircularProgressIndicator();
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Text(
-                            "Menu Minuman Terlaris",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          BlocBuilder<ReportBloc,ReportState>(
-                            builder: (context, state){
-                              if(state is ReportLoaded){
-                                return buildListMenuSales(state.best5drinksales);
-                              } return CircularProgressIndicator();
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                padding: EdgeInsets.all(10),
-                                onPressed: null, child: Text(
-                                "> Lihat Semua Menu",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),)
-                            ],
+                          FlatButton(
+                            padding: EdgeInsets.all(10),
+                            onPressed: null,
+                            child: Text(
+                              "> Lihat Semua Menu",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 12.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
                           )
                         ],
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ),
+              ),
+            ),
             Card(
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                    child: Container(
-                      child: Column(
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              elevation: 10,
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Menu Makanan Kurang Laris",
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      ),
+                      BlocBuilder<ReportBloc, ReportState>(
+                        builder: (context, state) {
+                          if (state is ReportLoaded) {
+                            return buildListMenuSales(state.lowest5foodsales);
+                          }
+                          return CircularProgressIndicator();
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Text(
-                            "Menu Makanan Kurang Laris",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          BlocBuilder<ReportBloc,ReportState>(
-                            builder: (context, state){
-                              if(state is ReportLoaded){
-                                return buildListMenuSales(state.lowest5foodsales);
-                              } return CircularProgressIndicator();
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                padding: EdgeInsets.all(10),
-                                onPressed: null, child: Text(
-                                "> Lihat Semua Menu",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),)
-                            ],
+                          FlatButton(
+                            padding: EdgeInsets.all(10),
+                            onPressed: null,
+                            child: Text(
+                              "> Lihat Semua Menu",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 12.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
                           )
                         ],
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ),
-                Card(
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Menu Minuman Kurang Laris",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          BlocBuilder<ReportBloc,ReportState>(
-                            builder: (context, state){
-                              if(state is ReportLoaded){
-                                return buildListMenuSales(state.lowest5drinksales);
-                              } return CircularProgressIndicator();
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                padding: EdgeInsets.all(10),
-                                onPressed: null, child: Text(
-                                "> Lihat Semua Menu",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontSize: 12.0,
-                                    fontFamily: 'CircularStd-Bold'),
-                              ),)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+              ),
+            ),
             Card(
-                  margin: EdgeInsets.all(20),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
-                      child: Column(
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              elevation: 10,
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Menu Minuman Kurang Laris",
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      ),
+                      BlocBuilder<ReportBloc, ReportState>(
+                        builder: (context, state) {
+                          if (state is ReportLoaded) {
+                            return buildListMenuSales(state.lowest5drinksales);
+                          }
+                          return CircularProgressIndicator();
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Text(
-                            "Grafik Penjualan Menu",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: new charts.LineChart(_getSeriesData(), animate: true,),
-                              ),
-                            ],
+                          FlatButton(
+                            padding: EdgeInsets.all(10),
+                            onPressed: null,
+                            child: Text(
+                              "> Lihat Semua Menu",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 12.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
                           )
                         ],
-                      ),
-                    ),
+                      )
+                    ],
                   ),
                 ),
+              ),
+            ),
             Card(
-                  margin: EdgeInsets.all(20),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Grafik Pendapatan Penjualan",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: new charts.LineChart(_getSeriesData(), animate: true,),
-                              ),
-                            ],
-                          )
-                        ],
+              margin: EdgeInsets.all(20),
+              elevation: 10,
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Grafik Penjualan Menu",
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
                       ),
-                    ),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            height: MediaQuery.of(context).size.height / 3,
+                            child: new charts.LineChart(
+                              _getSeriesData(),
+                              animate: true,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-                Card(
-                  margin: EdgeInsets.all(20),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Grafik Keuntungan Penjualan",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: new charts.LineChart(_getSeriesData(), animate: true,),
-                              ),
-                            ],
-                          )
-                        ],
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.all(20),
+              elevation: 10,
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Grafik Pendapatan Penjualan",
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
                       ),
-                    ),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            height: MediaQuery.of(context).size.height / 3,
+                            child: new charts.LineChart(
+                              _getSeriesData(),
+                              animate: true,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                )
+                ),
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.all(20),
+              elevation: 10,
+              shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Grafik Keuntungan Penjualan",
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 15.0,
+                            fontFamily: 'CircularStd-Bold'),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            height: MediaQuery.of(context).size.height / 3,
+                            child: new charts.LineChart(
+                              _getSeriesData(),
+                              animate: true,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
           ]))
         ],
       ),
     );
   }
-
 
   Widget buildListMenuSales(ListOrderItem listSales) {
     return ListView.builder(
@@ -686,7 +727,8 @@ class _ReportSalesState extends State<ReportSales>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      child: Text(item.name_menu,
+                      child: Text(
+                        item.name_menu,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -714,7 +756,6 @@ class _ReportSalesState extends State<ReportSales>
           );
         });
   }
-
 }
 
 class SalesData {
@@ -723,4 +764,3 @@ class SalesData {
 
   SalesData(this.year, this.sales);
 }
-

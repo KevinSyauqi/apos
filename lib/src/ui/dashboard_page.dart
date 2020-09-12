@@ -47,33 +47,6 @@ class _DashboardState extends State<Dashboard> {
               fontSize: 25.0,
               fontFamily: 'CircularStd-Bold'),
         ),
-        actions: <Widget>[
-          Container(
-            height: 40,
-            width: 180,
-            margin: EdgeInsets.symmetric(vertical: 10),
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(255, 255, 255, 0.2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.store, color: Colors.white, size: 20),
-                SizedBox(width: 5),
-                Text(
-                  "Lapau Bukittinggi",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontFamily: 'CircularStd-Bold'),
-                )
-              ],
-            ),
-          ),
-          SizedBox(width: 30),
-        ],
         bottom: PreferredSize(
             child: Column(
               children: <Widget>[

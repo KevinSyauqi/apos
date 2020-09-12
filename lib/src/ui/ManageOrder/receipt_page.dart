@@ -2,7 +2,7 @@ import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 class ReceiptPage extends StatelessWidget {
   Sales sales;
@@ -15,8 +15,12 @@ class ReceiptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ReceiptBloc>(
-      create: (context) =>
-      ReceiptBloc()..add(getReceipt(order: order, sales: sales, payment: payment, listOrderItem: listOrderItem)),
+      create: (context) => ReceiptBloc()
+        ..add(getReceipt(
+            order: order,
+            sales: sales,
+            payment: payment,
+            listOrderItem: listOrderItem)),
       child: ReceiptSales(),
     );
   }
@@ -26,8 +30,7 @@ class ReceiptSales extends StatefulWidget {
   _ReceiptSalesState createState() => _ReceiptSalesState();
 }
 
-class _ReceiptSalesState extends State<ReceiptSales>{
-
+class _ReceiptSalesState extends State<ReceiptSales> {
   ReceiptBloc _receiptBloc;
 
   @override
@@ -67,9 +70,9 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                         ),
                       ],
                     ),
-                    child: BlocBuilder<ReceiptBloc,ReceiptState>(
-                      builder: (context, state){
-                        if(state is ReceiptLoaded){
+                    child: BlocBuilder<ReceiptBloc, ReceiptState>(
+                      builder: (context, state) {
+                        if (state is ReceiptLoaded) {
                           return Padding(
                             padding: EdgeInsets.all(15),
                             child: Column(
@@ -79,10 +82,10 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                                         color: Colors.black,
                                         fontSize: 15.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Transaksi No #" + state.order.id_order
-                                    .substring(0, 6) +
-                                    state.order.id_order
-                                        .substring(15, 18),
+                                Text(
+                                    "Transaksi No #" +
+                                        state.order.id_order.substring(0, 6) +
+                                        state.order.id_order.substring(15, 18),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 20.0,
@@ -92,7 +95,14 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                                         color: Colors.black,
                                         fontSize: 12.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Rp " + state.order.total_price.toString(),
+                                Text(
+                                    "Rp " +
+                                        FlutterMoneyFormatter(
+                                                amount: double.parse(state
+                                                    .order.total_price
+                                                    .toString()))
+                                            .output
+                                            .withoutFractionDigits,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 25.0,
@@ -102,7 +112,14 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                                         color: Colors.black,
                                         fontSize: 12.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Rp "+ state.payment.cash.toString(),
+                                Text(
+                                    "Rp " +
+                                        FlutterMoneyFormatter(
+                                                amount: double.parse(state
+                                                    .payment.cash
+                                                    .toString()))
+                                            .output
+                                            .withoutFractionDigits,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 25.0,
@@ -112,7 +129,14 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                                         color: Colors.black,
                                         fontSize: 12.0,
                                         fontFamily: 'CircularStd-Book')),
-                                Text("Rp "+ state.payment.change_amount.toString(),
+                                Text(
+                                    "Rp " +
+                                        FlutterMoneyFormatter(
+                                                amount: double.parse(state
+                                                    .payment.change_amount
+                                                    .toString()))
+                                            .output
+                                            .withoutFractionDigits,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 25.0,
@@ -157,9 +181,10 @@ class _ReceiptSalesState extends State<ReceiptSales>{
             height: MediaQuery.of(context).size.height / 1.8,
             child: Stack(children: <Widget>[
               BlocBuilder<ReceiptBloc, ReceiptState>(
-                builder: (context,state){
-                  if(state is ReceiptLoaded){
-                    return buildListMenuTransaction(context, state.listOrderItem);
+                builder: (context, state) {
+                  if (state is ReceiptLoaded) {
+                    return buildListMenuTransaction(
+                        context, state.listOrderItem);
                   }
                   return Text("");
                 },
@@ -245,7 +270,8 @@ class _ReceiptSalesState extends State<ReceiptSales>{
         });
   }
 
-  Widget buildListMenuTransaction(BuildContext context, ListOrderItem listOrderItem) {
+  Widget buildListMenuTransaction(
+      BuildContext context, ListOrderItem listOrderItem) {
     return Container(
       margin: EdgeInsets.only(bottom: 90),
       child: ListView.builder(
@@ -286,7 +312,18 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                                       color: Colors.black,
                                       fontSize: 16.0,
                                       fontFamily: 'CircularStd-Bold')),
-                              Text("Rp " + (orderItem.subtotal_price/orderItem.quantity).toInt().toString() + " x "+ orderItem.quantity.toString(),
+                              Text(
+                                  "Rp " +
+                                      FlutterMoneyFormatter(
+                                              amount: double.parse(
+                                                  (orderItem.subtotal_price /
+                                                          orderItem.quantity)
+                                                      .toInt()
+                                                      .toString()))
+                                          .output
+                                          .withoutFractionDigits +
+                                      " x " +
+                                      orderItem.quantity.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14.0,
@@ -301,7 +338,14 @@ class _ReceiptSalesState extends State<ReceiptSales>{
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
-                          Text("Rp " + orderItem.subtotal_price.toString(),
+                          Text(
+                              "Rp " +
+                                  FlutterMoneyFormatter(
+                                          amount: double.parse(orderItem
+                                              .subtotal_price
+                                              .toString()))
+                                      .output
+                                      .withoutFractionDigits,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16.0,

@@ -5,6 +5,7 @@ import 'package:apos/src/ui/ManageOrder/receipt_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -101,7 +102,12 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                                 child: Center(
                                   child: Text(
                                       "Rp " +
-                                          state.order.total_price.toString(),
+                                          FlutterMoneyFormatter(
+                                                  amount: double.parse(state
+                                                      .order.total_price
+                                                      .toString()))
+                                              .output
+                                              .withoutFractionDigits,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 25.0,
@@ -179,7 +185,8 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           FaIcon(
-                            FontAwesomeIcons.plus,size: 17,
+                            FontAwesomeIcons.plus,
+                            size: 17,
                             color: Colors.white,
                           ),
                           SizedBox(
@@ -266,7 +273,7 @@ Widget buildListOrderItem(BuildContext context, ListOrderItem listOrderItem) {
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Text("Rp " + orderItem.subtotal_price.toString(),
+                              Text("Rp " + FlutterMoneyFormatter(amount: double.parse(orderItem.subtotal_price.toString())).output.withoutFractionDigits,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.0,

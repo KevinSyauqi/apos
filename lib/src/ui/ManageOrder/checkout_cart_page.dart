@@ -3,6 +3,7 @@ import 'package:apos/src/bloc/manage_order/manage_order_bloc.dart';
 import 'package:apos/src/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class CheckoutCartPage extends StatelessWidget {
@@ -133,8 +134,7 @@ class _CartOrderState extends State<CartOrder>
                                                   return Center(
                                                       child: Text(
                                                           "Rp " +
-                                                              (state.totalPrice
-                                                                  .toString()),
+                                                              FlutterMoneyFormatter(amount: double.parse(state.totalPrice.toString())).output.withoutFractionDigits,
                                                           style: TextStyle(
                                                               color: Colors.black,
                                                               fontSize: 42.0,
@@ -259,14 +259,14 @@ class _CartOrderState extends State<CartOrder>
                                                                   fontFamily:
                                                                   'CircularStd-Bold')),
                                                           Text(
-                                                              "Rp " + menus
+                                                              "Rp " + FlutterMoneyFormatter(amount: double.parse(menus
                                                                   .firstWhere((
                                                                   menu) =>
                                                               menu.id_menu ==
                                                                   item
                                                                       .id_menu)
                                                                   .price
-                                                                  .toString() +
+                                                                  .toString())).output.withoutFractionDigits +
                                                                   " x " +
                                                                   item.quantity.toString(),
                                                               style: TextStyle(
@@ -289,7 +289,7 @@ class _CartOrderState extends State<CartOrder>
                                                             CrossAxisAlignment.center,
                                                             children: <Widget>[
                                                               Text(
-                                                                  "Rp " + (menus
+                                                                  "Rp " + FlutterMoneyFormatter(amount: double.parse((menus
                                                                       .firstWhere((
                                                                       menu) =>
                                                                   menu
@@ -298,7 +298,7 @@ class _CartOrderState extends State<CartOrder>
                                                                           .id_menu)
                                                                       .price *
                                                                       item.quantity)
-                                                                      .toString(),
+                                                                      .toString())).output.withoutFractionDigits,
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black,

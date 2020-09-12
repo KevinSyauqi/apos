@@ -4,6 +4,7 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -165,7 +166,7 @@ class _PredictionSalesState extends State<PredictionSales>{
                                               builder: (context,state){
                                                 if(state is PredictionLoaded){
                                                   return Text(
-                                                    "Rp "+state.totalIncomePrediction.toString(),
+                                                    "Rp "+ FlutterMoneyFormatter(amount: double.parse(state.totalIncomePrediction)).output.withoutFractionDigits,
                                                     textAlign: TextAlign.right,
                                                     style: TextStyle(
                                                         color: Colors.black,
@@ -276,7 +277,7 @@ class _PredictionSalesState extends State<PredictionSales>{
                                               builder: (context,state){
                                                 if(state is PredictionLoaded){
                                                   return Text(
-                                                    "Rp "+state.totalProfitPrediction.toString(),
+                                                    "Rp "+FlutterMoneyFormatter(amount: double.parse(state.totalProfitPrediction)).output.withoutFractionDigits,
                                                     textAlign: TextAlign.right,
                                                     style: TextStyle(
                                                         color: Colors.black,

@@ -8,6 +8,7 @@ import 'package:apos/src/ui/ManageOrder/transaksi_kustom.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManageOrderPage extends StatelessWidget {
@@ -222,7 +223,7 @@ class _ManageOrderState extends State<ManageOrder>
                                       color: Colors.black,
                                       fontSize: 14.0,
                                       fontFamily: 'CircularStd-Book')),
-                              Text(menu.price.toString(),
+                              Text(FlutterMoneyFormatter(amount: double.parse(menu.price.toString())).output.withoutFractionDigits,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14.0,
@@ -376,7 +377,7 @@ class _ManageOrderState extends State<ManageOrder>
                                     ],
                                   ),
                                   Text(
-                                    "Rp " + state.totalPrice.toString(),
+                                    "Rp " + FlutterMoneyFormatter(amount: double.parse(state.totalPrice.toString())).output.withoutFractionDigits,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18.0,
