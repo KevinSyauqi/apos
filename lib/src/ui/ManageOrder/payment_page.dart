@@ -5,6 +5,7 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -19,8 +20,7 @@ class PaymentPage extends StatelessWidget {
       BlocProvider<PaymentBloc>(
           create: (context) => PaymentBloc()..add(fetchOrder(order: order))),
       BlocProvider<CheckoutOrderBloc>(
-        create: (context) => CheckoutOrderBloc()..add(getOrder(order: order))
-      )
+          create: (context) => CheckoutOrderBloc()..add(getOrder(order: order)))
     ], child: PaymentOrder());
   }
 }
@@ -76,10 +76,23 @@ class _PaymentState extends State<PaymentOrder>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PaymentBloc, PaymentState>(builder: (context, state) {
-      if(state is PaymentSuccess){
+      if (state is PaymentSuccess) {
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ReceiptPage(sales: state.sales, payment: state.payment, order: state.order, listOrderItem: state.listOrderItem,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReceiptPage(
+                  sales: state.sales,
+                  payment: state.payment,
+                  order: state.order,
+                  listOrderItem: state.listOrderItem,
+                ),
+              )).then((value) {
+            if (value) {
+              Navigator.pop(context,true);
+            }
+          });
+
         });
       }
       return ModalProgressHUD(
@@ -115,14 +128,14 @@ class _PaymentState extends State<PaymentOrder>
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(15),
-                            child: BlocBuilder<CheckoutOrderBloc,CheckoutOrderState>(
-                                builder: (context, state) {
+                            child: BlocBuilder<CheckoutOrderBloc,
+                                CheckoutOrderState>(builder: (context, state) {
                               if (state is CheckoutOrderLoaded) {
                                 return Column(
                                   children: <Widget>[
                                     Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         Container(
                                           child: Center(
@@ -136,31 +149,31 @@ class _PaymentState extends State<PaymentOrder>
                                                       color: Colors.black,
                                                       fontSize: 15.0,
                                                       fontFamily:
-                                                      'CircularStd-Bold'))),
+                                                          'CircularStd-Bold'))),
                                         ),
                                         SizedBox(width: 20),
                                         Container(
                                           height: MediaQuery.of(context)
-                                              .size
-                                              .height /
+                                                  .size
+                                                  .height /
                                               45,
                                           child: Center(
                                               child: Text(
                                                   DateFormat('EEE, d MMMM '
-                                                      'yyyy')
+                                                          'yyyy')
                                                       .format(state.order.date),
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 13.0,
                                                       fontFamily:
-                                                      'CircularStd-Book'))),
+                                                          'CircularStd-Book'))),
                                         ),
                                       ],
                                     ),
                                     Container(
                                       height:
-                                      MediaQuery.of(context).size.height /
-                                          45,
+                                          MediaQuery.of(context).size.height /
+                                              45,
                                       width: MediaQuery.of(context).size.width,
                                       child: Center(
                                           child: Text("Total Bayar",
@@ -168,20 +181,25 @@ class _PaymentState extends State<PaymentOrder>
                                                   color: Colors.black,
                                                   fontSize: 13.0,
                                                   fontFamily:
-                                                  'CircularStd-Bold'))),
+                                                      'CircularStd-Bold'))),
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Center(
                                         child: Text(
                                             "Rp " +
-                                                state.order.total_price
-                                                    .toString(),
+                                                FlutterMoneyFormatter(
+                                                        amount: double.parse(
+                                                            state.order
+                                                                .total_price
+                                                                .toString()))
+                                                    .output
+                                                    .withoutFractionDigits,
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 30.0,
                                                 fontFamily:
-                                                'CircularStd-Bold')),
+                                                    'CircularStd-Bold')),
                                       ),
                                     )
                                   ],
@@ -241,7 +259,12 @@ class _PaymentState extends State<PaymentOrder>
                                                   fontSize: 30.0,
                                                   fontFamily:
                                                       'CircularStd-Bold')),
-                                          Text("$nominalBayar",
+                                          Text(
+                                              FlutterMoneyFormatter(
+                                                      amount: double.parse(
+                                                          nominalBayar))
+                                                  .output
+                                                  .withoutFractionDigits,
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 30.0,
@@ -295,59 +318,59 @@ class _PaymentState extends State<PaymentOrder>
               }
             },
             child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 2.3,
-                    child: Column(children: <Widget>[
-                      SizedBox(height: 20),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            buildButton("7"),
-                            buildButton("8"),
-                            buildButton("9"),
-                          ]),
-                      SizedBox(height: 20),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            buildButton("4"),
-                            buildButton("5"),
-                            buildButton("6"),
-                          ]),
-                      SizedBox(height: 20),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            buildButton("1"),
-                            buildButton("2"),
-                            buildButton("3"),
-                          ]),
-                      SizedBox(height: 20),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            buildButton("0"),
-                            buildButton("000"),
-                            buildButton("C"),
-                          ]),
-                    ]),
-                  ),
-                  BlocBuilder<CheckoutOrderBloc,CheckoutOrderState>(
-                    builder: (context,state){
-                      if(state is CheckoutOrderLoaded){
-                        return payment(state.order, int.parse(this.nominalBayar));
-                      } return Center(child: Text(""));
-                    }
-                  ),
-                ],
-              )
-            ),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 2.3,
+                      child: Column(children: <Widget>[
+                        SizedBox(height: 20),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              buildButton("7"),
+                              buildButton("8"),
+                              buildButton("9"),
+                            ]),
+                        SizedBox(height: 20),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              buildButton("4"),
+                              buildButton("5"),
+                              buildButton("6"),
+                            ]),
+                        SizedBox(height: 20),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              buildButton("1"),
+                              buildButton("2"),
+                              buildButton("3"),
+                            ]),
+                        SizedBox(height: 20),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              buildButton("0"),
+                              buildButton("000"),
+                              buildButton("C"),
+                            ]),
+                      ]),
+                    ),
+                    BlocBuilder<CheckoutOrderBloc, CheckoutOrderState>(
+                        builder: (context, state) {
+                      if (state is CheckoutOrderLoaded) {
+                        return payment(
+                            state.order, int.parse(this.nominalBayar));
+                      }
+                      return Center(child: Text(""));
+                    }),
+                  ],
+                )),
           ),
         ),
         inAsyncCall: state is PaymentInProcess,

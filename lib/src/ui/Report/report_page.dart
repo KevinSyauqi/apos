@@ -1,5 +1,6 @@
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/History/history_detail.dart';
+import 'package:apos/src/ui/Report/report_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,12 +81,9 @@ class _ReportSalesState extends State<ReportSales>
         firstDate: DateTime(2015),
         lastDate: DateTime(2021));
     if (picked != null && picked.length == 2) {
-      setState(() {
         _startDate = picked[0];
         _endDate = picked[1];
-        selectedStartDate = DateFormat("dd/MM/yyyy").format(_startDate);
-        selectedEndDate = DateFormat("dd/MM/yyyy").format(_endDate);
-      });
+      _reportBloc.add(GenerateReportSales(start_date: _startDate,end_date: _endDate));
     }
   }
 
@@ -142,36 +140,52 @@ class _ReportSalesState extends State<ReportSales>
                                       Container(child: Icon(Icons.date_range)),
                                       SizedBox(width: 10),
                                       InkWell(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text(
-                                              selectedStartDate,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13.0,
-                                                  fontFamily:
-                                                      'CircularStd-Book'),
-                                            ),
-                                            Text(
-                                              " - ",
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13.0,
-                                                  fontFamily:
-                                                      'CircularStd-Book'),
-                                            ),
-                                            Text(
-                                              selectedEndDate,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13.0,
-                                                  fontFamily:
-                                                      'CircularStd-Book'),
-                                            ),
-                                          ],
+                                        child: BlocBuilder<ReportBloc,
+                                            ReportState>(
+                                          builder: (context, state) {
+                                            if (state is ReportLoaded) {
+                                              _startDate = state.startDate;
+                                              _endDate = state.endDate;
+                                              this.selectedStartDate =
+                                                  DateFormat('yyyy/MM/dd').format(state.startDate);
+                                              this.selectedEndDate =
+                                                  DateFormat('yyyy/MM/dd').format(state.endDate);
+                                              return Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    selectedStartDate,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13.0,
+                                                        fontFamily:
+                                                            'CircularStd-Book'),
+                                                  ),
+                                                  Text(
+                                                    " - ",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13.0,
+                                                        fontFamily:
+                                                            'CircularStd-Book'),
+                                                  ),
+                                                  Text(
+                                                    selectedEndDate,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13.0,
+                                                        fontFamily:
+                                                            'CircularStd-Book'),
+                                                  ),
+                                                ],
+                                              );
+                                            }
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          },
                                         ),
                                       ),
                                     ],
@@ -439,7 +453,14 @@ class _ReportSalesState extends State<ReportSales>
                         children: <Widget>[
                           FlatButton(
                             padding: EdgeInsets.all(10),
-                            onPressed: null,
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ReportDetailPage(startDate: _startDate, endDate: _endDate),
+                                  ));
+                            },
                             child: Text(
                               "> Lihat Semua Menu",
                               textAlign: TextAlign.right,

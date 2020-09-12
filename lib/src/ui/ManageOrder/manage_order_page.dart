@@ -116,37 +116,43 @@ class _ManageOrderState extends State<ManageOrder>
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                    Color.fromRGBO(252, 195, 108, 1),
-                    Color.fromRGBO(253, 166, 125, 1),
-                  ])),
+                        Color.fromRGBO(252, 195, 108, 1),
+                        Color.fromRGBO(253, 166, 125, 1),
+                      ])),
             ),
             elevation: 0.0,
           ),
           drawer: AppDrawer(),
           body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             child: Stack(
               children: <Widget>[
                 BlocBuilder<ManageOrderBloc, ManageOrderState>(
                     builder: (context, state) {
-                  if (state is ManageOrderInitialized) {
-                    return Center(child: Text("Unitialized State"));
-                  } else if (state is ManageOrderLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is ManageOrderError) {
-                    return Center(child: Text('error'));
-                  } else if (state is ManageOrderLoaded) {
-                    return TabBarView(
-                      controller: controller,
-                      children: <Widget>[
-                        getDataMenu(state.foods, state.foodMenuCounter),
-                        getDataMenu(state.drinks, state.drinkMenuCounter)
-                      ],
-                    );
-                  }
-                  return Center(child: Text("Belum ada menu nih"));
-                }),
+                      if (state is ManageOrderInitialized) {
+                        return Center(child: Text("Unitialized State"));
+                      } else if (state is ManageOrderLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (state is ManageOrderError) {
+                        return Center(child: Text('error'));
+                      } else if (state is ManageOrderLoaded) {
+                        return TabBarView(
+                          controller: controller,
+                          children: <Widget>[
+                            getDataMenu(state.foods, state.foodMenuCounter),
+                            getDataMenu(state.drinks, state.drinkMenuCounter)
+                          ],
+                        );
+                      }
+                      return Center(child: Text("Belum ada menu nih"));
+                    }),
                 checkOut(),
               ],
             ),
@@ -223,7 +229,9 @@ class _ManageOrderState extends State<ManageOrder>
                                       color: Colors.black,
                                       fontSize: 14.0,
                                       fontFamily: 'CircularStd-Book')),
-                              Text(FlutterMoneyFormatter(amount: double.parse(menu.price.toString())).output.withoutFractionDigits,
+                              Text(FlutterMoneyFormatter(
+                                  amount: double.parse(menu.price.toString()))
+                                  .output.withoutFractionDigits,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14.0,
@@ -252,7 +260,7 @@ class _ManageOrderState extends State<ManageOrder>
                                       decoration: BoxDecoration(
                                           color: Color.fromRGBO(54, 58, 155, 1),
                                           borderRadius:
-                                              BorderRadius.circular(13)),
+                                          BorderRadius.circular(13)),
                                       child: IconButton(
                                           icon: Icon(Icons.remove),
                                           iconSize: 17,
@@ -261,7 +269,7 @@ class _ManageOrderState extends State<ManageOrder>
                                             if (itemCount[index] > 0) {
                                               BlocProvider.of<CartBloc>(context)
                                                   .add(RemoveFromCart(
-                                                      menu: menu));
+                                                  menu: menu));
                                               setState(() {
                                                 itemCount[index]--;
                                               });
@@ -294,7 +302,7 @@ class _ManageOrderState extends State<ManageOrder>
                                       decoration: BoxDecoration(
                                           color: Color.fromRGBO(54, 58, 155, 1),
                                           borderRadius:
-                                              BorderRadius.circular(13)),
+                                          BorderRadius.circular(13)),
                                       child: IconButton(
                                           icon: Icon(Icons.add),
                                           iconSize: 17,
@@ -341,7 +349,10 @@ class _ManageOrderState extends State<ManageOrder>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width / 1.4,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 1.4,
                     margin: EdgeInsets.fromLTRB(20, 20, 10, 20),
                     alignment: Alignment.center,
                     child: ButtonTheme(
@@ -354,59 +365,70 @@ class _ManageOrderState extends State<ManageOrder>
                         color: Color.fromRGBO(54, 58, 155, 1),
                         child: (state is CartLoaded)
                             ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.shopping_cart,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        state.menus.length.toString() +
-                                            " Pesanan",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontFamily: 'CircularStd-Book'),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    "Rp " + FlutterMoneyFormatter(amount: double.parse(state.totalPrice.toString())).output.withoutFractionDigits,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        fontFamily: 'CircularStd-Bold'),
-                                  ),
-                                ],
-                              )
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  state.menus.length.toString() +
+                                      " Pesanan",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontFamily: 'CircularStd-Book'),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              "Rp " + FlutterMoneyFormatter(
+                                  amount: double.parse(
+                                      state.totalPrice.toString())).output
+                                  .withoutFractionDigits,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
+                          ],
+                        )
                             : Text("Terjadi Kesalahan"),
                         onPressed: () {
-                          (state is CartLoaded)
-                              ? Navigator.push(
+                          if (state is CartLoaded) {
+                            if (state.menus.length == 0) {
+                              _showEmptyCartAlert();
+                            } else {
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CheckoutCartPage(
-                                        menus: state.menus,
-                                        totalPrice: state.totalPrice),
+                                    builder: (context) =>
+                                        CheckoutCartPage(
+                                            menus: state.menus,
+                                            totalPrice: state.totalPrice),
                                   )).then((value) {
-                                  if (value == "Success") {
-                                    _cartBloc.add(LoadCart());
-                                    _manageOrderBloc.add(FetchMenus());
-                                  }
-                                })
-                              : print("State bukan checkloaded");
+                                if (value == "Success") {
+                                  _cartBloc.add(LoadCart());
+                                  _manageOrderBloc.add(FetchMenus());
+                                }
+                              });
+                            }
+                          }
                         },
                       ),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 7,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 7,
                     height: 52,
                     margin: EdgeInsets.only(right: 20),
                     decoration: BoxDecoration(
@@ -436,5 +458,43 @@ class _ManageOrderState extends State<ManageOrder>
         );
       },
     );
+  }
+
+  void _showEmptyCartAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            actionsPadding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: Text("Keranjang Masih Kosong",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                    fontFamily: 'CircularStd-Bold')),
+            actions: <Widget>[
+              Center(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  child: RaisedButton(
+                      padding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      color: Color.fromRGBO(54, 58, 155, 1),
+                      elevation: 5,
+                      onPressed: () => Navigator.pop(context),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(15.0))),
+                      child: Text("Okey",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ))),
+                ),
+              )
+            ],
+          );
+        });
   }
 }

@@ -14,3 +14,10 @@ class GenerateReportSales extends ReportEvent{
 
   GenerateReportSales({this.start_date, this.end_date});
 }
+
+class GetReportDetail extends ReportEvent{
+  final DateTime start_date;
+  final DateTime end_date;
+
+  GetReportDetail({this.start_date, this.end_date});
+}

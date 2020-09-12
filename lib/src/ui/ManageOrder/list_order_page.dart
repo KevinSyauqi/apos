@@ -117,11 +117,14 @@ class _ListOrderState extends State<ListOrder> {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CheckoutOrderPage(
-                                                            id_order:
-                                                                order.id_order),
-                                                  ));
+                                                    builder: (context) => CheckoutOrderPage(
+                                                        id_order:
+                                                        order.id_order),
+                                                  )).then((value) {
+                                                if (value) {
+                                                  _activeOrderBloc.add(fetchListOrder());
+                                                }
+                                              });
                                             },
                                             child: Column(
                                               mainAxisAlignment:
@@ -183,56 +186,7 @@ class _ListOrderState extends State<ListOrder> {
                                           ),
                                         ),
                                         onTap: (){},
-                                      ),
-                                      // Expanded(
-                                      //     child: Container(
-                                      //         margin: EdgeInsets.only(top: 10),
-                                      //         child: Row(
-                                      //           mainAxisAlignment:
-                                      //           MainAxisAlignment.end,
-                                      //           crossAxisAlignment:
-                                      //           CrossAxisAlignment.center,
-                                      //           children: <Widget>[
-                                      //             Container(
-                                      //               height: 32,
-                                      //               alignment: Alignment.center,
-                                      //               decoration: BoxDecoration(
-                                      //                   color: Color.fromRGBO(
-                                      //                       54, 58, 155, 1),
-                                      //                   borderRadius:
-                                      //                   BorderRadius
-                                      //                       .circular(13)),
-                                      //               child: MaterialButton(
-                                      //                 onPressed: () {},
-                                      //                 child: Text("Bayar",
-                                      //                     style: TextStyle(
-                                      //                         color:
-                                      //                         Colors.white,
-                                      //                         fontSize: 14.0,
-                                      //                         fontFamily:
-                                      //                         'CircularStd-Bold')),
-                                      //               ),
-                                      //             ),
-                                      //             SizedBox(width: 5),
-                                      //             Container(
-                                      //               width: 32,
-                                      //               height: 32,
-                                      //               alignment: Alignment.center,
-                                      //               decoration: BoxDecoration(
-                                      //                   color: Color.fromRGBO(
-                                      //                       54, 58, 155, 1),
-                                      //                   borderRadius:
-                                      //                   BorderRadius
-                                      //                       .circular(13)),
-                                      //               child: IconButton(
-                                      //                 icon: Icon(Icons.delete),
-                                      //                 iconSize: 17,
-                                      //                 color: Colors.white,
-                                      //                 onPressed: () {},
-                                      //               ),
-                                      //             ),
-                                      //           ],
-                                      //         )))
+                                      )
                                     ]));
                           })
                     ],

@@ -41,159 +41,163 @@ class _ReceiptSalesState extends State<ReceiptSales> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: <Widget>[
-        Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Struk Pembayaran",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25.0,
-                  fontFamily: 'CircularStd-Bold'),
-            ),
-            bottom: PreferredSize(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    width: MediaQuery.of(context).size.width,
-                    height: 220,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 2.0),
-                          blurRadius: 5.0,
-                        ),
-                      ],
-                    ),
-                    child: BlocBuilder<ReceiptBloc, ReceiptState>(
-                      builder: (context, state) {
-                        if (state is ReceiptLoaded) {
-                          return Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              children: <Widget>[
-                                Text("Kamis, 20 Juli 2020",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15.0,
-                                        fontFamily: 'CircularStd-Book')),
-                                Text(
-                                    "Transaksi No #" +
-                                        state.order.id_order.substring(0, 6) +
-                                        state.order.id_order.substring(15, 18),
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                                Text("Total Pembayaran",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Book')),
-                                Text(
-                                    "Rp " +
-                                        FlutterMoneyFormatter(
-                                                amount: double.parse(state
-                                                    .order.total_price
-                                                    .toString()))
-                                            .output
-                                            .withoutFractionDigits,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 25.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                                Text("Nominal Pembayaran",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Book')),
-                                Text(
-                                    "Rp " +
-                                        FlutterMoneyFormatter(
-                                                amount: double.parse(state
-                                                    .payment.cash
-                                                    .toString()))
-                                            .output
-                                            .withoutFractionDigits,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 25.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                                Text("Kembalian",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'CircularStd-Book')),
-                                Text(
-                                    "Rp " +
-                                        FlutterMoneyFormatter(
-                                                amount: double.parse(state
-                                                    .payment.change_amount
-                                                    .toString()))
-                                            .output
-                                            .withoutFractionDigits,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 25.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                              ],
-                            ),
-                          );
-                        }
-                        return Text("");
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 25),
-                  ),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(250, 250, 250, 1),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
-                  )
-                ],
+    return WillPopScope(
+      onWillPop: () async => true,
+      child: Scaffold(
+        body: Stack(children: <Widget>[
+          Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Text(
+                "Struk Pembayaran",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontFamily: 'CircularStd-Bold'),
               ),
-              preferredSize: Size(0, 300),
-            ),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                    Color.fromRGBO(252, 195, 108, 1),
-                    Color.fromRGBO(253, 166, 125, 1),
-                  ])),
-            ),
-            elevation: 0.0,
-          ),
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 1.8,
-            child: Stack(children: <Widget>[
-              BlocBuilder<ReceiptBloc, ReceiptState>(
-                builder: (context, state) {
-                  if (state is ReceiptLoaded) {
-                    return buildListMenuTransaction(
-                        context, state.listOrderItem);
-                  }
-                  return Text("");
-                },
+              bottom: PreferredSize(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      width: MediaQuery.of(context).size.width,
+                      height: 220,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 2.0),
+                            blurRadius: 5.0,
+                          ),
+                        ],
+                      ),
+                      child: BlocBuilder<ReceiptBloc, ReceiptState>(
+                        builder: (context, state) {
+                          if (state is ReceiptLoaded) {
+                            return Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Column(
+                                children: <Widget>[
+                                  Text("Kamis, 20 Juli 2020",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15.0,
+                                          fontFamily: 'CircularStd-Book')),
+                                  Text(
+                                      "Transaksi No #" +
+                                          state.order.id_order.substring(0, 6) +
+                                          state.order.id_order.substring(15, 18),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20.0,
+                                          fontFamily: 'CircularStd-Bold')),
+                                  Text("Total Pembayaran",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12.0,
+                                          fontFamily: 'CircularStd-Book')),
+                                  Text(
+                                      "Rp " +
+                                          FlutterMoneyFormatter(
+                                                  amount: double.parse(state
+                                                      .order.total_price
+                                                      .toString()))
+                                              .output
+                                              .withoutFractionDigits,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25.0,
+                                          fontFamily: 'CircularStd-Bold')),
+                                  Text("Nominal Pembayaran",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12.0,
+                                          fontFamily: 'CircularStd-Book')),
+                                  Text(
+                                      "Rp " +
+                                          FlutterMoneyFormatter(
+                                                  amount: double.parse(state
+                                                      .payment.cash
+                                                      .toString()))
+                                              .output
+                                              .withoutFractionDigits,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25.0,
+                                          fontFamily: 'CircularStd-Bold')),
+                                  Text("Kembalian",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12.0,
+                                          fontFamily: 'CircularStd-Book')),
+                                  Text(
+                                      "Rp " +
+                                          FlutterMoneyFormatter(
+                                                  amount: double.parse(state
+                                                      .payment.change_amount
+                                                      .toString()))
+                                              .output
+                                              .withoutFractionDigits,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25.0,
+                                          fontFamily: 'CircularStd-Bold')),
+                                ],
+                              ),
+                            );
+                          }
+                          return Text("");
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 25),
+                    ),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(250, 250, 250, 1),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(55),
+                              topRight: Radius.circular(55))),
+                    )
+                  ],
+                ),
+                preferredSize: Size(0, 300),
               ),
-              bottomButton()
-            ]),
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                      Color.fromRGBO(252, 195, 108, 1),
+                      Color.fromRGBO(253, 166, 125, 1),
+                    ])),
+              ),
+              elevation: 0.0,
+            ),
+            body: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 1.8,
+              child: Stack(children: <Widget>[
+                BlocBuilder<ReceiptBloc, ReceiptState>(
+                  builder: (context, state) {
+                    if (state is ReceiptLoaded) {
+                      return buildListMenuTransaction(
+                          context, state.listOrderItem);
+                    }
+                    return Text("");
+                  },
+                ),
+                bottomButton()
+              ]),
+            ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
@@ -387,7 +391,9 @@ class _ReceiptSalesState extends State<ReceiptSales> {
                           fontSize: 18.0,
                           fontFamily: 'CircularStd-Bold'),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      Navigator.of(context).pop(true);
+                    },
                   ),
                 ),
               ),

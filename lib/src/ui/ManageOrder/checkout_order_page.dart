@@ -202,10 +202,14 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                         ]),
                     onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentPage(order: order)),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentPage(order: order),
+                          )).then((value) {
+                        if (value) {
+                          Navigator.pop(context,true);
+                        }
+                      });
                     },
                   ),
                 ),

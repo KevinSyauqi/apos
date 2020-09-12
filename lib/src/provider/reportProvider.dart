@@ -24,4 +24,19 @@ class ReportProvider{
     }
   }
 
+  Future getReportDetail(String start_date, String end_date) async{
+    final _url = "$_baseUrl/$_prefix/reportDetail?start_date=$start_date&end_date=$end_date";
+
+    final response = await client.get(_url);
+    final responseString = jsonDecode(response.body);
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
+    }
+  }
+
 }
