@@ -11,7 +11,6 @@ class Order{
   Order(this._id_user, this._table_number, this._customer_name,
       this._total_price);
 
-
   String get id_order => _id_order;
 
   String get id_user => _id_user;
@@ -41,6 +40,10 @@ class Order{
 
   set total_price(int value) {
     _total_price = value;
+  }
+
+  set id_order(String value) {
+    _id_order = value;
   }
 
   Order.fromJson(Map<String, dynamic> json) {

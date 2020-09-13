@@ -68,6 +68,27 @@ class ManageOrderProvider {
     }
   }
 
+  Future addToOrder(Order order, ListOrderItem listOrderItem) async {
+    final _url = "$_baseUrl/$_prefix/orderAddition";
+
+    final Map jsonData = order.toJson();
+    jsonData.addAll(listOrderItem.toJson());
+
+    print(jsonData);
+
+    final response = await client.post("$_url",
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(jsonData));
+    final responseString = jsonDecode(response.body);
+    print(response.body);
+    if (response.statusCode == 201) {
+      return responseString;
+    } else {
+      final message = responseString['message'];
+      throw Exception('$message');
+    }
+  }
+
   List<Menu> parsedListResponse(final response) {
     final responseString = jsonDecode(response.body);
 

@@ -14,3 +14,5 @@ class ActiveOrderLoaded extends ActiveOrderState {
 }
 
 class ActiveOrderFailure extends ActiveOrderState {}
+
+class ActiveOrderEmpty extends ActiveOrderState{}

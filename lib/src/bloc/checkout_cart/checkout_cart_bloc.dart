@@ -24,5 +24,19 @@ class CheckoutCartBloc extends Bloc<CheckoutCartEvent, CheckoutCartState> {
           yield CreateOrderFailure(message: response["messsage"].toString());
         }
       }
+
+    if(event is AddToOrderButtonPressed){
+      yield CreateOrderLoading();
+      Order order = new Order("",1,"",0);
+      order.id_order = event.id_order;
+      ListOrderItem cart = new ListOrderItem(event.cart);
+
+      final response = await _manageOrderRepository.addToOrder(order, cart);
+      if(response["success"] == true){
+        yield AddToOrderSuccess(order: order, listOrderItem: cart);
+      } else{
+        yield CreateOrderFailure(message: response["messsage"].toString());
+      }
+    }
   }
 }

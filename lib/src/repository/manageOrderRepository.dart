@@ -8,6 +8,10 @@ class ManageOrderRepository{
     return await manageOrderProvider.createOrder(order, listOrderItem);
   }
 
+  Future addToOrder(Order order, ListOrderItem listOrderItem) async{
+    return await manageOrderProvider.addToOrder(order, listOrderItem);
+  }
+
   Future<List<Menu>> fetchAllMenu() async{
     return await manageOrderProvider.fetchAllMenu();
   }

@@ -3,26 +3,35 @@ import 'package:apos/src/models/models.dart';
 
 abstract class CartEvent {}
 
-class LoadCart extends CartEvent{}
+class LoadCart extends CartEvent{
+  final String id_order;
+
+  LoadCart({this.id_order});
+}
+
+class LoadCurrentOrderCart extends CartEvent{}
 
 class AddToCart extends CartEvent{
+  String id_order;
   final Menu menu;
 
-  AddToCart({this.menu});
+  AddToCart({this.id_order,this.menu});
 }
 
 class RemoveFromCart extends CartEvent{
+  String id_order;
   final Menu menu;
 
-  RemoveFromCart({this.menu});
+  RemoveFromCart({this.id_order,this.menu});
 }
 
 class CheckoutCart extends CartEvent{
   final List<OrderItem> listOrderItem;
   final List<Menu> orderMenus;
   final int totalPrice;
+  final String id_order;
 
-  CheckoutCart({this.listOrderItem, this.orderMenus, this.totalPrice});
+  CheckoutCart({this.id_order,this.listOrderItem, this.orderMenus, this.totalPrice});
 }
 
 class PayLater extends CartEvent{

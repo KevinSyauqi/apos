@@ -19,7 +19,9 @@ class ActiveOrderBloc extends Bloc<ActiveOrderEvent, ActiveOrderState> {
       if(response["success"] == true){
         List<Order> data = parsedListResponse(response);
         ListOrder listOrder = new ListOrder(data);
-        yield ActiveOrderLoaded(listOrder: listOrder);
+        if(listOrder.listOrder.length == 0){
+          yield ActiveOrderEmpty();
+        }else yield ActiveOrderLoaded(listOrder: listOrder);
       }else{
         yield ActiveOrderFailure();
       }

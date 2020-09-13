@@ -11,3 +11,13 @@ class CreateOrderButtonPressed extends CheckoutCartEvent{
 
   CreateOrderButtonPressed({this.cart, this.customerName, this.tableNumber, this.totalPrice});
 }
+
+class AddToOrderButtonPressed extends CheckoutCartEvent{
+  String id_order;
+  List<OrderItem> cart;
+  String customerName;
+  int tableNumber;
+  int totalPrice;
+
+  AddToOrderButtonPressed({this.id_order,this.cart, this.customerName, this.tableNumber, this.totalPrice});
+}

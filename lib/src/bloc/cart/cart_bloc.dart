@@ -16,7 +16,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     if (event is LoadCart) {
       yield CartLoading();
       try {
-        yield CartLoaded(cart: [], menus: [], totalPrice: 0);
+        if(event.id_order == null){
+          yield CartLoaded(cart: [], menus: [], totalPrice: 0);
+        }else yield CartLoaded(id_order: event.id_order, cart: [], menus: [], totalPrice: 0);
       } catch (e) {
         print(e);
         yield CartError(e);
@@ -26,7 +28,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final currentState = state;
       if (currentState is CartLoaded) {
         try {
-          yield CartLoaded(
+          yield CartLoaded(id_order: event.id_order,
               menus: List.from(currentState.menus)
                 ..add(event.menu),
               totalPrice: currentState.totalPrice + event.menu.price);
@@ -41,7 +43,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       if (currentState is CartLoaded) {
         try {
           print(currentState.menus.toString());
-          yield CartLoaded(
+          yield CartLoaded(id_order: event.id_order,
               menus: List.from(currentState.menus)
                 ..remove(event.menu),
               totalPrice: currentState.totalPrice - event.menu.price);
@@ -76,7 +78,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             listOrder.add(order);
           }
         });
-        yield CartLoaded(
+        yield CartLoaded(id_order: event.id_order,
             cart: listOrder,
             menus: event.orderMenus,
             totalPrice: event.totalPrice);

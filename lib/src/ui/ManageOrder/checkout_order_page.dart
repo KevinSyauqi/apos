@@ -206,7 +206,7 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                           MaterialPageRoute(
                             builder: (context) => PaymentPage(order: order),
                           )).then((value) {
-                        if (value) {
+                        if (value == true) {
                           Navigator.pop(context,true);
                         }
                       });

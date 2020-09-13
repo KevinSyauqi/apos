@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 
+import 'manage_order_page.dart';
+
 class ListOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,18 @@ class ListOrder extends StatefulWidget {
 
 class _ListOrderState extends State<ListOrder> {
   ActiveOrderBloc _activeOrderBloc;
+
+  _onAddToOrderButtonPressed(String id_order) async {
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ManageOrderPage(id_order: id_order)))
+        .then((value) {
+      if (value == "Done") {
+        _activeOrderBloc.add(fetchListOrder());
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -79,6 +93,9 @@ class _ListOrderState extends State<ListOrder> {
           ),
           body: BlocBuilder<ActiveOrderBloc, ActiveOrderState>(
             builder: (context, state) {
+              if(state is ActiveOrderEmpty){
+                return Center(child: Text("Tidak ada pesanan yang menunggu"));
+              }
               if (state is ActiveOrderLoading) {
                 return Center(child: CircularProgressIndicator());
               }
@@ -117,12 +134,14 @@ class _ListOrderState extends State<ListOrder> {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => CheckoutOrderPage(
-                                                        id_order:
-                                                        order.id_order),
+                                                    builder: (context) =>
+                                                        CheckoutOrderPage(
+                                                            id_order:
+                                                                order.id_order),
                                                   )).then((value) {
-                                                if (value) {
-                                                  _activeOrderBloc.add(fetchListOrder());
+                                                if (value == true) {
+                                                  _activeOrderBloc
+                                                      .add(fetchListOrder());
                                                 }
                                               });
                                             },
@@ -166,15 +185,15 @@ class _ListOrderState extends State<ListOrder> {
                                         ),
                                       ),
                                       GestureDetector(
-                                                                              child: Center(
+                                        child: Center(
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 20),
                                             height: 40,
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
-                                                color:
-                                                    Color.fromRGBO(54, 58, 155, 1),
+                                                color: Color.fromRGBO(
+                                                    54, 58, 155, 1),
                                                 borderRadius:
                                                     BorderRadius.circular(13)),
                                             child: Text("Tambah Pesanan",
@@ -185,7 +204,10 @@ class _ListOrderState extends State<ListOrder> {
                                                         'CircularStd-Bold')),
                                           ),
                                         ),
-                                        onTap: (){},
+                                        onTap: () {
+                                          _onAddToOrderButtonPressed(
+                                              order.id_order);
+                                        },
                                       )
                                     ]));
                           })

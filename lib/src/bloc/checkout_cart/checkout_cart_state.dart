@@ -23,6 +23,13 @@ class CreateOrderSuccess extends CheckoutCartState {
   CreateOrderSuccess({this.order, this.listOrderItem});
 }
 
+class AddToOrderSuccess extends CheckoutCartState {
+  final Order order;
+  final ListOrderItem listOrderItem;
+
+  AddToOrderSuccess({this.order, this.listOrderItem});
+}
+
 class CreateOrderFailure extends CheckoutCartState{
   final message;
 

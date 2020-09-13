@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:intl/intl.dart';
-import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class PredictionPage extends StatelessWidget {
