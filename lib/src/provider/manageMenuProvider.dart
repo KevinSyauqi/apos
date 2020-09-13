@@ -23,7 +23,7 @@ class ManageMenuProvider {
     return parsedListResponse(response);
   }
 
-  Future addMenu(Menu menu, String store) async {
+  Future addMenu(Menu menu) async {
     final _url = "$_baseUrl/$_prefix/addMenu";
 
     final Map jsonData = {
@@ -44,13 +44,28 @@ class ManageMenuProvider {
     }
   }
 
-//  Menu parsedJson(final response){
-//    final jsonDecode = json.decode(response);
-//
-//    final jsonMenu = jsonDecode["data"];
-//
-//    return Menu.fromJson(jsonMenu);
-//  }
+  Future updateMenu(Menu menu) async {
+    final _url = "$_baseUrl/$_prefix/menuUpdate/";
+
+    final Map jsonData = {
+      "name_menu": menu.name_menu,
+      "category": menu.category,
+      "cost": menu.cost,
+      "price": menu.price
+    };
+    final response = await client.put("$_url",
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(jsonData));
+        
+    final responseString = jsonDecode(response.body);
+    if (response.statusCode == 201) {
+      return responseString;
+    } else {
+      final message = responseString['message'];
+      throw Exception('$message');
+    }
+  }
+
 
   List<Menu> parsedListResponse(final response) {
     final responseString = jsonDecode(response.body);

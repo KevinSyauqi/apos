@@ -1,30 +1,19 @@
+import 'dart:convert';
+
 import 'package:apos/src/bloc/bloc.dart';
-import 'package:apos/src/bloc/manage_stock/manage_stock_bloc.dart';
-import 'package:apos/src/bloc/manage_stock/manage_stock_event.dart';
-import 'package:apos/src/bloc/manage_stock/manage_stock_state.dart';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/ui/History//history_page.dart';
-import 'package:apos/src/ui/ManageOrder/checkout_cart_page.dart';
-import 'package:apos/src/ui/ManageOrder/checkout_order_page.dart';
-import 'package:apos/src/ui/ManageOrder/list_order_page.dart';
-import 'package:apos/src/ui/ManageOrder/transaksi_kustom.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManageStockPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<ManageStockBloc>(
-        create: (context) => ManageStockBloc(),
-      ),
-      BlocProvider<CartBloc>(
-        create: (context) => CartBloc(),
-      ),
-    ], child: ManageStock());
+    return BlocProvider(
+      create: (context) => ManageStockBloc(),
+      child: ManageStock(),
+    );
   }
 }
 
@@ -34,18 +23,14 @@ class ManageStock extends StatefulWidget {
 
 class _ManageStockState extends State<ManageStock>
     with SingleTickerProviderStateMixin {
-  TabController controller;
   ManageStockBloc _manageStockBloc;
-  CartBloc _cartBloc;
+  TabController controller;
 
   @override
   void initState() {
-    controller = TabController(length: 2, vsync: this);
     _manageStockBloc = BlocProvider.of<ManageStockBloc>(context);
-    _cartBloc = BlocProvider.of<CartBloc>(context);
-    _manageStockBloc.add(FetchStockMenus());
-    _cartBloc.add(LoadCart());
-
+    _manageStockBloc.add(FetchingAllStock());
+    controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -53,7 +38,6 @@ class _ManageStockState extends State<ManageStock>
   void dispose() {
     controller.dispose();
     _manageStockBloc.close();
-    _cartBloc.close();
     super.dispose();
   }
 
@@ -73,52 +57,6 @@ class _ManageStockState extends State<ManageStock>
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[
-                  // Container(
-                  //   child: Column(
-                  //     children: <Widget>[
-                  //       Container(
-                  //         margin: EdgeInsets.symmetric(horizontal: 30),
-                  //         width: MediaQuery.of(context).size.width,
-                  //         height: 80,
-                  //         decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(25),
-                  //           color: Colors.white,
-                  //           boxShadow: [
-                  //             BoxShadow(
-                  //               color: Colors.grey,
-                  //               offset: Offset(0.0, 2.0),
-                  //               blurRadius: 5.0,
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         child: Padding(
-                  //             padding: EdgeInsets.all(15),
-                  //             child: Container(
-                  //               margin: EdgeInsets.symmetric(vertical: 2.0),
-                  //               alignment: Alignment.center,
-                  //               height: 60.0,
-                  //               decoration: BoxDecoration(
-                  //                   color: Color.fromRGBO(234, 234, 234, 1),
-                  //                   borderRadius: BorderRadius.circular(15.0)),
-                  //               child: TextField(
-                  //                 decoration: InputDecoration(
-                  //                     border: InputBorder.none,
-                  //                     hintText: "Pencarian Menu",
-                  //                     hintStyle: TextStyle(
-                  //                         color: Colors.grey,
-                  //                         fontSize: 16.0,
-                  //                         fontFamily: 'CircularStd-Book'),
-                  //                     prefixIcon: Icon(Icons.search,
-                  //                         color: Colors.grey)),
-                  //               ),
-                  //             )),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(top: 25),
-                  // ),
                   Container(
                     height: 60,
                     decoration: BoxDecoration(
@@ -179,22 +117,25 @@ class _ManageStockState extends State<ManageStock>
               children: <Widget>[
                 BlocBuilder<ManageStockBloc, ManageStockState>(
                     builder: (context, state) {
-                  if (state is ManageStockInitialized) {
-                    return Center(child: Text("Unitialized State"));
-                  } else if (state is ManageStockLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is ManageStockError) {
-                    return Center(child: Text('error'));
-                  } else if (state is ManageStockLoaded) {
+                  if (state is ManageStockLoaded) {
                     return TabBarView(
                       controller: controller,
                       children: <Widget>[
-                        getDataMenu(state.foods, state.foodMenuCounter),
-                        getDataMenu(state.drinks, state.drinkMenuCounter)
+                        getListMenu(state.foods),
+                        getListMenu(state.drinks)
                       ],
                     );
                   }
-                  return Center(child: Text("Belum ada menu nih"));
+                  if (state is ManageStockEmpty) {
+                    return Center(child: Text("Belum ada menu nih"));
+                  }
+                  if (state is ManageStockLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (state is ManageStockError) {
+                    return Center(child: Text('error'));
+                  }
+                  return Center(child: Text("t"));
                 }),
               ],
             ),
@@ -204,142 +145,120 @@ class _ManageStockState extends State<ManageStock>
     );
   }
 
-  Widget getDataMenu(List<Menu> menus, List<int> itemCount) {
+  Widget getListMenu(List<Menu> menus) {
     return Container(
-      // margin: EdgeInsets.only(bottom: 90),
-      child: BlocBuilder(
-        bloc: BlocProvider.of<ManageStockBloc>(context),
-        builder: (context, state) {
-          if (state is ManageStockInitialized) {
-            return Center(child: Text("Unitialized State"));
-          } else if (state is ManageStockEmpty) {
-            return Center(child: Text("Belum ada menu nih"));
-          } else if (state is ManageStockLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is ManageStockError) {
-            return Center(child: Text('error'));
-          }
+      child: ListView.builder(
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          itemCount: menus.length,
+          itemBuilder: (BuildContext context, int index) {
+            Menu menu = menus[index];
 
-          return ListView.builder(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              itemCount: menus.length,
-              itemBuilder: (BuildContext context, int index) {
-                Menu menu = menus[index];
-                if (itemCount[index] == null) itemCount[index] = 0;
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            width: 1.0)),
-                    color: Color.fromRGBO(250, 250, 250, 1),
+            return Container(
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromRGBO(224, 224, 224, 1), width: 1.0)),
+                color: Color.fromRGBO(250, 250, 250, 1),
+              ),
+              width: double.infinity,
+              height: 80,
+              margin: EdgeInsets.symmetric(horizontal: 25),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 55,
+                    height: 55,
+                    margin: EdgeInsets.only(right: 15),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(234, 234, 234, 1),
+//                      image: (menu.photo_menu != null) ? DecorationImage(image: MemoryImage(base64Decode(menu.photo_menu))):null,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  width: double.infinity,
-                  height: 80,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: 55,
-                        height: 55,
-                        margin: EdgeInsets.only(right: 15),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                          borderRadius: BorderRadius.circular(20),
+                  Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          menu.name_menu,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.0,
+                              fontFamily: 'CircularStd-Bold'),
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
                         ),
-                      ),
-                      Container(
-                        width: 220,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              menu.name_menu,
+                        Row(children: <Widget>[
+                          Text("Stok : ",
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 15.0,
-                                  fontFamily: 'CircularStd-Bold'),
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
-                            ),
-                            Row(children: <Widget>[
-                              Text("Stok : ",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14.0,
-                                      fontFamily: 'CircularStd-Book')),
-                              Text(menu.price.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14.0,
-                                      fontFamily: 'CircularStd-Book')),
-                              Text(" | Prediksi : ",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14.0,
-                                      fontFamily: 'CircularStd-Book')),
-                            ])
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 13),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                    icon: Icon(Icons.add),
-                                    iconSize: 17,
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      _showAlertManageAddStock();
-                                    }),
-                              ),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Container(
-                                width: 32,
-                                height: 32,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(54, 58, 155, 1),
-                                    borderRadius: BorderRadius.circular(13)),
-                                child: IconButton(
-                                    icon: Icon(Icons.remove),
-                                    iconSize: 17,
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      _showAlertManageRemoveStock();
-                                    }),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
+                                  fontSize: 14.0,
+                                  fontFamily: 'CircularStd-Book')),
+                          Text(menu.quantity_stock.toString() + " pcs",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                  fontFamily: 'CircularStd-Book')),
+                        ])
+                      ],
+                    ),
                   ),
-                );
-              });
-          ;
-        },
-      ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 32,
+                            height: 32,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(54, 58, 155, 1),
+                                borderRadius: BorderRadius.circular(13)),
+                            child: IconButton(
+                              icon: Icon(Icons.add),
+                              iconSize: 17,
+                              color: Colors.white,
+                              onPressed: () {
+                                _showAddStock();
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 5),
+                          Container(
+                            width: 32,
+                            height: 32,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(54, 58, 155, 1),
+                                borderRadius: BorderRadius.circular(13)),
+                            child: IconButton(
+                              icon: Icon(Icons.remove),
+                              iconSize: 17,
+                              color: Colors.white,
+                              onPressed: () {
+                                _showRemoveStock();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
     );
   }
 
-  void _showAlertManageRemoveStock() {
+  void _showRemoveStock() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -353,6 +272,15 @@ class _ManageStockState extends State<ManageStock>
                     fontSize: 20.0,
                     fontFamily: 'CircularStd-Bold')),
             actions: <Widget>[
+              Center(
+                child: Text("Prediksi Stok : ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                        fontFamily: 'CircularStd-Book')),
+              ),
+              SizedBox(height:10),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25),
                 width: MediaQuery.of(context).size.width,
@@ -361,14 +289,13 @@ class _ManageStockState extends State<ManageStock>
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
                 child: TextFormField(
-                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
-                    hintText: "Kurangi Stok Menu",
+                    hintText: "Kurangi Berapa Stok",
                     hintStyle: TextStyle(
                         color: Colors.grey,
                         fontSize: 15.0,
@@ -387,7 +314,7 @@ class _ManageStockState extends State<ManageStock>
                       onPressed: () => Navigator.pop(context),
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
+                              BorderRadius.all(Radius.circular(100.0))),
                       child: Text("Simpan",
                           style: TextStyle(
                             color: Colors.white,
@@ -401,7 +328,7 @@ class _ManageStockState extends State<ManageStock>
                       onPressed: () => Navigator.pop(context),
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
+                              BorderRadius.all(Radius.circular(100.0))),
                       child: Text("Batal",
                           style: TextStyle(
                             color: Colors.black,
@@ -413,7 +340,7 @@ class _ManageStockState extends State<ManageStock>
         });
   }
 
-  void _showAlertManageAddStock() {
+  void _showAddStock() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -427,6 +354,15 @@ class _ManageStockState extends State<ManageStock>
                     fontSize: 20.0,
                     fontFamily: 'CircularStd-Bold')),
             actions: <Widget>[
+              Center(
+                child: Text("Prediksi Stok : ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                        fontFamily: 'CircularStd-Book')),
+              ),
+              SizedBox(height:10),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25),
                 width: MediaQuery.of(context).size.width,
@@ -435,14 +371,13 @@ class _ManageStockState extends State<ManageStock>
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
                 child: TextFormField(
-                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
-                    hintText: "Tambah Stok Menu",
+                    hintText: "Tambah Berapa Stok",
                     hintStyle: TextStyle(
                         color: Colors.grey,
                         fontSize: 15.0,
@@ -461,7 +396,7 @@ class _ManageStockState extends State<ManageStock>
                       onPressed: () => Navigator.pop(context),
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
+                              BorderRadius.all(Radius.circular(100.0))),
                       child: Text("Simpan",
                           style: TextStyle(
                             color: Colors.white,
@@ -475,7 +410,7 @@ class _ManageStockState extends State<ManageStock>
                       onPressed: () => Navigator.pop(context),
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
+                              BorderRadius.all(Radius.circular(100.0))),
                       child: Text("Batal",
                           style: TextStyle(
                             color: Colors.black,

@@ -296,36 +296,30 @@ Widget buildListMenuTransaction(List<OrderItem> listOrderItem) {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(item.name_menu,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0,
-                              fontFamily: 'CircularStd-Bold')),
-                      Text(
-                          "Rp " +
-                              FlutterMoneyFormatter(
-                                      amount: double.parse(
-                                          (item.subtotal_price / item.quantity)
-                                              .toString()))
-                                  .output
-                                  .withoutFractionDigits,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.0,
-                              fontFamily: 'CircularStd-Book')),
-                      Text(item.quantity.toString() + " pcs",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.0,
-                              fontFamily: 'CircularStd-Book')),
-                    ],
-                  ),
+              Container(
+                width: 190,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(item.name_menu,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.0,
+                            fontFamily: 'CircularStd-Bold')),
+                    Text(
+                        "Rp " +
+                            FlutterMoneyFormatter(
+                                    amount: double.parse(
+                                        (item.subtotal_price / item.quantity)
+                                            .toString()))
+                                .output
+                                .withoutFractionDigits + " x " + (item.quantity).toString() + " pcs", 
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                            fontFamily: 'CircularStd-Book'))
+                  ],
                 ),
               ),
               Expanded(

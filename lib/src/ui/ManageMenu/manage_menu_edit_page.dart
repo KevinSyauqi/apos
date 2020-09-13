@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/menuModels.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -8,8 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditKelolaMenu extends StatefulWidget {
-  final Menu value;
-  EditKelolaMenu({Key key, this.value}) : super(key: key);
+  final String id_menu;
+  final String name_menu;
+  final String category;
+  final int cost;
+  final int price;
+
+  EditKelolaMenu(
+      {Key key,
+      this.id_menu,
+      this.name_menu,
+      this.category,
+      this.cost,
+      this.price});
   @override
   _EditKelolaMenuState createState() => _EditKelolaMenuState();
 }
@@ -22,6 +34,25 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
   Category selectedCategory;
   List<Category> category = [Category("Makanan"), Category("Minuman")];
   Widget stockForm = Card();
+
+  final _name_menu = TextEditingController();
+  final _category = TextEditingController();
+  final _cost = TextEditingController();
+  final _price = TextEditingController();
+
+  @override
+  void setFormValue() {
+    _name_menu.text = widget.name_menu;
+    _cost.text = widget.cost.toString();
+    _price.text = widget.price.toString();
+    _category.text = widget.category;
+  }
+
+  @override
+  void initState() {
+    setFormValue();
+    super.initState();
+  }
 
   List<DropdownMenuItem> generateItems(List<Category> category) {
     List<DropdownMenuItem> items = [];
@@ -146,23 +177,21 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                   shrinkWrap: true,
                   children: <Widget>[
                     Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(right: 35),
-                                  height:
-                                      MediaQuery.of(context).size.height / 6,
-                                  child: FloatingActionButton(
-                                    backgroundColor:
-                                        Color.fromRGBO(54, 58, 155, 1),
-                                    onPressed: () {
-                                      _showAlertImage();
-                                    },
-                                    tooltip: 'Ambil Gambar',
-                                    child: Icon(Icons.camera_alt),
-                                  ),
-                                ),
-                              ]),
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.only(right: 35),
+                            height: MediaQuery.of(context).size.height / 6,
+                            child: FloatingActionButton(
+                              backgroundColor: Color.fromRGBO(54, 58, 155, 1),
+                              onPressed: () {
+                                _showAlertImage();
+                              },
+                              tooltip: 'Ambil Gambar',
+                              child: Icon(Icons.camera_alt),
+                            ),
+                          ),
+                        ]),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -192,7 +221,7 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20))),
                                     child: TextFormField(
-                                      initialValue: '${widget.value.name_menu}',
+                                      controller: _name_menu,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.fastfood,
@@ -222,14 +251,14 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20))),
                                     child: TextFormField(
-                                      initialValue: '${widget.value.price}',
+                                      controller: _price,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.account_balance_wallet,
                                             color: Color.fromRGBO(
                                                 179, 179, 183, 1),
                                           ),
-                                          hintText: "Harga Menu",
+                                          hintText: "Harga Jual Menu",
                                           hintStyle: TextStyle(
                                               color: Color.fromRGBO(
                                                   179, 179, 183, 1),
@@ -252,15 +281,14 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20))),
                                     child: TextFormField(
-                                      initialValue: '${widget.value.cost}',
+                                      controller: _cost,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.account_balance_wallet,
                                             color: Color.fromRGBO(
                                                 179, 179, 183, 1),
                                           ),
-                                          hintText:
-                                              "Harga Dasar (Tidak Wajib Diisi)",
+                                          hintText: "Harga Dasar Menu",
                                           hintStyle: TextStyle(
                                               color: Color.fromRGBO(
                                                   179, 179, 183, 1),
@@ -312,8 +340,8 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                                     ),
                                   ),
                                   SizedBox(
-                                          height: 20,
-                                        ),
+                                    height: 20,
+                                  ),
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width / 2,
@@ -325,7 +353,7 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
                                         color: Color.fromRGBO(54, 58, 155, 1),
                                         elevation: 5,
                                         onPressed: () async {
-                                          // state is! MenuAddLoading ? await _onAddMenuFormPressed():null;
+                                          UpdateMenuButton();
                                         },
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(

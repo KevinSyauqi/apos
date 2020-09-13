@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
@@ -7,6 +8,7 @@ import 'package:apos/src/ui/ManageMenu//manage_menu_add_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManageMenuPage extends StatelessWidget {
@@ -59,52 +61,6 @@ class _ManageMenuState extends State<ManageMenu>
             bottom: PreferredSize(
               child: Column(
                 children: <Widget>[
-                  // Container(
-                  //   child: Column(
-                  //     children: <Widget>[
-                  //       Container(
-                  //         margin: EdgeInsets.symmetric(horizontal: 30),
-                  //         width: MediaQuery.of(context).size.width,
-                  //         height: 80,
-                  //         decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(25),
-                  //           color: Colors.white,
-                  //           boxShadow: [
-                  //             BoxShadow(
-                  //               color: Colors.grey,
-                  //               offset: Offset(0.0, 2.0),
-                  //               blurRadius: 5.0,
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         child: Padding(
-                  //             padding: EdgeInsets.all(15),
-                  //             child: Container(
-                  //               margin: EdgeInsets.symmetric(vertical: 2.0),
-                  //               alignment: Alignment.center,
-                  //               height: 60.0,
-                  //               decoration: BoxDecoration(
-                  //                   color: Color.fromRGBO(234, 234, 234, 1),
-                  //                   borderRadius: BorderRadius.circular(15.0)),
-                  //               child: TextField(
-                  //                 decoration: InputDecoration(
-                  //                     border: InputBorder.none,
-                  //                     hintText: "Pencarian Menu",
-                  //                     hintStyle: TextStyle(
-                  //                         color: Colors.grey,
-                  //                         fontSize: 16.0,
-                  //                         fontFamily: 'CircularStd-Book'),
-                  //                     prefixIcon: Icon(Icons.search,
-                  //                         color: Colors.grey)),
-                  //               ),
-                  //             )),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // // ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(top: 25),
-                  // ),
                   Container(
                     height: 60,
                     decoration: BoxDecoration(
@@ -246,7 +202,12 @@ class _ManageMenuState extends State<ManageMenu>
                                   color: Colors.black,
                                   fontSize: 14.0,
                                   fontFamily: 'CircularStd-Book')),
-                          Text(menu.price.toString(),
+                          Text(
+                              FlutterMoneyFormatter(
+                                      amount:
+                                          double.parse(menu.price.toString()))
+                                  .output
+                                  .withoutFractionDigits,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14.0,
@@ -274,11 +235,22 @@ class _ManageMenuState extends State<ManageMenu>
                               iconSize: 17,
                               color: Colors.white,
                               onPressed: () {
+                                String id_menu = menu.id_menu;
+                                String name_menu = menu.name_menu;
+                                String category = menu.category;
+                                int cost = menu.cost;
+                                int price = menu.price;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          EditKelolaMenu(value: menu)),
+                                          EditKelolaMenu(
+                                            id_menu: id_menu,
+                                            name_menu: name_menu,
+                                            category: category,
+                                            cost: cost,
+                                            price: price
+                                          )),
                                 );
                               },
                             ),
@@ -389,7 +361,8 @@ class _ManageMenuState extends State<ManageMenu>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           FaIcon(
-                            FontAwesomeIcons.plus, size: 18,
+                            FontAwesomeIcons.plus,
+                            size: 18,
                             color: Colors.white,
                           ),
                           SizedBox(

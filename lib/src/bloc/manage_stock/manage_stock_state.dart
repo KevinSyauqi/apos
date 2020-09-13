@@ -1,7 +1,5 @@
-import 'package:apos/src/models/models.dart';
-import 'package:meta/meta.dart';
+import 'package:apos/src/models/menuModels.dart';
 
-@immutable
 abstract class ManageStockState {}
 
 class ManageStockInitialized extends ManageStockState {}
@@ -15,10 +13,9 @@ class ManageStockError extends ManageStockState {}
 class ManageStockLoaded extends ManageStockState {
   final List<Menu> foods;
   final List<Menu> drinks;
-  final List<int> foodMenuCounter;
-  final List<int> drinkMenuCounter;
 
-  ManageStockLoaded({this.foods, this.drinks, this.foodMenuCounter, this.drinkMenuCounter});
+
+  ManageStockLoaded({this.foods, this.drinks});
 }
 
 class StockError extends ManageStockState{}

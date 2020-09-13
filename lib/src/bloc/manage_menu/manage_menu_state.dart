@@ -29,5 +29,20 @@ class MenuAddFailed extends MenuState {
   MenuAddFailed({this.message});
 }
 
+class MenuUpdateLoading extends MenuState {}
+
+class MenuUpdateLoaded extends MenuState {}
+
+class MenuUpdateInitialized extends MenuState {}
+
+class MenuUpdateError extends MenuState {}
+
+class MenuUpdateSuccess extends MenuState {}
+
+class MenuUpdateFailed extends MenuState {
+  final String message;
+  MenuUpdateFailed({this.message});
+}
+
 
 

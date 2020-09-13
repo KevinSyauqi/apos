@@ -15,8 +15,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     try {
       if (event is FetchingAllMenu) {
         yield MenuLoading();
-        menus = await _menuRepository
-            .fetchAllMenu();
+        menus = await _menuRepository.fetchAllMenu();
         if (menus.length == 0) {
           yield MenuEmpty();
         } else {
@@ -24,8 +23,10 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
           List<Menu> drinks = List();
 
           menus.forEach((menu) {
-            if (menu.category == "food") foods.add(menu);
-            else drinks.add(menu);
+            if (menu.category == "food")
+              foods.add(menu);
+            else
+              drinks.add(menu);
           });
 
           yield MenuLoaded(foods: foods, drinks: drinks);
@@ -38,23 +39,57 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         yield MenuAddLoading();
         Menu menu;
         String category;
-        if(event.category == "Makanan") category = "food";
-        else category = "drink";
+        if (event.category == "Makanan")
+          category = "food";
+        else
+          category = "drink";
 
-
-        final response = await _menuRepository.addMenu(menu, "S20001");
+        final response = await _menuRepository.addMenu(menu);
         final bool success = response['success'];
-        if(success){
+        if (success) {
           yield MenuAddSuccess();
-        } else{
+        } else {
           yield MenuAddFailed(message: response['message']);
         }
-    }
+      }
+      if (event is UpdateMenuButton) {
+        yield MenuUpdateLoading();
+        Menu menu;
+        String category;
+        if (event.category == "Makanan")
+          category = "food";
+        else
+          category = "drink";
 
-    }catch(e){
+        final response = await _menuRepository.updateMenu(menu);
+        final bool success = response['success'];
+        if (success) {
+          yield MenuUpdateLoaded();
+        } else {
+          yield MenuUpdateFailed(message: response['message']);
+        }
+      }
+
+      // if (event is UpdateMenuButtonFormPressed) {
+      //   yield MenuUpdateLoading();
+      //   Menu menu;
+      //   String category;
+      //   if (event.category == "Makanan")
+      //     category = "food";
+      //   else
+      //     category = "drink";
+
+      //   final response = await _menuRepository.updateMenu(menu);
+      //   final bool success = response['success'];
+      //   if (success) {
+      //     yield MenuUpdateSuccess();
+      //   } else {
+      //     yield MenuUpdateFailed(message: response['message']);
+      //   }
+      // }
+    } catch (e) {
       print(e);
       yield MenuError();
     }
-
   }
 }

@@ -7,31 +7,18 @@ import 'package:http/http.dart';
 class ManageStockProvider {
   Client client = Client();
   final _baseUrl = AppUrl.url;
-  final _prefix = AppUrl.urlOrder;
+  final _prefix = AppUrl.urlManageStock;
 
-  Future<List<Menu>> fetchAllMenu() async {
-    final _url = "$_baseUrl/manageMenu/allMenu";
+  Future<List<Menu>> fetchAllStock() async {
+    final _url = "$_baseUrl/manageStock/allStock";
 
     final response = await client.get(_url);
 
+    print(response.body.toString());
     if (response.statusCode != 200) {
-      throw new Exception('Error getting menu');
+      throw new Exception('Error getting Stock menu');
     }
     return parsedListResponse(response);
-  }
-
-  Future fetchListOrder() async {
-    final _url = "$_baseUrl/$_prefix/noPaidOrder";
-
-    final response = await client.get(_url);
-    final responseString = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
-      return responseString;
-    }else{
-      final message = responseString['message'];
-      throw new Exception('$message');
-    }
   }
 
   Future fetchOrderDetail(String id_order) async {
@@ -48,33 +35,13 @@ class ManageStockProvider {
     }
   }
 
-  Future createOrder(Order order, ListOrderItem listOrderItem) async {
-    final _url = "$_baseUrl/$_prefix/orderCreate";
-
-    final Map jsonData = order.toJson();
-    jsonData.addAll(listOrderItem.toJson());
-
-    print(jsonData);
-
-    final response = await client.post("$_url",
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(jsonData));
-    final responseString = jsonDecode(response.body);
-    if (response.statusCode == 201) {
-      return responseString;
-    } else {
-      final message = responseString['message'];
-      throw Exception('$message');
-    }
-  }
-
   List<Menu> parsedListResponse(final response) {
     final responseString = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
       return ListMenu.fromJson(responseString).menus;
     } else {
-      throw Exception('Failed to load menu');
+      throw Exception('Failed to load stock menu');
     }
   }
 }

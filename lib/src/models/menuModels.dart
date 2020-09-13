@@ -6,10 +6,11 @@ class Menu{
   String _category;
   int _cost;
   int _price;
+  int _quantity_stock;
   bool _is_active;
 
 
-  Menu(this._name_menu, this._category, this._cost, this._price);
+  Menu(this._name_menu, this._category, this._cost, this._price, this._quantity_stock);
 
 
   String get id_menu => _id_menu;
@@ -21,6 +22,8 @@ class Menu{
   int get cost => _cost;
 
   int get price => _price;
+
+  int get quantity_stock => _quantity_stock;
 
   bool get is_active => _is_active;
 
@@ -41,6 +44,11 @@ class Menu{
     _price = value;
   }
 
+  set quantity_stock(int value) {
+    _quantity_stock = value;
+  }
+
+
   set is_active(bool value) {
     _is_active = value;
   }
@@ -51,6 +59,7 @@ class Menu{
     _category = json['category'];
     _cost = json['cost'];
     _price = json['price'];
+    _quantity_stock = json['quantity_stock'];
     _is_active = json['is_active'];
   }
 
@@ -61,6 +70,7 @@ class Menu{
     data['category'] = this._category;
     data['cost'] = this._cost;
     data['price'] = this._price;
+    data['quantity_stock'] = this._quantity_stock;
     return data;
   }
 }
