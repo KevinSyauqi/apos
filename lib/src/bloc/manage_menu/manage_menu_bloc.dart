@@ -62,6 +62,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         yield MenuUpdateLoading();
         Menu menu = new Menu(event.name_menu, event.category, int.parse(event.cost), int.parse(event.price));
         String category;
+        menu.id_menu = event.id_menu;
         print(menu);
         if (event.category == "Makanan")
           menu.category = "food";
@@ -76,23 +77,11 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
           yield MenuUpdateFailed(message: response['message']);
         }
       }
-      // if (event is UpdateMenuButtonFormPressed) {
-      //   yield MenuUpdateLoading();
-      //   Menu menu;
-      //   String category;
-      //   if (event.category == "Makanan")
-      //     category = "food";
-      //   else
-      //     category = "drink";
-
-      //   final response = await _menuRepository.updateMenu(menu);
-      //   final bool success = response['success'];
-      //   if (success) {
-      //     yield MenuUpdateSuccess();
-      //   } else {
-      //     yield MenuUpdateFailed(message: response['message']);
-      //   }
-      // }
+      if(event is FetchMenu){
+        if(event.menu != null){
+          yield MenuUpdateLoaded(menu: event.menu);
+        }else yield MenuUpdateError();
+      }
     } catch (e) {
       print(e);
       yield MenuError();

@@ -50,7 +50,7 @@ class ManageMenuProvider {
 
     // print(jsonData);
 
-    final response = await client.post("$_url",
+    final response = await client.put("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));
     final responseString = jsonDecode(response.body);
@@ -60,6 +60,21 @@ class ManageMenuProvider {
     } else {
       final message = responseString['message'];
       throw Exception('$message');
+    }
+  }
+
+  Future fetchMenu(String id_menu) async{
+    final _url = "$_baseUrl/$_prefix/menu?id_menu=$id_menu";
+
+    final response = await client.get(_url);
+    final responseString = jsonDecode(response.body);
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
     }
   }
 

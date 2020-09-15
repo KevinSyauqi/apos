@@ -5,3 +5,5 @@ import 'package:meta/meta.dart';
 abstract class PredictionEvent {}
 
 class GetPredictionSummary extends PredictionEvent{}
+
+class GetDetailPrediction extends PredictionEvent{}

@@ -22,12 +22,19 @@ class UpdateMenuButton extends MenuEvent {
 }
 
 class UpdateMenuButtonFormPressed extends MenuEvent {
+  final String id_menu;
   final String name_menu;
   final String cost;
   final String price;
   final String category;
 
-  UpdateMenuButtonFormPressed({this.name_menu, this.cost, this.price, this.category});
+  UpdateMenuButtonFormPressed({this.id_menu, this.name_menu, this.cost, this.price, this.category});
 
 
+}
+
+class FetchMenu extends MenuEvent {
+  final Menu menu;
+
+  FetchMenu({this.menu});
 }

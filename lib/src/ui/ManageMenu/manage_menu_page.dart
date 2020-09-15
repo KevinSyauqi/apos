@@ -34,8 +34,7 @@ class _ManageMenuState extends State<ManageMenu>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => EditKelolaMenuPage(
-                menu:menu)));
+            builder: (context) => EditKelolaMenuPage(menu: menu)));
   }
 
   @override
@@ -243,8 +242,7 @@ class _ManageMenuState extends State<ManageMenu>
                               iconSize: 17,
                               color: Colors.white,
                               onPressed: () {
-                                _onUpdateButtonPressed(
-                                              menu);
+                                _onUpdateButtonPressed(menu);
                               },
                             ),
                           ),

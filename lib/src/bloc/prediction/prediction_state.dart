@@ -22,3 +22,13 @@ class PredictionLoaded extends PredictionState {
     this.totalProfitPrediction, this.listPrediction});
 }
 
+class PredictionDetailLoading extends PredictionState{}
+
+class PredictionDetailLoaded extends PredictionState{
+  final List<Prediction> listPrediction;
+
+  PredictionDetailLoaded({this.listPrediction});
+}
+
+class PredictionDetailFailure extends PredictionState{}
+

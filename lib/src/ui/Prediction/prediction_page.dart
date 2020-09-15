@@ -1,5 +1,6 @@
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/ui/History/history_detail.dart';
+import 'package:apos/src/ui/Prediction/prediction_detail.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -334,7 +335,14 @@ class _PredictionSalesState extends State<PredictionSales>{
                         children: <Widget>[
                           FlatButton(
                             padding: EdgeInsets.all(10),
-                            onPressed: null, child: Text(
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        PredictionDetailPage(),
+                                  ));
+                            }, child: Text(
                             "> Lihat Seluruh Prediksi Penjualan",
                             textAlign: TextAlign.right,
                             style: TextStyle(

@@ -53,6 +53,10 @@ class Menu{
     _is_active = value;
   }
 
+  set id_menu(String value) {
+    _id_menu = value;
+  }
+
   Menu.fromJson(Map<String, dynamic> json) {
     _id_menu = json["id_menu"];
     _name_menu = json['name_menu'];
@@ -65,7 +69,7 @@ class Menu{
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_outlet_menu'] = this._id_menu;
+    data['id_menu'] = this._id_menu;
     data['name_menu'] = this._name_menu;
     data['category'] = this._category;
     data['cost'] = this._cost;
