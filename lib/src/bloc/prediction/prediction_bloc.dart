@@ -43,6 +43,14 @@ class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
           yield PredictionDetailLoaded(listPrediction: listPrediction);
         } else yield PredictionDetailFailure();
       }
+      if(event is GetDetailStockPrediction){
+        yield PredictionDetailLoading();
+        final response = await _predictionRepository.getDetailStockPrediction(event.id_menu);
+        if(response["success"] == true){
+          List<Prediction> listPrediction = _parsedFromJson(response, 'data');
+          yield PredictionDetailLoaded(listPrediction: listPrediction);
+        } else yield PredictionDetailFailure();
+      }
     } catch (e) {
       print(e);
       yield PredictionError();

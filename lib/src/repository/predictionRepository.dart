@@ -6,4 +6,6 @@ class PredictionRepository {
   Future getPredictionSummery() => _predictionProvider.getPredictionSummary();
 
   Future getDetailPrediction() => _predictionProvider.getDetailPrediction();
+
+  Future getDetailStockPrediction(String id_menu) => _predictionProvider.getDetailStockPrediction(id_menu);
 }

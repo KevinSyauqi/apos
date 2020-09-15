@@ -38,4 +38,18 @@ class PredictionProvider {
       throw new Exception('$message');
     }
   }
+
+    Future getDetailStockPrediction(String id_menu) async {
+    final _url = "$_baseUrl/$_prefix/detailPrediction?id_menu=$id_menu";
+
+    final response = await client.get(_url);
+    final responseString = jsonDecode(response.body);
+    print(response.body);
+    if (response.statusCode == 200) {
+      return responseString;
+    }else{
+      final message = responseString['message'];
+      throw new Exception('$message');
+    }
+  }
 }

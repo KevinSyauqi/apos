@@ -14,6 +14,9 @@ class ManageStockPage extends StatelessWidget {
         BlocProvider<ManageStockBloc>(
           create: (context) => ManageStockBloc(),
         ),
+        BlocProvider<PredictionBloc>(
+          create: (context) => PredictionBloc(),
+        ),
         BlocProvider<StockBloc>(
           create: (context) => StockBloc(),
         ),
@@ -29,6 +32,7 @@ class ManageStock extends StatefulWidget {
 
 class _ManageStockState extends State<ManageStock>
     with SingleTickerProviderStateMixin {
+  PredictionBloc _predictionBloc;
   ManageStockBloc _manageStockBloc;
   StockBloc _stockBloc;
   TabController controller;
@@ -49,6 +53,8 @@ class _ManageStockState extends State<ManageStock>
 
   @override
   void initState() {
+    _predictionBloc = BlocProvider.of<PredictionBloc>(context);
+    _predictionBloc.add(GetDetailStockPrediction());
     _manageStockBloc = BlocProvider.of<ManageStockBloc>(context);
     _manageStockBloc.add(FetchingAllStock());
     _stockBloc = BlocProvider.of<StockBloc>(context);
@@ -60,6 +66,7 @@ class _ManageStockState extends State<ManageStock>
   void dispose() {
     controller.dispose();
     _manageStockBloc.close();
+    _predictionBloc.close();
     super.dispose();
   }
 
@@ -391,7 +398,7 @@ class _ManageStockState extends State<ManageStock>
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: Text("Penambahan Stok Menu",
+            content: Text("Penambahan Stok ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.black,

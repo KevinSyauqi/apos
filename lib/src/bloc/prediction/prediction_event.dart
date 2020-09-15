@@ -7,3 +7,9 @@ abstract class PredictionEvent {}
 class GetPredictionSummary extends PredictionEvent{}
 
 class GetDetailPrediction extends PredictionEvent{}
+
+class GetDetailStockPrediction extends PredictionEvent{
+  String id_menu;
+
+  GetDetailStockPrediction({this.id_menu});
+}
