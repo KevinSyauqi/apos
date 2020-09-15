@@ -63,6 +63,44 @@ class ManageMenuProvider {
     }
   }
 
+  Future deactiveMenu(String id_menu) async {
+    final _url = "$_baseUrl/$_prefix/deactiveMenu";
+    final Map jsonData = {
+      "id_menu": id_menu
+    };
+
+    final response = await client.put("$_url",
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(jsonData));
+    final responseString = jsonDecode(response.body);
+    print(response.body);
+    if (response.statusCode == 201) {
+      return responseString;
+    } else {
+      final message = responseString['message'];
+      throw Exception('$message');
+    }
+  }
+
+  Future activeMenu(String id_menu) async {
+    final _url = "$_baseUrl/$_prefix/activeMenu";
+    final Map jsonData = {
+      "id_menu": id_menu
+    };
+
+    final response = await client.put("$_url",
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(jsonData));
+    final responseString = jsonDecode(response.body);
+    print(response.body);
+    if (response.statusCode == 201) {
+      return responseString;
+    } else {
+      final message = responseString['message'];
+      throw Exception('$message');
+    }
+  }
+
   Future fetchMenu(String id_menu) async{
     final _url = "$_baseUrl/$_prefix/menu?id_menu=$id_menu";
 

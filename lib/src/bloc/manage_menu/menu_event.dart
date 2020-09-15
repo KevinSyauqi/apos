@@ -38,3 +38,16 @@ class FetchMenu extends MenuEvent {
 
   FetchMenu({this.menu});
 }
+
+class DeactiveMenu extends MenuEvent {
+  final String id_menu;
+
+  DeactiveMenu({this.id_menu});
+}
+
+class ActiveMenu extends MenuEvent {
+  final String id_menu;
+
+  ActiveMenu({this.id_menu});
+}
+

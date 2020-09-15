@@ -13,7 +13,8 @@ class MenuError extends MenuState {}
 class MenuLoaded extends MenuState {
   List<Menu> foods;
   List<Menu> drinks;
-  MenuLoaded({this.foods, this.drinks});
+  List<Menu> noActiveMenus;
+  MenuLoaded({this.foods, this.drinks,this.noActiveMenus});
 }
 
 class MenuAddLoading extends MenuState {}
@@ -46,6 +47,9 @@ class MenuUpdateFailed extends MenuState {
   final String message;
   MenuUpdateFailed({this.message});
 }
+
+class DeactiveMenuSuccess extends MenuState{}
+class ActiveMenuSuccess extends MenuState{}
 
 
 

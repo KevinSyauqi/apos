@@ -21,15 +21,19 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         } else {
           List<Menu> foods = List();
           List<Menu> drinks = List();
+          List<Menu> noactiveMenus = List();
 
           menus.forEach((menu) {
-            if (menu.category == "food")
-              foods.add(menu);
-            else
-              drinks.add(menu);
+            if(menu.is_active == true){
+              if (menu.category == "food")
+                foods.add(menu);
+              else
+                drinks.add(menu);
+            } else
+              noactiveMenus.add(menu);
           });
 
-          yield MenuLoaded(foods: foods, drinks: drinks);
+          yield MenuLoaded(foods: foods, drinks: drinks, noActiveMenus: noactiveMenus);
         }
       }
       if (event is AddMenuButtonPressed) {
@@ -81,6 +85,18 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         if(event.menu != null){
           yield MenuUpdateLoaded(menu: event.menu);
         }else yield MenuUpdateError();
+      }
+      if(event is DeactiveMenu){
+        final response = await _menuRepository.deactiveMenu(event.id_menu);
+        if(response["success"] == true){
+          yield DeactiveMenuSuccess();
+        }else yield MenuError();
+      }
+      if(event is ActiveMenu){
+        final response = await _menuRepository.activeMenu(event.id_menu);
+        if(response["success"] == true){
+          yield ActiveMenuSuccess();
+        }else yield MenuError();
       }
     } catch (e) {
       print(e);

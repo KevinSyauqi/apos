@@ -12,6 +12,10 @@ class ManageMenuRepository{
 
   Future updateMenu(Menu menu) async => await menuProvider.updateMenu(menu);
 
+  Future deactiveMenu(String id_menu) async => await menuProvider.deactiveMenu(id_menu);
+
+  Future activeMenu(String id_menu) async => await menuProvider.activeMenu(id_menu);
+
   Future fetchMenu(String id_menu) async{
     return await menuProvider.fetchMenu(id_menu);
   }
