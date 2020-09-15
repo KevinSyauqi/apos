@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/models/menuModels.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'dart:async';
@@ -10,6 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class TambahMenuPage extends StatelessWidget {
+  final Menu menu;
+  
+  TambahMenuPage({this.menu});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,6 +29,7 @@ class TambahKelolaMenu extends StatefulWidget {
 }
 
 class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
+  MenuBloc _menuBloc;
   bool isStock = false;
   File _image;
   final picker = ImagePicker();
@@ -36,8 +41,6 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
   final namemenuController = TextEditingController();
   final priceController = TextEditingController();
   final cogController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final stockController = TextEditingController();
 
   List<DropdownMenuItem> generateItems(List<Category> category) {
     List<DropdownMenuItem> items = [];
@@ -114,6 +117,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
 
   @override
   void initState() {
+    _menuBloc = BlocProvider.of<MenuBloc>(context);
     super.initState();
   }
 
@@ -125,22 +129,12 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
   @override
   Widget build(BuildContext context) {
     _onAddMenuFormPressed() {
-      if (cogController.text == "") {
-        cogController.text = '0';
-      }
-      if (isStock == false) {
-        stockController.text = '0';
-      }
 
       BlocProvider.of<MenuBloc>(context).add(AddMenuButtonFormPressed(
           name_menu: namemenuController.text,
           category: selectedCategory.name,
-          description: descriptionController.text,
           price: priceController.text,
-          cog: cogController.text,
-          is_stock: isStock,
-          stock: stockController.text,
-          imgBase64: base64image));
+          cost: cogController.text));
     }
 
     return BlocBuilder<MenuBloc, MenuState>(

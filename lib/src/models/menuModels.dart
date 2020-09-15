@@ -10,7 +10,7 @@ class Menu{
   bool _is_active;
 
 
-  Menu(this._name_menu, this._category, this._cost, this._price, this._quantity_stock);
+  Menu(this._name_menu, this._category, this._cost, this._price);
 
 
   String get id_menu => _id_menu;

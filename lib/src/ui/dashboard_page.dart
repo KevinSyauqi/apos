@@ -4,14 +4,21 @@ import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => DashboardBloc(), child: Dashboard());
+    return MultiBlocProvider(providers: [
+      BlocProvider<DashboardBloc>(
+        create: (context) => DashboardBloc(),
+      ),
+      BlocProvider<ReportBloc>(
+        create: (context) => ReportBloc(),
+      ),
+    ], child: Dashboard());
   }
 }
 
@@ -21,16 +28,22 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  DateTime _startDate = DateTime.now().subtract(Duration(days: 1));
+  DateTime _endDate = DateTime.now().add(Duration(days: 7));
   HomeBloc _homeBloc;
+  ReportBloc _reportBloc;
 
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _reportBloc = BlocProvider.of<ReportBloc>(context);
+    _reportBloc.add(GenerateReportSales(end_date: DateTime.now()));
   }
 
   @override
   void dispose() {
+    _reportBloc = BlocProvider.of<ReportBloc>(context);
     super.dispose();
   }
 
@@ -136,7 +149,7 @@ class _DashboardState extends State<Dashboard> {
                               color: Colors.black, size: 20),
                           SizedBox(width: 8),
                           Text(
-                            "Pendapatan Penjualan",
+                            "Total Pendapatan",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -146,21 +159,30 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       Row(
                         children: <Widget>[
-                          Text(
-                            "Rp",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontFamily: 'CircularStd-Bold'),
+                          Container(
+                            width: 150,
+                            child: BlocBuilder<ReportBloc, ReportState>(
+                              builder: (context, state) {
+                                if (state is ReportLoaded) {
+                                  return Text(
+                                    "Rp " +
+                                        FlutterMoneyFormatter(
+                                                amount: double.parse(
+                                                    state.totalIncome))
+                                            .output
+                                            .withoutFractionDigits,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontFamily: 'CircularStd-Bold'),
+                                  );
+                                }
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              },
+                            ),
                           ),
-                          SizedBox(width: 8),
-                          Text(
-                            "2.450.000",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontFamily: 'CircularStd-Bold'),
-                          )
                         ],
                       )
                     ],
@@ -198,25 +220,39 @@ class _DashboardState extends State<Dashboard> {
                               SizedBox(width: 8),
                             ],
                           ),
-                          Text(
-                            "23",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontFamily: 'CircularStd-Bold'),
+                          Container(
+                            width: 50,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                BlocBuilder<ReportBloc, ReportState>(
+                                  builder: (context, state) {
+                                    if (state is ReportLoaded) {
+                                      return Text(
+                                        state.totalSalesMenu,
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18.0,
+                                            fontFamily: 'CircularStd-Bold'),
+                                      );
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
+                                ),
+                                
+                              ],
+                            ),
                           ),
-                          SizedBox(width: 8),
-                          Column(
-                            children: <Widget>[
-                              Text(
-                                "Menu\nTerjual",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontFamily: 'CircularStd-Bold'),
-                              )
-                            ],
-                          )
+                          SizedBox(width: 2),
+                                Text(
+                                  "Porsi",
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontFamily: 'CircularStd-Bold'),
+                                )
                         ],
                       ),
                     ),
@@ -271,7 +307,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical:25),
+                  padding: EdgeInsets.symmetric(vertical: 25),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -428,8 +464,7 @@ class _DashboardState extends State<Dashboard> {
                                                       253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.restaurant,
-                                          size: 30)
+                                      Icon(Icons.restaurant, size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
@@ -465,10 +500,10 @@ class _DashboardState extends State<Dashboard> {
                             elevation: 0,
                             onPressed: () {
                               Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ListOrderPage(),
-                            ));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ListOrderPage(),
+                                  ));
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -497,8 +532,7 @@ class _DashboardState extends State<Dashboard> {
                                                       253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.add_shopping_cart,
-                                          size: 30)
+                                      Icon(Icons.add_shopping_cart, size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),

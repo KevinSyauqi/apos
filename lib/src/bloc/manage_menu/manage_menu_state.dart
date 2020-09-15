@@ -31,7 +31,10 @@ class MenuAddFailed extends MenuState {
 
 class MenuUpdateLoading extends MenuState {}
 
-class MenuUpdateLoaded extends MenuState {}
+class MenuUpdateLoaded extends MenuState {
+  final Menu menu;
+  MenuUpdateLoaded({this.menu});
+}
 
 class MenuUpdateInitialized extends MenuState {}
 

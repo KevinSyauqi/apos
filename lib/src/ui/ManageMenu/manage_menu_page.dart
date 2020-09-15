@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
-import 'package:apos/src/ui/ManageMenu//manage_menu_edit_page.dart';
 import 'package:apos/src/ui/ManageMenu//manage_menu_add_page.dart';
+import 'package:apos/src/ui/ManageMenu/manage_menu_edit_page.dart';
 import 'package:apos/src/ui/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +29,14 @@ class _ManageMenuState extends State<ManageMenu>
     with SingleTickerProviderStateMixin {
   MenuBloc _menuBloc;
   TabController controller;
+
+  _onUpdateButtonPressed(Menu menu) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditKelolaMenuPage(
+                menu:menu)));
+  }
 
   @override
   void initState() {
@@ -235,23 +243,8 @@ class _ManageMenuState extends State<ManageMenu>
                               iconSize: 17,
                               color: Colors.white,
                               onPressed: () {
-                                String id_menu = menu.id_menu;
-                                String name_menu = menu.name_menu;
-                                String category = menu.category;
-                                int cost = menu.cost;
-                                int price = menu.price;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditKelolaMenu(
-                                            id_menu: id_menu,
-                                            name_menu: name_menu,
-                                            category: category,
-                                            cost: cost,
-                                            price: price
-                                          )),
-                                );
+                                _onUpdateButtonPressed(
+                                              menu);
                               },
                             ),
                           ),

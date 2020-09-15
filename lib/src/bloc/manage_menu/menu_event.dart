@@ -1,3 +1,5 @@
+import 'package:apos/src/models/menuModels.dart';
+
 class MenuEvent {}
 
 class FetchingAllMenu extends MenuEvent {}
@@ -6,48 +8,26 @@ class AddMenuButtonPressed extends MenuEvent {}
 
 class AddMenuButtonFormPressed extends MenuEvent {
   final String name_menu;
-  final String cog;
+  final String cost;
   final String price;
-  final bool is_stock;
-  final String stock;
-  final String description;
   final String category;
-  final String imgBase64;
 
-  AddMenuButtonFormPressed({this.name_menu, this.cog, this.price,
-    this.is_stock, this.description, this.category, this.stock, this.imgBase64});
-
-
+  AddMenuButtonFormPressed({this.name_menu, this.cost, this.price, this.category});
 }
 
 class UpdateMenuButton extends MenuEvent {
-  final String name_menu;
-  final String cog;
-  final String price;
-  final bool is_stock;
-  final String stock;
-  final String description;
-  final String category;
-  final String imgBase64;
+  final Menu menu;
 
-  UpdateMenuButton({this.name_menu, this.cog, this.price,
-    this.is_stock, this.description, this.category, this.stock, this.imgBase64});
-
-
+  UpdateMenuButton({this.menu});
 }
 
 class UpdateMenuButtonFormPressed extends MenuEvent {
   final String name_menu;
-  final String cog;
+  final String cost;
   final String price;
-  final bool is_stock;
-  final String stock;
-  final String description;
   final String category;
-  final String imgBase64;
 
-  UpdateMenuButtonFormPressed({this.name_menu, this.cog, this.price,
-    this.is_stock, this.description, this.category, this.stock, this.imgBase64});
+  UpdateMenuButtonFormPressed({this.name_menu, this.cost, this.price, this.category});
 
 
 }

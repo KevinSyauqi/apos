@@ -10,7 +10,6 @@ class ManageMenuProvider {
   final _baseUrl = AppUrl.url;
   final _prefix = AppUrl.urlManageMenu;
 
-
   Future<List<Menu>> fetchAllMenu() async {
     final _url = "$_baseUrl/manageMenu/allMenu";
 
@@ -28,6 +27,7 @@ class ManageMenuProvider {
 
     final Map jsonData = {
       "name_menu": menu.name_menu,
+      "photo_menu": null,
       "category": menu.category,
       "cost": menu.cost,
       "price": menu.price
@@ -45,19 +45,16 @@ class ManageMenuProvider {
   }
 
   Future updateMenu(Menu menu) async {
-    final _url = "$_baseUrl/$_prefix/menuUpdate/";
+    final _url = "$_baseUrl/$_prefix/menuUpdate";
+    final Map jsonData = menu.toJson();
 
-    final Map jsonData = {
-      "name_menu": menu.name_menu,
-      "category": menu.category,
-      "cost": menu.cost,
-      "price": menu.price
-    };
-    final response = await client.put("$_url",
+    // print(jsonData);
+
+    final response = await client.post("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));
-        
     final responseString = jsonDecode(response.body);
+    print(response.body);
     if (response.statusCode == 201) {
       return responseString;
     } else {
@@ -65,7 +62,6 @@ class ManageMenuProvider {
       throw Exception('$message');
     }
   }
-
 
   List<Menu> parsedListResponse(final response) {
     final responseString = jsonDecode(response.body);
