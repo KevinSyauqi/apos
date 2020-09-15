@@ -10,7 +10,7 @@ class ManageStockProvider {
   final _prefix = AppUrl.urlManageStock;
 
   Future<List<Menu>> fetchAllStock() async {
-    final _url = "$_baseUrl/manageStock/allStock";
+    final _url = "$_baseUrl/$_prefix/allStock";
 
     final response = await client.get(_url);
 
@@ -21,17 +21,24 @@ class ManageStockProvider {
     return parsedListResponse(response);
   }
 
-  Future fetchOrderDetail(String id_order) async {
-    final _url = "$_baseUrl/$_prefix/orderDetail?id_order=$id_order";
+  Future updateStock(String id_menu, int quantity_stock) async {
+    final _url = "$_baseUrl/$_prefix/stockUpdate";
 
-    final response = await client.get(_url);
+    final Map jsonData = {
+      "id_menu": id_menu,
+      "quantity_stock": quantity_stock
+    };
+
+    final response = await client.put("$_url",
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(jsonData));
     final responseString = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
+    print(response.body);
+    if (response.statusCode == 201) {
       return responseString;
-    }else{
+    } else {
       final message = responseString['message'];
-      throw new Exception('$message');
+      throw Exception('$message');
     }
   }
 

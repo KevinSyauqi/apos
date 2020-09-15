@@ -18,8 +18,6 @@ class ManageStockLoaded extends ManageStockState {
   ManageStockLoaded({this.foods, this.drinks});
 }
 
-class StockError extends ManageStockState{}
-
 class StockCount extends ManageStockState{
   final List stockCount;
   StockCount({this.stockCount});

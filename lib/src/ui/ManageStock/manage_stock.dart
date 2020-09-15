@@ -9,8 +9,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ManageStockPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ManageStockBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ManageStockBloc>(
+          create: (context) => ManageStockBloc(),
+        ),
+        BlocProvider<StockBloc>(
+          create: (context) => StockBloc(),
+        ),
+      ],
       child: ManageStock(),
     );
   }
@@ -23,12 +30,28 @@ class ManageStock extends StatefulWidget {
 class _ManageStockState extends State<ManageStock>
     with SingleTickerProviderStateMixin {
   ManageStockBloc _manageStockBloc;
+  StockBloc _stockBloc;
   TabController controller;
+  TextEditingController addStockController = TextEditingController();
+  TextEditingController removeStockController = TextEditingController();
+
+  _onAddStockPressed(String id_menu) async{
+    await _stockBloc.add(AddStock(
+        id_menu: id_menu,
+        quantity_stock: int.parse(addStockController.text)));
+  }
+
+  _onRemoveStockPressed(String id_menu) async{
+    await _stockBloc.add(RemoveStock(
+        id_menu: id_menu,
+        quantity_stock: int.parse(removeStockController.text)));
+  }
 
   @override
   void initState() {
     _manageStockBloc = BlocProvider.of<ManageStockBloc>(context);
     _manageStockBloc.add(FetchingAllStock());
+    _stockBloc = BlocProvider.of<StockBloc>(context);
     controller = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -42,105 +65,119 @@ class _ManageStockState extends State<ManageStock>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(children: <Widget>[
-        Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Kelola Stok Menu",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25.0,
-                  fontFamily: 'CircularStd-Bold'),
-            ),
-            bottom: PreferredSize(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(250, 250, 250, 1),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40))),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 70, right: 70),
-                      child: TabBar(
-                        controller: controller,
-                        indicator: UnderlineTabIndicator(
-                            borderSide: BorderSide(
-                              color: Color.fromRGBO(252, 195, 108, 1),
-                              width: 5,
-                            ),
-                            insets: EdgeInsets.symmetric(horizontal: 20.0)),
-                        tabs: <Widget>[
-                          Tab(
-                            child: Text("Makanan",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Bold')),
+    return BlocBuilder<StockBloc,StockState>(
+      builder: (context,state){
+        if(state is AddStockSuccess){
+          _manageStockBloc.add(FetchingAllStock());
+          _stockBloc.add(ReloadStock());
+          addStockController = TextEditingController();
+        }
+        if(state is RemoveStockSuccess){
+          _manageStockBloc.add(FetchingAllStock());
+          _stockBloc.add(ReloadStock());
+          removeStockController = TextEditingController();
+        }
+        return Scaffold(
+          body: Stack(children: <Widget>[
+            Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  "Kelola Stok Menu",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                      fontFamily: 'CircularStd-Bold'),
+                ),
+                bottom: PreferredSize(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(250, 250, 250, 1),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 70, right: 70),
+                          child: TabBar(
+                            controller: controller,
+                            indicator: UnderlineTabIndicator(
+                                borderSide: BorderSide(
+                                  color: Color.fromRGBO(252, 195, 108, 1),
+                                  width: 5,
+                                ),
+                                insets: EdgeInsets.symmetric(horizontal: 20.0)),
+                            tabs: <Widget>[
+                              Tab(
+                                child: Text("Makanan",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16.0,
+                                        fontFamily: 'CircularStd-Bold')),
+                              ),
+                              Tab(
+                                child: Text("Minuman",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16.0,
+                                        fontFamily: 'CircularStd-Bold')),
+                              ),
+                            ],
                           ),
-                          Tab(
-                            child: Text("Minuman",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontFamily: 'CircularStd-Bold')),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                        ),
+                      )
+                    ],
+                  ),
+                  preferredSize: Size(0, 70),
+                ),
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromRGBO(252, 195, 108, 1),
+                            Color.fromRGBO(253, 166, 125, 1),
+                          ])),
+                ),
+                elevation: 0.0,
               ),
-              preferredSize: Size(0, 70),
+              drawer: AppDrawer(),
+              body: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: <Widget>[
+                    BlocBuilder<ManageStockBloc, ManageStockState>(
+                        builder: (context, state) {
+                          if (state is ManageStockLoaded) {
+                            return TabBarView(
+                              controller: controller,
+                              children: <Widget>[
+                                getListMenu(state.foods),
+                                getListMenu(state.drinks)
+                              ],
+                            );
+                          }
+                          if (state is ManageStockEmpty) {
+                            return Center(child: Text("Belum ada menu nih"));
+                          }
+                          if (state is ManageStockLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (state is ManageStockError) {
+                            return Center(child: Text('error'));
+                          }
+                          return Center(child: Text("t"));
+                        }),
+                  ],
+                ),
+              ),
             ),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                    Color.fromRGBO(252, 195, 108, 1),
-                    Color.fromRGBO(253, 166, 125, 1),
-                  ])),
-            ),
-            elevation: 0.0,
-          ),
-          drawer: AppDrawer(),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: <Widget>[
-                BlocBuilder<ManageStockBloc, ManageStockState>(
-                    builder: (context, state) {
-                  if (state is ManageStockLoaded) {
-                    return TabBarView(
-                      controller: controller,
-                      children: <Widget>[
-                        getListMenu(state.foods),
-                        getListMenu(state.drinks)
-                      ],
-                    );
-                  }
-                  if (state is ManageStockEmpty) {
-                    return Center(child: Text("Belum ada menu nih"));
-                  }
-                  if (state is ManageStockLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if (state is ManageStockError) {
-                    return Center(child: Text('error'));
-                  }
-                  return Center(child: Text("t"));
-                }),
-              ],
-            ),
-          ),
-        ),
-      ]),
+          ]),
+        );
+      }
     );
   }
 
@@ -151,7 +188,6 @@ class _ManageStockState extends State<ManageStock>
           itemCount: menus.length,
           itemBuilder: (BuildContext context, int index) {
             Menu menu = menus[index];
-
             return Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -225,7 +261,7 @@ class _ManageStockState extends State<ManageStock>
                               iconSize: 17,
                               color: Colors.white,
                               onPressed: () {
-                                _showAddStock();
+                                _showAddStock(menu.id_menu);
                               },
                             ),
                           ),
@@ -242,7 +278,7 @@ class _ManageStockState extends State<ManageStock>
                               iconSize: 17,
                               color: Colors.white,
                               onPressed: () {
-                                _showRemoveStock();
+                                _showRemoveStock(menu.id_menu);
                               },
                             ),
                           ),
@@ -257,7 +293,7 @@ class _ManageStockState extends State<ManageStock>
     );
   }
 
-  void _showRemoveStock() {
+  void _showRemoveStock(String id_menu) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -279,7 +315,7 @@ class _ManageStockState extends State<ManageStock>
                         fontSize: 16.0,
                         fontFamily: 'CircularStd-Book')),
               ),
-              SizedBox(height:10),
+              SizedBox(height: 10),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25),
                 width: MediaQuery.of(context).size.width,
@@ -288,6 +324,7 @@ class _ManageStockState extends State<ManageStock>
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
                 child: TextFormField(
+                  controller: removeStockController,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -304,42 +341,50 @@ class _ManageStockState extends State<ManageStock>
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: Row(children: <Widget>[
-                  RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 18, horizontal: 48),
-                      color: Color.fromRGBO(54, 58, 155, 1),
-                      elevation: 5,
-                      onPressed: () => Navigator.pop(context),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(100.0))),
-                      child: Text("Simpan",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ))),
-                  SizedBox(width: 10),
-                  RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 18, horizontal: 48),
-                      color: Color.fromRGBO(234, 234, 234, 1),
-                      elevation: 5,
-                      onPressed: () => Navigator.pop(context),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(100.0))),
-                      child: Text("Batal",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ))),
-                ]),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(54, 58, 155, 1),
+                            elevation: 5,
+                            onPressed: () async {
+                              await _onRemoveStockPressed(id_menu);
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Simpan",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ))),
+                        SizedBox(width: 10),
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            elevation: 5,
+                            onPressed: () => Navigator.pop(context),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Batal",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ))),
+                      ]),
+                ),
               )
             ],
           );
         });
   }
 
-  void _showAddStock() {
+  void _showAddStock(String id_menu) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -361,7 +406,7 @@ class _ManageStockState extends State<ManageStock>
                         fontSize: 16.0,
                         fontFamily: 'CircularStd-Book')),
               ),
-              SizedBox(height:10),
+              SizedBox(height: 10),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25),
                 width: MediaQuery.of(context).size.width,
@@ -370,6 +415,7 @@ class _ManageStockState extends State<ManageStock>
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
                 child: TextFormField(
+                  controller: addStockController,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -386,35 +432,43 @@ class _ManageStockState extends State<ManageStock>
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: Row(children: <Widget>[
-                  RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 18, horizontal: 48),
-                      color: Color.fromRGBO(54, 58, 155, 1),
-                      elevation: 5,
-                      onPressed: () => Navigator.pop(context),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(100.0))),
-                      child: Text("Simpan",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ))),
-                  SizedBox(width: 10),
-                  RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 18, horizontal: 48),
-                      color: Color.fromRGBO(234, 234, 234, 1),
-                      elevation: 5,
-                      onPressed: () => Navigator.pop(context),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(100.0))),
-                      child: Text("Batal",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ))),
-                ]),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(54, 58, 155, 1),
+                            elevation: 5,
+                            onPressed: () async {
+                             await _onAddStockPressed(id_menu);
+                             Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Simpan",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ))),
+                        SizedBox(width: 10),
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            elevation: 5,
+                            onPressed: () => Navigator.pop(context),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Batal",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ))),
+                      ]),
+                ),
               )
             ],
           );

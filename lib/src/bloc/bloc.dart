@@ -61,3 +61,8 @@ export 'report/report_state.dart';
 export 'manage_stock/manage_stock_bloc.dart';
 export 'manage_stock/manage_stock_event.dart';
 export 'manage_stock/manage_stock_state.dart';
+
+
+export 'stock/stock_bloc.dart';
+export 'stock/stock_event.dart';
+export 'stock/stock_state.dart';

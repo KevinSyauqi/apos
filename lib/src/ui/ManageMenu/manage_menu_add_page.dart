@@ -123,13 +123,13 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
 
   @override
   void dispose() {
+    _menuBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     _onAddMenuFormPressed() {
-
       BlocProvider.of<MenuBloc>(context).add(AddMenuButtonFormPressed(
           name_menu: namemenuController.text,
           category: selectedCategory.name,
@@ -274,7 +274,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           child: TextField(
-                                            controller: priceController,
+                                            controller: cogController,
                                             decoration: InputDecoration(
                                                 prefixIcon: Icon(
                                                   Icons.account_balance_wallet,
@@ -308,7 +308,7 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))),
                                           child: TextField(
-                                            controller: cogController,
+                                            controller: priceController,
                                             decoration: InputDecoration(
                                                 prefixIcon: Icon(
                                                   Icons.account_balance_wallet,

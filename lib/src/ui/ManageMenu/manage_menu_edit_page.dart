@@ -44,14 +44,6 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
   final priceController = TextEditingController();
   final cogController = TextEditingController();
 
-  // @override
-  // void setFormValue() {
-  //   _name_menu.text = widget.name;
-  //   _cost.text = widget.cost.toString();
-  //   _price.text = widget.price.toString();
-  //   _category.text = widget.category;
-  // }
-
   List<DropdownMenuItem> generateItems(List<Category> category) {
     List<DropdownMenuItem> items = [];
     for (var item in category) {
@@ -127,14 +119,13 @@ class _EditKelolaMenuState extends State<EditKelolaMenu> {
 
   @override
   void initState() {
-    // setFormValue();
     super.initState();
     _menuBloc = BlocProvider.of<MenuBloc>(context);
   }
 
   @override
   void dispose() {
-    // setFormValue();
+    _menuBloc.close();
     super.dispose();
   }
 

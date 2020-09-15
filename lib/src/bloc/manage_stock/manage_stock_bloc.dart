@@ -41,7 +41,7 @@ class ManageStockBloc extends Bloc<ManageStockEvent, ManageStockState> {
 
     }catch(e){
       print(e);
-      yield StockError();
+      yield ManageStockError();
     }
   }
 }
