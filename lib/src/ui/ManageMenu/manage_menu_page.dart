@@ -34,7 +34,7 @@ class _ManageMenuState extends State<ManageMenu>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => EditKelolaMenuPage(menu: menu)));
+            builder: (context) => ManageMenuEditPage(menu: menu)));
   }
 
   @override
@@ -489,7 +489,7 @@ class _ManageMenuState extends State<ManageMenu>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TambahMenuPage()),
+                            builder: (context) => ManageMenuAddPage()),
                       ).then((value) {
                         _menuBloc.add(FetchingAllMenu());
                       });

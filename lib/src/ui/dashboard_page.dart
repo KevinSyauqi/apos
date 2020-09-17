@@ -43,7 +43,8 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void dispose() {
-    _reportBloc = BlocProvider.of<ReportBloc>(context);
+    _reportBloc.close();
+    _homeBloc.close();
     super.dispose();
   }
 

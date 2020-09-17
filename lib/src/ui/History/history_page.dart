@@ -13,16 +13,16 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HistoryBloc(),
-      child: RiwayatTransaksi(),
+      child: TransactionHistory(),
     );
   }
 }
 
-class RiwayatTransaksi extends StatefulWidget {
-  _RiwayatTransaksiState createState() => _RiwayatTransaksiState();
+class TransactionHistory extends StatefulWidget {
+  _TransactionHistoryState createState() => _TransactionHistoryState();
 }
 
-class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
+class _TransactionHistoryState extends State<TransactionHistory> {
   DateTime _startDate = DateTime.now().subtract(Duration(days: 1));
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
   String selectedStartDate = "Periode Awal";
@@ -50,6 +50,12 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
         selectedEndDate = DateFormat("dd/MM/yyyy").format(_endDate);
       });
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _historyBloc.close();
   }
 
   @override

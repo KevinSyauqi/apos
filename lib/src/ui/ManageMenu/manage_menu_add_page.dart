@@ -10,25 +10,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class TambahMenuPage extends StatelessWidget {
+class ManageMenuAddPage extends StatelessWidget {
   final Menu menu;
   
-  TambahMenuPage({this.menu});
+  ManageMenuAddPage({this.menu});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MenuBloc(),
-      child: TambahKelolaMenu(),
+      child: ManageMenuAdd(),
     );
   }
 }
 
-class TambahKelolaMenu extends StatefulWidget {
+class ManageMenuAdd extends StatefulWidget {
   @override
-  _TambahKelolaMenuState createState() => _TambahKelolaMenuState();
+  _ManageMenuAddState createState() => _ManageMenuAddState();
 }
 
-class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
+class _ManageMenuAddState extends State<ManageMenuAdd> {
   MenuBloc _menuBloc;
   bool isStock = false;
   File _image;
@@ -139,11 +139,6 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
 
     return BlocBuilder<MenuBloc, MenuState>(
       builder: (context, state) {
-        if (state is MenuAddSuccess) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            Navigator.pop(context);
-          });
-        }
         return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -396,6 +391,9 @@ class _TambahKelolaMenuState extends State<TambahKelolaMenu> {
                                                 state is! MenuAddLoading
                                                     ? await _onAddMenuFormPressed()
                                                     : null;
+
+                                                await Future.delayed(Duration(seconds: 1));
+                                                Navigator.pop(context,true);
                                               },
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:

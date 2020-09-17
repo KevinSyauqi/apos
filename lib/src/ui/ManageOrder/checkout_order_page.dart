@@ -38,6 +38,12 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _checkoutBloc.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: <Widget>[

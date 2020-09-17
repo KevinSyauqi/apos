@@ -50,7 +50,7 @@ class _CartOrderState extends State<CartOrder>
   CartBloc _cartBloc;
   CheckoutCartBloc _checkoutBloc;
 
-  _onCreateOrderButtonPressed(
+  Future _onCreateOrderButtonPressed(
       List<OrderItem> listOrderItem, int totalPrice) async {
     await _checkoutBloc.add(CreateOrderButtonPressed(
         cart: listOrderItem,
@@ -59,7 +59,7 @@ class _CartOrderState extends State<CartOrder>
         totalPrice: totalPrice));
   }
 
-  _onAddToOrderButtonPressed(
+  Future _onAddToOrderButtonPressed(
       String id_order, List<OrderItem> listOrderItem, int totalPrice) async {
     await _checkoutBloc.add(AddToOrderButtonPressed(
       id_order: id_order,
@@ -87,16 +87,6 @@ class _CartOrderState extends State<CartOrder>
     return Scaffold(
       body: BlocBuilder<CheckoutCartBloc, CheckoutCartState>(
         builder: (context, state) {
-          if (state is CreateOrderSuccess) {
-            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              Navigator.pop(context, "Success");
-            });
-          }
-          if (state is CreateOrderSuccess) {
-            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              Navigator.pop(context, "Done");
-            });
-          }
           return ModalProgressHUD(
             inAsyncCall: state is CreateOrderLoading,
             color: Color.fromRGBO(54, 58, 155, 1),
@@ -435,11 +425,16 @@ class _CartOrderState extends State<CartOrder>
                                         )
                                 ]),
                             onPressed: () async {
-                              (state.id_order != null)
-                                  ? await _onAddToOrderButtonPressed(
-                                      state.id_order, listOrderItem, totalPrice)
-                                  : await _onCreateOrderButtonPressed(
-                                      listOrderItem, totalPrice);
+                              if(state.id_order != null){
+                                await _onAddToOrderButtonPressed(
+                                    state.id_order, listOrderItem, totalPrice);
+                                await Future.delayed(Duration(seconds: 1));
+                                Navigator.pop(context,"Done");
+                              } else{
+                                await _onCreateOrderButtonPressed(listOrderItem, totalPrice);
+                                await Future.delayed(Duration(seconds: 1));
+                                Navigator.pop(context,"Success");
+                              }
                             },
                           ),
                         ),

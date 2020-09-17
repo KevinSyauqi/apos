@@ -37,6 +37,12 @@ class _HistoryDetailState extends State<HistoryDetail>
   }
 
   @override
+  void dispose() {
+    _historyBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: <Widget>[

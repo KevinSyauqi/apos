@@ -10,26 +10,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class EditKelolaMenuPage extends StatelessWidget {
+class ManageMenuEditPage extends StatelessWidget {
   final Menu menu;
 
-  EditKelolaMenuPage({this.menu});
+  ManageMenuEditPage({this.menu});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MenuBloc>(
       create: (context) => MenuBloc()..add(FetchMenu(menu: menu)),
-      child: EditKelolaMenu(),
+      child: ManageMenuEdit(),
     );
   }
 }
 
-class EditKelolaMenu extends StatefulWidget {
+class ManageMenuEdit extends StatefulWidget {
   @override
-  _EditKelolaMenuState createState() => _EditKelolaMenuState();
+  _ManageMenuEditState createState() => _ManageMenuEditState();
 }
 
-class _EditKelolaMenuState extends State<EditKelolaMenu> {
+class _ManageMenuEditState extends State<ManageMenuEdit> {
   Menu menu;
   MenuBloc _menuBloc;
   bool isStock = false;

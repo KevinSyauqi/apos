@@ -67,6 +67,7 @@ class _ManageStockState extends State<ManageStock>
     controller.dispose();
     _manageStockBloc.close();
     _predictionBloc.close();
+    _stockBloc.close();
     super.dispose();
   }
 
@@ -360,6 +361,7 @@ class _ManageStockState extends State<ManageStock>
                             elevation: 5,
                             onPressed: () async {
                               await _onRemoveStockPressed(id_menu);
+                              await Future.delayed(Duration(seconds: 1));
                               Navigator.pop(context);
                             },
                             shape: RoundedRectangleBorder(
@@ -451,6 +453,7 @@ class _ManageStockState extends State<ManageStock>
                             elevation: 5,
                             onPressed: () async {
                              await _onAddStockPressed(id_menu);
+                             await Future.delayed(Duration(seconds: 1));
                              Navigator.pop(context);
                             },
                             shape: RoundedRectangleBorder(
