@@ -73,7 +73,7 @@ class _PredictionSalesState extends State<PredictionSales>{
         slivers: <Widget>[
           SliverAppBar(
               pinned: true,
-              expandedHeight: 320.0,
+              expandedHeight: 250.0,
               backgroundColor: Color.fromRGBO(252, 195, 108, 1),
               title: Text(
                 "Prediksi Penjualan",

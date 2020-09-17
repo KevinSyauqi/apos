@@ -61,186 +61,149 @@ class _HistoryDetailState extends State<HistoryDetail>
                   Container(
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          width: MediaQuery.of(context).size.width,
-                          height: 240,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 2.0),
-                                blurRadius: 5.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: BlocBuilder<HistoryBloc, HistoryState>(
-                              builder: (context, state) {
-                                if (state is DetailHistoryLoaded) {
-                                  return Column(
-                                    children: <Widget>[
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text("Nomor Transaksi :",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14.0,
-                                                    fontFamily:
-                                                        'CircularStd-Bold'))),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text(state.sales.id_sale,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'))),
-                                      ),
-                                      Container(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                45,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text("Kamis, 20 Juli 2020",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'))),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Divider(
-                                          height: 0.1, color: Colors.black12),
-                                      SizedBox(height: 10),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text("Total Pesanan :",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14.0,
-                                                    fontFamily:
-                                                        'CircularStd-Bold'))),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                          child: Text(
-                                              "Rp " +
-                                                  FlutterMoneyFormatter(
-                                                          amount: double.parse(
-                                                              state.order
-                                                                  .total_price
-                                                                  .toString()))
-                                                      .output
-                                                      .withoutFractionDigits
-                                                      .toString(),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  fontFamily:
-                                                      'CircularStd-Bold')),
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text("Total Bayar :",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14.0,
-                                                    fontFamily:
-                                                        'CircularStd-Bold'))),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                          child: Text(
-                                              "Rp " +
-                                                  FlutterMoneyFormatter(
-                                                          amount: double.parse(
-                                                              state.payment.cash
-                                                                  .toString()))
-                                                      .output
-                                                      .withoutFractionDigits,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  fontFamily:
-                                                      'CircularStd-Bold')),
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text("Kembalian :",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14.0,
-                                                    fontFamily:
-                                                        'CircularStd-Bold'))),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                          child: Text(
-                                              "Rp " +
-                                                  FlutterMoneyFormatter(
-                                                          amount: double.parse(
-                                                              state.payment
-                                                                  .change_amount
-                                                                  .toString()))
-                                                      .output
-                                                      .withoutFractionDigits,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.0,
-                                                  fontFamily:
-                                                      'CircularStd-Bold')),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                }
-                                return CircularProgressIndicator();
-                              },
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 25),
+                    padding: EdgeInsets.only(top: 10),
                   ),
                   Container(
-                    height: 50,
+                    // height: 50,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            topRight: Radius.circular(55))),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40))),
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: BlocBuilder<HistoryBloc, HistoryState>(
+                        builder: (context, state) {
+                          if (state is DetailHistoryLoaded) {
+                            return Column(
+                              children: <Widget>[
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text("Nomor Transaksi :",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14.0,
+                                              fontFamily: 'CircularStd-Bold'))),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text(state.sales.id_sale,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16.0,
+                                              fontFamily: 'CircularStd-Book'))),
+                                ),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height / 45,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text("Kamis, 20 Juli 2020",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.0,
+                                              fontFamily: 'CircularStd-Book'))),
+                                ),
+                                
+                                SizedBox(height: 10),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text("Total Pesanan :",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14.0,
+                                              fontFamily: 'CircularStd-Bold'))),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                        "Rp " +
+                                            FlutterMoneyFormatter(
+                                                    amount: double.parse(state
+                                                        .order.total_price
+                                                        .toString()))
+                                                .output
+                                                .withoutFractionDigits
+                                                .toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0,
+                                            fontFamily: 'CircularStd-Bold')),
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text("Total Bayar :",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14.0,
+                                              fontFamily: 'CircularStd-Bold'))),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                        "Rp " +
+                                            FlutterMoneyFormatter(
+                                                    amount: double.parse(state
+                                                        .payment.cash
+                                                        .toString()))
+                                                .output
+                                                .withoutFractionDigits,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0,
+                                            fontFamily: 'CircularStd-Bold')),
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text("Kembalian :",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14.0,
+                                              fontFamily: 'CircularStd-Bold'))),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Text(
+                                        "Rp " +
+                                            FlutterMoneyFormatter(
+                                                    amount: double.parse(state
+                                                        .payment.change_amount
+                                                        .toString()))
+                                                .output
+                                                .withoutFractionDigits,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0,
+                                            fontFamily: 'CircularStd-Bold')),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Divider(height: 0.1, color: Colors.black12),
+                              ],
+                            );
+                          }
+                          return CircularProgressIndicator();
+                        },
+                      ),
+                    ),
                   )
                 ],
               ),
-              preferredSize: Size(0, 320),
+              preferredSize: Size(0, 240),
             ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -320,7 +283,10 @@ Widget buildListMenuTransaction(List<OrderItem> listOrderItem) {
                                         (item.subtotal_price / item.quantity)
                                             .toString()))
                                 .output
-                                .withoutFractionDigits + " x " + (item.quantity).toString() + " pcs", 
+                                .withoutFractionDigits +
+                            " x " +
+                            (item.quantity).toString() +
+                            " pcs",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 14.0,

@@ -236,7 +236,7 @@ class _ManageStockState extends State<ManageStock>
                           softWrap: true,
                         ),
                         Row(children: <Widget>[
-                          Text("Stok : ",
+                          Text("Stok :  ",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14.0,
@@ -316,7 +316,7 @@ class _ManageStockState extends State<ManageStock>
                     fontFamily: 'CircularStd-Bold')),
             actions: <Widget>[
               Center(
-                child: Text("Prediksi Stok : ",
+                child: Text("Prediksi Stok : 124 pcs",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
@@ -408,7 +408,7 @@ class _ManageStockState extends State<ManageStock>
                     fontFamily: 'CircularStd-Bold')),
             actions: <Widget>[
               Center(
-                child: Text("Prediksi Stok : ",
+                child: Text("Prediksi Stok : 124 pcs",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,

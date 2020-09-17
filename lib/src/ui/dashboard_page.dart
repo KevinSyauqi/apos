@@ -44,7 +44,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void dispose() {
     _reportBloc.close();
-    _homeBloc.close();
+    // _homeBloc.close();
     super.dispose();
   }
 
@@ -287,7 +287,7 @@ class _DashboardState extends State<Dashboard> {
                             ],
                           ),
                           Text(
-                            "12",
+                            "0",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,

@@ -58,21 +58,34 @@ class _ReceiptSalesState extends State<ReceiptSales> {
               bottom: PreferredSize(
                 child: Column(
                   children: <Widget>[
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 30),
+                    //   width: MediaQuery.of(context).size.width,
+                    //   height: 220,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(25),
+                    //     color: Colors.white,
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.grey,
+                    //         offset: Offset(0.0, 2.0),
+                    //         blurRadius: 5.0,
+                    //       ),
+                    //     ],
+                    //   ),
+
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                    ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
                       width: MediaQuery.of(context).size.width,
                       height: 220,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0.0, 2.0),
-                            blurRadius: 5.0,
-                          ),
-                        ],
-                      ),
+                          color: Color.fromRGBO(250, 250, 250, 1),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40))),
                       child: BlocBuilder<ReceiptBloc, ReceiptState>(
                         builder: (context, state) {
                           if (state is ReceiptLoaded) {
@@ -88,7 +101,8 @@ class _ReceiptSalesState extends State<ReceiptSales> {
                                   Text(
                                       "Transaksi No #" +
                                           state.order.id_order.substring(0, 6) +
-                                          state.order.id_order.substring(15, 18),
+                                          state.order.id_order
+                                              .substring(15, 18),
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 20.0,
@@ -144,6 +158,8 @@ class _ReceiptSalesState extends State<ReceiptSales> {
                                           color: Colors.black,
                                           fontSize: 25.0,
                                           fontFamily: 'CircularStd-Bold')),
+                                  SizedBox(height: 10),
+                                  Divider(height: 0.1, color: Colors.black12),
                                 ],
                               ),
                             );
@@ -151,21 +167,10 @@ class _ReceiptSalesState extends State<ReceiptSales> {
                           return Text("");
                         },
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 25),
-                    ),
-                    Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(250, 250, 250, 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(55),
-                              topRight: Radius.circular(55))),
                     )
                   ],
                 ),
-                preferredSize: Size(0, 300),
+                preferredSize: Size(0, 235),
               ),
               flexibleSpace: Container(
                 decoration: BoxDecoration(
@@ -181,7 +186,7 @@ class _ReceiptSalesState extends State<ReceiptSales> {
             ),
             body: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.8,
+              height: MediaQuery.of(context).size.height / 1.6,
               child: Stack(children: <Widget>[
                 BlocBuilder<ReceiptBloc, ReceiptState>(
                   builder: (context, state) {
@@ -372,13 +377,13 @@ class _ReceiptSalesState extends State<ReceiptSales> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width / 1.4,
-                margin: EdgeInsets.fromLTRB(20, 20, 10, 20),
+                width: MediaQuery.of(context).size.width / 1.1,
+                margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
                 alignment: Alignment.center,
                 child: ButtonTheme(
                   height: 50,
                   padding:
-                      EdgeInsets.only(left: 35, right: 35, bottom: 15, top: 15),
+                      EdgeInsets.only(left: 50, right: 50, bottom: 15, top: 15),
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
@@ -397,22 +402,22 @@ class _ReceiptSalesState extends State<ReceiptSales> {
                   ),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width / 8,
-                height: 50,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(54, 58, 155, 1),
-                    borderRadius: BorderRadius.circular(19)),
-                child: IconButton(
-                  icon: Icon(Icons.share),
-                  iconSize: 25,
-                  color: Colors.white,
-                  onPressed: () {
-                    _showAlertShare();
-                  },
-                ),
-              ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width / 8,
+              //   height: 50,
+              //   margin: EdgeInsets.only(right: 20),
+              //   decoration: BoxDecoration(
+              //       color: Color.fromRGBO(54, 58, 155, 1),
+              //       borderRadius: BorderRadius.circular(19)),
+              //   child: IconButton(
+              //     icon: Icon(Icons.share),
+              //     iconSize: 25,
+              //     color: Colors.white,
+              //     onPressed: () {
+              //       _showAlertShare();
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ],

@@ -62,7 +62,7 @@ class _CartOrderState extends State<CartOrder>
   Future _onAddToOrderButtonPressed(
       String id_order, List<OrderItem> listOrderItem, int totalPrice) async {
     await _checkoutBloc.add(AddToOrderButtonPressed(
-      id_order: id_order,
+        id_order: id_order,
         cart: listOrderItem,
         tableNumber: 4,
         customerName: "Mulya",
@@ -104,89 +104,111 @@ class _CartOrderState extends State<CartOrder>
                   bottom: PreferredSize(
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 30),
-                                width: MediaQuery.of(context).size.width,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0.0, 2.0),
-                                      blurRadius: 5.0,
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                        height: 20,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: Center(
-                                            child: Text("Total Pembayaran",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15.0,
-                                                    fontFamily:
-                                                        'CircularStd-Bold'))),
-                                      ),
-                                      Container(
-                                          height: 50,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child:
-                                              BlocBuilder<CartBloc, CartState>(
-                                                  builder: (context, state) {
-                                            if (state is CartLoaded) {
-                                              return Center(
-                                                  child: Text(
-                                                      "Rp " +
-                                                          FlutterMoneyFormatter(
-                                                                  amount: double
-                                                                      .parse(state
-                                                                          .totalPrice
-                                                                          .toString()))
-                                                              .output
-                                                              .withoutFractionDigits,
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 42.0,
-                                                          fontFamily:
-                                                              'CircularStd-Bold')));
-                                            } else
-                                              return Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                          })),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                         Padding(
-                          padding: EdgeInsets.only(top: 25),
+                          padding: EdgeInsets.only(top: 10),
                         ),
                         Container(
-                          height: 50,
                           decoration: BoxDecoration(
                               color: Color.fromRGBO(250, 250, 250, 1),
                               borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(55),
-                                  topRight: Radius.circular(55))),
+                                  topLeft: Radius.circular(40),
+                                  topRight: Radius.circular(40))),
+                          child: Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 20,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text("Total Pembayaran",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.0,
+                                              fontFamily: 'CircularStd-Bold'))),
+                                ),
+                                Container(
+                                    height: 50,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: BlocBuilder<CartBloc, CartState>(
+                                        builder: (context, state) {
+                                      if (state is CartLoaded) {
+                                        return Center(
+                                            child: Text(
+                                                "Rp " +
+                                                    FlutterMoneyFormatter(
+                                                            amount: double
+                                                                .parse(state
+                                                                    .totalPrice
+                                                                    .toString()))
+                                                        .output
+                                                        .withoutFractionDigits,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 42.0,
+                                                    fontFamily:
+                                                        'CircularStd-Bold')));
+                                      } else
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                    })),
+                                SizedBox(height: 10),
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 25),
+                                  width: MediaQuery.of(context).size.width,
+                                  alignment: Alignment.center,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  child: TextFormField(
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey, width: 1),
+                                      ),
+                                      hintText: "Nomor Meja",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15.0,
+                                          fontFamily: 'CircularStd-Book'),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 25),
+                                  width: MediaQuery.of(context).size.width,
+                                  alignment: Alignment.center,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  child: TextFormField(
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey, width: 1),
+                                      ),
+                                      hintText: "Nama Pelanggan",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15.0,
+                                          fontFamily: 'CircularStd-Book'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         )
                       ],
                     ),
-                    preferredSize: Size(0, 180),
+                    preferredSize: Size(0, 235),
                   ),
                   flexibleSpace: Container(
                     decoration: BoxDecoration(
@@ -425,15 +447,16 @@ class _CartOrderState extends State<CartOrder>
                                         )
                                 ]),
                             onPressed: () async {
-                              if(state.id_order != null){
+                              if (state.id_order != null) {
                                 await _onAddToOrderButtonPressed(
                                     state.id_order, listOrderItem, totalPrice);
                                 await Future.delayed(Duration(seconds: 1));
-                                Navigator.pop(context,"Done");
-                              } else{
-                                await _onCreateOrderButtonPressed(listOrderItem, totalPrice);
+                                Navigator.pop(context, "Done");
+                              } else {
+                                await _onCreateOrderButtonPressed(
+                                    listOrderItem, totalPrice);
                                 await Future.delayed(Duration(seconds: 1));
-                                Navigator.pop(context,"Success");
+                                Navigator.pop(context, "Success");
                               }
                             },
                           ),

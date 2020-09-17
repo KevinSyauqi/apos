@@ -334,7 +334,7 @@ class _ManageMenuState extends State<ManageMenu>
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: Text("Anda yakin akan menghapusnya?",
+            content: Text("Anda yakin akan menonaktifkan menu ini?",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.black,
@@ -357,7 +357,7 @@ class _ManageMenuState extends State<ManageMenu>
                         shape: RoundedRectangleBorder(
                             borderRadius:
                             BorderRadius.all(Radius.circular(100.0))),
-                        child: Text("Hapus",
+                        child: Text("Nonaktifkan",
                             style: TextStyle(
                               color: Colors.white,
                             ))),
