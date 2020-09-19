@@ -25,3 +25,8 @@ class LoginFailure extends LoginState {
 }
 
 class LoginSuccess extends LoginState {}
+
+class LoginLoaded extends LoginState{
+  String name_user;
+  LoginLoaded({this.name_user});
+}

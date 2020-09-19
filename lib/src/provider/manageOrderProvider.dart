@@ -10,7 +10,7 @@ class ManageOrderProvider {
   final _prefix = AppUrl.urlOrder;
 
   Future<List<Menu>> fetchAllMenu() async {
-    final _url = "$_baseUrl/manageMenu/allActiveMenu";
+    final _url = "$_baseUrl/manageMenu/allMenu";
 
     final response = await client.get(_url);
 

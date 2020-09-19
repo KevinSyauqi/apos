@@ -10,8 +10,9 @@ class CheckoutCartPage extends StatelessWidget {
   final List<Menu> menus;
   final int totalPrice;
   final String id_order;
+  final String name_menu;
 
-  CheckoutCartPage({this.id_order, this.menus, this.totalPrice});
+  CheckoutCartPage({this.id_order, this.menus, this.totalPrice, this.name_menu});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,10 @@ class _CartOrderState extends State<CartOrder>
   String number = "";
   CartBloc _cartBloc;
   CheckoutCartBloc _checkoutBloc;
+
+    final namemenuController = TextEditingController();
+  final priceController = TextEditingController();
+  final cogController = TextEditingController();
 
   Future _onCreateOrderButtonPressed(
       List<OrderItem> listOrderItem, int totalPrice) async {

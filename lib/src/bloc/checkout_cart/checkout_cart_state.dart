@@ -36,3 +36,9 @@ class CreateOrderFailure extends CheckoutCartState{
   CreateOrderFailure({this.message});
 
 }
+
+class ClearOrder extends CheckoutCartState {
+  final ListOrderItem listOrderItem;
+
+  ClearOrder({this.listOrderItem});
+}

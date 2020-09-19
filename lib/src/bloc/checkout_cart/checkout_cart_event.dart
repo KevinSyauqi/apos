@@ -21,3 +21,10 @@ class AddToOrderButtonPressed extends CheckoutCartEvent{
 
   AddToOrderButtonPressed({this.id_order,this.cart, this.customerName, this.tableNumber, this.totalPrice});
 }
+
+class ClearOrderButtonPressed extends CheckoutCartEvent{
+  String id_order;
+  List<OrderItem> cart;
+
+  ClearOrderButtonPressed({this.id_order,this.cart});
+}

@@ -573,32 +573,36 @@ class _ManageOrderState extends State<ManageOrder>
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            actionsPadding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: Text("Keranjang Masih Kosong",
+            content: Text("Keranjang Masih Kosong ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
                     fontFamily: 'CircularStd-Bold')),
             actions: <Widget>[
-              Center(
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  child: RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      color: Color.fromRGBO(54, 58, 155, 1),
-                      elevation: 5,
-                      onPressed: () => Navigator.pop(context),
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
-                      child: Text("Okey",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ))),
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 30),
+                            color: Color.fromRGBO(54, 58, 155, 1),
+                            elevation: 5,
+                            onPressed: () => Navigator.pop(context),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0))),
+                            child: Text("Kembali",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ))),
+                      ]),
                 ),
               )
             ],

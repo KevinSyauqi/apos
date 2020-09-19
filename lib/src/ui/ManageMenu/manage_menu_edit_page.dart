@@ -29,6 +29,12 @@ class ManageMenuEdit extends StatefulWidget {
   _ManageMenuEditState createState() => _ManageMenuEditState();
 }
 
+class Category {
+  String name;
+
+  Category(this.name);
+}
+
 class _ManageMenuEditState extends State<ManageMenuEdit> {
   Menu menu;
   MenuBloc _menuBloc;
@@ -132,7 +138,13 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
   @override
   Widget build(BuildContext context) {
     _onUpdateMenuFormPressed() {
-      print(namemenuController.text + "," + selectedCategory.name + "," + priceController.text + "," + cogController.text);
+      print(namemenuController.text +
+          "," +
+          selectedCategory.name +
+          "," +
+          priceController.text +
+          "," +
+          cogController.text);
       BlocProvider.of<MenuBloc>(context).add(UpdateMenuButtonFormPressed(
           id_menu: this.menu.id_menu,
           name_menu: namemenuController.text,
@@ -153,8 +165,10 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
           namemenuController.text = this.menu.name_menu;
           priceController.text = this.menu.price.toString();
           cogController.text = this.menu.cost.toString();
-          if(this.menu.category == "food") selectedCategory = category[0];
-          else selectedCategory = category[1];
+          // if (menu.category == "food")
+          //   selectedCategory = category[0];
+          // else
+          //   selectedCategory = category[1];
         }
         return Scaffold(
             appBar: AppBar(
@@ -179,28 +193,26 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                       alignment: Alignment.topCenter,
                       child: _image == null
                           ? Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(234, 234, 234, 1),
-                        ),
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.restaurant,
-                              color: Colors.grey[500],
-                              size: 80,
-                            )),
-                        width: MediaQuery.of(context).size.width,
-                        height:
-                        MediaQuery.of(context).size.height / 1.7,
-                      )
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(234, 234, 234, 1),
+                              ),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.restaurant,
+                                    color: Colors.grey[500],
+                                    size: 80,
+                                  )),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 1.7,
+                            )
                           : Container(
-                          height:
-                          MediaQuery.of(context).size.height / 1.7,
-                          width: MediaQuery.of(context).size.width,
-                          child: Image.file(
-                            _image,
-                            fit: BoxFit.cover,
-                          )),
+                              height: MediaQuery.of(context).size.height / 1.7,
+                              width: MediaQuery.of(context).size.width,
+                              child: Image.file(
+                                _image,
+                                fit: BoxFit.cover,
+                              )),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -213,10 +225,10 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                 Container(
                                   padding: EdgeInsets.only(right: 35),
                                   height:
-                                  MediaQuery.of(context).size.height / 6,
+                                      MediaQuery.of(context).size.height / 6,
                                   child: FloatingActionButton(
                                     backgroundColor:
-                                    Color.fromRGBO(54, 58, 155, 1),
+                                        Color.fromRGBO(54, 58, 155, 1),
                                     onPressed: () {
                                       _showAlertImage();
                                     },
@@ -251,8 +263,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                           // Nama Menu
                                           Card(
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.all(
+                                                borderRadius: BorderRadius.all(
                                                     Radius.circular(20))),
                                             child: TextFormField(
                                               controller: namemenuController,
@@ -268,27 +279,26 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                                           179, 179, 183, 1),
                                                       fontSize: 13.0,
                                                       fontFamily:
-                                                      'CircularStd-Book'),
+                                                          'CircularStd-Book'),
                                                   filled: true,
                                                   fillColor: Colors.white,
                                                   border: OutlineInputBorder(
                                                       borderSide:
-                                                      BorderSide.none,
+                                                          BorderSide.none,
                                                       borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              20))),
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20))),
                                                   contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 20.0,
-                                                      vertical: 16.0)),
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 16.0)),
                                             ),
                                           ),
                                           // Harga Menu
                                           Card(
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.all(
+                                                borderRadius: BorderRadius.all(
                                                     Radius.circular(20))),
                                             child: TextFormField(
                                               controller: cogController,
@@ -299,34 +309,32 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                                     color: Color.fromRGBO(
                                                         179, 179, 183, 1),
                                                   ),
-                                                  hintText:
-                                                  "Harga Dasar Menu",
+                                                  hintText: "Harga Dasar Menu",
                                                   hintStyle: TextStyle(
                                                       color: Color.fromRGBO(
                                                           179, 179, 183, 1),
                                                       fontSize: 13.0,
                                                       fontFamily:
-                                                      'CircularStd-Book'),
+                                                          'CircularStd-Book'),
                                                   filled: true,
                                                   fillColor: Colors.white,
                                                   border: OutlineInputBorder(
                                                       borderSide:
-                                                      BorderSide.none,
+                                                          BorderSide.none,
                                                       borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              20))),
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20))),
                                                   contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 20.0,
-                                                      vertical: 16.0)),
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 16.0)),
                                             ),
                                           ),
                                           // Harga Dasar
                                           Card(
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.all(
+                                                borderRadius: BorderRadius.all(
                                                     Radius.circular(20))),
                                             child: TextFormField(
                                               controller: priceController,
@@ -343,62 +351,66 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                                           179, 179, 183, 1),
                                                       fontSize: 13.0,
                                                       fontFamily:
-                                                      'CircularStd-Book'),
+                                                          'CircularStd-Book'),
                                                   filled: true,
                                                   fillColor: Colors.white,
                                                   border: OutlineInputBorder(
                                                       borderSide:
-                                                      BorderSide.none,
+                                                          BorderSide.none,
                                                       borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              20))),
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20))),
                                                   contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 20.0,
-                                                      vertical: 16.0)),
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 16.0)),
                                             ),
                                           ),
                                           // Kategori Menu
                                           Card(
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.all(
+                                                borderRadius: BorderRadius.all(
                                                     Radius.circular(20))),
                                             child: Container(
                                               padding: EdgeInsets.symmetric(
-                                                  vertical: 3,
-                                                  horizontal: 20),
+                                                  vertical: 3, horizontal: 20),
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
                                               height: 50,
                                               child: DropdownButtonFormField(
                                                 decoration:
-                                                InputDecoration.collapsed(
+                                                    InputDecoration.collapsed(
                                                   hintText: 'Kategori Menu',
                                                   hintStyle: TextStyle(
                                                       color: Color.fromRGBO(
                                                           179, 179, 183, 1),
                                                       fontSize: 13.0,
                                                       fontFamily:
-                                                      'CircularStd-Book'),
+                                                          'CircularStd-Book'),
                                                 ),
                                                 isExpanded: true,
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 13.0,
                                                     fontFamily:
-                                                    'CircularStd-Book'),
-                                                value: selectedCategory,
-                                                items:
-                                                generateItems(category),
+                                                        'CircularStd-Book'),
+                                                value: menu.category == "food"
+                                                    ? selectedCategory =
+                                                        category[0]
+                                                    : selectedCategory =
+                                                        category[1],
+                                                items: generateItems(category),
                                                 onChanged: (item) {
                                                   setState(() {
                                                     selectedCategory = item;
+                                                    if (selectedCategory == category[0])
+                                                       menu.category = "food";
+                                                    else
+                                                      menu.category = "drink";
                                                   });
                                                 },
-
                                               ),
                                             ),
                                           ),
@@ -407,8 +419,8 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                           ),
                                           Container(
                                             width: MediaQuery.of(context)
-                                                .size
-                                                .width /
+                                                    .size
+                                                    .width /
                                                 2,
                                             padding: EdgeInsets.only(
                                                 top: 5, bottom: 15),
@@ -425,9 +437,9 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                                 },
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(
-                                                            100.0))),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                100.0))),
                                                 child: Text("Simpan",
                                                     style: TextStyle(
                                                       color: Colors.white,
@@ -528,10 +540,4 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
       ),
     );
   }
-}
-
-class Category {
-  String name;
-
-  Category(this.name);
 }
