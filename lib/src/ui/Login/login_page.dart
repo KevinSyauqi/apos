@@ -26,6 +26,8 @@ class __LoginFormState extends State<_LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     _onLoginButtonPressed() {
@@ -95,6 +97,7 @@ class __LoginFormState extends State<_LoginForm> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                                 child: Form(
+                                  key: _formKey,
                                   child: Column(
                                     children: <Widget>[
                                       TextFormField(
@@ -103,7 +106,7 @@ class __LoginFormState extends State<_LoginForm> {
                                             Icons.mail,
                                             color: Color.fromRGBO(179, 179, 183, 1),
                                           ),
-                                          hintText: "Masukkan Email Pengguna",
+                                          hintText: "Masukkan Username Pengguna",
                                           hintStyle: TextStyle(
                                               color:
                                                   Color.fromRGBO(179, 179, 183, 1),
@@ -123,8 +126,8 @@ class __LoginFormState extends State<_LoginForm> {
                                         keyboardType: TextInputType.emailAddress,
                                         autocorrect: false,
                                         validator: (value) {
-                                          if (value == null) {
-                                            return 'Email is required.';
+                                          if (value.isEmpty) {
+                                            return 'Username dibutuhkan';
                                           }
                                           return null;
                                         },
@@ -157,8 +160,8 @@ class __LoginFormState extends State<_LoginForm> {
                                         obscureText: true,
                                         controller: _passwordController,
                                         validator: (value) {
-                                          if (value == null) {
-                                            return 'Password is required.';
+                                          if (value.isEmpty) {
+                                            return 'Password dibutuhkan';
                                           }
                                           return null;
                                         },
@@ -180,7 +183,10 @@ class __LoginFormState extends State<_LoginForm> {
                                                 fontFamily: 'CircularStd-Bold')),
                                         onPressed: (){
                                           setState(() {
-                                              state is! LoginInProgress ? _onLoginButtonPressed() : null;
+                                              FocusScope.of(context).requestFocus(new FocusNode());
+                                              if (_formKey.currentState.validate()){
+                                                state is! LoginInProgress ? _onLoginButtonPressed() : null;
+                                              }
                                             });
                                         }
                                       ),

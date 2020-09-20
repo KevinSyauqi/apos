@@ -83,19 +83,19 @@ class _ManageOrderState extends State<ManageOrder>
             appBar: AppBar(
               title: (state.id_order == null)
                   ? Text(
-                "Kelola Pesanan",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.0,
-                    fontFamily: 'CircularStd-Bold'),
-              )
+                      "Kelola Pesanan",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                          fontFamily: 'CircularStd-Bold'),
+                    )
                   : Text(
-                "Tambah Pesanan",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.0,
-                    fontFamily: 'CircularStd-Bold'),
-              ),
+                      "Tambah Pesanan",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                          fontFamily: 'CircularStd-Bold'),
+                    ),
               bottom: PreferredSize(
                 child: Column(
                   children: <Widget>[
@@ -115,8 +115,7 @@ class _ManageOrderState extends State<ManageOrder>
                                 color: Color.fromRGBO(252, 195, 108, 1),
                                 width: 5,
                               ),
-                              insets:
-                              EdgeInsets.symmetric(horizontal: 20.0)),
+                              insets: EdgeInsets.symmetric(horizontal: 20.0)),
                           tabs: <Widget>[
                             Tab(
                               child: Text("Makanan",
@@ -146,13 +145,13 @@ class _ManageOrderState extends State<ManageOrder>
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color.fromRGBO(252, 195, 108, 1),
-                          Color.fromRGBO(253, 166, 125, 1),
-                        ])),
+                      Color.fromRGBO(252, 195, 108, 1),
+                      Color.fromRGBO(253, 166, 125, 1),
+                    ])),
               ),
               elevation: 0.0,
             ),
-            drawer: (state.id_order == null) ? AppDrawer():null,
+            drawer: (state.id_order == null) ? AppDrawer() : null,
             body: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -160,23 +159,23 @@ class _ManageOrderState extends State<ManageOrder>
                 children: <Widget>[
                   BlocBuilder<ManageOrderBloc, ManageOrderState>(
                       builder: (context, state) {
-                        if (state is ManageOrderInitialized) {
-                          return Center(child: Text("Unitialized State"));
-                        } else if (state is ManageOrderLoading) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (state is ManageOrderError) {
-                          return Center(child: Text('error'));
-                        } else if (state is ManageOrderLoaded) {
-                          return TabBarView(
-                            controller: controller,
-                            children: <Widget>[
-                              getDataMenu(state.foods, state.foodMenuCounter),
-                              getDataMenu(state.drinks, state.drinkMenuCounter)
-                            ],
-                          );
-                        }
-                        return Center(child: Text("Belum ada menu nih"));
-                      }),
+                    if (state is ManageOrderInitialized) {
+                      return Center(child: Text("Unitialized State"));
+                    } else if (state is ManageOrderLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is ManageOrderError) {
+                      return Center(child: Text('error'));
+                    } else if (state is ManageOrderLoaded) {
+                      return TabBarView(
+                        controller: controller,
+                        children: <Widget>[
+                          getDataMenu(state.foods, state.foodMenuCounter),
+                          getDataMenu(state.drinks, state.drinkMenuCounter)
+                        ],
+                      );
+                    }
+                    return Center(child: Text("Belum ada menu nih"));
+                  }),
                   checkOut(),
                 ],
               ),
@@ -211,8 +210,7 @@ class _ManageOrderState extends State<ManageOrder>
                                 color: Color.fromRGBO(252, 195, 108, 1),
                                 width: 5,
                               ),
-                              insets:
-                              EdgeInsets.symmetric(horizontal: 20.0)),
+                              insets: EdgeInsets.symmetric(horizontal: 20.0)),
                           tabs: <Widget>[
                             Tab(
                               child: Text("Makanan",
@@ -242,9 +240,9 @@ class _ManageOrderState extends State<ManageOrder>
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color.fromRGBO(252, 195, 108, 1),
-                          Color.fromRGBO(253, 166, 125, 1),
-                        ])),
+                      Color.fromRGBO(252, 195, 108, 1),
+                      Color.fromRGBO(253, 166, 125, 1),
+                    ])),
               ),
               elevation: 0.0,
             ),
@@ -285,11 +283,9 @@ class _ManageOrderState extends State<ManageOrder>
                     color: Color.fromRGBO(250, 250, 250, 1),
                   ),
                   width: double.infinity,
-                  height: 80,
                   margin: EdgeInsets.symmetric(horizontal: 25),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
                         width: 55,
@@ -301,7 +297,7 @@ class _ManageOrderState extends State<ManageOrder>
                         ),
                       ),
                       Container(
-                        width: 180,
+                        width: 150,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,93 +327,141 @@ class _ManageOrderState extends State<ManageOrder>
                                       color: Colors.black,
                                       fontSize: 14.0,
                                       fontFamily: 'CircularStd-Book')),
-                            ])
+                            ]),
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              BlocBuilder<CartBloc, CartState>(
-                                builder: (context, state) {
-                                  if (state is CartLoading) {
-                                    return CircularProgressIndicator();
-                                  }
-                                  if (state is CartLoaded) {
-                                    return Container(
-                                      width: 32,
-                                      height: 32,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Color.fromRGBO(54, 58, 155, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(13)),
-                                      child: IconButton(
-                                          icon: Icon(Icons.remove),
-                                          iconSize: 17,
-                                          color: Colors.white,
-                                          onPressed: () {
-                                            if (itemCount[index] > 0) {
-                                              BlocProvider.of<CartBloc>(context)
-                                                  .add(RemoveFromCart(id_order: state.id_order,
-                                                      menu: menu));
-                                              setState(() {
-                                                itemCount[index]--;
-                                              });
+                      (menu.quantity_stock != 0)
+                          ? Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        BlocBuilder<CartBloc, CartState>(
+                                          builder: (context, state) {
+                                            if (state is CartLoading) {
+                                              return CircularProgressIndicator();
                                             }
-                                          }),
-                                    );
-                                  }
-                                  return Text("Terjadi Kesalahan");
-                                },
+                                            if (state is CartLoaded) {
+                                              return Container(
+                                                width: 32,
+                                                height: 32,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    color: Color.fromRGBO(
+                                                        54, 58, 155, 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(13)),
+                                                child: IconButton(
+                                                    icon: Icon(Icons.remove),
+                                                    iconSize: 17,
+                                                    color: Colors.white,
+                                                    onPressed: () {
+                                                      if (itemCount[index] > 0) {
+                                                        BlocProvider.of<CartBloc>(
+                                                                context)
+                                                            .add(RemoveFromCart(
+                                                                id_order:
+                                                                    state.id_order,
+                                                                menu: menu));
+                                                        setState(() {
+                                                          itemCount[index]--;
+                                                        });
+                                                      }
+                                                    }),
+                                              );
+                                            }
+                                            return Text("Terjadi Kesalahan");
+                                          },
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 15.0, left: 15.0),
+                                          child: Text(itemCount[index].toString(),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16.0,
+                                                  fontFamily: 'CircularStd-Bold')),
+                                        ),
+                                        BlocBuilder<CartBloc, CartState>(
+                                          builder: (context, state) {
+                                            if (state is CartLoading) {
+                                              return CircularProgressIndicator();
+                                            }
+                                            if (state is CartLoaded) {
+                                              return Container(
+                                                width: 32,
+                                                height: 32,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    color: Color.fromRGBO(
+                                                        54, 58, 155, 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(13)),
+                                                child: IconButton(
+                                                    icon: Icon(Icons.add),
+                                                    iconSize: 17,
+                                                    color: Colors.white,
+                                                    onPressed: () {
+                                                      if(itemCount[index] < menu.quantity_stock){
+                                                        BlocProvider.of<CartBloc>(
+                                                            context)
+                                                            .add(AddToCart(
+                                                            id_order:
+                                                            state.id_order,
+                                                            menu: menu));
+                                                        setState(() {
+                                                          itemCount[index]++;
+                                                        });
+                                                      }
+                                                    }),
+                                              );
+                                            }
+                                            return Text("Terjadi Kesalahan");
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "Tersedia " + menu.quantity_stock.toString() + " porsi",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12.0,
+                                          fontFamily: 'CircularStd-Bold'),
+                                      overflow: TextOverflow.fade,
+                                      softWrap: true,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 15.0, left: 15.0),
-                                child: Text(itemCount[index].toString(),
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16.0,
-                                        fontFamily: 'CircularStd-Bold')),
-                              ),
-                              BlocBuilder<CartBloc, CartState>(
-                                builder: (context, state) {
-                                  if (state is CartLoading) {
-                                    return CircularProgressIndicator();
-                                  }
-                                  if (state is CartLoaded) {
-                                    return Container(
-                                      width: 32,
-                                      height: 32,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Color.fromRGBO(54, 58, 155, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(13)),
-                                      child: IconButton(
-                                          icon: Icon(Icons.add),
-                                          iconSize: 17,
-                                          color: Colors.white,
-                                          onPressed: () {
-                                            BlocProvider.of<CartBloc>(context)
-                                                .add(AddToCart(id_order: state.id_order,menu: menu));
-                                            setState(() {
-                                              itemCount[index]++;
-                                            });
-                                          }),
-                                    );
-                                  }
-                                  return Text("Terjadi Kesalahan");
-                                },
-                              )
-                            ],
+                            )
+                          : Expanded(
+                            child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Container(
+                                  height: 30,
+                                  width: 100,
+                                  child: Center(
+                                    child: Text("Habis",
+                                        style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 14.0,
+                                            fontFamily: 'CircularStd-Bold')),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(0, 0, 0, 0.05),
+                                      borderRadius: BorderRadius.circular(5)),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      )
                     ],
                   ),
                 );
@@ -523,7 +567,7 @@ class _ManageOrderState extends State<ManageOrder>
                                   _cartBloc.add(LoadCart());
                                   _manageOrderBloc.add(FetchMenus());
                                 }
-                                if (value == "Done"){
+                                if (value == "Done") {
                                   Navigator.pop(context, "Done");
                                 }
                               });

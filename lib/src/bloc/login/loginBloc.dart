@@ -3,6 +3,7 @@ import 'package:apos/src/bloc/authentication/authentication_event.dart';
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/bloc/login/loginEvent.dart';
 import 'package:apos/src/bloc/login/loginState.dart';
+import 'package:apos/src/models/models.dart';
 import 'package:apos/src/repository/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -25,9 +26,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginSuccess();
         print(response.toString());
         final data = response["data"];
+        final user = User.fromJson(data["user"]);
         final loginSession = data["loginSession"];
         String token = loginSession["id_session"];
-        authenticationBloc.add(AuthenticationLoggedIn(token: token));
+        authenticationBloc.add(AuthenticationLoggedIn(token: token, user: user));
       }else{
         yield LoginFailure(error: "Username atau password salah");
         authenticationBloc.add(AuthenticationFailed());

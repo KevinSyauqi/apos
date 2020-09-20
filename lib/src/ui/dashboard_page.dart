@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -32,10 +33,20 @@ class _DashboardState extends State<Dashboard> {
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
   HomeBloc _homeBloc;
   ReportBloc _reportBloc;
+  String name_user = "";
+
+  getNameUser() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String name_user = prefs.getString("name_user");
+    setState(() {
+      this.name_user = name_user;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    getNameUser();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _reportBloc = BlocProvider.of<ReportBloc>(context);
     _reportBloc.add(GenerateReportSales(end_date: DateTime.now()));
@@ -84,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                                       fontSize: 15,
                                       fontFamily: 'CircularStd-Book')),
                               Container(
-                                child: Text("Annisa Fathana",
+                                child: Text(name_user,
                                     maxLines: 1,
                                     style: TextStyle(
                                         color: Colors.white,

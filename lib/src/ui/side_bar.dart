@@ -6,6 +6,7 @@ import 'package:apos/src/ui/ManageOrder//manage_order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -14,15 +15,26 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   HomeBloc _homeBloc;
+  String name_user;
+
+  getNameUser() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String name_user = prefs.getString("name_user");
+    setState(() {
+      this.name_user = name_user;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    getNameUser();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -59,7 +71,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           Column(
                             children: <Widget>[
-                              Text("Annisa Fathana",
+                              Text(this.name_user,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22.0,

@@ -1,3 +1,4 @@
+import 'package:apos/src/models/models.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AuthenticationState extends Equatable {
@@ -9,7 +10,11 @@ abstract class AuthenticationState extends Equatable {
 
 class AuthenticationInitial extends AuthenticationState {}
 
-class AuthenticationSuccess extends AuthenticationState {}
+class AuthenticationSuccess extends AuthenticationState {
+  final User user;
+  final token;
+  AuthenticationSuccess({this.user, this.token});
+}
 
 class AuthenticationFailure extends AuthenticationState {}
 

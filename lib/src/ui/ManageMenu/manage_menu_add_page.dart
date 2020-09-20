@@ -42,6 +42,8 @@ class _ManageMenuAddState extends State<ManageMenuAdd> {
   final priceController = TextEditingController();
   final cogController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   List<DropdownMenuItem> generateItems(List<Category> category) {
     List<DropdownMenuItem> items = [];
     for (var item in category) {
@@ -227,185 +229,218 @@ class _ManageMenuAddState extends State<ManageMenuAdd> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 30.0, horizontal: 40),
-                                    child: Column(
-                                      children: <Widget>[
-                                        // Nama Menu
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          child: TextField(
-                                            controller: namemenuController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.restaurant,
-                                                  color: Color.fromRGBO(
-                                                      179, 179, 183, 1),
-                                                ),
-                                                hintText: "Nama Menu",
-                                                hintStyle: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20))),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 20.0,
-                                                        vertical: 16.0)),
-                                          ),
-                                        ),
-                                        // Harga Menu
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          child: TextField(
-                                            controller: cogController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.account_balance_wallet,
-                                                  color: Color.fromRGBO(
-                                                      179, 179, 183, 1),
-                                                ),
-                                                hintText: "Harga Dasar Menu",
-                                                hintStyle: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20))),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 20.0,
-                                                        vertical: 16.0)),
-                                          ),
-                                        ),
-                                        // Harga Dasar
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          child: TextField(
-                                            controller: priceController,
-                                            decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  Icons.account_balance_wallet,
-                                                  color: Color.fromRGBO(
-                                                      179, 179, 183, 1),
-                                                ),
-                                                hintText:
-                                                    "Harga Jual Menu",
-                                                hintStyle: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20))),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 20.0,
-                                                        vertical: 16.0)),
-                                          ),
-                                        ),
-                                        // Kategori Menu
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 20),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: 50,
-                                            child: DropdownButtonFormField(
-                                              decoration:
-                                                  InputDecoration.collapsed(
-                                                hintText: 'Kategori Menu',
-                                                hintStyle: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        179, 179, 183, 1),
-                                                    fontSize: 13.0,
-                                                    fontFamily:
-                                                        'CircularStd-Book'),
-                                              ),
-                                              isExpanded: true,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13.0,
-                                                  fontFamily:
-                                                      'CircularStd-Book'),
-                                              value: selectedCategory,
-                                              items: generateItems(category),
-                                              onChanged: (item) {
-                                                setState(() {
-                                                  selectedCategory = item;
-                                                });
+                                    child: Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        children: <Widget>[
+                                          // Nama Menu
+                                          Card(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            child: TextFormField(
+                                              controller: namemenuController,
+                                              validator: (value){
+                                                if(value.isEmpty){
+                                                  return "Nama menu tidak boleh kosong";
+                                                }
+                                                return null;
                                               },
+                                              decoration: InputDecoration(
+                                                  prefixIcon: Icon(
+                                                    Icons.restaurant,
+                                                    color: Color.fromRGBO(
+                                                        179, 179, 183, 1),
+                                                  ),
+                                                  hintText: "Nama Menu",
+                                                  hintStyle: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          179, 179, 183, 1),
+                                                      fontSize: 13.0,
+                                                      fontFamily:
+                                                          'CircularStd-Book'),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  border: OutlineInputBorder(
+                                                      borderSide: BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20))),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 16.0)),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              2,
-                                          padding: EdgeInsets.only(
-                                              top: 5, bottom: 15),
-                                          child: RaisedButton(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 18),
-                                              color: Color.fromRGBO(
-                                                  54, 58, 155, 1),
-                                              elevation: 5,
-                                              onPressed: () async {
-                                                state is! MenuAddLoading
-                                                    ? await _onAddMenuFormPressed()
-                                                    : null;
-
-                                                await Future.delayed(Duration(seconds: 1));
-                                                Navigator.pop(context,true);
+                                          // Harga Menu
+                                          Card(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            child: TextFormField(
+                                              controller: cogController,
+                                              keyboardType: TextInputType.numberWithOptions(),
+                                              validator: (value){
+                                                if(value.isEmpty){
+                                                  return "Harga dasar tidak boleh kosong";
+                                                }
+                                                return null;
                                               },
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              100.0))),
-                                              child: Text("Tambah",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ))),
-                                        ),
-                                      ],
+                                              decoration: InputDecoration(
+                                                  prefixIcon: Icon(
+                                                    Icons.account_balance_wallet,
+                                                    color: Color.fromRGBO(
+                                                        179, 179, 183, 1),
+                                                  ),
+                                                  hintText: "Harga Dasar Menu",
+                                                  hintStyle: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          179, 179, 183, 1),
+                                                      fontSize: 13.0,
+                                                      fontFamily:
+                                                          'CircularStd-Book'),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  border: OutlineInputBorder(
+                                                      borderSide: BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20))),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 16.0)),
+                                            ),
+                                          ),
+                                          // Harga Dasar
+                                          Card(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            child: TextFormField(
+                                              controller: priceController,
+                                              validator: (value){
+                                                if(value.isEmpty){
+                                                  return "Harga jual tidak boleh kosong";
+                                                }
+                                                return null;
+                                              },
+                                              decoration: InputDecoration(
+                                                  prefixIcon: Icon(
+                                                    Icons.account_balance_wallet,
+                                                    color: Color.fromRGBO(
+                                                        179, 179, 183, 1),
+                                                  ),
+                                                  hintText:
+                                                      "Harga Jual Menu",
+                                                  hintStyle: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          179, 179, 183, 1),
+                                                      fontSize: 13.0,
+                                                      fontFamily:
+                                                          'CircularStd-Book'),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  border: OutlineInputBorder(
+                                                      borderSide: BorderSide.none,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20))),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 16.0)),
+                                            ),
+                                          ),
+                                          // Kategori Menu
+                                          Card(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 3, horizontal: 20),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 50,
+                                              child: DropdownButtonFormField(
+                                                validator: (value){
+                                                  if(value.toString() == null || value.toString() == ""){
+                                                    return "Mohon pilih kategori";
+                                                  }
+                                                  return null;
+                                                },
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                  hintText: 'Kategori Menu',
+                                                  hintStyle: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          179, 179, 183, 1),
+                                                      fontSize: 13.0,
+                                                      fontFamily:
+                                                          'CircularStd-Book'),
+                                                ),
+                                                isExpanded: true,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 13.0,
+                                                    fontFamily:
+                                                        'CircularStd-Book'),
+                                                value: selectedCategory,
+                                                items: generateItems(category),
+                                                onChanged: (item) {
+                                                  setState(() {
+                                                    selectedCategory = item;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2,
+                                            padding: EdgeInsets.only(
+                                                top: 5, bottom: 15),
+                                            child: RaisedButton(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 18),
+                                                color: Color.fromRGBO(
+                                                    54, 58, 155, 1),
+                                                elevation: 5,
+                                                onPressed: () async {
+                                                  if (_formKey.currentState.validate()){
+                                                    setState(() {
+                                                      FocusScope.of(context).requestFocus(new FocusNode());
+                                                    });
+                                                    state is! MenuAddLoading
+                                                        ? await _onAddMenuFormPressed()
+                                                        : null;
+
+                                                    await Future.delayed(Duration(seconds: 1));
+                                                    Navigator.pop(context,true);
+                                                  }
+                                                },
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                100.0))),
+                                                child: Text("Tambah",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ))),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

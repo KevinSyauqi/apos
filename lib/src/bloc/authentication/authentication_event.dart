@@ -1,3 +1,4 @@
+import 'package:apos/src/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -13,8 +14,9 @@ class AuthenticationStarted extends AuthenticationEvent {}
 
 class AuthenticationLoggedIn extends AuthenticationEvent {
   final String token;
+  final User user;
 
-  const AuthenticationLoggedIn({@required this.token});
+  const AuthenticationLoggedIn({@required this.token, this.user});
 
   @override
   List<Object> get props => [token];

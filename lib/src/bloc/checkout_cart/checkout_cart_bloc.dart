@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:apos/src/models/models.dart';
 import 'package:apos/src/repository/manageOrderRepository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc.dart';
 
 class CheckoutCartBloc extends Bloc<CheckoutCartEvent, CheckoutCartState> {
@@ -14,7 +15,9 @@ class CheckoutCartBloc extends Bloc<CheckoutCartEvent, CheckoutCartState> {
   Stream<CheckoutCartState> mapEventToState(CheckoutCartEvent event) async* {
     if(event is CreateOrderButtonPressed){
         yield CreateOrderLoading();
-        Order order = new Order("S001U001",event.tableNumber,event.customerName,event.totalPrice);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        Order order = new Order(prefs.getString("id_user"),event.tableNumber,event.customerName,event.totalPrice);
         ListOrderItem cart = new ListOrderItem(event.cart);
 
         final response = await _manageOrderRepository.createOrder(order, cart);
