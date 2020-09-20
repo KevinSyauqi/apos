@@ -4,6 +4,8 @@ class Report{
   int _quantity;
   int _income;
   int _profit;
+  DateTime _startDate;
+  DateTime _endDate;
 
 
   String get id_menu => _id_menu;
@@ -16,12 +18,18 @@ class Report{
 
   int get profit => _profit;
 
+  DateTime get startDate => _startDate;
+
+  DateTime get endDate => _endDate;
+
   Report.fromJson(Map<String, dynamic> json) {
     _id_menu = json["id_menu"];
     _name_menu = json["name_menu"];
     _quantity = json["quantity"];
     _income = json["income"];
     _profit = json["profit"];
+    _startDate = DateTime.parse(json["start_date"]);
+    _endDate = DateTime.parse(json["end_date"]);
   }
 
   Map<String, dynamic> toJson() {

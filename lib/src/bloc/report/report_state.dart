@@ -20,12 +20,27 @@ class ReportLoaded extends ReportState {
   final ListOrderItem lowest5drinksales;
   final DateTime startDate;
   final DateTime endDate;
+  final List<Report> weeklyReportSales;
+  final List<Report> weeklyReportIncome;
+  final List<Report> weeklyReportProfit;
 
-  ReportLoaded({this.totalIncome, this.totalSalesMenu, this.totalProfit, this.best5foodsales,
-  this.best5drinksales, this.lowest5drinksales, this.lowest5foodsales, this.startDate, this.endDate});
+  ReportLoaded({
+    this.totalIncome,
+    this.totalSalesMenu,
+    this.totalProfit,
+    this.best5foodsales,
+    this.best5drinksales,
+    this.lowest5drinksales,
+    this.lowest5foodsales,
+    this.startDate,
+    this.endDate,
+    this.weeklyReportSales,
+    this.weeklyReportIncome,
+    this.weeklyReportProfit
+  });
 }
 
-class ReportDetailLoaded extends ReportState{
+class ReportDetailLoaded extends ReportState {
   final List<Report> listReport;
   final DateTime startDate;
   final DateTime endDate;
@@ -33,6 +48,6 @@ class ReportDetailLoaded extends ReportState{
   ReportDetailLoaded({this.listReport, this.startDate, this.endDate});
 }
 
-class ReportDetailLoading extends ReportState{}
+class ReportDetailLoading extends ReportState {}
 
-class ReportDetailFailure extends ReportState{}
+class ReportDetailFailure extends ReportState {}

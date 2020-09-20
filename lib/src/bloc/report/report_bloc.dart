@@ -87,6 +87,13 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
             var lowest5drinksales =
                 _parsedFromJson(response["data"], "lowest5drinkSales");
 
+            var weeklyReportSales =
+                _parsedFromJsonReport(response["data"], "dataSales");
+            var weeklyReportProfit =
+                _parsedFromJsonReport(response["data"], "dataProfit");
+            var weeklyReportIncome =
+                _parsedFromJsonReport(response["data"], "dataIncome");
+
             yield ReportLoaded(
                 totalIncome: totalIncome,
                 totalSalesMenu: totalSales,
@@ -96,7 +103,10 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
                 lowest5foodsales: lowest5foodsales,
                 lowest5drinksales: lowest5drinksales,
                 startDate: startDate,
-                endDate: endDate);
+                endDate: endDate,
+                weeklyReportSales: weeklyReportSales,
+                weeklyReportIncome: weeklyReportIncome,
+                weeklyReportProfit: weeklyReportProfit);
           } else {
             yield ReportLoaded(
                 totalIncome: "0",
@@ -125,7 +135,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
               listReport: listReport.listReport,
               startDate: event.start_date,
               endDate: event.end_date);
-        } else{
+        } else {
           yield ReportDetailFailure();
         }
       }
@@ -144,5 +154,16 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       });
     }
     return listOrderItem;
+  }
+
+  List<Report> _parsedFromJsonReport(Map<String, dynamic> json, String child) {
+    List<Report> listReport;
+    if (json['$child'] != null) {
+      listReport = new List<Report>();
+      json['$child'].forEach((v) {
+        listReport.add(new Report.fromJson(v));
+      });
+    }
+    return listReport;
   }
 }
