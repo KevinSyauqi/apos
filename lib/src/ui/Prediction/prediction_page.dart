@@ -22,8 +22,7 @@ class PredictionSales extends StatefulWidget {
   _PredictionSalesState createState() => _PredictionSalesState();
 }
 
-class _PredictionSalesState extends State<PredictionSales>{
-
+class _PredictionSalesState extends State<PredictionSales> {
   PredictionBloc _predictionBloc;
 
   //   OutletBloc _outletBloc;
@@ -41,30 +40,6 @@ class _PredictionSalesState extends State<PredictionSales>{
     super.dispose();
   }
 
-  // Defining the data
-  final data = [
-    new SalesData(0, 1000),
-    new SalesData(1, 1600),
-    new SalesData(2, 1000),
-    new SalesData(3, 4000),
-    new SalesData(4, 3000),
-    new SalesData(5, 1500),
-    new SalesData(6, 2400)
-  ];
-
-  _getSeriesData() {
-    List<charts.Series<SalesData, int>> series = [
-      charts.Series(
-          id: "Sales",
-          data: data,
-          domainFn: (SalesData series, _) => series.year,
-          measureFn: (SalesData series, _) => series.sales,
-          colorFn: (SalesData series, _) =>
-              charts.MaterialPalette.blue.shadeDefault)
-    ];
-    return series;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +48,7 @@ class _PredictionSalesState extends State<PredictionSales>{
         slivers: <Widget>[
           SliverAppBar(
               pinned: true,
-              expandedHeight: 250.0,
+              expandedHeight: 350.0,
               backgroundColor: Color.fromRGBO(252, 195, 108, 1),
               title: Text(
                 "Prediksi Penjualan",
@@ -94,6 +69,44 @@ class _PredictionSalesState extends State<PredictionSales>{
                             Color.fromRGBO(252, 195, 108, 1),
                             Color.fromRGBO(253, 166, 125, 1),
                           ])),
+                    ),
+                    SafeArea(
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(30, 50, 30, 30),
+                        height: 100,
+                        child: Card(
+                          color: Color.fromRGBO(54, 58, 155, 1),
+                          elevation: 10,
+                          shadowColor: Color.fromRGBO(0, 0, 0, 0.2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 0),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.info_outline,
+                                    size: 30, color: Colors.white),
+                                SizedBox(width: 20),
+                                Expanded(
+                                  child: Container(
+                                    child: Text(
+                                      "Data prediksi menu yang ditampilkan berdasarkan prediksi menu yang memiliki presentasi akurasi keberhasilan diatas 80%",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12.0,
+                                          fontFamily: 'CircularStd-Bold'),
+                                      overflow: TextOverflow.clip,
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -161,20 +174,29 @@ class _PredictionSalesState extends State<PredictionSales>{
                                           ),
                                           Container(
                                             width: 200,
-                                            child: BlocBuilder<PredictionBloc,PredictionState>(
-                                              builder: (context,state){
-                                                if(state is PredictionLoaded){
+                                            child: BlocBuilder<PredictionBloc,
+                                                PredictionState>(
+                                              builder: (context, state) {
+                                                if (state is PredictionLoaded) {
                                                   return Text(
-                                                    "Rp "+ FlutterMoneyFormatter(amount: double.parse(state.totalIncomePrediction)).output.withoutFractionDigits,
+                                                    "Rp " +
+                                                        FlutterMoneyFormatter(
+                                                                amount: double
+                                                                    .parse(state
+                                                                        .totalIncomePrediction))
+                                                            .output
+                                                            .withoutFractionDigits,
                                                     textAlign: TextAlign.right,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold'),
+                                                            'CircularStd-Bold'),
                                                   );
                                                 }
-                                                return Center(child: CircularProgressIndicator());
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
                                               },
                                             ),
                                           )
@@ -213,16 +235,22 @@ class _PredictionSalesState extends State<PredictionSales>{
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: <Widget>[
-                                                BlocBuilder<PredictionBloc,PredictionState>(
-                                                  builder: (context,state){
-                                                    if(state is PredictionLoaded){
-                                                      return Text(state.totalSalesPrediction.toString(),
-                                                        textAlign: TextAlign.right,
+                                                BlocBuilder<PredictionBloc,
+                                                    PredictionState>(
+                                                  builder: (context, state) {
+                                                    if (state
+                                                        is PredictionLoaded) {
+                                                      return Text(
+                                                        state
+                                                            .totalSalesPrediction
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 18.0,
                                                             fontFamily:
-                                                            'CircularStd-Bold'),
+                                                                'CircularStd-Bold'),
                                                       );
                                                     }
                                                     return CircularProgressIndicator();
@@ -272,20 +300,29 @@ class _PredictionSalesState extends State<PredictionSales>{
                                           ),
                                           Container(
                                             width: 200,
-                                            child: BlocBuilder<PredictionBloc,PredictionState>(
-                                              builder: (context,state){
-                                                if(state is PredictionLoaded){
+                                            child: BlocBuilder<PredictionBloc,
+                                                PredictionState>(
+                                              builder: (context, state) {
+                                                if (state is PredictionLoaded) {
                                                   return Text(
-                                                    "Rp "+FlutterMoneyFormatter(amount: double.parse(state.totalProfitPrediction)).output.withoutFractionDigits,
+                                                    "Rp " +
+                                                        FlutterMoneyFormatter(
+                                                                amount: double
+                                                                    .parse(state
+                                                                        .totalProfitPrediction))
+                                                            .output
+                                                            .withoutFractionDigits,
                                                     textAlign: TextAlign.right,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 18.0,
                                                         fontFamily:
-                                                        'CircularStd-Bold'),
+                                                            'CircularStd-Bold'),
                                                   );
                                                 }
-                                                return Center(child: CircularProgressIndicator());
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
                                               },
                                             ),
                                           )
@@ -323,11 +360,13 @@ class _PredictionSalesState extends State<PredictionSales>{
                             fontSize: 15.0,
                             fontFamily: 'CircularStd-Bold'),
                       ),
-                      BlocBuilder<PredictionBloc,PredictionState>(
-                        builder: (context, state){
-                          if(state is PredictionLoaded){
-                            return buildListPredictionSales(state.listPrediction);
-                          } return CircularProgressIndicator();
+                      BlocBuilder<PredictionBloc, PredictionState>(
+                        builder: (context, state) {
+                          if (state is PredictionLoaded) {
+                            return buildListPredictionSales(
+                                state.listPrediction);
+                          }
+                          return CircularProgressIndicator();
                         },
                       ),
                       Row(
@@ -335,21 +374,23 @@ class _PredictionSalesState extends State<PredictionSales>{
                         children: <Widget>[
                           FlatButton(
                             padding: EdgeInsets.all(10),
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         PredictionDetailPage(),
                                   ));
-                            }, child: Text(
-                            "> Lihat Seluruh Prediksi Penjualan",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 12.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),)
+                            },
+                            child: Text(
+                              "> Lihat Seluruh Prediksi Penjualan",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 12.0,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
+                          )
                         ],
                       )
                     ],
@@ -357,108 +398,11 @@ class _PredictionSalesState extends State<PredictionSales>{
                 ),
               ),
             ),
-            Card(
-                  margin: EdgeInsets.all(20),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Grafik Penjualan Menu",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: new charts.LineChart(_getSeriesData(), animate: true,),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-            Card(
-                  margin: EdgeInsets.all(20),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Grafik Pendapatan Penjualan",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: new charts.LineChart(_getSeriesData(), animate: true,),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  margin: EdgeInsets.all(20),
-                  elevation: 10,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Grafik Keuntungan Penjualan",
-                            style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15.0,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                height: MediaQuery.of(context).size.height / 3,
-                                child: new charts.LineChart(_getSeriesData(), animate: true,),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
           ]))
         ],
       ),
     );
   }
-
 
   Widget buildListPredictionSales(List<Prediction> listPrediction) {
     return ListView.builder(
@@ -476,7 +420,8 @@ class _PredictionSalesState extends State<PredictionSales>{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      child: Text(item.name_menu,
+                      child: Text(
+                        item.name_menu,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -504,7 +449,6 @@ class _PredictionSalesState extends State<PredictionSales>{
           );
         });
   }
-
 }
 
 class SalesData {
@@ -513,4 +457,3 @@ class SalesData {
 
   SalesData(this.year, this.sales);
 }
-

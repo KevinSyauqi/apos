@@ -267,7 +267,6 @@ class _ManageOrderState extends State<ManageOrder>
           } else if (state is ManageOrderError) {
             return Center(child: Text('error'));
           }
-
           return ListView.builder(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               itemCount: menus.length,
@@ -292,6 +291,10 @@ class _ManageOrderState extends State<ManageOrder>
                         height: 55,
                         margin: EdgeInsets.only(right: 15),
                         decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+menu.id_menu)
+                          ),
                           color: Color.fromRGBO(234, 234, 234, 1),
                           borderRadius: BorderRadius.circular(20),
                         ),

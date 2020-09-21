@@ -119,13 +119,12 @@ class _ListOrderState extends State<ListOrder> {
                                   color: Color.fromRGBO(250, 250, 250, 1),
                                 ),
                                 width: double.infinity,
-                                height: 80,
                                 margin: EdgeInsets.symmetric(horizontal: 25),
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 5),
                                 child: Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Expanded(
                                         child: Container(
@@ -171,13 +170,21 @@ class _ListOrderState extends State<ListOrder> {
                                                         fontSize: 14.0,
                                                         fontFamily:
                                                             'CircularStd-Book')),
-                                                order.customer_name != null
+                                                order.table_number != null
                                                     ? Text("Nomor Meja : " + order.table_number.toString(),
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 14.0,
                                                             fontFamily:
                                                                 'CircularStd-Bold'))
+                                                    : Text(order.customer_name),
+                                                order.customer_name != null
+                                                    ? Text("Nama Pemesan : " + order.customer_name,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontFamily:
+                                                        'CircularStd-Bold'))
                                                     : Text(order.customer_name),
                                               ],
                                             ),

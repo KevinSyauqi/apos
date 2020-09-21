@@ -200,18 +200,83 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 15,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width / 15,
+                      vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 2.0),
+                          blurRadius: 5.0,
+                        ),
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          FaIcon(FontAwesomeIcons.shoppingBasket,
+                              color: Colors.black, size: 20),
+                          SizedBox(width: 8),
+                          Text(
+                            "Total Keuntungan",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'CircularStd-Bold'),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            child: BlocBuilder<ReportBloc, ReportState>(
+                              builder: (context, state) {
+                                if (state is ReportLoaded) {
+                                  return Text(
+                                    "Rp " +
+                                        FlutterMoneyFormatter(
+                                            amount: double.parse(
+                                                state.totalProfit))
+                                            .output
+                                            .withoutFractionDigits,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontFamily: 'CircularStd-Bold'),
+                                  );
+                                }
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
                       width: (MediaQuery.of(context).size.width / 2) -
-                          (MediaQuery.of(context).size.width / 8) -
+                          (MediaQuery.of(context).size.width / 15) -
                           5,
                       height: MediaQuery.of(context).size.height / 15,
                       margin: EdgeInsets.fromLTRB(
                           MediaQuery.of(context).size.width / 15, 5, 5, 5),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -252,31 +317,31 @@ class _DashboardState extends State<Dashboard> {
                                     return CircularProgressIndicator();
                                   },
                                 ),
-                                
+
                               ],
                             ),
                           ),
                           SizedBox(width: 2),
-                                Text(
-                                  "Porsi",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14.0,
-                                      fontFamily: 'CircularStd-Bold'),
-                                )
+                          Text(
+                            "Porsi",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.0,
+                                fontFamily: 'CircularStd-Bold'),
+                          )
                         ],
                       ),
                     ),
                     Container(
-                      width: (MediaQuery.of(context).size.width / 1.8) -
+                      width: (MediaQuery.of(context).size.width / 2) -
                           (MediaQuery.of(context).size.width / 15) -
                           5,
                       height: MediaQuery.of(context).size.height / 15,
                       margin: EdgeInsets.fromLTRB(
                           5, 5, MediaQuery.of(context).size.width / 15, 5),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -292,35 +357,26 @@ class _DashboardState extends State<Dashboard> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                             Text(
-                            "Profit",
+                              FaIcon(FontAwesomeIcons.clipboard,
+                                  color: Colors.black, size: 20),
+                              SizedBox(width: 8),
+                            ],
+                          ),
+                          Text(
+                            "12",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontFamily: 'CircularStd-Bold'),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            "Transaksi",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontFamily: 'CircularStd-Bold'),
-                          ),
-                              SizedBox(width: 8),
-                            ],
-                          ),BlocBuilder<ReportBloc, ReportState>(
-                                  builder: (context, state) {
-                                    if (state is ReportLoaded) {
-                                      return Text("Rp "+
-                                        FlutterMoneyFormatter(
-                                                amount: double.parse(
-                                                    state.totalProfit))
-                                            .output
-                                            .withoutFractionDigits,
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18.0,
-                                            fontFamily: 'CircularStd-Bold'),
-                                      );
-                                    }
-                                    return CircularProgressIndicator();
-                                  },
-                                ),
-                          
+                          )
                         ],
                       ),
                     ),
@@ -328,7 +384,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 25),
+                  padding: EdgeInsets.symmetric(vertical: 15),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -347,7 +403,7 @@ class _DashboardState extends State<Dashboard> {
                 )
               ],
             ),
-            preferredSize: Size(0, 285)),
+            preferredSize: Size(0, 350)),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(

@@ -26,7 +26,6 @@ dependencies:
   font_awesome_flutter: ^8.2.0
   flutter_money_formatter: ^0.8.3
   shared_preferences: ^0.5.10
-  fl_chart: ^0.11.1
 
 dev_dependencies:
   flutter_test:

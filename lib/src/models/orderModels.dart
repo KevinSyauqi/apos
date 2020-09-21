@@ -75,6 +75,8 @@ class ListOrder{
   ListOrder(this.listOrder);
 
   ListOrder.fromJson(Map<String, dynamic> json) {
+    print("Masuk");
+    print(json);
     if (json['data'] != null) {
       listOrder = new List<Order>();
       json['data'].forEach((v) {

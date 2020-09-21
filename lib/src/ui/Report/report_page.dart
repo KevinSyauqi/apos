@@ -444,36 +444,55 @@ class _ReportSalesState extends State<ReportSales>
                       BlocBuilder<ReportBloc, ReportState>(
                         builder: (context, state) {
                           if (state is ReportLoaded) {
-                            return buildListMenuSales(state.best5foodsales);
+                            if(state.best5foodsales.listOrderItem.length != 0){
+                              return Column(
+                                children: <Widget>[
+                                  buildListMenuSales(state.best5foodsales),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                        padding: EdgeInsets.all(10),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ReportDetailPage(
+                                                    startDate: _startDate,
+                                                    endDate: _endDate),
+                                              ));
+                                        },
+                                        child: Text(
+                                          "> Lihat Semua Menu",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.deepPurple,
+                                              fontSize: 12.0,
+                                              fontFamily: 'CircularStd-Bold'),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            } else return Container(
+                              height: 50,
+                              child: Center(child: Text(
+                                "Tidak ada data penjualan",
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Medium'),
+                              ),),
+                            );
+
                           }
                           return CircularProgressIndicator();
                         },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          FlatButton(
-                            padding: EdgeInsets.all(10),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ReportDetailPage(
-                                        startDate: _startDate,
-                                        endDate: _endDate),
-                                  ));
-                            },
-                            child: Text(
-                              "> Lihat Semua Menu",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 12.0,
-                                  fontFamily: 'CircularStd-Bold'),
-                            ),
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -500,28 +519,54 @@ class _ReportSalesState extends State<ReportSales>
                       BlocBuilder<ReportBloc, ReportState>(
                         builder: (context, state) {
                           if (state is ReportLoaded) {
-                            return buildListMenuSales(state.best5drinksales);
+                            if(state.best5drinksales.listOrderItem.length != 0){
+                              return Column(
+                                children: <Widget>[
+                                  buildListMenuSales(state.best5drinksales),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                        padding: EdgeInsets.all(10),
+                                        onPressed: (){
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ReportDetailPage(
+                                                    startDate: _startDate,
+                                                    endDate: _endDate),
+                                              ));
+                                        },
+                                        child: Text(
+                                          "> Lihat Semua Menu",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.deepPurple,
+                                              fontSize: 12.0,
+                                              fontFamily: 'CircularStd-Bold'),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            }else return Container(
+                              height: 50,
+                              child: Center(child: Text(
+                                "Tidak ada data penjualan",
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Medium'),
+                              ),),
+                            );
                           }
                           return CircularProgressIndicator();
                         },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          FlatButton(
-                            padding: EdgeInsets.all(10),
-                            onPressed: null,
-                            child: Text(
-                              "> Lihat Semua Menu",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 12.0,
-                                  fontFamily: 'CircularStd-Bold'),
-                            ),
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -548,28 +593,54 @@ class _ReportSalesState extends State<ReportSales>
                       BlocBuilder<ReportBloc, ReportState>(
                         builder: (context, state) {
                           if (state is ReportLoaded) {
-                            return buildListMenuSales(state.lowest5foodsales);
+                            if(state.lowest5foodsales.listOrderItem.length != 0){
+                              return Column(
+                                children: <Widget>[
+                                  buildListMenuSales(state.lowest5foodsales),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                        padding: EdgeInsets.all(10),
+                                        onPressed: (){
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ReportDetailPage(
+                                                    startDate: _startDate,
+                                                    endDate: _endDate),
+                                              ));
+                                        },
+                                        child: Text(
+                                          "> Lihat Semua Menu",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.deepPurple,
+                                              fontSize: 12.0,
+                                              fontFamily: 'CircularStd-Bold'),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            }else return Container(
+                              height: 50,
+                              child: Center(child: Text(
+                                "Tidak ada data penjualan",
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Medium'),
+                              ),),
+                            );
                           }
                           return CircularProgressIndicator();
                         },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          FlatButton(
-                            padding: EdgeInsets.all(10),
-                            onPressed: null,
-                            child: Text(
-                              "> Lihat Semua Menu",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 12.0,
-                                  fontFamily: 'CircularStd-Bold'),
-                            ),
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -596,28 +667,54 @@ class _ReportSalesState extends State<ReportSales>
                       BlocBuilder<ReportBloc, ReportState>(
                         builder: (context, state) {
                           if (state is ReportLoaded) {
-                            return buildListMenuSales(state.lowest5drinksales);
+                            if(state.lowest5drinksales.listOrderItem.length != 0){
+                              return Column(
+                                children: <Widget>[
+                                  buildListMenuSales(state.lowest5drinksales),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                        padding: EdgeInsets.all(10),
+                                        onPressed: (){
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ReportDetailPage(
+                                                    startDate: _startDate,
+                                                    endDate: _endDate),
+                                              ));
+                                        },
+                                        child: Text(
+                                          "> Lihat Semua Menu",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.deepPurple,
+                                              fontSize: 12.0,
+                                              fontFamily: 'CircularStd-Bold'),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              );
+                            }else return Container(
+                              height: 50,
+                              child: Center(child: Text(
+                                "Tidak ada data penjualan",
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12.0,
+                                    fontFamily: 'CircularStd-Medium'),
+                              ),),
+                            );
                           }
                           return CircularProgressIndicator();
                         },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          FlatButton(
-                            padding: EdgeInsets.all(10),
-                            onPressed: null,
-                            child: Text(
-                              "> Lihat Semua Menu",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 12.0,
-                                  fontFamily: 'CircularStd-Bold'),
-                            ),
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -649,7 +746,7 @@ class _ReportSalesState extends State<ReportSales>
                             child: BlocBuilder<ReportBloc,ReportState>(
                               builder: (context,state){
                                 if(state is ReportLoaded){
-                                  if(state.weeklyReportSales != null){
+                                  if(state.weeklyReportSales != null && state.weeklyReportSales.length != 0){
                                     return TimeSeriesRangeAnnotationChart(state.weeklyReportSales);
                                   }
                                     return Center(child: Text("Tidak ada penjualan"));
@@ -691,7 +788,7 @@ class _ReportSalesState extends State<ReportSales>
                             child: BlocBuilder<ReportBloc,ReportState>(
                               builder: (context,state){
                                 if(state is ReportLoaded){
-                                  if(state.weeklyReportSales != null){
+                                  if(state.weeklyReportIncome != null && state.weeklyReportIncome.length != 0){
                                     return TimeSeriesRangeAnnotationChart(state.weeklyReportIncome);
                                   }
                                   return Center(child: Text("Tidak ada penjualan"));
@@ -733,7 +830,7 @@ class _ReportSalesState extends State<ReportSales>
                             child: BlocBuilder<ReportBloc,ReportState>(
                               builder: (context,state){
                                 if(state is ReportLoaded){
-                                  if(state.weeklyReportSales != null){
+                                  if(state.weeklyReportProfit != null && state.weeklyReportProfit.length != 0){
                                     return TimeSeriesRangeAnnotationChart(state.weeklyReportProfit);
                                   }
                                   return Center(child: Text("Tidak ada penjualan"));

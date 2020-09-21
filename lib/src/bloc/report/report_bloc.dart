@@ -128,9 +128,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         final response = await _reportRepository.getReportDetail(
             DateFormat('yyyy-MM-dd').format(event.start_date),
             DateFormat('yyyy-MM-dd').format(event.end_date));
-
         if (response["success"] == true) {
-          ListReport listReport = ListReport.fromJson(response);
+          ListReport listReport = new ListReport([]);
+          listReport = ListReport.fromJson(response);
           yield ReportDetailLoaded(
               listReport: listReport.listReport,
               startDate: event.start_date,
