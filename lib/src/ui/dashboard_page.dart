@@ -205,7 +205,7 @@ class _DashboardState extends State<Dashboard> {
                   children: <Widget>[
                     Container(
                       width: (MediaQuery.of(context).size.width / 2) -
-                          (MediaQuery.of(context).size.width / 15) -
+                          (MediaQuery.of(context).size.width / 8) -
                           5,
                       height: MediaQuery.of(context).size.height / 15,
                       margin: EdgeInsets.fromLTRB(
@@ -269,7 +269,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     Container(
-                      width: (MediaQuery.of(context).size.width / 2) -
+                      width: (MediaQuery.of(context).size.width / 1.8) -
                           (MediaQuery.of(context).size.width / 15) -
                           5,
                       height: MediaQuery.of(context).size.height / 15,
@@ -292,26 +292,35 @@ class _DashboardState extends State<Dashboard> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              FaIcon(FontAwesomeIcons.clipboard,
-                                  color: Colors.black, size: 20),
-                              SizedBox(width: 8),
-                            ],
-                          ),
-                          Text(
-                            "0",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontFamily: 'CircularStd-Bold'),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "Transaksi",
+                             Text(
+                            "Profit",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontFamily: 'CircularStd-Bold'),
-                          )
+                          ),
+                              SizedBox(width: 8),
+                            ],
+                          ),BlocBuilder<ReportBloc, ReportState>(
+                                  builder: (context, state) {
+                                    if (state is ReportLoaded) {
+                                      return Text("Rp "+
+                                        FlutterMoneyFormatter(
+                                                amount: double.parse(
+                                                    state.totalProfit))
+                                            .output
+                                            .withoutFractionDigits,
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18.0,
+                                            fontFamily: 'CircularStd-Bold'),
+                                      );
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
+                                ),
+                          
                         ],
                       ),
                     ),

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:apos/src/bloc/bloc.dart';
+import 'package:apos/src/bloc/manage_photo/manage_photo_bloc.dart';
+import 'package:apos/src/bloc/manage_photo/manage_photo_event.dart';
 import 'package:apos/src/models/menuModels.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -136,7 +138,9 @@ class _ManageMenuAddState extends State<ManageMenuAdd> {
           name_menu: namemenuController.text,
           category: selectedCategory.name,
           price: priceController.text,
-          cost: cogController.text));
+          cost: cogController.text,
+          base64_photo: base64image));
+          
     }
 
     return BlocBuilder<MenuBloc, MenuState>(

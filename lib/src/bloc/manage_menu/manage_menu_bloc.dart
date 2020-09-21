@@ -1,5 +1,6 @@
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/models.dart';
+import 'package:apos/src/models/photoModels.dart';
 import 'package:apos/src/repository/manageMenuRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,6 +43,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       if (event is AddMenuButtonFormPressed) {
         yield MenuAddLoading();
         Menu menu = new Menu(event.name_menu, event.category, int.parse(event.cost), int.parse(event.price));
+        Photo photo = new Photo(event.base64_photo);
         String category;
         print(menu);
         if (event.category == "Makanan")
@@ -49,7 +51,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         else
           menu.category = "drink";
         
-        final response = await _menuRepository.addMenu(menu);
+        final response = await _menuRepository.addMenu(menu, photo);
         final bool success = response['success'];
         if (success) {
           yield MenuAddSuccess();
@@ -65,7 +67,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       if (event is UpdateMenuButtonFormPressed) {
         yield MenuUpdateLoading();
         Menu menu = new Menu(event.name_menu, event.category, int.parse(event.cost), int.parse(event.price));
-        String category;
+        Photo photo;
         menu.id_menu = event.id_menu;
         print(menu);
         if (event.category == "Makanan")
@@ -73,7 +75,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         else
           menu.category = "drink";
         
-        final response = await _menuRepository.updateMenu(menu);
+        final response = await _menuRepository.updateMenu(menu, photo);
         final bool success = response['success'];
         if (success) {
           yield MenuUpdateSuccess();

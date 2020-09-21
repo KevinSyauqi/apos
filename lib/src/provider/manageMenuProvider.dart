@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
+import 'package:apos/src/models/photoModels.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
@@ -22,12 +23,24 @@ class ManageMenuProvider {
     return parsedListResponse(response);
   }
 
-  Future addMenu(Menu menu) async {
+    Future<List<Photo>> fetchAllPhoto() async {
+    final _url = "$_baseUrl/manageMenu/allPhoto";
+
+    final response = await client.get(_url);
+
+    print(response.body.toString());
+    if (response.statusCode != 200) {
+      throw new Exception('Error getting menu');
+    }
+    return parsedListPhotoResponse(response);
+  }
+
+  Future addMenu(Menu menu, Photo photo) async {
     final _url = "$_baseUrl/$_prefix/addMenu";
 
     final Map jsonData = {
       "name_menu": menu.name_menu,
-      "photo_menu": null,
+      "base64_photo": photo.base64_photo,
       "category": menu.category,
       "cost": menu.cost,
       "price": menu.price
@@ -44,9 +57,15 @@ class ManageMenuProvider {
     }
   }
 
-  Future updateMenu(Menu menu) async {
+  Future updateMenu(Menu menu, Photo photo) async {
     final _url = "$_baseUrl/$_prefix/menuUpdate";
-    final Map jsonData = menu.toJson();
+    final Map jsonData = {
+      "name_menu": menu.name_menu,
+      "base64_photo": photo.base64_photo,
+      "category": menu.category,
+      "cost": menu.cost,
+      "price": menu.price
+    };
 
     // print(jsonData);
 
@@ -115,6 +134,7 @@ class ManageMenuProvider {
       throw new Exception('$message');
     }
   }
+  
 
   List<Menu> parsedListResponse(final response) {
     final responseString = jsonDecode(response.body);
@@ -123,6 +143,16 @@ class ManageMenuProvider {
       return ListMenu.fromJson(responseString).menus;
     } else {
       throw Exception('Failed to load menu');
+    }
+  }
+
+    List<Photo> parsedListPhotoResponse(final response) {
+    final responseString = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return ListPhoto.fromJson(responseString).photos;
+    } else {
+      throw Exception('Failed to load photo');
     }
   }
 }

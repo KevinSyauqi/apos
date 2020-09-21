@@ -1,4 +1,5 @@
 import 'package:apos/src/models/menuModels.dart';
+import 'package:apos/src/models/photoModels.dart';
 
 abstract class MenuState {}
 
@@ -34,7 +35,8 @@ class MenuUpdateLoading extends MenuState {}
 
 class MenuUpdateLoaded extends MenuState {
   final Menu menu;
-  MenuUpdateLoaded({this.menu});
+  final Photo photo;
+  MenuUpdateLoaded({this.menu, this.photo});
 }
 
 class MenuUpdateInitialized extends MenuState {}

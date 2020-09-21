@@ -1,4 +1,5 @@
 import 'package:apos/src/models/models.dart';
+import 'package:apos/src/models/photoModels.dart';
 import 'package:apos/src/provider/manageMenuProvider.dart';
 
 class ManageMenuRepository{
@@ -8,9 +9,9 @@ class ManageMenuRepository{
     return await menuProvider.fetchAllMenu();
   }
 
-  Future addMenu(Menu menu) async => await menuProvider.addMenu(menu);
+  Future addMenu(Menu menu, Photo photo) async => await menuProvider.addMenu(menu, photo);
 
-  Future updateMenu(Menu menu) async => await menuProvider.updateMenu(menu);
+  Future updateMenu(Menu menu, Photo photo) async => await menuProvider.updateMenu(menu, photo);
 
   Future deactiveMenu(String id_menu) async => await menuProvider.deactiveMenu(id_menu);
 

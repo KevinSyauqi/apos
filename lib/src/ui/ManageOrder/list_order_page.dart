@@ -172,7 +172,7 @@ class _ListOrderState extends State<ListOrder> {
                                                         fontFamily:
                                                             'CircularStd-Book')),
                                                 order.customer_name != null
-                                                    ? Text("Nomor Meja : ",
+                                                    ? Text("Nomor Meja : " + order.table_number.toString(),
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 14.0,

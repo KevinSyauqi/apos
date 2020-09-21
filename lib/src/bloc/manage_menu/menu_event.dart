@@ -1,4 +1,5 @@
 import 'package:apos/src/models/menuModels.dart';
+import 'package:apos/src/models/photoModels.dart';
 
 class MenuEvent {}
 
@@ -11,14 +12,16 @@ class AddMenuButtonFormPressed extends MenuEvent {
   final String cost;
   final String price;
   final String category;
+  final String base64_photo;
 
-  AddMenuButtonFormPressed({this.name_menu, this.cost, this.price, this.category});
+  AddMenuButtonFormPressed({this.name_menu, this.cost, this.price, this.category, this.base64_photo});
 }
 
 class UpdateMenuButton extends MenuEvent {
   final Menu menu;
+  final Photo photo;
 
-  UpdateMenuButton({this.menu});
+  UpdateMenuButton({this.menu, this.photo});
 }
 
 class UpdateMenuButtonFormPressed extends MenuEvent {
@@ -27,8 +30,9 @@ class UpdateMenuButtonFormPressed extends MenuEvent {
   final String cost;
   final String price;
   final String category;
+   final String base64_photo;
 
-  UpdateMenuButtonFormPressed({this.id_menu, this.name_menu, this.cost, this.price, this.category});
+  UpdateMenuButtonFormPressed({this.id_menu, this.name_menu, this.cost, this.price, this.category, this.base64_photo});
 
 
 }
