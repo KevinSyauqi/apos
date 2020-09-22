@@ -221,6 +221,10 @@ class _ManageMenuState extends State<ManageMenu>
                       height: 55,
                       margin: EdgeInsets.only(right: 15),
                       decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+menu.id_menu)
+                        ),
                         color: Color.fromRGBO(234, 234, 234, 1),
 //                      image: (menu.photo_menu != null) ? DecorationImage(image: MemoryImage(base64Decode(menu.photo_menu))):null,
                         borderRadius: BorderRadius.circular(20),

@@ -60,6 +60,7 @@ class ManageMenuProvider {
   Future updateMenu(Menu menu, Photo photo) async {
     final _url = "$_baseUrl/$_prefix/menuUpdate";
     final Map jsonData = {
+      "id_menu": menu.id_menu,
       "name_menu": menu.name_menu,
       "base64_photo": photo.base64_photo,
       "category": menu.category,

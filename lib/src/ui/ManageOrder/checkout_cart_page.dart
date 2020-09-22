@@ -99,332 +99,350 @@ class _CartOrderState extends State<CartOrder>
             }
           }
         },
-        child: BlocBuilder<CheckoutCartBloc, CheckoutCartState>(
-          builder: (context, state) {
-            return ModalProgressHUD(
-              inAsyncCall: state is CreateOrderLoading,
-              color: Color.fromRGBO(54, 58, 155, 1),
-              progressIndicator: CircularProgressIndicator(),
-              child: Stack(children: <Widget>[
-                Scaffold(
-                  appBar: AppBar(
-                    title: Text(
-                      "Cek Keranjang",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontFamily: 'CircularStd-Bold'),
-                    ),
-                    bottom: PreferredSize(
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 10),
-                            ),
-                            Container(
-                              height: (this.id_order == null) ? 280 : 150,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(250, 250, 250, 1),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(40),
-                                      topRight: Radius.circular(40))),
-                              child: Padding(
-                                padding: EdgeInsets.all(20),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      height: 20,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Center(
-                                          child: Text("Total Pembayaran",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0,
-                                                  fontFamily: 'CircularStd-Bold'))),
-                                    ),
-                                    Container(
-                                        height: 50,
-                                        width: MediaQuery.of(context).size.width,
-                                        child: BlocBuilder<CartBloc, CartState>(
-                                            builder: (context, state) {
-                                              if (state is CartLoaded) {
-                                                return Center(
-                                                    child: Text(
-                                                        "Rp " +
-                                                            FlutterMoneyFormatter(
-                                                                amount: double
-                                                                    .parse(state
-                                                                    .totalPrice
-                                                                    .toString()))
-                                                                .output
-                                                                .withoutFractionDigits,
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 42.0,
-                                                            fontFamily:
-                                                            'CircularStd-Bold')));
-                                              } else
-                                                return Center(
-                                                    child: CircularProgressIndicator());
-                                            })),
-                                    SizedBox(height: 10),
-                                    (this.id_order == null) ? Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 25),
-                                      width: MediaQuery.of(context).size.width,
-                                      alignment: Alignment.center,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                      child: TextFormField(
-                                        controller: tableNumberController,
-                                        validator: (value){
-                                          if(value.isEmpty){
-                                            return "Nomor meja wajib diisi";
-                                          }
-                                          return null;
-                                        },
-                                        textAlign: TextAlign.center,
-                                        keyboardType: TextInputType.numberWithOptions(),
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(20),
-                                            borderSide: BorderSide(
-                                                color: Colors.grey, width: 1),
-                                          ),
-                                          hintText: "Nomor Meja",
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 15.0,
-                                              fontFamily: 'CircularStd-Book'),
-                                        ),
-                                      ),
-                                    ) : Center(),
-                                    (this.id_order == null) ? Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 25),
-                                      width: MediaQuery.of(context).size.width,
-                                      alignment: Alignment.center,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                      child: TextFormField(
-                                        controller: customerNameController,
-                                        textAlign: TextAlign.center,
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(20),
-                                            borderSide: BorderSide(
-                                                color: Colors.grey, width: 1),
-                                          ),
-                                          hintText: "Nama Pelanggan",
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 15.0,
-                                              fontFamily: 'CircularStd-Book'),
-                                        ),
-                                      ),
-                                    ) : Center(),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+        child: BlocListener<CheckoutCartBloc,CheckoutCartState>(
+          listener: (context,state){
+            if(state is AddToOrderSuccess){
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pop(context);
+              });
+            }
+            if(state is CreateOrderSuccess){
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pop(context);
+              });
+            }
+          },
+          child: BlocBuilder<CheckoutCartBloc, CheckoutCartState>(
+            builder: (context, state) {
+              return ModalProgressHUD(
+                inAsyncCall: state is CreateOrderLoading,
+                color: Color.fromRGBO(54, 58, 155, 1),
+                progressIndicator: CircularProgressIndicator(),
+                child: Stack(children: <Widget>[
+                  Scaffold(
+                    appBar: AppBar(
+                      title: Text(
+                        "Cek Keranjang",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontFamily: 'CircularStd-Bold'),
                       ),
-                      preferredSize: (this.id_order == null) ? Size(0, 290) : Size(0,180),
+                      bottom: PreferredSize(
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(top: 10),
+                              ),
+                              Container(
+                                height: (this.id_order == null) ? 280 : 150,
+                                decoration: BoxDecoration(
+                                    color: Color.fromRGBO(250, 250, 250, 1),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(40),
+                                        topRight: Radius.circular(40))),
+                                child: Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 20,
+                                        width: MediaQuery.of(context).size.width,
+                                        child: Center(
+                                            child: Text("Total Pembayaran",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.0,
+                                                    fontFamily: 'CircularStd-Bold'))),
+                                      ),
+                                      Container(
+                                          height: 50,
+                                          width: MediaQuery.of(context).size.width,
+                                          child: BlocBuilder<CartBloc, CartState>(
+                                              builder: (context, state) {
+                                                if (state is CartLoaded) {
+                                                  return Center(
+                                                      child: Text(
+                                                          "Rp " +
+                                                              FlutterMoneyFormatter(
+                                                                  amount: double
+                                                                      .parse(state
+                                                                      .totalPrice
+                                                                      .toString()))
+                                                                  .output
+                                                                  .withoutFractionDigits,
+                                                          style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 42.0,
+                                                              fontFamily:
+                                                              'CircularStd-Bold')));
+                                                } else
+                                                  return Center(
+                                                      child: CircularProgressIndicator());
+                                              })),
+                                      SizedBox(height: 10),
+                                      (this.id_order == null) ? Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 25),
+                                        width: MediaQuery.of(context).size.width,
+                                        alignment: Alignment.center,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(15.0)),
+                                        child: TextFormField(
+                                          controller: tableNumberController,
+                                          validator: (value){
+                                            if(value.isEmpty){
+                                              return "Nomor meja wajib diisi";
+                                            }
+                                            return null;
+                                          },
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.numberWithOptions(),
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey, width: 1),
+                                            ),
+                                            hintText: "Nomor Meja",
+                                            hintStyle: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15.0,
+                                                fontFamily: 'CircularStd-Book'),
+                                          ),
+                                        ),
+                                      ) : Center(),
+                                      (this.id_order == null) ? Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 25),
+                                        width: MediaQuery.of(context).size.width,
+                                        alignment: Alignment.center,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(15.0)),
+                                        child: TextFormField(
+                                          controller: customerNameController,
+                                          textAlign: TextAlign.center,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey, width: 1),
+                                            ),
+                                            hintText: "Nama Pelanggan",
+                                            hintStyle: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15.0,
+                                                fontFamily: 'CircularStd-Book'),
+                                          ),
+                                        ),
+                                      ) : Center(),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        preferredSize: (this.id_order == null) ? Size(0, 290) : Size(0,180),
+                      ),
+                      flexibleSpace: Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromRGBO(252, 195, 108, 1),
+                                  Color.fromRGBO(253, 166, 125, 1),
+                                ])),
+                      ),
+                      elevation: 0.0,
                     ),
-                    flexibleSpace: Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color.fromRGBO(252, 195, 108, 1),
-                                Color.fromRGBO(253, 166, 125, 1),
-                              ])),
-                    ),
-                    elevation: 0.0,
-                  ),
-                  // drawer: AppDrawer(),
-                  body: BlocBuilder<CheckoutCartBloc, CheckoutCartState>(
-                    builder: (context, state) {
-                      return BlocBuilder<CartBloc, CartState>(
-                          builder: (context, state) {
-                            if (state is CheckoutSuccess) {
-                              return Center(child: Text("Success"));
-                            }
-                            if (state is CartError) {
-                              return Center(child: Text("Error"));
-                            }
-                            if (state is CartLoading) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-                            if (state is CartLoaded) {
-                              final currentState = state as CartLoaded;
-                              print(currentState.cart.length);
-                              final listOrder = currentState.cart;
-                              print("Jumlah Sales Line Item :" +
-                                  listOrder.length.toString());
-                              final menus = currentState.menus;
-                              return Container(
-                                height: MediaQuery.of(context).size.height,
-                                width: MediaQuery.of(context).size.width,
-                                child: Stack(
-                                  children: <Widget>[
-                                    ListView.builder(
-                                        itemCount: listOrder.length,
-                                        itemBuilder: (_, index) {
-                                          OrderItem item = listOrder[index];
-                                          return Container(
-                                              decoration: BoxDecoration(
-                                                border: Border(
-                                                    bottom: BorderSide(
-                                                        color: Color.fromRGBO(
-                                                            224, 224, 224, 1),
-                                                        width: 1.0)),
-                                                color:
-                                                Color.fromRGBO(250, 250, 250, 1),
-                                              ),
-                                              width: double.infinity,
-                                              height: 80,
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 25),
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10, horizontal: 5),
-                                              child: Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      width: 55,
-                                                      height: 55,
-                                                      margin:
-                                                      EdgeInsets.only(right: 15),
-                                                      decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            234, 234, 234, 1),
-                                                        borderRadius:
-                                                        BorderRadius.circular(20),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Container(
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          children: <Widget>[
-                                                            Text(item.name_menu,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.black,
-                                                                    fontSize: 16.0,
-                                                                    fontFamily:
-                                                                    'CircularStd-Bold')),
-                                                            Text(
-                                                                "Rp " +
-                                                                    FlutterMoneyFormatter(
-                                                                        amount: double.parse(menus
-                                                                            .firstWhere((menu) =>
-                                                                        menu.id_menu ==
-                                                                            item
-                                                                                .id_menu)
-                                                                            .price
-                                                                            .toString()))
-                                                                        .output
-                                                                        .withoutFractionDigits +
-                                                                    " x " +
-                                                                    item.quantity
-                                                                        .toString(),
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.black,
-                                                                    fontSize: 14.0,
-                                                                    fontFamily:
-                                                                    'CircularStd-Book'))
-                                                          ],
+                    // drawer: AppDrawer(),
+                    body: BlocBuilder<CheckoutCartBloc, CheckoutCartState>(
+                      builder: (context, state) {
+                        return BlocBuilder<CartBloc, CartState>(
+                            builder: (context, state) {
+                              if (state is CheckoutSuccess) {
+                                return Center(child: Text("Success"));
+                              }
+                              if (state is CartError) {
+                                return Center(child: Text("Error"));
+                              }
+                              if (state is CartLoading) {
+                                return Center(child: CircularProgressIndicator());
+                              }
+                              if (state is CartLoaded) {
+                                final currentState = state as CartLoaded;
+                                print(currentState.cart.length);
+                                final listOrder = currentState.cart;
+                                print("Jumlah Sales Line Item :" +
+                                    listOrder.length.toString());
+                                final menus = currentState.menus;
+                                return Container(
+                                  height: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Stack(
+                                    children: <Widget>[
+                                      ListView.builder(
+                                          itemCount: listOrder.length,
+                                          itemBuilder: (_, index) {
+                                            OrderItem item = listOrder[index];
+                                            return Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border(
+                                                      bottom: BorderSide(
+                                                          color: Color.fromRGBO(
+                                                              224, 224, 224, 1),
+                                                          width: 1.0)),
+                                                  color:
+                                                  Color.fromRGBO(250, 250, 250, 1),
+                                                ),
+                                                width: double.infinity,
+                                                height: 80,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 25),
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10, horizontal: 5),
+                                                child: Row(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        width: 55,
+                                                        height: 55,
+                                                        margin:
+                                                        EdgeInsets.only(right: 15),
+                                                        decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image: NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+item.id_menu)
+                                                          ),
+                                                          color: Color.fromRGBO(
+                                                              234, 234, 234, 1),
+                                                          borderRadius:
+                                                          BorderRadius.circular(20),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Expanded(
+                                                      Expanded(
                                                         child: Container(
-                                                            margin:
-                                                            EdgeInsets.symmetric(
-                                                                vertical: 10),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                              children: <Widget>[
-                                                                Text(
-                                                                    "Rp " +
-                                                                        FlutterMoneyFormatter(
-                                                                            amount: double.parse((menus.firstWhere((menu) => menu.id_menu == item.id_menu).price * item.quantity)
-                                                                                .toString()))
-                                                                            .output
-                                                                            .withoutFractionDigits,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                        16.0,
-                                                                        fontFamily:
-                                                                        'CircularStd-Bold')),
-                                                                SizedBox(width: 15),
-                                                                GestureDetector(
-                                                                  onTap: () {},
-                                                                  child: Container(
-                                                                      padding: EdgeInsets.only(
-                                                                          bottom: 4),
-                                                                      width: 32,
-                                                                      height: 32,
-                                                                      alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                      decoration: BoxDecoration(
-                                                                          color: Color.fromRGBO(
-                                                                              54,
-                                                                              58,
-                                                                              155,
-                                                                              1),
-                                                                          borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              13)),
-                                                                      child: Text("x",
-                                                                          style: TextStyle(
-                                                                              color: Colors
-                                                                                  .white,
-                                                                              fontSize:
-                                                                              16.0,
-                                                                              fontFamily: 'CircularStd-Bold'))),
-                                                                ),
-                                                              ],
-                                                            ))),
-                                                  ]));
-                                        }),
-                                    checkout(
-                                        menus, listOrder, currentState.totalPrice),
-                                  ],
-                                ),
-                              );
-                            }
-                            return Center(child: CircularProgressIndicator());
-                          });
-                    },
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                            children: <Widget>[
+                                                              Text(item.name_menu,
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                      Colors.black,
+                                                                      fontSize: 16.0,
+                                                                      fontFamily:
+                                                                      'CircularStd-Bold')),
+                                                              Text(
+                                                                  "Rp " +
+                                                                      FlutterMoneyFormatter(
+                                                                          amount: double.parse(menus
+                                                                              .firstWhere((menu) =>
+                                                                          menu.id_menu ==
+                                                                              item
+                                                                                  .id_menu)
+                                                                              .price
+                                                                              .toString()))
+                                                                          .output
+                                                                          .withoutFractionDigits +
+                                                                      " x " +
+                                                                      item.quantity
+                                                                          .toString(),
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                      Colors.black,
+                                                                      fontSize: 14.0,
+                                                                      fontFamily:
+                                                                      'CircularStd-Book'))
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                          child: Container(
+                                                              margin:
+                                                              EdgeInsets.symmetric(
+                                                                  vertical: 10),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
+                                                                crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                                children: <Widget>[
+                                                                  Text(
+                                                                      "Rp " +
+                                                                          FlutterMoneyFormatter(
+                                                                              amount: double.parse((menus.firstWhere((menu) => menu.id_menu == item.id_menu).price * item.quantity)
+                                                                                  .toString()))
+                                                                              .output
+                                                                              .withoutFractionDigits,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                          16.0,
+                                                                          fontFamily:
+                                                                          'CircularStd-Bold')),
+                                                                  SizedBox(width: 15),
+                                                                  GestureDetector(
+                                                                    onTap: () {},
+                                                                    child: Container(
+                                                                        padding: EdgeInsets.only(
+                                                                            bottom: 4),
+                                                                        width: 32,
+                                                                        height: 32,
+                                                                        alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                        decoration: BoxDecoration(
+                                                                            color: Color.fromRGBO(
+                                                                                54,
+                                                                                58,
+                                                                                155,
+                                                                                1),
+                                                                            borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                13)),
+                                                                        child: Text("x",
+                                                                            style: TextStyle(
+                                                                                color: Colors
+                                                                                    .white,
+                                                                                fontSize:
+                                                                                16.0,
+                                                                                fontFamily: 'CircularStd-Bold'))),
+                                                                  ),
+                                                                ],
+                                                              ))),
+                                                    ]));
+                                          }),
+                                      checkout(
+                                          menus, listOrder, currentState.totalPrice),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Center(child: CircularProgressIndicator());
+                            });
+                      },
+                    ),
                   ),
-                ),
-              ]),
-            );
-          },
+                ]),
+              );
+            },
+          ),
         ),
       ),
       );
@@ -483,8 +501,6 @@ class _CartOrderState extends State<CartOrder>
                                 } else {
                                   await _onCreateOrderButtonPressed(
                                       listOrderItem, totalPrice);
-                                  await Future.delayed(Duration(seconds: 1));
-                                  Navigator.pop(context, "Success");
                                 }
                               }
                             },

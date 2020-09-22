@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:apos/src/bloc/bloc.dart';
 import 'package:apos/src/models/menuModels.dart';
@@ -39,6 +41,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
   Menu menu;
   MenuBloc _menuBloc;
   bool isStock = false;
+  NetworkImage netImage;
   File _image;
   final picker = ImagePicker();
   String base64image;
@@ -151,7 +154,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
           name_menu: namemenuController.text,
           category: selectedCategory.name,
           price: priceController.text,
-          cost: cogController.text));
+          cost: cogController.text,base64_photo: base64image));
     }
     return BlocListener<MenuBloc,MenuState>(
       listener: (context,state){
@@ -165,6 +168,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
         builder: (context, state) {
           if (state is MenuUpdateLoaded) {
             this.menu = state.menu;
+            this.netImage = NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+this.menu.id_menu);
             namemenuController.text = this.menu.name_menu;
             priceController.text = this.menu.price.toString();
             cogController.text = this.menu.cost.toString();
@@ -197,15 +201,12 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                         child: _image == null
                             ? Container(
                           decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: (netImage != null)? netImage:null
+                            ),
                             color: Color.fromRGBO(234, 234, 234, 1),
                           ),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.restaurant,
-                                color: Colors.grey[500],
-                                size: 80,
-                              )),
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height / 1.7,
                         )

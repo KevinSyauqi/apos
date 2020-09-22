@@ -67,7 +67,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       if (event is UpdateMenuButtonFormPressed) {
         yield MenuUpdateLoading();
         Menu menu = new Menu(event.name_menu, event.category, int.parse(event.cost), int.parse(event.price));
-        Photo photo;
+        Photo photo = new Photo(event.base64_photo);
         menu.id_menu = event.id_menu;
         print(menu);
         if (event.category == "Makanan")

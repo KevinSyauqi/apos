@@ -31,6 +31,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   DateTime _startDate = DateTime.now().subtract(Duration(days: 1));
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
+  DashboardBloc _dashboardBloc;
   HomeBloc _homeBloc;
   ReportBloc _reportBloc;
   String name_user = "";
@@ -48,6 +49,8 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     getNameUser();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _dashboardBloc = BlocProvider.of<DashboardBloc>(context);
+    _dashboardBloc.add(FetchDashboard());
     _reportBloc = BlocProvider.of<ReportBloc>(context);
     _reportBloc.add(GenerateReportSales(end_date: DateTime.now()));
   }
@@ -157,7 +160,7 @@ class _DashboardState extends State<Dashboard> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          FaIcon(FontAwesomeIcons.shoppingBasket,
+                          FaIcon(FontAwesomeIcons.moneyBillAlt,
                               color: Colors.black, size: 20),
                           SizedBox(width: 8),
                           Text(
@@ -222,7 +225,7 @@ class _DashboardState extends State<Dashboard> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          FaIcon(FontAwesomeIcons.shoppingBasket,
+                          FaIcon(FontAwesomeIcons.coins,
                               color: Colors.black, size: 20),
                           SizedBox(width: 8),
                           Text(
@@ -362,20 +365,33 @@ class _DashboardState extends State<Dashboard> {
                               SizedBox(width: 8),
                             ],
                           ),
-                          Text(
-                            "12",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontFamily: 'CircularStd-Bold'),
+                          BlocBuilder<DashboardBloc,DashboardState>(
+                            builder: (context,state){
+                              if(state is DashboardLoaded){
+                                return Text(
+                                  state.countOrder.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontFamily: 'CircularStd-Bold'),
+                                );
+                              }
+                              if(state is DashboardLoading){
+                                return Center(child: CircularProgressIndicator());
+                              }
+                              return Center();
+                            },
                           ),
                           SizedBox(width: 8),
-                          Text(
-                            "Transaksi",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'CircularStd-Bold'),
+                          Container(
+                            width: 55,
+                            child: Text(
+                              "Pesanan Aktif",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'CircularStd-Bold'),
+                            ),
                           )
                         ],
                       ),
