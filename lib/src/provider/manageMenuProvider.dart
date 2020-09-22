@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:apos/src/constant.dart';
 import 'package:apos/src/models/models.dart';
@@ -59,6 +60,7 @@ class ManageMenuProvider {
 
   Future updateMenu(Menu menu, Photo photo) async {
     final _url = "$_baseUrl/$_prefix/menuUpdate";
+
     final Map jsonData = {
       "id_menu": menu.id_menu,
       "name_menu": menu.name_menu,
@@ -67,14 +69,10 @@ class ManageMenuProvider {
       "cost": menu.cost,
       "price": menu.price
     };
-
-    // print(jsonData);
-
     final response = await client.put("$_url",
         headers: {"Content-Type": "application/json"},
         body: json.encode(jsonData));
     final responseString = jsonDecode(response.body);
-    print(response.body);
     if (response.statusCode == 201) {
       return responseString;
     } else {
