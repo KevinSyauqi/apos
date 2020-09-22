@@ -74,6 +74,7 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                       child: BlocBuilder<CheckoutOrderBloc, CheckoutOrderState>(
                           builder: (context, state) {
                         if (state is CheckoutOrderLoaded) {
+                          imageCache.clearLiveImages();
                           return Column(
                             children: <Widget>[
                               Container(

@@ -160,6 +160,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
       listener: (context,state){
         if(state is MenuUpdateSuccess){
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            imageCache.clearLiveImages();
             Navigator.pop(context);
           });
         }

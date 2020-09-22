@@ -165,6 +165,7 @@ class _ManageStockState extends State<ManageStock>
                         return BlocBuilder<ManageStockBloc, ManageStockState>(
                             builder: (context, state) {
                               if (state is ManageStockLoaded) {
+                                imageCache.clearLiveImages();
                                 return TabBarView(
                                   controller: controller,
                                   children: <Widget>[

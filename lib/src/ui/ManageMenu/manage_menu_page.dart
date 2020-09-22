@@ -34,7 +34,7 @@ class _ManageMenuState extends State<ManageMenu>
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ManageMenuEditPage(menu: menu)));
+            builder: (context) => ManageMenuEditPage(menu: menu))).then((value) =>  _menuBloc.add(FetchingAllMenu()));
   }
 
   @override
@@ -162,6 +162,7 @@ class _ManageMenuState extends State<ManageMenu>
                     _menuBloc.add(FetchingAllMenu());
                   }
                   if (state is MenuLoaded) {
+                    imageCache.clearLiveImages();
                     return TabBarView(
                       controller: controller,
                       children: <Widget>[

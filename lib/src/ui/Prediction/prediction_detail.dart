@@ -82,6 +82,7 @@ class _PredictionDetailState extends State<PredictionDetail> {
                 return Center(child: CircularProgressIndicator());
               }
               if (state is PredictionDetailLoaded) {
+                imageCache.clearLiveImages();
                 return Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
@@ -112,6 +113,10 @@ class _PredictionDetailState extends State<PredictionDetail> {
                                     height: 55,
                                     margin: EdgeInsets.only(right: 15),
                                     decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+prediction.id_menu)
+                                      ),
                                       color: Color.fromRGBO(234, 234, 234, 1),
 //                      image: (menu.photo_menu != null) ? DecorationImage(image: MemoryImage(base64Decode(menu.photo_menu))):null,
                                       borderRadius: BorderRadius.circular(20),

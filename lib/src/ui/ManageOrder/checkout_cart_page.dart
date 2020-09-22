@@ -92,6 +92,7 @@ class _CartOrderState extends State<CartOrder>
       body: BlocListener<CartBloc,CartState>(
         listener: (context,state){
           if(state is CartLoaded){
+            imageCache.clearLiveImages();
             if(state.id_order != null){
               setState(() {
                 this.id_order = state.id_order;
@@ -103,12 +104,12 @@ class _CartOrderState extends State<CartOrder>
           listener: (context,state){
             if(state is AddToOrderSuccess){
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pop(context);
+                Navigator.pop(context,"Done");
               });
             }
             if(state is CreateOrderSuccess){
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pop(context);
+                Navigator.pop(context,"Success");
               });
             }
           },
@@ -496,8 +497,6 @@ class _CartOrderState extends State<CartOrder>
                                 if (state.id_order != null) {
                                   await _onAddToOrderButtonPressed(
                                       state.id_order, listOrderItem, totalPrice);
-                                  await Future.delayed(Duration(seconds: 1));
-                                  Navigator.pop(context, "Done");
                                 } else {
                                   await _onCreateOrderButtonPressed(
                                       listOrderItem, totalPrice);
