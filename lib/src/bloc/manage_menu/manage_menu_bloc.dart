@@ -74,7 +74,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
           menu.category = "food";
         else
           menu.category = "drink";
-        
+        print("Masuk");
         final response = await _menuRepository.updateMenu(menu, photo);
         final bool success = response['success'];
         if (success) {

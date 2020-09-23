@@ -160,24 +160,21 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
       listener: (context,state){
         if(state is MenuUpdateSuccess){
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            imageCache.clear();
             imageCache.clearLiveImages();
-            Navigator.pop(context);
+            Navigator.pop(context,true);
           });
+        }
+        if(state is MenuUpdateLoaded){
+          this.menu = state.menu;
+          this.netImage = NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+this.menu.id_menu);
+          namemenuController.text = this.menu.name_menu;
+          priceController.text = this.menu.price.toString();
+          cogController.text = this.menu.cost.toString();
         }
       },
       child: BlocBuilder<MenuBloc, MenuState>(
         builder: (context, state) {
-          if (state is MenuUpdateLoaded) {
-            this.menu = state.menu;
-            this.netImage = NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+this.menu.id_menu);
-            namemenuController.text = this.menu.name_menu;
-            priceController.text = this.menu.price.toString();
-            cogController.text = this.menu.cost.toString();
-            // if (menu.category == "food")
-            //   selectedCategory = category[0];
-            // else
-            //   selectedCategory = category[1];
-          }
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -358,6 +355,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                                         Radius.circular(20))),
                                                 child: TextFormField(
                                                   controller: priceController,
+                                                  keyboardType: TextInputType.numberWithOptions(),
                                                   validator: (value){
                                                     if(value.isEmpty){
                                                       return "Hagra jual tidak boleh kosong";
@@ -406,6 +404,7 @@ class _ManageMenuEditState extends State<ManageMenuEdit> {
                                                       .width,
                                                   height: 50,
                                                   child: DropdownButtonFormField(
+
                                                     validator: (value){
                                                       if(value.toString() == null || value.toString() == ""){
                                                         return "Harap pilih kategori";

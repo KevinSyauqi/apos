@@ -17,6 +17,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   Stream<ReportState> mapEventToState(ReportEvent event) async* {
     try {
       if (event is GenerateReportSales) {
+        yield ReportLoading();
         DateTime startDate;
         DateTime endDate;
         if (event.start_date == null) {

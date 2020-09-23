@@ -32,9 +32,12 @@ class _ManageMenuState extends State<ManageMenu>
 
   _onUpdateButtonPressed(Menu menu) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ManageMenuEditPage(menu: menu))).then((value) =>  _menuBloc.add(FetchingAllMenu()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => ManageMenuEditPage(menu: menu)))
+        .then((value) {
+      if (value) _menuBloc.add(FetchingAllMenu());
+    });
   }
 
   @override
@@ -70,10 +73,7 @@ class _ManageMenuState extends State<ManageMenu>
                 children: <Widget>[
                   Container(
                     height: 60,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(250, 250, 250, 1),
                         borderRadius: BorderRadius.only(
@@ -95,8 +95,8 @@ class _ManageMenuState extends State<ManageMenu>
                             Tab(
                               child: Container(
                                 width: 150,
-                                child: Text("Makanan"
-                                    , textAlign: TextAlign.center,
+                                child: Text("Makanan",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16.0,
@@ -106,8 +106,8 @@ class _ManageMenuState extends State<ManageMenu>
                             Tab(
                               child: Container(
                                 width: 150,
-                                child: Text("Minuman"
-                                    , textAlign: TextAlign.center,
+                                child: Text("Minuman",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16.0,
@@ -136,22 +136,16 @@ class _ManageMenuState extends State<ManageMenu>
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color.fromRGBO(252, 195, 108, 1),
-                        Color.fromRGBO(253, 166, 125, 1),
-                      ])),
+                    Color.fromRGBO(252, 195, 108, 1),
+                    Color.fromRGBO(253, 166, 125, 1),
+                  ])),
             ),
             elevation: 0.0,
           ),
           drawer: AppDrawer(),
           body: Container(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: Stack(
               children: <Widget>[
                 BlocBuilder<MenuBloc, MenuState>(builder: (context, state) {
@@ -223,9 +217,10 @@ class _ManageMenuState extends State<ManageMenu>
                       margin: EdgeInsets.only(right: 15),
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage("https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu="+menu.id_menu)
-                        ),
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                                "https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu=" +
+                                    menu.id_menu)),
                         color: Color.fromRGBO(234, 234, 234, 1),
 //                      image: (menu.photo_menu != null) ? DecorationImage(image: MemoryImage(base64Decode(menu.photo_menu))):null,
                         borderRadius: BorderRadius.circular(20),
@@ -254,8 +249,8 @@ class _ManageMenuState extends State<ManageMenu>
                                     fontFamily: 'CircularStd-Book')),
                             Text(
                                 FlutterMoneyFormatter(
-                                    amount:
-                                    double.parse(menu.price.toString()))
+                                        amount:
+                                            double.parse(menu.price.toString()))
                                     .output
                                     .withoutFractionDigits,
                                 style: TextStyle(
@@ -290,37 +285,41 @@ class _ManageMenuState extends State<ManageMenu>
                               ),
                             ),
                             SizedBox(width: 5),
-                            (menu.is_active == true) ? Container(
-                              width: 32,
-                              height: 32,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(54, 58, 155, 1),
-                                  borderRadius: BorderRadius.circular(13)),
-                              child: IconButton(
-                                icon: Icon(Icons.delete),
-                                iconSize: 17,
-                                color: Colors.white,
-                                onPressed: () {
-                                  _showAlertDelete(menu.id_menu);
-                                },
-                              ),
-                            ) : Container(
-                              width: 32,
-                              height: 32,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(54, 58, 155, 1),
-                                  borderRadius: BorderRadius.circular(13)),
-                              child: IconButton(
-                                icon: Icon(Icons.check),
-                                iconSize: 17,
-                                color: Colors.white,
-                                onPressed: () {
-                                  _showAlertActive(menu.id_menu);
-                                },
-                              ),
-                            ),
+                            (menu.is_active == true)
+                                ? Container(
+                                    width: 32,
+                                    height: 32,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Color.fromRGBO(54, 58, 155, 1),
+                                        borderRadius:
+                                            BorderRadius.circular(13)),
+                                    child: IconButton(
+                                      icon: Icon(Icons.delete),
+                                      iconSize: 17,
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        _showAlertDelete(menu.id_menu);
+                                      },
+                                    ),
+                                  )
+                                : Container(
+                                    width: 32,
+                                    height: 32,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Color.fromRGBO(54, 58, 155, 1),
+                                        borderRadius:
+                                            BorderRadius.circular(13)),
+                                    child: IconButton(
+                                      icon: Icon(Icons.check),
+                                      iconSize: 17,
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        _showAlertActive(menu.id_menu);
+                                      },
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
@@ -348,39 +347,42 @@ class _ManageMenuState extends State<ManageMenu>
             actions: <Widget>[
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: Container(width: MediaQuery.of(context).size.width,
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
-                    RaisedButton(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 16, horizontal: 40),
-                        color: Color.fromRGBO(54, 58, 155, 1),
-                        elevation: 5,
-                        onPressed: () async {
-                          _menuBloc.add(DeactiveMenu(id_menu: id_menu));
-                          Navigator.pop(context);
-                        },
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(100.0))),
-                        child: Text("Nonaktifkan",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ))),
-                    SizedBox(width: 10),
-                    RaisedButton(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 16, horizontal: 40),
-                        color: Color.fromRGBO(234, 234, 234, 1),
-                        elevation: 5,
-                        onPressed: () => Navigator.pop(context),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(100.0))),
-                        child: Text("Batal",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ))),
-                  ]),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(54, 58, 155, 1),
+                            elevation: 5,
+                            onPressed: () async {
+                              _menuBloc.add(DeactiveMenu(id_menu: id_menu));
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Nonaktifkan",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ))),
+                        SizedBox(width: 10),
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            elevation: 5,
+                            onPressed: () => Navigator.pop(context),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Batal",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ))),
+                      ]),
                 ),
               )
             ],
@@ -406,38 +408,40 @@ class _ManageMenuState extends State<ManageMenu>
                 margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: <Widget>[
-                    RaisedButton(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 16, horizontal: 40),
-                        color: Color.fromRGBO(54, 58, 155, 1),
-                        elevation: 5,
-                        onPressed: () async {
-                          await _menuBloc.add(ActiveMenu(id_menu: id_menu));
-                          Navigator.pop(context);
-                        },
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(100.0))),
-                        child: Text("Aktifkan",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ))),
-                    SizedBox(width: 10),
-                    RaisedButton(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 16, horizontal: 40),
-                        color: Color.fromRGBO(234, 234, 234, 1),
-                        elevation: 5,
-                        onPressed: () => Navigator.pop(context),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(100.0))),
-                        child: Text("Batal",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ))),
-                  ]),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(54, 58, 155, 1),
+                            elevation: 5,
+                            onPressed: () async {
+                              await _menuBloc.add(ActiveMenu(id_menu: id_menu));
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Aktifkan",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ))),
+                        SizedBox(width: 10),
+                        RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 40),
+                            color: Color.fromRGBO(234, 234, 234, 1),
+                            elevation: 5,
+                            onPressed: () => Navigator.pop(context),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100.0))),
+                            child: Text("Batal",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ))),
+                      ]),
                 ),
               )
             ],
@@ -456,10 +460,7 @@ class _ManageMenuState extends State<ManageMenu>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 // margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 alignment: Alignment.center,
@@ -496,7 +497,9 @@ class _ManageMenuState extends State<ManageMenu>
                         MaterialPageRoute(
                             builder: (context) => ManageMenuAddPage()),
                       ).then((value) {
-                        _menuBloc.add(FetchingAllMenu());
+                        if (value) {
+                          _menuBloc.add(FetchingAllMenu());
+                        }
                       });
                     },
                   ),

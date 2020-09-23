@@ -146,7 +146,7 @@ class _ManageMenuAddState extends State<ManageMenuAdd> {
       listener: (context,state){
         if(state is MenuAddSuccess){
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pop(context);
+            Navigator.pop(context,true);
           });
         }
       },
@@ -291,7 +291,7 @@ class _ManageMenuAddState extends State<ManageMenuAdd> {
                                                       Radius.circular(20))),
                                               child: TextFormField(
                                                 controller: cogController,
-                                                keyboardType: TextInputType.numberWithOptions(),
+                                                keyboardType: TextInputType.number,
                                                 validator: (value){
                                                   if(value.isEmpty){
                                                     return "Harga dasar tidak boleh kosong";
@@ -332,6 +332,7 @@ class _ManageMenuAddState extends State<ManageMenuAdd> {
                                                       Radius.circular(20))),
                                               child: TextFormField(
                                                 controller: priceController,
+                                                keyboardType: TextInputType.number,
                                                 validator: (value){
                                                   if(value.isEmpty){
                                                     return "Harga jual tidak boleh kosong";

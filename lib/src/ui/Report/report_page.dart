@@ -69,24 +69,6 @@ class _ReportSalesState extends State<ReportSales>
 
   @override
   Widget build(BuildContext context) {
-    var data = [
-      SalesData("2019-03-01", 1000),
-      SalesData("", 1600),
-      SalesData("", 1000),
-      SalesData("", 4000),
-      SalesData("", 3000),
-      SalesData("", 1500),
-      SalesData("2019-04-30", 2400)
-    ];
-
-//    var series = [
-//      new charts.Series(
-//          id: "Sales",
-//          data: data,
-//          domainFn: (SalesData sales, _) => sales.,
-//          measureFn: (SalesData sales,_) => sales.sales)
-//    ];
-
     return Scaffold(
       drawer: AppDrawer(),
       body: CustomScrollView(
@@ -183,9 +165,12 @@ class _ReportSalesState extends State<ReportSales>
                                                 ],
                                               );
                                             }
-                                            return Center(
-                                                child:
-                                                    CircularProgressIndicator());
+                                            if(state is ReportLoading){
+                                              return Center(
+                                                  child:
+                                                  CircularProgressIndicator());
+                                            }
+                                            return Center();
                                           },
                                         ),
                                       ),
@@ -278,9 +263,12 @@ class _ReportSalesState extends State<ReportSales>
                                                             'CircularStd-Bold'),
                                                   );
                                                 }
-                                                return Center(
-                                                    child:
-                                                        CircularProgressIndicator());
+                                                if(state is ReportLoading){
+                                                  return Center(
+                                                      child:
+                                                      CircularProgressIndicator());
+                                                }
+                                                return Center();
                                               },
                                             ),
                                           )
@@ -334,7 +322,12 @@ class _ReportSalesState extends State<ReportSales>
                                                                 'CircularStd-Bold'),
                                                       );
                                                     }
-                                                    return CircularProgressIndicator();
+                                                    if(state is ReportLoading){
+                                                      return Center(
+                                                          child:
+                                                          CircularProgressIndicator());
+                                                    }
+                                                    return Center();
                                                   },
                                                 ),
                                                 SizedBox(width: 10),
@@ -490,7 +483,12 @@ class _ReportSalesState extends State<ReportSales>
                             );
 
                           }
-                          return CircularProgressIndicator();
+                          if(state is ReportLoading){
+                            return Center(
+                                child:
+                                CircularProgressIndicator());
+                          }
+                          return Center();
                         },
                       ),
                     ],
@@ -564,7 +562,12 @@ class _ReportSalesState extends State<ReportSales>
                               ),),
                             );
                           }
-                          return CircularProgressIndicator();
+                          if(state is ReportLoading){
+                            return Center(
+                                child:
+                                CircularProgressIndicator());
+                          }
+                          return Center();
                         },
                       ),
                     ],
@@ -638,7 +641,12 @@ class _ReportSalesState extends State<ReportSales>
                               ),),
                             );
                           }
-                          return CircularProgressIndicator();
+                          if(state is ReportLoading){
+                            return Center(
+                                child:
+                                CircularProgressIndicator());
+                          }
+                          return Center();
                         },
                       ),
                     ],
@@ -712,7 +720,12 @@ class _ReportSalesState extends State<ReportSales>
                               ),),
                             );
                           }
-                          return CircularProgressIndicator();
+                          if(state is ReportLoading){
+                            return Center(
+                                child:
+                                CircularProgressIndicator());
+                          }
+                          return Center();
                         },
                       ),
                     ],
@@ -750,6 +763,11 @@ class _ReportSalesState extends State<ReportSales>
                                     return TimeSeriesRangeAnnotationChart(state.weeklyReportSales);
                                   }
                                     return Center(child: Text("Tidak ada penjualan"));
+                                }
+                                if(state is ReportLoading){
+                                  return Center(
+                                      child:
+                                      CircularProgressIndicator());
                                 }
                                 return Center();
                               },
@@ -793,6 +811,11 @@ class _ReportSalesState extends State<ReportSales>
                                   }
                                   return Center(child: Text("Tidak ada penjualan"));
                                 }
+                                if(state is ReportLoading){
+                                  return Center(
+                                      child:
+                                      CircularProgressIndicator());
+                                }
                                 return Center();
                               },
                             ),
@@ -834,6 +857,11 @@ class _ReportSalesState extends State<ReportSales>
                                     return TimeSeriesRangeAnnotationChart(state.weeklyReportProfit);
                                   }
                                   return Center(child: Text("Tidak ada penjualan"));
+                                }
+                                if(state is ReportLoading){
+                                  return Center(
+                                      child:
+                                      CircularProgressIndicator());
                                 }
                                 return Center();
                               },
