@@ -397,34 +397,6 @@ class _CartOrderState extends State<CartOrder>
                                                                           16.0,
                                                                           fontFamily:
                                                                           'CircularStd-Bold')),
-                                                                  SizedBox(width: 15),
-                                                                  GestureDetector(
-                                                                    onTap: () {},
-                                                                    child: Container(
-                                                                        padding: EdgeInsets.only(
-                                                                            bottom: 4),
-                                                                        width: 32,
-                                                                        height: 32,
-                                                                        alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                        decoration: BoxDecoration(
-                                                                            color: Color.fromRGBO(
-                                                                                54,
-                                                                                58,
-                                                                                155,
-                                                                                1),
-                                                                            borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                13)),
-                                                                        child: Text("x",
-                                                                            style: TextStyle(
-                                                                                color: Colors
-                                                                                    .white,
-                                                                                fontSize:
-                                                                                16.0,
-                                                                                fontFamily: 'CircularStd-Bold'))),
-                                                                  ),
                                                                 ],
                                                               ))),
                                                     ]));
