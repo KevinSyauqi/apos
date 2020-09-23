@@ -398,7 +398,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 15),
                   width: MediaQuery.of(context).size.width,
@@ -419,7 +419,7 @@ class _DashboardState extends State<Dashboard> {
                 )
               ],
             ),
-            preferredSize: Size(0, 310)),
+            preferredSize: Size(0, 350)),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -441,8 +441,8 @@ class _DashboardState extends State<Dashboard> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: MediaQuery.of(context).size.width / 9),
+                      vertical: 10,
+                      horizontal: MediaQuery.of(context).size.width / 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -648,8 +648,8 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: MediaQuery.of(context).size.width / 9),
+                      vertical: 10,
+                      horizontal: MediaQuery.of(context).size.width / 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -852,7 +852,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: 5,
+                      vertical: 10,
                       horizontal: MediaQuery.of(context).size.width / 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
