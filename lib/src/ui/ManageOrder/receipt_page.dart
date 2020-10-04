@@ -58,23 +58,6 @@ class _ReceiptSalesState extends State<ReceiptSales> {
               bottom: PreferredSize(
                 child: Column(
                   children: <Widget>[
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(horizontal: 30),
-                    //   width: MediaQuery.of(context).size.width,
-                    //   height: 220,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(25),
-                    //     color: Colors.white,
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         color: Colors.grey,
-                    //         offset: Offset(0.0, 2.0),
-                    //         blurRadius: 5.0,
-                    //       ),
-                    //     ],
-                    //   ),
-
-                    // ),
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                     ),
@@ -305,8 +288,12 @@ class _ReceiptSalesState extends State<ReceiptSales> {
                         width: 55,
                         height: 55,
                         margin: EdgeInsets.only(right: 15),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(234, 234, 234, 1),
+                        decoration: BoxDecoration(image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                                "https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu=" +
+                                    orderItem.id_menu)),
+                            color: Color.fromRGBO(234, 234, 234, 1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),

@@ -31,6 +31,7 @@ class AuthenticationBloc
       prefs.setString("token", event.token.toString());
       prefs.setString("id_user", event.user.id_user.toString());
       prefs.setString("name_user", event.user.name_user.toString());
+      prefs.setString("role", event.user.role.toString());
 
       yield AuthenticationSuccess(user: event.user, token: event.token);
     }

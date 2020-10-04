@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutOrderPage extends StatelessWidget {
   final id_order;
@@ -30,11 +31,20 @@ class CheckoutOrder extends StatefulWidget {
 
 class _CheckoutOrderState extends State<CheckoutOrder> {
   CheckoutOrderBloc _checkoutBloc;
+  String role = "";
 
+  getRole() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String role = prefs.getString("role");
+    setState(() {
+      this.role = role;
+    });
+  }
   @override
   void initState() {
     super.initState();
     _checkoutBloc = BlocProvider.of<CheckoutOrderBloc>(context);
+    getRole();
   }
 
   @override
@@ -154,7 +164,7 @@ class _CheckoutOrderState extends State<CheckoutOrder> {
                 print(state.listOrderItem.listOrderItem.length);
                 return Stack(children: <Widget>[
                   buildListOrderItem(context, state.listOrderItem),
-                  processPayment(state.order)
+                  (this.role == "waitress") ? Center() : processPayment(state.order)
                 ]);
               }
               return Center(child: CircularProgressIndicator());

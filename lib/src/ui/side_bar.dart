@@ -15,13 +15,16 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   HomeBloc _homeBloc;
-  String name_user;
+  String name_user = "";
+  String role = "";
 
   getNameUser() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String name_user = prefs.getString("name_user");
+    String role = prefs.getString("role");
     setState(() {
       this.name_user = name_user;
+      this.role = role[0].toUpperCase()+role.substring(1);
     });
   }
 
@@ -75,7 +78,12 @@ class _AppDrawerState extends State<AppDrawer> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22.0,
-                                      fontFamily: 'CircularStd-Bold'))
+                                      fontFamily: 'CircularStd-Bold')),
+                              Text(this.role,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontFamily: 'CircularStd-Book'))
                             ],
                           )
                         ]),
@@ -156,7 +164,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               width: 1.0))),
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(horizontal: 10)),
-              ListTile(
+              (this.role == "Manager") ? ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
                     child: Icon(Icons.restaurant)),
@@ -170,16 +178,16 @@ class _AppDrawerState extends State<AppDrawer> {
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeMenuPageLoad());
                 },
-              ),
-              Container(
+              ) : Center(),
+              (this.role == "manager") ? Container(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               color: Color.fromRGBO(224, 224, 224, 1),
                               width: 1.0))),
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 10)),
-              ListTile(
+                  margin: EdgeInsets.symmetric(horizontal: 10)) : Center(),
+              (this.role == "Manager") ? ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
                     child: FaIcon(FontAwesomeIcons.cubes)),
@@ -193,16 +201,16 @@ class _AppDrawerState extends State<AppDrawer> {
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeManageStockPageLoad());
                 },
-              ),
-              Container(
+              ) : Center(),
+              (this.role == "Manager") ? Container(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               color: Color.fromRGBO(224, 224, 224, 1),
                               width: 1.0))),
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 10)),
-              ListTile(
+                  margin: EdgeInsets.symmetric(horizontal: 10)) : Center(),
+              (this.role == "Manager") ? ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
                     child: FaIcon(FontAwesomeIcons.chartBar)),
@@ -216,16 +224,16 @@ class _AppDrawerState extends State<AppDrawer> {
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomeReportPageLoad());
                 },
-              ),
-              Container(
+              ) : Center(),
+              (this.role == "Manager") ? Container(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               color: Color.fromRGBO(224, 224, 224, 1),
                               width: 1.0))),
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 10)),
-              ListTile(
+                  margin: EdgeInsets.symmetric(horizontal: 10)) : Center(),
+              (this.role == "Manager") ? ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),
                     child: FaIcon(FontAwesomeIcons.calendarCheck)),
@@ -239,15 +247,15 @@ class _AppDrawerState extends State<AppDrawer> {
                   await Future.delayed(Duration(milliseconds: 300));
                   _homeBloc.add(HomePredictionPageLoad());
                 },
-              ),
-              Container(
+              ) : Center(),
+              (this.role == "Manager") ? Container(
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               color: Color.fromRGBO(224, 224, 224, 1),
                               width: 1.0))),
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 10)),
+                  margin: EdgeInsets.symmetric(horizontal: 10)) : Center(),
               ListTile(
                 leading: IconTheme(
                     data: IconThemeData(color: Colors.black),

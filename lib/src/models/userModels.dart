@@ -7,6 +7,7 @@ class User {
   String _name_user;
   String _username;
   String _password_user;
+  String _role;
   bool _status;
 
   User(this._name_user, this._username, this._password_user);
@@ -18,6 +19,8 @@ class User {
   String get username => _username;
 
   String get password_user => _password_user;
+
+  String get role => _role;
 
   bool get status => _status;
 
@@ -42,6 +45,7 @@ class User {
     _id_user = json["id_user"];
     _name_user = json['name_user'];
     _username = json['username'];
+    _role = json['role_name'];
     _password_user = json['password'];
   }
 

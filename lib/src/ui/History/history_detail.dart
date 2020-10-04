@@ -260,8 +260,11 @@ Widget buildListMenuTransaction(List<OrderItem> listOrderItem) {
                 width: 55,
                 height: 55,
                 margin: EdgeInsets.only(right: 15),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(234, 234, 234, 1),
+                decoration: BoxDecoration(image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        "https://apos-server-kota202.et.r.appspot.com/manageMenu/photo?id_menu=" + item.id_menu)),
+                    color: Color.fromRGBO(234, 234, 234, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),

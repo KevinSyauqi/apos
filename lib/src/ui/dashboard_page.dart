@@ -35,12 +35,15 @@ class _DashboardState extends State<Dashboard> {
   HomeBloc _homeBloc;
   ReportBloc _reportBloc;
   String name_user = "";
+  String role = "";
 
   getNameUser() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String name_user = prefs.getString("name_user");
+    String role = prefs.getString("role");
     setState(() {
       this.name_user = name_user;
+      this.role = role;
     });
   }
 
@@ -528,7 +531,7 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
-                              _homeBloc.add(HomeMenuPageLoad());
+                              _homeBloc.add(HomeHistoryPageLoad());
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -546,7 +549,7 @@ class _DashboardState extends State<Dashboard> {
                                         height: 30,
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(30),
+                                            BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
@@ -557,12 +560,12 @@ class _DashboardState extends State<Dashboard> {
                                                       253, 166, 125, 0.3)
                                                 ])),
                                       ),
-                                      Icon(Icons.restaurant, size: 30)
+                                      Icon(Icons.history, size: 30)
                                     ],
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    "Kelola Menu",
+                                    "Riwayat Transaksi",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -646,7 +649,7 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
-                Padding(
+                (this.role == "manager") ? Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: MediaQuery.of(context).size.width / 10),
@@ -734,6 +737,70 @@ class _DashboardState extends State<Dashboard> {
                           child: RaisedButton(
                             elevation: 0,
                             onPressed: () {
+                              _homeBloc.add(HomeMenuPageLoad());
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            color: Colors.white,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(30),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color.fromRGBO(
+                                                      252, 195, 108, 0.3),
+                                                  Color.fromRGBO(
+                                                      253, 166, 125, 0.3)
+                                                ])),
+                                      ),
+                                      Icon(Icons.restaurant, size: 30)
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Kelola Menu",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'CircularStd-Bold',
+                                        fontSize: 15),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.15),
+                                  blurRadius: 8)
+                            ]),
+                        child: ButtonTheme(
+                          height: 100,
+                          padding: EdgeInsets.all(10),
+                          highlightColor: Color.fromRGBO(54, 58, 155, 0.1),
+                          child: RaisedButton(
+                            elevation: 0,
+                            onPressed: () {
                               _homeBloc.add(HomeReportPageLoad());
                             },
                             shape: RoundedRectangleBorder(
@@ -781,7 +848,17 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                         ),
-                      ),
+                      )
+                    ],
+                  ),
+                ) : Center(),
+                (this.role == "manager") ? Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: MediaQuery.of(context).size.width / 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
                       Container(
                         width: 100,
                         decoration: BoxDecoration(
@@ -817,7 +894,7 @@ class _DashboardState extends State<Dashboard> {
                                         height: 30,
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(30),
+                                            BorderRadius.circular(30),
                                             gradient: LinearGradient(
                                                 begin: Alignment.topCenter,
                                                 end: Alignment.bottomCenter,
@@ -846,84 +923,10 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: MediaQuery.of(context).size.width / 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.15),
-                                  blurRadius: 8)
-                            ]),
-                        child: ButtonTheme(
-                          height: 100,
-                          padding: EdgeInsets.all(10),
-                          highlightColor: Color.fromRGBO(54, 58, 155, 0.1),
-                          child: RaisedButton(
-                            elevation: 0,
-                            onPressed: () {
-                              _homeBloc.add(HomeHistoryPageLoad());
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            color: Colors.white,
-                            child: Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Color.fromRGBO(
-                                                      252, 195, 108, 0.3),
-                                                  Color.fromRGBO(
-                                                      253, 166, 125, 0.3)
-                                                ])),
-                                      ),
-                                      Icon(Icons.history, size: 30)
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Riwayat Transaksi",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'CircularStd-Bold',
-                                        fontSize: 15),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
-                )
+                ) : Center()
               ],
             ),
             startSalling()
